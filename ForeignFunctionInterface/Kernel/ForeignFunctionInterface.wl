@@ -1,14 +1,21 @@
 BeginPackage["ForeignFunctionInterface`"]
 
-(* Declare your package's public symbols here. *)
 
-SayHello
+CreateManagedExpression
+GetManagedExpression
+
+CreateCArray
+FreeMemory
+
+CreateForeignFunction
+
 
 Begin["`Private`"]
 
-(* Define your public and private symbols here. *)
 
-SayHello[name_?StringQ] := Print["Hello ", name, "!"]
+Needs["ForeignFunctionInterface`ManagedExpression`"]
+Needs["ForeignFunctionInterface`RawObject`"]
+Needs["ForeignFunctionInterface`ForeignFunction`"]
 
 
 End[] (* End `Private` *)
