@@ -5,6 +5,7 @@ BeginPackage["ForeignFunctionInterface`RawObject`", {
 
 
 CreateRawObject
+UnwrapRawObject
 
 
 Begin["`Private`"]
@@ -15,13 +16,6 @@ CompiledComponentAppendTo["ForeignFunctionInterface", {
 
 	(******* Base RawObject declarations *******)
 
-	TypeDeclaration["Abstract", "DirectBoxables"],
-
-	TypeDeclaration[TypeFramework`TypeInstance["DirectBoxables", "String"]],
-	TypeDeclaration[TypeFramework`TypeInstance["DirectBoxables", {Element["t", "DataStructures"]}, "t"]],
-	TypeDeclaration[TypeFramework`TypeInstance["DirectBoxables", {Element["t", "Numbers"]}, "t"]],
-
-
 	TypeDeclaration["Product", "RawObject"::[t],
 			<|
 				"Object" -> t
@@ -30,18 +24,47 @@ CompiledComponentAppendTo["ForeignFunctionInterface", {
 		],
 
 		FunctionDeclaration[CreateRawObject,
-			Typed[ForAllType[t, NotElement[t, "DirectBoxables"], {t} -> "RawObject"::[t]]]@
+			Typed[ForAllType[t, {t} -> "RawObject"::[t]]]@
 			Function[obj,
 				CreateTypeInstance["RawObject", <|"Object" -> obj|>]
 			]
 		],
 
-		FunctionDeclaration[CreateRawObject,
-			Typed[ForAllType[t, Element[t, "DirectBoxables"], {t} -> t]]@
+		(* FunctionDeclaration[CreateRawObject,
+			Typed[ForAllType[t, Element[t, "Numbers"], {t} -> t]]@
 			Function[obj,
 				obj
 			]
 		],
+
+		FunctionDeclaration[CreateRawObject,
+			Typed[ForAllType[t, Element[t, "DataStructures"], {t} -> t]]@
+			Function[obj,
+				obj
+			]
+		],
+
+		FunctionDeclaration[CreateRawObject,
+			Typed[{"String"} -> "String"]@
+			Function[obj,
+				obj
+			]
+		], *)
+
+
+		FunctionDeclaration[UnwrapRawObject,
+			Typed[ForAllType[t, {"RawObject"::[t]}->t]]@
+			Function[obj,
+				obj["Object"]
+			]
+		],
+
+		(* FunctionDeclaration[UnwrapRawObject,
+			Typed[ForAllType[t, {t}->t]]@
+			Function[obj,
+				obj
+			]
+		], *)
 
 
 		(******* CArray *******)

@@ -1,6 +1,6 @@
 BeginPackage["ForeignFunctionInterface`ForeignFunction`", {
 	"ForeignFunctionInterface`",
-	"ForeignFunctionInterface`RawObject`", (* for CreateRawObject *)
+	"ForeignFunctionInterface`RawObject`", (* for CreateRawObject, UnwrapRawObject *)
 
 	"Compile`Utilities`Components`"
 }]
@@ -12,19 +12,36 @@ $FFICompilerEnvironment := $FFICompilerEnvironment =
 	CreateCompilerEnvironment[CompiledComponents -> {"ForeignFunctionInterface"}]
 
 
-processType[tyEnv_, ty_] :=
-	If[tyEnv["implementsQ", ty, "DirectBoxables"], ty, tyEnv["resolve", "RawObject"::[ty]]]
+rawTypeQ[tyEnv_, ty_] :=
+	Which[
+
+		tyEnv["implementsQ", ty, "Numbers"],
+			False,
+
+		tyEnv["implementsQ", ty, "DataStructures"],
+			False,
+
+		ty["sameQ", tyEnv["resolve", "String"]],
+			False,
+
+		True,
+			True
+
+		]
 
 
 CreateForeignFunction[name_, lib_, type_] :=
-	Module[{tyEnv, resolvedTy},
+	Module[{tyEnv, resolvedTy, returnType, processedReturnType, args},
 
 		tyEnv = $FFICompilerEnvironment["TypeEnvironment"];
 		resolvedTy = tyEnv["resolve", type];
+		returnType = resolvedTy["result"];
+		processedReturnType = If[rawTypeQ[tyEnv, returnType], "RawObject"::[returnType], returnType];
+		args = Table[Unique[$Context <> "arg"], Length@resolvedTy["arguments"]];
 
 		FunctionCompile[{
 
-				LibraryFunctionDeclaration[name, lib, type]
+				LibraryFunctionDeclaration[funcName -> name, lib, type]
 
 			},
 
@@ -32,14 +49,17 @@ CreateForeignFunction[name_, lib_, type_] :=
 
 				Typed[TemplateSlot["ArgumentTypes"] -> TemplateSlot["ReturnType"]]@
 				Function[TemplateSlot["Arguments"],
-					CreateRawObject@
-						LibraryFunction[name][TemplateSequence[CreateRawObject@TemplateSlot[1], TemplateSlot["Arguments"]]]
+					TemplateIf[TemplateSlot["NeedsWrapping"], CreateRawObject, Identity]@
+						TemplateSlot["FunctionName"][TemplateSequence[TemplateIf[TemplateSlot[2], UnwrapRawObject, Identity]@TemplateSlot[1], TemplateSlot["ArgumentsNeedWrapping"]]]
 				]
 
 			], <|
-				"Arguments" -> Table[Unique[$Context <> "arg"], Length@resolvedTy["arguments"]],
-				"ArgumentTypes" -> (processType[tyEnv, #]& /@ resolvedTy["arguments"]),
-				"ReturnType" -> processType[tyEnv, resolvedTy["result"]]
+				"Arguments" -> args,
+				"ArgumentTypes" -> (If[rawTypeQ[tyEnv, #], "RawObject"::[#], #]& /@ resolvedTy["arguments"]),
+				"ArgumentsNeedWrapping" -> Transpose[{args, (rawTypeQ[tyEnv, #] &/@ resolvedTy["arguments"])}],
+				"ReturnType" -> processedReturnType,
+				"NeedsWrapping" -> !returnType["sameQ", processedReturnType],
+				"FunctionName" -> funcName
 			|>],
 
 			CompilerEnvironment -> $FFICompilerEnvironment
