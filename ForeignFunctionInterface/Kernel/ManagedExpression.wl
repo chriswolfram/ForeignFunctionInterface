@@ -7,7 +7,7 @@ Begin["`Private`"]
 
 
 
-CompiledComponentAppendTo["ForeignFunctionInterface", {
+DeclareCompiledComponent["ForeignFunctionInterface", {
 
 	TypeDeclaration["Product", "ManagedExpression",
 			<|
@@ -41,7 +41,7 @@ CompiledComponentAppendTo["ForeignFunctionInterface", {
 }];
 
 
-CompiledComponentAppendTo["ForeignFunctionInterface", "InstalledFunctions", {
+DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> {
 	CreateManagedExpression
 }];
 

@@ -12,7 +12,7 @@ Begin["`Private`"]
 
 
 
-CompiledComponentAppendTo["ForeignFunctionInterface", {
+DeclareCompiledComponent["ForeignFunctionInterface", {
 
 	(******* Base RawObject declarations *******)
 
@@ -89,7 +89,7 @@ CompiledComponentAppendTo["ForeignFunctionInterface", {
 }];
 
 
-CompiledComponentAppendTo["ForeignFunctionInterface", "InstalledFunctions", {
+DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> {
 	CreateCArray,
 	FreeMemory
 }];
