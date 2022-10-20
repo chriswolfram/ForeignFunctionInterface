@@ -30,7 +30,7 @@ rawTypeQ[tyEnv_, ty_] :=
 		]
 
 
-CreateForeignFunction[name_, lib_, type_] :=
+(* CreateForeignFunction[name_, lib_, type_] :=
 	Module[{tyEnv, resolvedTy, returnType, processedReturnType, args},
 
 		tyEnv = $FFICompilerEnvironment["TypeEnvironment"];
@@ -66,7 +66,7 @@ CreateForeignFunction[name_, lib_, type_] :=
 
 		]
 
-	]
+	] *)
 
 
 

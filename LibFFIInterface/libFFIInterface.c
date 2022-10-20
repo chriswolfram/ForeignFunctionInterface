@@ -1,6 +1,9 @@
 #include <stdlib.h>
 #include <ffi.h>
 
+#include <math.h>
+
+// clang libFFIInterface.c -L/usr/local/opt/libffi/lib/ -I/usr/local/opt/libffi/include -lffi -shared -o libFFIInterface.dylib
 
 //CIFs
 
@@ -12,25 +15,34 @@ void free_ffi_cif(ffi_cif* cif) {
 	free(cif);
 }
 
-int prepare_cif(ffi_cif* cif, unsigned int nargs, ffi_type* rtype, ffi_type** argtypes) {
-	return 2;
-	// switch(ffi_prep_cif(cif, nargs, FFI_DEFAULT_ABI, rtype, argtypes)) {
-	// 	case FFI_OK:
-	// 		return 1;
-	// 	case FFI_BAD_TYPEDEF:
-	// 		return -1;
-	// 	case FFI_BAD_ARGTYPE:
-	// 		return -2;
-	// 	case FFI_BAD_ABI:
-	// 		return -3;
-	// }
+int prepare_ffi_cif(ffi_cif* cif, unsigned int nargs, ffi_type* rtype, ffi_type** argtypes) {
+	switch(ffi_prep_cif(cif, FFI_DEFAULT_ABI, nargs, rtype, argtypes)) {
+		case FFI_OK:
+			return 1;
+		case FFI_BAD_TYPEDEF:
+			return -1;
+		case FFI_BAD_ARGTYPE:
+			return -2;
+		case FFI_BAD_ABI:
+			return -3;
+	}
 }
+
+
+void* get_fun_pointer() {
+	return (void*)sin;
+}
+
 
 
 // Types
 
 ffi_type* get_ffi_type_sint32() {
 	return &ffi_type_sint32;
+}
+
+ffi_type* get_ffi_type_double() {
+	return &ffi_type_double;
 }
 
 
