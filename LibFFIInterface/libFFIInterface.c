@@ -37,12 +37,100 @@ void* get_fun_pointer() {
 
 // Types
 
+ffi_type* get_ffi_type_void() {
+	return &ffi_type_void;
+}
+
+ffi_type* get_ffi_type_uint8() {
+	return &ffi_type_uint8;
+}
+
+ffi_type* get_ffi_type_sint8() {
+	return &ffi_type_sint8;
+}
+
+ffi_type* get_ffi_type_uint16() {
+	return &ffi_type_uint16;
+}
+
+ffi_type* get_ffi_type_sint16() {
+	return &ffi_type_sint16;
+}
+
+ffi_type* get_ffi_type_uint32() {
+	return &ffi_type_uint32;
+}
+
 ffi_type* get_ffi_type_sint32() {
 	return &ffi_type_sint32;
 }
 
+ffi_type* get_ffi_type_uint64() {
+	return &ffi_type_uint64;
+}
+
+ffi_type* get_ffi_type_sint64() {
+	return &ffi_type_sint64;
+}
+
+ffi_type* get_ffi_type_float() {
+	return &ffi_type_float;
+}
+
 ffi_type* get_ffi_type_double() {
 	return &ffi_type_double;
+}
+
+ffi_type* get_ffi_type_uchar() {
+	return &ffi_type_uchar;
+}
+
+ffi_type* get_ffi_type_schar() {
+	return &ffi_type_schar;
+}
+
+ffi_type* get_ffi_type_ushort() {
+	return &ffi_type_ushort;
+}
+
+ffi_type* get_ffi_type_sshort() {
+	return &ffi_type_sshort;
+}
+
+ffi_type* get_ffi_type_uint() {
+	return &ffi_type_uint;
+}
+
+ffi_type* get_ffi_type_sint() {
+	return &ffi_type_sint;
+}
+
+ffi_type* get_ffi_type_ulong() {
+	return &ffi_type_ulong;
+}
+
+ffi_type* get_ffi_type_slong() {
+	return &ffi_type_slong;
+}
+
+ffi_type* get_ffi_type_longdouble() {
+	return &ffi_type_longdouble;
+}
+
+ffi_type* get_ffi_type_pointer() {
+	return &ffi_type_pointer;
+}
+
+ffi_type* get_ffi_type_complex_float() {
+	return &ffi_type_complex_float;
+}
+
+ffi_type* get_ffi_type_complex_double() {
+	return &ffi_type_complex_double;
+}
+
+ffi_type* get_ffi_type_complex_longdouble() {
+	return &ffi_type_complex_longdouble;
 }
 
 

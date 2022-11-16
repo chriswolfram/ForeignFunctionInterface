@@ -11,8 +11,8 @@ LoadExternalLibrary
 CreateForeignFunction
 CallForeignFunction
 
-GetFFITypeSignedInt32
-GetFFITypeDouble
+GetFFIType
+GetFFIType2
 
 
 Begin["`Private`"]

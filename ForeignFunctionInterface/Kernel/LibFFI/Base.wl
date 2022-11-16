@@ -64,6 +64,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	TypeDeclaration["Product", "ForeignFunctionObject",
 		<|
 			"ArgumentTypes" -> "Managed"::["CArray"::["FFIType"]],
+			"OutputType" -> "FFIType",
 			"CallInterface" -> "Managed"::["FFICallInterface"],
 			"FunctionPointer" -> "OpaqueRawPointer"
 		|>,
@@ -87,13 +88,14 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 				argArray = CreateTypeInstance["Managed"::["CArray"::["FFIType"]], argTypes];
 
 				cif = CreateTypeInstance["Managed", LibraryFunction["create_ffi_cif"][]];
-				LibraryFunction["prepare_ffi_cif"][cif, Cast[Length[argTypes],"CUnsignedInt","ReinterpretCast"], returnType, argArray];
+				LibraryFunction["prepare_ffi_cif"][cif, Cast[Length[argTypes],"CUnsignedInt","CCast"], returnType, argArray];
 
 				fun = LibraryFunction["dlsym"][lib, Cast[funName, "Managed"::["CString"]]];
 				(* TODO: check for NULL *)
 
 				CreateTypeInstance["ForeignFunctionObject", <|
 					"ArgumentTypes" -> argArray,
+					"OutputType" -> returnType,
 					"CallInterface" -> cif,
 					"FunctionPointer" -> fun
 				|>]
@@ -102,18 +104,53 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	],
 
 	FunctionDeclaration[CallForeignFunction,
-		Typed[{"ForeignFunctionObject", "ListVector"::["CInt"]} -> "CInt"]@
+		Typed[{"ForeignFunctionObject", "ListVector"::["InertExpression"]} -> "InertExpression"]@
 		Function[{ff, args},
 			Module[{out, argArray},
-				out = Typed[ToRawPointer[], "RawPointer"::["CInt"]];
+
+				Echo[0];
+
+				out = Switch[ff["OutputType"],
+
+					GetFFIType["CInt"], Cast[Typed[ToRawPointer[], "RawPointer"::["CInt"]], "OpaqueRawPointer", "BitCast"],
+					GetFFIType["CDouble"], Cast[Typed[ToRawPointer[], "RawPointer"::["CDouble"]], "OpaqueRawPointer", "BitCast"],
+					GetFFIType["CLong"], Cast[Typed[ToRawPointer[], "RawPointer"::["CLong"]], "OpaqueRawPointer", "BitCast"],
+					_, Native`ThrowWolframExceptionCode["Unimplemented"]
+
+				];
+				Echo[1];
 				argArray = CreateTypeInstance["Managed"::["CArray"::["OpaqueRawPointer"]], Length[args]];
 				Do[
-					ToRawPointer[argArray, i-1,
-						Cast[ToRawPointer[args[[i]]], "OpaqueRawPointer", "BitCast"]],
+					Module[{arg},
+
+						arg = Switch[FromRawPointer[ff["ArgumentTypes"],i-1],
+
+							GetFFIType["CInt"], Cast[ToRawPointer[Cast[args[[i]], "CInt"]], "OpaqueRawPointer", "BitCast"],
+							GetFFIType["CDouble"], Cast[ToRawPointer[Cast[args[[i]], "CDouble"]], "OpaqueRawPointer", "BitCast"],
+							GetFFIType["CLong"], Cast[ToRawPointer[Cast[args[[i]], "CLong"]], "OpaqueRawPointer", "BitCast"],
+							_, Native`ThrowWolframExceptionCode["Unimplemented"]
+
+						];
+
+						ToRawPointer[argArray, i-1, arg]
+
+						],
 					{i, Length[args]}
 				];
+
+				Echo[2];
+
 				LibraryFunction["ffi_call"][ff["CallInterface"], ff["FunctionPointer"], Cast[out,"OpaqueRawPointer","BitCast"], argArray];
-				FromRawPointer[out]
+
+				Switch[ff["OutputType"],
+
+					GetFFIType["CInt"], Cast[FromRawPointer@Cast[out, "RawPointer"::["CInt"], "BitCast"], "InertExpression"],
+					GetFFIType["CDouble"], Cast[FromRawPointer@Cast[out, "RawPointer"::["CDouble"], "BitCast"], "InertExpression"],
+					GetFFIType["CLong"], Cast[FromRawPointer@Cast[out, "RawPointer"::["CLong"], "BitCast"], "InertExpression"],
+					_, Native`ThrowWolframExceptionCode["Unimplemented"]
+
+				]
+
 			]
 		]
 	]
@@ -132,28 +169,116 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 	TypeDeclaration["Alias", "FFIType", "OpaqueRawPointer", "AbstractTypes" -> {"DataStructures"}],
 
-	LibraryFunctionDeclaration["get_ffi_type_sint32", $LibFFIPaths,
+	LibraryFunctionDeclaration[GetFFIType["Void"] -> "get_ffi_type_void", $LibFFIPaths,
 		{} -> "FFIType"],
 
-	LibraryFunctionDeclaration["get_ffi_type_double", $LibFFIPaths,
+	LibraryFunctionDeclaration[GetFFIType["UnsignedInteger8"] -> "get_ffi_type_uint8", $LibFFIPaths,
 		{} -> "FFIType"],
 
-	FunctionDeclaration[GetFFITypeSignedInt32,
-		Typed[{} -> "FFIType"]@
-		Function[{}, LibraryFunction["get_ffi_type_sint32"][]]
-	],
+	LibraryFunctionDeclaration[GetFFIType["Integer8"] -> "get_ffi_type_sint8", $LibFFIPaths,
+		{} -> "FFIType"],
 
-	FunctionDeclaration[GetFFITypeDouble,
-		Typed[{} -> "FFIType"]@
-		Function[{}, LibraryFunction["get_ffi_type_double"][]]
-	]	
+	LibraryFunctionDeclaration[GetFFIType["UnsignedInteger16"] -> "get_ffi_type_uint16", $LibFFIPaths,
+		{} -> "FFIType"],
+
+	LibraryFunctionDeclaration[GetFFIType["Integer16"] -> "get_ffi_type_sint16", $LibFFIPaths,
+		{} -> "FFIType"],
+
+	LibraryFunctionDeclaration[GetFFIType["UnsignedInteger32"] -> "get_ffi_type_uint32", $LibFFIPaths,
+		{} -> "FFIType"],
+
+	LibraryFunctionDeclaration[GetFFIType["Integer32"] -> "get_ffi_type_sint32", $LibFFIPaths,
+		{} -> "FFIType"],
+
+	LibraryFunctionDeclaration[GetFFIType["UnsignedInteger64"] -> "get_ffi_type_uint64", $LibFFIPaths,
+		{} -> "FFIType"],
+
+	LibraryFunctionDeclaration[GetFFIType["Integer64"] -> "get_ffi_type_sint64", $LibFFIPaths,
+		{} -> "FFIType"],
+
+	LibraryFunctionDeclaration[GetFFIType["CFloat"] -> "get_ffi_type_float", $LibFFIPaths,
+		{} -> "FFIType"],
+
+	LibraryFunctionDeclaration[GetFFIType["CDouble"] -> "get_ffi_type_double", $LibFFIPaths,
+		{} -> "FFIType"],
+
+	LibraryFunctionDeclaration[GetFFIType["CUnsignedChar"] -> "get_ffi_type_uchar", $LibFFIPaths, (*Not a supported type*)
+		{} -> "FFIType"],
+
+	LibraryFunctionDeclaration[GetFFIType["CSignedChar"] -> "get_ffi_type_schar", $LibFFIPaths, (*Not a supported type*)
+		{} -> "FFIType"],
+
+	LibraryFunctionDeclaration[GetFFIType["CUnsignedShort"] -> "get_ffi_type_ushort", $LibFFIPaths,
+		{} -> "FFIType"],
+
+	LibraryFunctionDeclaration[GetFFIType["CShort"] -> "get_ffi_type_sshort", $LibFFIPaths,
+		{} -> "FFIType"],
+
+	LibraryFunctionDeclaration[GetFFIType["CUnsignedInt"] -> "get_ffi_type_uint", $LibFFIPaths,
+		{} -> "FFIType"],
+
+	LibraryFunctionDeclaration[GetFFIType["CInt"] -> "get_ffi_type_sint", $LibFFIPaths,
+		{} -> "FFIType"],
+
+	LibraryFunctionDeclaration[GetFFIType["CUnsignedLong"] -> "get_ffi_type_ulong", $LibFFIPaths,
+		{} -> "FFIType"],
+
+	LibraryFunctionDeclaration[GetFFIType["CLong"] -> "get_ffi_type_slong", $LibFFIPaths,
+		{} -> "FFIType"],
+
+	LibraryFunctionDeclaration["get_ffi_type_longdouble", $LibFFIPaths,
+		{} -> "FFIType"],
+
+	LibraryFunctionDeclaration[GetFFIType["OpaqueRawPointer"] -> "get_ffi_type_pointer", $LibFFIPaths,
+		{} -> "FFIType"],
+
+	LibraryFunctionDeclaration["get_ffi_type_complex_float", $LibFFIPaths,
+		{} -> "FFIType"],
+
+	LibraryFunctionDeclaration["get_ffi_type_complex_double", $LibFFIPaths,
+		{} -> "FFIType"],
+
+	LibraryFunctionDeclaration["get_ffi_type_complex_longdouble", $LibFFIPaths,
+		{} -> "FFIType"],
+
+
+	FunctionDeclaration[SameQ,
+		Typed[{"FFIType", "FFIType"} -> "Boolean"]@
+		Function[{ty1, ty2},
+			Cast[ty1,"OpaqueRawPointer","BitCast"] === Cast[ty2,"OpaqueRawPointer","BitCast"]
+		]
+	]
 
 }];
 
-DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> {
-	GetFFITypeSignedInt32,
-	GetFFITypeDouble
-}];
+DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> <|
+	GetFFIType2 ->
+		Function[Typed[name, "String"],
+			Switch[name,
+				"Void", 							GetFFIType["Void"][],
+				"UnsignedInteger8", 	GetFFIType["UnsignedInteger8"][],
+				"Integer8", 					GetFFIType["Integer8"][],
+				"UnsignedInteger16", 	GetFFIType["UnsignedInteger16"][],
+				"Integer16", 					GetFFIType["Integer16"][],
+				"UnsignedInteger32", 	GetFFIType["UnsignedInteger32"][],
+				"Integer32", 					GetFFIType["Integer32"][],
+				"UnsignedInteger64", 	GetFFIType["UnsignedInteger64"][],
+				"Integer64", 					GetFFIType["Integer64"][],
+				"CFloat", 						GetFFIType["CFloat"][],
+				"CDouble", 						GetFFIType["CDouble"][],
+				"CUnsignedChar", 			GetFFIType["CUnsignedChar"][],
+				"CSignedChar", 				GetFFIType["CSignedChar"][],
+				"CUnsignedShort", 		GetFFIType["CUnsignedShort"][],
+				"CShort", 						GetFFIType["CShort"][],
+				"CUnsignedInt", 			GetFFIType["CUnsignedInt"][],
+				"CInt", 							GetFFIType["CInt"][],
+				"CUnsignedLong", 			GetFFIType["CUnsignedLong"][],
+				"CLong", 							GetFFIType["CLong"][],
+				"OpaqueRawPointer", 	GetFFIType["OpaqueRawPointer"][],
+				_,										Native`ThrowWolframExceptionCode["Unimplemented"]
+			]
+		]
+|>];
 
 
 
