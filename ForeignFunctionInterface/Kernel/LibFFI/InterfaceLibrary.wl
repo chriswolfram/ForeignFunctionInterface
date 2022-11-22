@@ -129,13 +129,12 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		{} -> "FFIType"],
 
 	LibraryFunctionDeclaration["get_ffi_type_complex_longdouble", $LibFFIPaths,
-		{} -> "FFIType"]
+		{} -> "FFIType"],
 
-}];
 
-DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> <|
-	GetFFIType ->
-		Function[Typed[name, "String"],
+	FunctionDeclaration[GetFFIType,
+		Typed[{"String"} -> "FFIType"]@
+		Function[name,
 			Switch[name,
 				"Void", 							FFIType["Void"][],
 				"UnsignedInteger8", 	FFIType["UnsignedInteger8"][],
@@ -160,7 +159,13 @@ DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> <|
 				_,										Native`ThrowWolframExceptionCode["Unimplemented"]
 			]
 		]
-|>];
+	]
+
+}];
+
+DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> {
+	GetFFIType
+}];
 
 
 End[] (* End `Private` *)
