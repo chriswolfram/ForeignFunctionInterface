@@ -61,7 +61,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 				out = Switch[ff["OutputType"],
 
-					FFIType["Void"][],							Cast[Typed[ToRawPointer[], "RawPointer"::["Void"]], "OpaqueRawPointer", "BitCast"],
+					FFIType["Void"][],							Cast[Typed[ToRawPointer[], "RawPointer"::["Integer8"]], "OpaqueRawPointer", "BitCast"],
 					FFIType["UnsignedInteger8"][],	Cast[Typed[ToRawPointer[], "RawPointer"::["UnsignedInteger8"]], "OpaqueRawPointer", "BitCast"],
 					FFIType["Integer8"][],					Cast[Typed[ToRawPointer[], "RawPointer"::["Integer8"]], "OpaqueRawPointer", "BitCast"],
 					FFIType["UnsignedInteger16"][],	Cast[Typed[ToRawPointer[], "RawPointer"::["UnsignedInteger16"]], "OpaqueRawPointer", "BitCast"],
