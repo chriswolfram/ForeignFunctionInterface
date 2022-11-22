@@ -12,7 +12,6 @@ CreateForeignFunction
 CallForeignFunction
 
 GetFFIType
-GetFFIType2
 
 
 Begin["`Private`"]
