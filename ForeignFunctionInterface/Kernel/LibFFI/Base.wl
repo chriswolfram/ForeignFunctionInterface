@@ -32,8 +32,8 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		"AbstractTypes" -> {"DataStructures"}
 	],
 
-	FunctionDeclaration[CreateForeignFunction,
-		Typed[{"Managed"::["ExternalLibraryHandle"], "String", "ListVector"::["FFIType"], "FFIType"} -> "ForeignFunctionObject"]@
+	FunctionDeclaration[CreateForeignFunctionWithLibrary,
+		Typed[{"ExternalLibraryHandle", "String", "ListVector"::["FFIType"], "FFIType"} -> "ForeignFunctionObject"]@
 		Function[{lib, funName, argTypes, returnType},
 			Module[{cif, argArray, fun},
 				argArray = CreateTypeInstance["Managed"::["CArray"::["FFIType"]], argTypes];
@@ -42,7 +42,9 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 				LibraryFunction["prepare_ffi_cif"][cif, Cast[Length[argTypes],"CUnsignedInt","CCast"], returnType, argArray];
 
 				fun = LibraryFunction["dlsym"][lib, Cast[funName, "Managed"::["CString"]]];
-				(* TODO: check for NULL *)
+				If[fun === Cast[0, "OpaqueRawPointer", "BitCast"],
+					Native`ThrowWolframExceptionCode["System"]
+				];
 
 				CreateTypeInstance["ForeignFunctionObject", <|
 					"ArgumentTypes" -> argArray,
@@ -50,6 +52,19 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 					"CallInterface" -> cif,
 					"FunctionPointer" -> fun
 				|>]
+			]
+		]
+	],
+
+	FunctionDeclaration[CreateForeignFunction,
+		Typed[{"String", "ListVector"::["FFIType"], "FFIType"} -> "ForeignFunctionObject"]@
+		Function[{funName, argTypes, returnType},
+			(* TODO: The value for RTLD_DEFAULT might be platform specific *)
+			CreateForeignFunctionWithLibrary[
+				Cast[0,"ExternalLibraryHandle","BitCast"] (*RTLD_DEFAULT*),
+				funName,
+				argTypes,
+				returnType
 			]
 		]
 	],
@@ -156,7 +171,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 }];
 
 DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> {
-	LoadExternalLibrary,
+	CreateForeignFunctionWithLibrary,
 	CreateForeignFunction,
 	CallForeignFunction
 }];

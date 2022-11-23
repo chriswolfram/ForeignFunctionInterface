@@ -1,8 +1,6 @@
 BeginPackage["ForeignFunctionInterface`ForeignFunction`", {
 	"ForeignFunctionInterface`",
-	"ForeignFunctionInterface`RawObject`", (* for CreateRawObject, UnwrapRawObject *)
-
-	"Compile`Utilities`Components`"
+	"ForeignFunctionInterface`RawObject`" (* for CreateRawObject, UnwrapRawObject *)
 }]
 
 Begin["`Private`"]

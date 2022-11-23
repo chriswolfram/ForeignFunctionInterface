@@ -8,6 +8,8 @@ CreateCArray
 FreeMemory
 
 LoadExternalLibrary
+UnloadExternalLibrary
+CreateForeignFunctionWithLibrary
 CreateForeignFunction
 CallForeignFunction
 

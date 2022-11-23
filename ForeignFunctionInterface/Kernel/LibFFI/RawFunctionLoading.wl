@@ -13,7 +13,7 @@ Begin["`Private`"]
 
 DeclareCompiledComponent["ForeignFunctionInterface", {
 
-	TypeDeclaration["Alias", "ExternalLibraryHandle", "OpaqueRawPointer"],
+	TypeDeclaration["Alias", "ExternalLibraryHandle", "OpaqueRawPointer", "AbstractTypes" -> {"DataStructures"}],
 
 	LibraryFunctionDeclaration["dlopen",
 		{"CString", "CInt"} -> "ExternalLibraryHandle"],
@@ -24,24 +24,33 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	LibraryFunctionDeclaration["dlsym",
 		{"ExternalLibraryHandle", "CString"} -> "OpaqueRawPointer"],
 
-	FunctionDeclaration[DeleteObject,
-		Typed[{"ExternalLibraryHandle"} -> "Null"]@
-		Function[arg, Null(*LibraryFunction["dlclose"][arg];*)]
-	],
-	(* TODO: dlclose never gets called... *)
 
-
-		FunctionDeclaration[LoadExternalLibrary,
-		Typed[{"String"} -> "Managed"::["ExternalLibraryHandle"]]@
+	FunctionDeclaration[LoadExternalLibrary,
+		Typed[{"String"} -> "ExternalLibraryHandle"]@
 		Function[libName,
-			CreateTypeInstance["Managed",
-				LibraryFunction["dlopen"][Cast[libName, "Managed"::["CString"]], Typed[1,"CInt"](*RTLD_LAZY*)]
+			With[{ptr = LibraryFunction["dlopen"][Cast[libName, "Managed"::["CString"]], Typed[1,"CInt"](*RTLD_LAZY*)]},
+				If[Cast[ptr, "OpaqueRawPointer", "BitCast"] === Cast[0, "OpaqueRawPointer", "BitCast"],
+					Native`ThrowWolframExceptionCode["System"],
+					ptr
+				]
 			]
-			(* TODO: check for NULL *)
+		]
+	],
+
+	FunctionDeclaration[UnloadExternalLibrary,
+		Typed[{"ExternalLibraryHandle"} -> "Null"]@
+		Function[lib,
+			LibraryFunction["dlclose"][lib];
 		]
 	]
 
-}]
+}];
+
+
+DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> {
+	LoadExternalLibrary,
+	UnloadExternalLibrary
+}];
 
 
 End[] (* End `Private` *)

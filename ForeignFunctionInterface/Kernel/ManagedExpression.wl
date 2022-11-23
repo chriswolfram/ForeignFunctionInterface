@@ -1,6 +1,5 @@
 BeginPackage["ForeignFunctionInterface`ManagedExpression`", {
-	"ForeignFunctionInterface`",
-	"Compile`Utilities`Components`"
+	"ForeignFunctionInterface`"
 }]
 
 Begin["`Private`"]
