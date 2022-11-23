@@ -41,7 +41,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		(******* CArray *******)
 
 		FunctionDeclaration[CreateCArray,
-			Typed[ForAllType[elemType, {elemType, "MachineInteger"} -> "RawObject"::["OpaqueRawPointer"]]]@
+			Typed[ForAllType[elemType, {"TypeSpecifier"::[elemType], "MachineInteger"} -> "RawObject"::["OpaqueRawPointer"]]]@
 			Function[{type, len},
 				CreateRawObject@Cast[CreateTypeInstance["CArray"::[type],len], "OpaqueRawPointer", "BitCast"]
 			]
@@ -54,26 +54,26 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 				Switch[type,
 
 					(* "Void" is removed *)
-					FFIType["UnsignedInteger8"][],	CreateCArray[TypeSpecifier["UnsignedInteger8"], len],
-					FFIType["Integer8"][],					CreateCArray[TypeSpecifier["Integer8"], len],
-					FFIType["UnsignedInteger16"][],	CreateCArray[TypeSpecifier["UnsignedInteger16"], len],
-					FFIType["Integer16"][],					CreateCArray[TypeSpecifier["Integer16"], len],
-					FFIType["UnsignedInteger32"][],	CreateCArray[TypeSpecifier["UnsignedInteger32"], len],
-					FFIType["Integer32"][],					CreateCArray[TypeSpecifier["Integer32"], len],
-					FFIType["UnsignedInteger64"][],	CreateCArray[TypeSpecifier["UnsignedInteger64"], len],
-					FFIType["Integer64"][],					CreateCArray[TypeSpecifier["Integer64"], len],
-					FFIType["CFloat"][],						CreateCArray[TypeSpecifier["CFloat"], len],
-					FFIType["CDouble"][],						CreateCArray[TypeSpecifier["CDouble"], len],
-					FFIType["CUnsignedChar"][],			CreateCArray[TypeSpecifier["CUnsignedChar"], len],
-					FFIType["CSignedChar"][],				CreateCArray[TypeSpecifier["CSignedChar"], len],
-					FFIType["CUnsignedShort"][],		CreateCArray[TypeSpecifier["CUnsignedShort"], len],
-					FFIType["CShort"][],						CreateCArray[TypeSpecifier["CShort"], len],
-					FFIType["CUnsignedInt"][],			CreateCArray[TypeSpecifier["CUnsignedInt"], len],
-					FFIType["CInt"][],							CreateCArray[TypeSpecifier["CInt"], len],
-					FFIType["CUnsignedLong"][],			CreateCArray[TypeSpecifier["CUnsignedLong"], len],
-					FFIType["CLong"][],							CreateCArray[TypeSpecifier["CLong"], len],
-					FFIType["OpaqueRawPointer"][],	CreateCArray[TypeSpecifier["OpaqueRawPointer"], len],
-					_, 															Native`ThrowWolframExceptionCode["Unimplemented"]
+					FFIType["UnsignedInteger8"],	CreateCArray[TypeSpecifier["UnsignedInteger8"], len],
+					FFIType["Integer8"],					CreateCArray[TypeSpecifier["Integer8"], len],
+					FFIType["UnsignedInteger16"],	CreateCArray[TypeSpecifier["UnsignedInteger16"], len],
+					FFIType["Integer16"],					CreateCArray[TypeSpecifier["Integer16"], len],
+					FFIType["UnsignedInteger32"],	CreateCArray[TypeSpecifier["UnsignedInteger32"], len],
+					FFIType["Integer32"],					CreateCArray[TypeSpecifier["Integer32"], len],
+					FFIType["UnsignedInteger64"],	CreateCArray[TypeSpecifier["UnsignedInteger64"], len],
+					FFIType["Integer64"],					CreateCArray[TypeSpecifier["Integer64"], len],
+					FFIType["CFloat"],						CreateCArray[TypeSpecifier["CFloat"], len],
+					FFIType["CDouble"],						CreateCArray[TypeSpecifier["CDouble"], len],
+					FFIType["CUnsignedChar"],			CreateCArray[TypeSpecifier["CUnsignedChar"], len],
+					FFIType["CSignedChar"],				CreateCArray[TypeSpecifier["CSignedChar"], len],
+					FFIType["CUnsignedShort"],		CreateCArray[TypeSpecifier["CUnsignedShort"], len],
+					FFIType["CShort"],						CreateCArray[TypeSpecifier["CShort"], len],
+					FFIType["CUnsignedInt"],			CreateCArray[TypeSpecifier["CUnsignedInt"], len],
+					FFIType["CInt"],							CreateCArray[TypeSpecifier["CInt"], len],
+					FFIType["CUnsignedLong"],			CreateCArray[TypeSpecifier["CUnsignedLong"], len],
+					FFIType["CLong"],							CreateCArray[TypeSpecifier["CLong"], len],
+					FFIType["OpaqueRawPointer"],	CreateCArray[TypeSpecifier["OpaqueRawPointer"], len],
+					_, 														Native`ThrowWolframExceptionCode["Unimplemented"]
 
 				]
 
@@ -81,7 +81,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		],
 
 		FunctionDeclaration[CArrayToNumericArray,
-			Typed[ForAllType[elemType, {"RawObject"::["OpaqueRawPointer"], elemType, "MachineInteger"} -> "InertExpression"]]@
+			Typed[ForAllType[elemType, {"RawObject"::["OpaqueRawPointer"], "TypeSpecifier"::[elemType], "MachineInteger"} -> "InertExpression"]]@
 			Function[{pointer, type, len},
 				
 				Cast[
@@ -103,25 +103,25 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 				Switch[type,
 
 					(* "Void" is removed *)
-					FFIType["UnsignedInteger8"][],	CArrayToNumericArray[pointer, TypeSpecifier["UnsignedInteger8"], len],
-					FFIType["Integer8"][],					CArrayToNumericArray[pointer, TypeSpecifier["Integer8"], len],
-					FFIType["UnsignedInteger16"][],	CArrayToNumericArray[pointer, TypeSpecifier["UnsignedInteger16"], len],
-					FFIType["Integer16"][],					CArrayToNumericArray[pointer, TypeSpecifier["Integer16"], len],
-					FFIType["UnsignedInteger32"][],	CArrayToNumericArray[pointer, TypeSpecifier["UnsignedInteger32"], len],
-					FFIType["Integer32"][],					CArrayToNumericArray[pointer, TypeSpecifier["Integer32"], len],
-					FFIType["UnsignedInteger64"][],	CArrayToNumericArray[pointer, TypeSpecifier["UnsignedInteger64"], len],
-					FFIType["Integer64"][],					CArrayToNumericArray[pointer, TypeSpecifier["Integer64"], len],
-					FFIType["CFloat"][],						CArrayToNumericArray[pointer, TypeSpecifier["CFloat"], len],
-					FFIType["CDouble"][],						CArrayToNumericArray[pointer, TypeSpecifier["CDouble"], len],
-					FFIType["CUnsignedChar"][],			CArrayToNumericArray[pointer, TypeSpecifier["CUnsignedChar"], len],
-					FFIType["CSignedChar"][],				CArrayToNumericArray[pointer, TypeSpecifier["CSignedChar"], len],
-					FFIType["CUnsignedShort"][],		CArrayToNumericArray[pointer, TypeSpecifier["CUnsignedShort"], len],
-					FFIType["CShort"][],						CArrayToNumericArray[pointer, TypeSpecifier["CShort"], len],
-					FFIType["CUnsignedInt"][],			CArrayToNumericArray[pointer, TypeSpecifier["CUnsignedInt"], len],
-					FFIType["CInt"][],							CArrayToNumericArray[pointer, TypeSpecifier["CInt"], len],
-					FFIType["CUnsignedLong"][],			CArrayToNumericArray[pointer, TypeSpecifier["CUnsignedLong"], len],
-					FFIType["CLong"][],							CArrayToNumericArray[pointer, TypeSpecifier["CLong"], len],
-					_, 															Native`ThrowWolframExceptionCode["Unimplemented"]
+					FFIType["UnsignedInteger8"],	CArrayToNumericArray[pointer, TypeSpecifier["UnsignedInteger8"], len],
+					FFIType["Integer8"],					CArrayToNumericArray[pointer, TypeSpecifier["Integer8"], len],
+					FFIType["UnsignedInteger16"],	CArrayToNumericArray[pointer, TypeSpecifier["UnsignedInteger16"], len],
+					FFIType["Integer16"],					CArrayToNumericArray[pointer, TypeSpecifier["Integer16"], len],
+					FFIType["UnsignedInteger32"],	CArrayToNumericArray[pointer, TypeSpecifier["UnsignedInteger32"], len],
+					FFIType["Integer32"],					CArrayToNumericArray[pointer, TypeSpecifier["Integer32"], len],
+					FFIType["UnsignedInteger64"],	CArrayToNumericArray[pointer, TypeSpecifier["UnsignedInteger64"], len],
+					FFIType["Integer64"],					CArrayToNumericArray[pointer, TypeSpecifier["Integer64"], len],
+					FFIType["CFloat"],						CArrayToNumericArray[pointer, TypeSpecifier["CFloat"], len],
+					FFIType["CDouble"],						CArrayToNumericArray[pointer, TypeSpecifier["CDouble"], len],
+					FFIType["CUnsignedChar"],			CArrayToNumericArray[pointer, TypeSpecifier["CUnsignedChar"], len],
+					FFIType["CSignedChar"],				CArrayToNumericArray[pointer, TypeSpecifier["CSignedChar"], len],
+					FFIType["CUnsignedShort"],		CArrayToNumericArray[pointer, TypeSpecifier["CUnsignedShort"], len],
+					FFIType["CShort"],						CArrayToNumericArray[pointer, TypeSpecifier["CShort"], len],
+					FFIType["CUnsignedInt"],			CArrayToNumericArray[pointer, TypeSpecifier["CUnsignedInt"], len],
+					FFIType["CInt"],							CArrayToNumericArray[pointer, TypeSpecifier["CInt"], len],
+					FFIType["CUnsignedLong"],			CArrayToNumericArray[pointer, TypeSpecifier["CUnsignedLong"], len],
+					FFIType["CLong"],							CArrayToNumericArray[pointer, TypeSpecifier["CLong"], len],
+					_, 														Native`ThrowWolframExceptionCode["Unimplemented"]
 
 				]
 
