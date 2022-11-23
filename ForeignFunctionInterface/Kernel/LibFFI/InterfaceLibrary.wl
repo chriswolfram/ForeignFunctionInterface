@@ -1,13 +1,11 @@
-BeginPackage["ForeignFunctionInterface`LibFFI`InterfaceLibrary`", {
-	"ForeignFunctionInterface`",
-	"ForeignFunctionInterface`LibFFI`"
-}]
-
-
-FFIType
+BeginPackage["ForeignFunctionInterface`LibFFI`InterfaceLibrary`"]
 
 
 Begin["`Private`"]
+
+
+Needs["ForeignFunctionInterface`"]
+Needs["ForeignFunctionInterface`LibFFI`"]
 
 
 (***************************************************)
@@ -17,6 +15,7 @@ Begin["`Private`"]
 DeclareCompiledComponent["ForeignFunctionInterface", {
 
 	TypeDeclaration["Alias", "FFICallInterface", "OpaqueRawPointer"],
+	TypeDeclaration["Alias", "FFIType", "OpaqueRawPointer", "AbstractTypes" -> {"DataStructures"}],
 
 	LibraryFunctionDeclaration["create_ffi_cif", $LibFFIPaths,
 		{} -> "FFICallInterface"],
@@ -49,8 +48,6 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 
 DeclareCompiledComponent["ForeignFunctionInterface", {
-
-	TypeDeclaration["Alias", "FFIType", "OpaqueRawPointer", "AbstractTypes" -> {"DataStructures"}],
 
 	FunctionDeclaration[SameQ,
 		Typed[{"FFIType", "FFIType"} -> "Boolean"]@

@@ -5,9 +5,10 @@ $LibFFIPaths = {"/lib/x86_64-linux-gnu/libffi.so", "/home/christopher/git/Foreig
 
 FFIType
 
-Needs["ForeignFunctionInterface`LibFFI`Base`"];
-Needs["ForeignFunctionInterface`LibFFI`InterfaceLibrary`"];
-Needs["ForeignFunctionInterface`LibFFI`RawFunctionLoading`"];
+
+Needs["ForeignFunctionInterface`LibFFI`Base`"]
+Needs["ForeignFunctionInterface`LibFFI`InterfaceLibrary`"]
+Needs["ForeignFunctionInterface`LibFFI`RawFunctionLoading`"]
 
 
 DeclareCompiledComponent["ForeignFunctionInterface", "ExternalLibraries" -> $LibFFIPaths];

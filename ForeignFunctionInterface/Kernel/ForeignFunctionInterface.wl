@@ -5,7 +5,9 @@ CreateManagedExpression
 GetManagedExpression
 
 CreateCArray
-FreeMemory
+CArrayToNumericArray
+StringToCArray
+FreeCArray
 
 LoadExternalLibrary
 UnloadExternalLibrary

@@ -1,9 +1,9 @@
-BeginPackage["ForeignFunctionInterface`ManagedExpression`", {
-	"ForeignFunctionInterface`"
-}]
+BeginPackage["ForeignFunctionInterface`ManagedExpression`"]
 
 Begin["`Private`"]
 
+
+Needs["ForeignFunctionInterface`"]
 
 
 DeclareCompiledComponent["ForeignFunctionInterface", {

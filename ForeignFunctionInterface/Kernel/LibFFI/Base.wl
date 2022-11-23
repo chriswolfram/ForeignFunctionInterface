@@ -1,11 +1,12 @@
-BeginPackage["ForeignFunctionInterface`LibFFI`Base`", {
-	"ForeignFunctionInterface`",
-	"ForeignFunctionInterface`LibFFI`",
-	"ForeignFunctionInterface`RawObject`"
-}]
+BeginPackage["ForeignFunctionInterface`LibFFI`Base`"]
 
 
 Begin["`Private`"]
+
+
+Needs["ForeignFunctionInterface`"]
+Needs["ForeignFunctionInterface`LibFFI`"]
+Needs["ForeignFunctionInterface`RawObject`"]
 
 
 (* TEMPORARY DECLARATIONS *)
@@ -76,7 +77,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 				out = Switch[ff["OutputType"],
 
-					FFIType["Void"][],							Cast[Typed[ToRawPointer[], "RawPointer"::["Integer8"]], "OpaqueRawPointer", "BitCast"],
+					FFIType["Void"][],							Cast[0, "OpaqueRawPointer", "BitCast"],
 					FFIType["UnsignedInteger8"][],	Cast[Typed[ToRawPointer[], "RawPointer"::["UnsignedInteger8"]], "OpaqueRawPointer", "BitCast"],
 					FFIType["Integer8"][],					Cast[Typed[ToRawPointer[], "RawPointer"::["Integer8"]], "OpaqueRawPointer", "BitCast"],
 					FFIType["UnsignedInteger16"][],	Cast[Typed[ToRawPointer[], "RawPointer"::["UnsignedInteger16"]], "OpaqueRawPointer", "BitCast"],
@@ -106,7 +107,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 						arg = Switch[FromRawPointer[ff["ArgumentTypes"],i-1],
 
-							(* "Void" *)
+							(* "Void" is removed *)
 							FFIType["UnsignedInteger8"][],	Cast[ToRawPointer[Cast[args[[i]], "UnsignedInteger8"]], "OpaqueRawPointer", "BitCast"],
 							FFIType["Integer8"][],					Cast[ToRawPointer[Cast[args[[i]], "Integer8"]], "OpaqueRawPointer", "BitCast"],
 							FFIType["UnsignedInteger16"][],	Cast[ToRawPointer[Cast[args[[i]], "UnsignedInteger16"]], "OpaqueRawPointer", "BitCast"],

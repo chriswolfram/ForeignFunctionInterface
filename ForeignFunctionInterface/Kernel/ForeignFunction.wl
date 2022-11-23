@@ -1,9 +1,10 @@
-BeginPackage["ForeignFunctionInterface`ForeignFunction`", {
-	"ForeignFunctionInterface`",
-	"ForeignFunctionInterface`RawObject`" (* for CreateRawObject, UnwrapRawObject *)
-}]
+BeginPackage["ForeignFunctionInterface`ForeignFunction`"]
 
 Begin["`Private`"]
+
+
+Needs["ForeignFunctionInterface`"]
+Needs["ForeignFunctionInterface`RawObject`"]
 
 
 $FFICompilerEnvironment := $FFICompilerEnvironment =
