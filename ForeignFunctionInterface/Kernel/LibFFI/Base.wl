@@ -62,7 +62,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		Function[{funName, argTypes, returnType},
 			(* TODO: The value for RTLD_DEFAULT might be platform specific *)
 			CreateForeignFunctionWithLibrary[
-				Cast[0,"ExternalLibraryHandle","BitCast"] (*RTLD_DEFAULT*),
+				Cast[LibraryFunction["get_RTLD_DEFAULT"][],"ExternalLibraryHandle","BitCast"],
 				funName,
 				argTypes,
 				returnType
@@ -134,7 +134,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		],
 		"Inline" -> "Always"
 	],
-							
+
 	FunctionDeclaration[typeStackPointer,
 		Typed[{"FFIType", "InertExpression"} -> "OpaqueRawPointer"]@
 		Function[{type, init},
@@ -230,9 +230,11 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		Function[{ff, args},
 			Module[{out, argArray},
 
+				(* TODO: This should be at least as big as the ffi_arg type *)
 				out = typeStackPointer[ff["OutputType"]];
 
-				argArray = CreateTypeInstance["Managed"::["CArray"::["OpaqueRawPointer"]], Length[args]];
+				(* argArray = CreateTypeInstance["Managed"::["CArray"::["OpaqueRawPointer"]], Length[args]]; *)
+				argArray = Native`StackArray[Length[args]];
 				Do[
 					ToRawPointer[argArray, i-1,
 						typeStackPointer[
@@ -243,7 +245,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 					{i, Length[args]}
 				];
 
-				LibraryFunction["ffi_call"][ff["CallInterface"], ff["FunctionPointer"], Cast[out,"OpaqueRawPointer","BitCast"], argArray];
+				LibraryFunction["ffi_call"][ff["CallInterface"], ff["FunctionPointer"], out, argArray];
 
 				pointerExpression[ff["OutputType"], out]
 			]

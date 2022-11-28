@@ -29,14 +29,27 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	LibraryFunctionDeclaration["ffi_call", $LibFFIPaths,
 		{"FFICallInterface", "OpaqueRawPointer", "OpaqueRawPointer", "CArray"::["OpaqueRawPointer"]} -> "Void"],
 
-	LibraryFunctionDeclaration["get_fun_pointer", $LibFFIPaths,
-		{} -> "OpaqueRawPointer"],
-
 
 	FunctionDeclaration[DeleteObject,
 		Typed[{"FFICallInterface"} -> "Null"]@
 		Function[cif, LibraryFunction["free_ffi_cif"][cif];]
 	]
+
+}];
+
+
+
+(***************************************************)
+(******************** Constants ********************)
+(***************************************************)
+
+DeclareCompiledComponent["ForeignFunctionInterface", {
+
+	LibraryFunctionDeclaration["get_RTLD_DEFAULT", $LibFFIPaths,
+		{} -> "ExternalLibraryHandle"],
+
+	LibraryFunctionDeclaration["get_RTLD_LAZY", $LibFFIPaths,
+		{} -> "CInt"]
 
 }];
 

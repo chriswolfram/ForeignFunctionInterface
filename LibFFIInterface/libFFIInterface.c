@@ -1,7 +1,9 @@
+#define _GNU_SOURCE
+// The #define above adds support for RTLD_DEFAULT.
+
 #include <stdlib.h>
 #include <ffi.h>
-
-#include <math.h>
+#include <dlfcn.h>
 
 // clang libFFIInterface.c -L/usr/local/opt/libffi/lib/ -I/usr/local/opt/libffi/include -lffi -shared -o libFFIInterface.dylib
 
@@ -29,8 +31,14 @@ int prepare_ffi_cif(ffi_cif* cif, unsigned int nargs, ffi_type* rtype, ffi_type*
 }
 
 
-void* get_fun_pointer() {
-	return (void*)sin;
+// Constants
+
+void* get_RTLD_DEFAULT() {
+	return RTLD_DEFAULT;
+}
+
+int get_RTLD_LAZY() {
+	return RTLD_LAZY;
 }
 
 

@@ -29,7 +29,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	FunctionDeclaration[LoadExternalLibrary,
 		Typed[{"String"} -> "ExternalLibraryHandle"]@
 		Function[libName,
-			With[{ptr = LibraryFunction["dlopen"][Cast[libName, "Managed"::["CString"]], Typed[1,"CInt"](*RTLD_LAZY*)]},
+			With[{ptr = LibraryFunction["dlopen"][Cast[libName, "Managed"::["CString"]], LibraryFunction["get_RTLD_LAZY"][]]},
 				If[Cast[ptr, "OpaqueRawPointer", "BitCast"] === Cast[0, "OpaqueRawPointer", "BitCast"],
 					Native`ThrowWolframExceptionCode["System"],
 					ptr

@@ -92,6 +92,6 @@ int main3() {
 	return 0;
 }
 
-int main() {
+int main1() {
 	printf("%s\n", LIB_SO);
 }
