@@ -24,7 +24,6 @@ Begin["`Private`"]
 
 Needs["ForeignFunctionInterface`ManagedExpression`"]
 Needs["ForeignFunctionInterface`RawObject`"]
-Needs["ForeignFunctionInterface`ForeignFunction`"]
 Needs["ForeignFunctionInterface`LibFFI`"]
 
 
