@@ -18,12 +18,15 @@ CallForeignFunction
 
 FFIType
 
+OpaqueRawPointer
+
 
 Begin["`Private`"]
 
 
 Needs["ForeignFunctionInterface`ManagedExpression`"]
-Needs["ForeignFunctionInterface`RawObject`"]
+Needs["ForeignFunctionInterface`OpaqueRawPointer`"]
+Needs["ForeignFunctionInterface`CArray`"]
 Needs["ForeignFunctionInterface`LibFFI`"]
 
 

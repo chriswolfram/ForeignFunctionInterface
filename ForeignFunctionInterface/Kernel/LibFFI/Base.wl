@@ -6,7 +6,7 @@ Begin["`Private`"]
 
 Needs["ForeignFunctionInterface`"]
 Needs["ForeignFunctionInterface`LibFFI`"]
-Needs["ForeignFunctionInterface`RawObject`"]
+Needs["ForeignFunctionInterface`OpaqueRawPointer`"]
 
 
 (* TEMPORARY DECLARATIONS *)
@@ -207,7 +207,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		Function[{ptr, type, init},
 			ToRawPointer[
 				Cast[ptr, "RawPointer"::["OpaqueRawPointer"], "BitCast"],
-				UnwrapRawObject[Cast[init, "RawObject"::["OpaqueRawPointer"]]]
+				ExpressionToPointer[init]
 			];
 		]
 	],
@@ -261,7 +261,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	FunctionDeclaration[pointerExpression,
 		Typed[{"TypeSpecifier"::["OpaqueRawPointer"], "OpaqueRawPointer"} -> "InertExpression"]@
 		Function[{type, ptr},
-			Cast[CreateRawObject@FromRawPointer@Cast[ptr, "RawPointer"::["OpaqueRawPointer"], "BitCast"], "InertExpression"]
+			PointerToExpression[ptr]
 		]
 	],
 
