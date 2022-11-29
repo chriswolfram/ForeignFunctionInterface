@@ -143,8 +143,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 					_, 																					Native`ThrowWolframExceptionCode["Unimplemented"]
 
 				]
-		],
-		"Inline" -> "Always"
+		]
 	],
 
 
@@ -152,16 +151,14 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		Typed[ForAllType[ty, {"TypeSpecifier"::[ty]} -> "OpaqueRawPointer"]]@
 		Function[type,
 			Cast[Typed[ToRawPointer[], "RawPointer"::[type]], "OpaqueRawPointer", "BitCast"]
-		],
-		"Inline" -> "Always"
+		]
 	],
 
 	FunctionDeclaration[typePointer,
 		Typed[{"TypeSpecifier"::["Void"]} -> "OpaqueRawPointer"]@
 		Function[type,
 			Cast[0, "OpaqueRawPointer", "BitCast"]
-		],
-		"Inline" -> "Always"
+		]
 	],
 
 	FunctionDeclaration[typePointer,
@@ -192,8 +189,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 					_, 																					Native`ThrowWolframExceptionCode["Unimplemented"]
 
 				]
-		],
-		"Inline" -> "Always"
+		]
 	],
 
 	FunctionDeclaration[populateArgumentPointer,
@@ -203,8 +199,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 				Cast[ptr, "RawPointer"::[type], "BitCast"],
 				Cast[init, type]
 			];
-		],
-		"Inline" -> "Always"
+		]
 	],
 
 	FunctionDeclaration[populateArgumentPointer,
@@ -214,8 +209,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 				Cast[ptr, "RawPointer"::["OpaqueRawPointer"], "BitCast"],
 				UnwrapRawObject[Cast[init, "RawObject"::["OpaqueRawPointer"]]]
 			];
-		],
-		"Inline" -> "Always"
+		]
 	],
 
 	FunctionDeclaration[populateArgumentPointer,
@@ -246,8 +240,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 					_, 																					Native`ThrowWolframExceptionCode["Unimplemented"]
 
 				]
-		],
-		"Inline" -> "Always"
+		]
 	],
 
 
@@ -255,24 +248,21 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		Typed[ForAllType[ty, {"TypeSpecifier"::[ty], "OpaqueRawPointer"} -> "InertExpression"]]@
 		Function[{type, ptr},
 			Cast[FromRawPointer@Cast[ptr, "RawPointer"::[type], "BitCast"], "InertExpression"]
-		],
-		"Inline" -> "Always"
+		]
 	],
 
 	FunctionDeclaration[pointerExpression,
 		Typed[{"TypeSpecifier"::["Void"], "OpaqueRawPointer"} -> "InertExpression"]@
 		Function[{type, ptr},
 			InertExpression[Null]
-		],
-		"Inline" -> "Always"
+		]
 	],
 
 	FunctionDeclaration[pointerExpression,
 		Typed[{"TypeSpecifier"::["OpaqueRawPointer"], "OpaqueRawPointer"} -> "InertExpression"]@
 		Function[{type, ptr},
 			Cast[CreateRawObject@FromRawPointer@Cast[ptr, "RawPointer"::["OpaqueRawPointer"], "BitCast"], "InertExpression"]
-		],
-		"Inline" -> "Always"
+		]
 	],
 
 	FunctionDeclaration[pointerExpression,
@@ -303,8 +293,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 					_, 																					Native`ThrowWolframExceptionCode["Unimplemented"]
 
 				]
-		],
-		"Inline" -> "Always"
+		]
 	],
 
 
