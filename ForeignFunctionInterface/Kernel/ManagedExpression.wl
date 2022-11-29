@@ -41,7 +41,8 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 
 DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> {
-	CreateManagedExpression
+	CreateManagedExpression,
+	GetManagedExpression
 }];
 
 

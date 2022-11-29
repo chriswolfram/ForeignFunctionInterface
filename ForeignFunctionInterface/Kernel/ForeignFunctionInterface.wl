@@ -7,6 +7,7 @@ GetManagedExpression
 CreateCArray
 CArrayToNumericArray
 StringToCArray
+CArrayToString
 FreeCArray
 
 LoadExternalLibrary

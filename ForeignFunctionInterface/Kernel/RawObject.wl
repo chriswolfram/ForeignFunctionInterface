@@ -135,6 +135,13 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 			]
 		],
 
+		FunctionDeclaration[CArrayToString,
+			Typed[{"RawObject"::["OpaqueRawPointer"]} -> "String"]@
+			Function[carr,
+				CreateTypeInstance["String", Cast[UnwrapRawObject[carr], "CString", "BitCast"]]
+			]
+		],
+
 		FunctionDeclaration[FreeCArray,
 			Typed[{"RawObject"::["OpaqueRawPointer"]} -> "Null"]@
 			Function[pointer,
@@ -150,6 +157,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> {
 	CreateCArray,
 	CArrayToNumericArray,
 	StringToCArray,
+	CArrayToString,
 	FreeCArray
 }];
 
