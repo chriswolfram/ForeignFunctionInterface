@@ -1,11 +1,12 @@
 BeginPackage["ForeignFunctionInterface`LibFFI`"]
 
 
-$LibFFIPaths = {"/lib/x86_64-linux-gnu/libffi.so", "/home/christopher/git/ForeignFunctionInterface/LibFFIInterface/libFFIInterface.dylib"};
+$LibFFIPaths = {"/lib/x86_64-linux-gnu/libffi.so", "ffiConstants"};
 
 
 Needs["ForeignFunctionInterface`LibFFI`Base`"]
-Needs["ForeignFunctionInterface`LibFFI`InterfaceLibrary`"]
+Needs["ForeignFunctionInterface`LibFFI`BaseTypes`"]
+Needs["ForeignFunctionInterface`LibFFI`Constants`"]
 Needs["ForeignFunctionInterface`LibFFI`RawFunctionLoading`"]
 
 

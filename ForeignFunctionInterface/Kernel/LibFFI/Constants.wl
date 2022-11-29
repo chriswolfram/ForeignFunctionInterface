@@ -1,4 +1,4 @@
-BeginPackage["ForeignFunctionInterface`LibFFI`InterfaceLibrary`"]
+BeginPackage["ForeignFunctionInterface`LibFFI`Constants`"]
 
 
 Begin["`Private`"]
@@ -8,39 +8,9 @@ Needs["ForeignFunctionInterface`"]
 Needs["ForeignFunctionInterface`LibFFI`"]
 
 
-(***************************************************)
-(********** Interface Library Functions ************)
-(***************************************************)
-
-DeclareCompiledComponent["ForeignFunctionInterface", {
-
-	TypeDeclaration["Alias", "FFICallInterface", "OpaqueRawPointer"],
-	TypeDeclaration["Alias", "FFIType", "OpaqueRawPointer", "AbstractTypes" -> {"DataStructures"}],
-
-	LibraryFunctionDeclaration["create_ffi_cif", $LibFFIPaths,
-		{} -> "FFICallInterface"],
-
-	LibraryFunctionDeclaration["free_ffi_cif", $LibFFIPaths,
-		{"FFICallInterface"} -> "Void"],
-
-	LibraryFunctionDeclaration["prepare_ffi_cif", $LibFFIPaths,
-		{"FFICallInterface", "CUnsignedInt", "FFIType", "CArray"::["FFIType"]} -> "CInt"],
-
-	LibraryFunctionDeclaration["ffi_call", $LibFFIPaths,
-		{"FFICallInterface", "OpaqueRawPointer", "OpaqueRawPointer", "CArray"::["OpaqueRawPointer"]} -> "Void"],
-
-
-	FunctionDeclaration[DeleteObject,
-		Typed[{"FFICallInterface"} -> "Null"]@
-		Function[cif, LibraryFunction["free_ffi_cif"][cif];]
-	]
-
-}];
-
-
 
 (***************************************************)
-(******************** Constants ********************)
+(**************** dlfcn.h constants ****************)
 (***************************************************)
 
 DeclareCompiledComponent["ForeignFunctionInterface", {
@@ -56,18 +26,38 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 
 (***************************************************)
+(***************** libffi constants ****************)
+(***************************************************)
+
+DeclareCompiledComponent["ForeignFunctionInterface", {
+
+	(* ABIs *)
+	LibraryFunctionDeclaration["get_FFI_DEFAULT_ABI", $LibFFIPaths,
+		{} -> "CInt"],
+
+	(* ffi_status values *)
+	LibraryFunctionDeclaration["get_FFI_OK", $LibFFIPaths,
+		{} -> "CInt"],
+
+	LibraryFunctionDeclaration["get_FFI_BAD_TYPEDEF", $LibFFIPaths,
+		{} -> "CInt"],
+
+	LibraryFunctionDeclaration["get_FFI_BAD_ARGTYPE", $LibFFIPaths,
+		{} -> "CInt"],
+
+	LibraryFunctionDeclaration["get_FFI_BAD_ABI", $LibFFIPaths,
+		{} -> "CInt"]
+
+}];
+
+
+
+(***************************************************)
 (********************* Types ***********************)
 (***************************************************)
 
 
 DeclareCompiledComponent["ForeignFunctionInterface", {
-
-	FunctionDeclaration[SameQ,
-		Typed[{"FFIType", "FFIType"} -> "Boolean"]@
-		Function[{ty1, ty2},
-			Cast[ty1,"OpaqueRawPointer","BitCast"] === Cast[ty2,"OpaqueRawPointer","BitCast"]
-		]
-	],
 
 	LibraryFunctionDeclaration[rawFFIType["Void"] -> "get_ffi_type_void", $LibFFIPaths,
 		{} -> "FFIType"],

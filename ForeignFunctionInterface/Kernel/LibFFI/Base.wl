@@ -74,8 +74,15 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 						"OpaqueRawPointer", "BitCast"
 					];
 
-				cif = LibraryFunction["create_ffi_cif"][];
-				LibraryFunction["prepare_ffi_cif"][cif, Cast[Length[argTypes],"CUnsignedInt","CCast"], outputType, argTypesArray];
+				(* TODO: check error code *)
+				cif = CreateTypeInstance["FFICallInterface", <||>];
+				LibraryFunction["ffi_prep_cif"][
+					cif,
+					LibraryFunction["get_FFI_DEFAULT_ABI"][],
+					Cast[Length[argTypes],"CUnsignedInt","CCast"],
+					outputType,
+					argTypesArray
+				];
 
 				fun = LibraryFunction["dlsym"][lib, Cast[funName, "Managed"::["CString"]]];
 				If[fun === Cast[0, "OpaqueRawPointer", "BitCast"],
