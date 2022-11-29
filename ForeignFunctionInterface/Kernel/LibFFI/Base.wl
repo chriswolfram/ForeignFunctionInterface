@@ -261,7 +261,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	FunctionDeclaration[pointerExpression,
 		Typed[{"TypeSpecifier"::["OpaqueRawPointer"], "OpaqueRawPointer"} -> "InertExpression"]@
 		Function[{type, ptr},
-			PointerToExpression[ptr]
+			PointerToExpression[FromRawPointer@Cast[ptr, "RawPointer"::["OpaqueRawPointer"], "BitCast"]]
 		]
 	],
 
