@@ -13,6 +13,8 @@ Needs["ForeignFunctionInterface`"]
 
 DeclareCompiledComponent["ForeignFunctionInterface", {
 
+	(* Expression conversion *)
+
 	FunctionDeclaration[PointerToExpression,
 		Typed[{"OpaqueRawPointer"} -> "InertExpression"]@
 		Function[ptr,
@@ -36,6 +38,20 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 }];
 
+
+
+(* Summary box *)
+
+OpaqueRawPointer /: MakeBoxes[expr:OpaqueRawPointer[addr_Integer], form:StandardForm]:=
+	BoxForm`ArrangeSummaryBox[
+		OpaqueRawPointer,
+		expr,
+		None,
+		(*the next argument is the always visisble properties*)
+		{"address: ", addr},
+		{},
+		form
+	];
 
 
 End[] (* End `Private` *)

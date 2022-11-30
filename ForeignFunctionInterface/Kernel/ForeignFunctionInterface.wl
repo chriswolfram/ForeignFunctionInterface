@@ -4,11 +4,12 @@ BeginPackage["ForeignFunctionInterface`"]
 CreateManagedExpression
 GetManagedExpression
 
-CreateCArray
-CArrayToNumericArray
-StringToCArray
-CArrayToString
-FreeCArray
+CreateBuffer
+BufferToNumericArray
+StringToBuffer
+BufferToString
+DereferenceBuffer
+FreeBuffer
 
 LoadExternalLibrary
 UnloadExternalLibrary
@@ -26,7 +27,7 @@ Begin["`Private`"]
 
 Needs["ForeignFunctionInterface`ManagedExpression`"]
 Needs["ForeignFunctionInterface`OpaqueRawPointer`"]
-Needs["ForeignFunctionInterface`CArray`"]
+Needs["ForeignFunctionInterface`Buffer`"]
 Needs["ForeignFunctionInterface`LibFFI`"]
 
 
