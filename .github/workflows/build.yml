@@ -8,16 +8,16 @@ on:
 jobs: 
   build-libffi: 
     name: Build libffi
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
     
       - uses: actions/checkout@v2
         with:
           submodules: recursive
           
-      - name: Test install
-        shell: bash
-        run: sudo apt install libffi-dev
+#       - name: Test install
+#         shell: bash
+#         run: sudo apt install libffi-dev
           
       - name: Run autogen
         shell: bash
