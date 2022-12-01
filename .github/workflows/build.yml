@@ -15,5 +15,14 @@ jobs:
         with:
           submodules: recursive
           
-      - name: Display structure of downloaded files
+      - name: Create the build directory
+        run: |
+          mkdir libffi-build
+          cd libffi-build
+          mkdir build
+          
+      - name: Configure libffi
+        run: ../libffi/configure --disable-docs --prefix build
+      
+      - name: Show configured output
         run: ls -R
