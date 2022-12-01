@@ -12,5 +12,5 @@ jobs:
     steps: 
     - name: Checkout repository
       uses: actions/checkout@v2
-    - name: Check paclet
-      uses: WolframResearch/check-paclet@v1
+    - name: Check Paclet
+      uses: WolframResearch/check-paclet@v1.7.1
