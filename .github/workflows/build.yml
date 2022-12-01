@@ -17,7 +17,7 @@ jobs:
           
       - name: Test install
         shell: bash
-        run: sudo apt install libffi
+        run: sudo apt install libffi-dev
           
       - name: Run autogen
         shell: bash
