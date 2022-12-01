@@ -22,7 +22,7 @@ jobs:
           
       - name: List files
         run: |
-          ls -R /
+          realpath .
           
       - name: Configure libffi
         run: |
