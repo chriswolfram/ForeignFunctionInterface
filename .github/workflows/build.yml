@@ -16,16 +16,18 @@ jobs:
           submodules: recursive
           
       - name: Run autogen
-        run: libffi/autogen.sh
+        run: |
+          cd libffi
+          ./autogen.sh
           
       - name: Create the build directory
         run: |
-          mkdir libffi-build
-          cd libffi-build
+          mkdir source-build
+          cd source-build
           mkdir build
           
       - name: Configure libffi
-        run: ../libffi/configure --disable-docs --prefix build
+        run: ../configure --disable-docs --prefix build
       
       - name: Show configured output
         run: ls -R
