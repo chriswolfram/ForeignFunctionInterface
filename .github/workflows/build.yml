@@ -20,10 +20,6 @@ jobs:
           cd libffi
           ./autogen.sh
           
-      - name: List files
-        run: |
-          realpath .
-          
       - name: Configure libffi
         run: |
           cd libffi
@@ -32,5 +28,8 @@ jobs:
           mkdir build
           ../configure --disable-docs --prefix /home/runner/work/ForeignFunctionInterface/ForeignFunctionInterface/libffi/source-build/build
       
-      - name: Show configured output
-        run: ls -R
+      - name: Run make
+        run: |
+          cd libffi/source-build
+          make install
+          ls -R
