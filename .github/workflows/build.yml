@@ -10,6 +10,10 @@ jobs:
     name: Build libffi
     runs-on: ubuntu-latest
     steps:
+    
       - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+          
       - name: Display structure of downloaded files
         run: ls -R
