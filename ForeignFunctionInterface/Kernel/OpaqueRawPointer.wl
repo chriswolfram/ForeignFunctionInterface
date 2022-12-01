@@ -1,4 +1,4 @@
-BeginPackage["ForeignFunctionInterface`OpaqueRawPointer`"]
+BeginPackage["ChristopherWolfram`ForeignFunctionInterface`OpaqueRawPointer`"]
 
 
 ExpressionToPointer
@@ -7,7 +7,7 @@ PointerToExpression
 
 Begin["`Private`"]
 
-Needs["ForeignFunctionInterface`"]
+Needs["ChristopherWolfram`ForeignFunctionInterface`"]
 
 
 

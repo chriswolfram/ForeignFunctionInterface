@@ -1,11 +1,11 @@
-BeginPackage["ForeignFunctionInterface`LibFFI`Constants`"]
+BeginPackage["ChristopherWolfram`ForeignFunctionInterface`LibFFI`Constants`"]
 
 
 Begin["`Private`"]
 
 
-Needs["ForeignFunctionInterface`"]
-Needs["ForeignFunctionInterface`LibFFI`"]
+Needs["ChristopherWolfram`ForeignFunctionInterface`"]
+Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`"]
 
 
 

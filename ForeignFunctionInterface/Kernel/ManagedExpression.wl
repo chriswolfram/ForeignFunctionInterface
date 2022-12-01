@@ -1,9 +1,9 @@
-BeginPackage["ForeignFunctionInterface`ManagedExpression`"]
+BeginPackage["ChristopherWolfram`ForeignFunctionInterface`ManagedExpression`"]
 
 Begin["`Private`"]
 
 
-Needs["ForeignFunctionInterface`"]
+Needs["ChristopherWolfram`ForeignFunctionInterface`"]
 
 
 DeclareCompiledComponent["ForeignFunctionInterface", {

@@ -1,12 +1,12 @@
-BeginPackage["ForeignFunctionInterface`LibFFI`BaseTypes`"]
+BeginPackage["ChristopherWolfram`ForeignFunctionInterface`LibFFI`BaseTypes`"]
 
 
 Begin["`Private`"]
 
 
-Needs["ForeignFunctionInterface`"]
-Needs["ForeignFunctionInterface`LibFFI`"]
-Needs["ForeignFunctionInterface`LibFFI`BaseTypes`"]
+Needs["ChristopherWolfram`ForeignFunctionInterface`"]
+Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`"]
+Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`BaseTypes`"]
 
 
 (***************************************************)

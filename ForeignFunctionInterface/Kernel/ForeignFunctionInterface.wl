@@ -1,4 +1,4 @@
-BeginPackage["ForeignFunctionInterface`"]
+BeginPackage["ChristopherWolfram`ForeignFunctionInterface`"]
 
 
 CreateManagedExpression
@@ -25,10 +25,10 @@ OpaqueRawPointer
 Begin["`Private`"]
 
 
-Needs["ForeignFunctionInterface`ManagedExpression`"]
-Needs["ForeignFunctionInterface`OpaqueRawPointer`"]
-Needs["ForeignFunctionInterface`Buffer`"]
-Needs["ForeignFunctionInterface`LibFFI`"]
+Needs["ChristopherWolfram`ForeignFunctionInterface`ManagedExpression`"]
+Needs["ChristopherWolfram`ForeignFunctionInterface`OpaqueRawPointer`"]
+Needs["ChristopherWolfram`ForeignFunctionInterface`Buffer`"]
+Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`"]
 
 
 End[] (* End `Private` *)
