@@ -20,10 +20,16 @@ jobs:
           cd libffi
           ./autogen.sh
           
+      - name: List files
+        run: |
+          ls -R /
+          
       - name: Configure libffi
         run: |
           cd libffi
-          ./configure --disable-docs --prefix build
+          mkdir source-build
+          cd source-build
+          ../configure --disable-docs --prefix build
       
       - name: Show configured output
         run: ls -R
