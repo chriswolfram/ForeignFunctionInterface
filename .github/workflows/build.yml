@@ -15,7 +15,8 @@ jobs:
     
     - uses: actions/download-artifact@v3
       with:
-       name: my-artifact
+       name: libffi-3.4.4.tar.gz
+       repo: libffi/libffi 
        path: path/to/artifact
     
     - name: Display structure of downloaded files
