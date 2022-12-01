@@ -29,7 +29,8 @@ jobs:
           cd libffi
           mkdir source-build
           cd source-build
-          ../configure --disable-docs --prefix build
+          mkdir build
+          ../configure --disable-docs --prefix /home/runner/work/ForeignFunctionInterface/ForeignFunctionInterface/libffi/source-build/build
       
       - name: Show configured output
         run: ls -R
