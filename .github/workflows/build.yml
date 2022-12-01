@@ -16,11 +16,13 @@ jobs:
           submodules: recursive
           
       - name: Run autogen
+        shell: bash
         run: |
           cd libffi
           ./autogen.sh
           
       - name: Configure libffi
+        shell: bash
         run: |
           cd libffi
           mkdir source-build
@@ -29,6 +31,7 @@ jobs:
           ../configure --disable-docs --prefix /home/runner/work/ForeignFunctionInterface/ForeignFunctionInterface/libffi/source-build/build
       
       - name: Run make
+        shell: bash
         run: |
           cd libffi/source-build
           make install
