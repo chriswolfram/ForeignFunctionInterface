@@ -1,0 +1,16 @@
+name: Check Paclet
+on: [push]
+jobs: 
+  Check: 
+    name: Check Paclet
+    runs-on: ubuntu-latest
+    container: 
+      image: wolframresearch/wolframengine:latest
+      options: --user root
+    env: 
+      WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
+    steps: 
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Check paclet
+      uses: WolframResearch/check-paclet@v1
