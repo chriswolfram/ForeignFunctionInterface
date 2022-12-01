@@ -22,6 +22,7 @@ jobs:
           
       - name: Configure libffi
         run: |
+          cd libffi
           ./configure --disable-docs --prefix build
       
       - name: Show configured output
