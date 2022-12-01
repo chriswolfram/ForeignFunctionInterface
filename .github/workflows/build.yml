@@ -27,7 +27,7 @@ jobs:
           mkdir build
           
       - name: Configure libffi
-        run: ../configure --disable-docs --prefix build
+        run: ./configure --disable-docs --prefix build
       
       - name: Show configured output
         run: ls -R
