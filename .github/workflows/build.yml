@@ -13,6 +13,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Check Paclet
-      uses: WolframResearch/check-paclet@v1.7.1
+      uses: WolframResearch/build-paclet@v1.7.1
       with:
         definition_notebook: "./ForeignFunctionInterface/ResourceDefinition.nb"
+    - name: UploadArtifact
+      uses: actions/upload-artifact@v3
+      with: 
+        path: ${{ env.PACLET_BUILD_DIR }} # set during the build-paclet step
