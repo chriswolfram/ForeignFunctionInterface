@@ -8,18 +8,21 @@ on:
 jobs: 
   build-libffi: 
     name: Build libffi
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
     
       - uses: actions/checkout@v2
         with:
           submodules: recursive
           
+      - name: Test install
+        shell: bash
+        run: apt install libffi
+          
       - name: Run autogen
         shell: bash
         run: |
           cd libffi
-          winget install autoconf
           ./autogen.sh
           
       - name: Configure libffi
