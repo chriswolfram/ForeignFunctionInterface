@@ -15,6 +15,9 @@ jobs:
         with:
           submodules: recursive
           
+      - name: Run autogen
+        run: ./autogen.sh
+          
       - name: Create the build directory
         run: |
           mkdir libffi-build
