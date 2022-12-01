@@ -10,4 +10,5 @@ jobs:
     name: Build libffi
     runs-on: ubuntu-latest
     steps:
-      - run: ls -R
+      - name: Display structure of downloaded files
+        run: ls -R
