@@ -1,22 +1,18 @@
 name: Check Paclet
 on: [push]
 jobs: 
-  Check-Linux: 
-    name: Check Paclet
+  build-libffi: 
+    name: Build libffi
     runs-on: ubuntu-latest
-    container: 
-      image: wolframresearch/wolframengine:latest
-      options: --user root
-    env: 
-      WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
-    steps: 
-    - name: Checkout repository
-      uses: actions/checkout@v2
-    - name: Check Paclet
-      uses: WolframResearch/build-paclet@v1.7.1
+    steps:
+    
+    - uses: actions/checkout@v2
+    
+    - uses: actions/download-artifact@v3
       with:
-        definition_notebook: "./ForeignFunctionInterface/ResourceDefinition.nb"
-    - name: UploadArtifact
-      uses: actions/upload-artifact@v3
-      with: 
-        path: ${{ env.PACLET_BUILD_DIR }} # set during the build-paclet step
+       name: my-artifact
+       path: path/to/artifact
+    
+    - name: Display structure of downloaded files
+      run: ls -R
+      working-directory: path/to/artifact
