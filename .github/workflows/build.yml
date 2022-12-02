@@ -112,6 +112,4 @@ jobs:
       - name: Compile constants library
         shell: bash
         run: |
-          export LIBRARY_PATH=./libffi/lib:$LIBRARY_PATH
-          export C_INCLUDE_PATH=./libffi/include:$LIBRARY_PATH
-          gcc -o ffiConstants.so -lffi ffiConstants/ffiConstants.c
+          gcc -o ffiConstants.so -Llibffi/lib -Ilibffi/include -lffi ffiConstants/ffiConstants.c
