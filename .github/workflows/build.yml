@@ -112,6 +112,17 @@ jobs:
       - name: Compile constants library
         shell: bash
         run: |
-          ls $PWD/libffi/lib
-          ls $PWD/libffi/include
-          gcc -o ffiConstants/ffiConstants -Llibffi/lib -Ilibffi/include -lffi --shared -fPIC ffiConstants/ffiConstants.c
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            export $LIBRARY_EXTENSION='so'
+          elif [ "$RUNNER_OS" == "Windows" ]; then
+            export $LIBRARY_EXTENSION='dylib'
+          fi
+
+          gcc -o ffiConstants/ffiConstants.$LIBRARY_EXTENSION -Llibffi/lib -Ilibffi/include -lffi --shared -fPIC ffiConstants/ffiConstants.c
+
+      - name: Upload constants library
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ format('ffiConstants-{0}', runner.os) }}
+          path: ffiConstants/ffiConstants.*
+          if-no-files-found: error
