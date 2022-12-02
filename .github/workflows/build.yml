@@ -43,8 +43,8 @@ jobs:
           cd source-build
           mkdir build
           echo `$RUNNER_WORKSPACE/libffi/source-build/build`
-          ls -lah `$RUNNER_WORKSPACE/libffi/source-build/build`
-          ../configure --disable-docs --prefix `$RUNNER_WORKSPACE/libffi/source-build/build`
+          echo `$PWD/build`
+          ../configure --disable-docs --prefix `$PWD/build`
       
       - name: Run make
         shell: bash
