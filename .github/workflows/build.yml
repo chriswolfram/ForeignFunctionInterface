@@ -71,15 +71,13 @@ jobs:
           ../configure --disable-docs --prefix $PWD/build
           # ../configure CC=../msvcc.sh CXX=../msvcc.sh LD=link CPP="cl -nologo -EP" CPPFLAGS="-DFFI_BUILDING_DLL"
       
-      - name: Upload intermediate artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: libffi-windows-test
-          path: libffi/source-build
-          if-no-files-found: error
+      - name: Test
+        shell: bash
+        run: |
+          which bash
       
       - name: Run make
-        shell: /bin/sh {0}
+        shell: /bin/bash {0}
         run: |
           cd libffi
           cd source-build
