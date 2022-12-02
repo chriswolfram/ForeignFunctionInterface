@@ -52,7 +52,12 @@ jobs:
       
       - name: List files
         shell: bash
-        run: ls -R
+        run: |
+          echo $RUNNER_WORKSPACE/libffi/build
+          echo "#########################################"
+          ls -R
+          echo "#########################################"
+          ls -R $RUNNER_WORKSPACE/libffi/build
           
       - name: Upload libffi built artifacts
         uses: actions/upload-artifact@v3
