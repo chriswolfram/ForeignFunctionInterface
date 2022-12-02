@@ -49,9 +49,6 @@ jobs:
     
     runs-on: ${{ matrix.os }}
     
-    env:
-      SHELL: /usr/bin/sh
-    
     steps:
     
       - uses: actions/download-artifact@v3
@@ -63,20 +60,20 @@ jobs:
         run: |
           tar -xvf libffi.tar
           cd libffi
-          # mkdir source-build
-          # cd source-build
-          ./configure
+          mkdir source-build
+          cd source-build
+          # ./configure
           
-          # mkdir build
-          # ../configure --disable-docs --prefix $PWD/build
+          mkdir build
+          ../configure --prefix $PWD/build
           # ../configure CC=../msvcc.sh CXX=../msvcc.sh LD=link CPP="cl -nologo -EP" CPPFLAGS="-DFFI_BUILDING_DLL"
       
       - name: Run make
         shell: bash
         run: |
           cd libffi
-          # cd source-build
-          make
+          cd source-build
+          # make
           make install
           
       - name: Upload libffi built artifacts
