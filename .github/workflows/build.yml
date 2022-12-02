@@ -62,7 +62,7 @@ jobs:
           echo $PATH
           echo "that's the path!"
           cd libffi
-          # ./autogen.sh
+          ./autogen.sh
           
       - name: Configure libffi
         shell: bash
