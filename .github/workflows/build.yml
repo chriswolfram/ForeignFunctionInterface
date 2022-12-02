@@ -12,9 +12,9 @@ jobs:
     strategy:
       matrix:
         os:
-        - ubuntu-latest
-        # - windows-latest
-        - macOS-latest
+        # - ubuntu-latest
+        - windows-latest
+        # - macOS-latest
     
     runs-on: ${{ matrix.os }}
     
@@ -42,8 +42,6 @@ jobs:
           mkdir source-build
           cd source-build
           mkdir build
-          echo $RUNNER_WORKSPACE/libffi/source-build/build
-          echo $PWD/build
           ../configure --disable-docs --prefix $PWD/build
       
       - name: Run make
