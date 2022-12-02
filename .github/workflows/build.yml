@@ -16,7 +16,7 @@ jobs:
         # - windows-latest
         - macOS-latest
     
-    runs-on: ${{matrix.os}}
+    runs-on: ${{ matrix.os }}
     
     steps:
     
@@ -53,5 +53,5 @@ jobs:
       - name: Upload libffi built artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: libffi-build
-          path: libffi/build/
+          name: ${{ format('libffi-build-{0}', runner.os) }}
+          path: ./libffi/build/
