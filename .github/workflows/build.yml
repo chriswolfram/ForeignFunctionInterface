@@ -43,8 +43,8 @@ jobs:
     strategy:
       matrix:
         os:
-        # - ubuntu-latest
-        - windows-latest
+        - ubuntu-latest
+        # - windows-latest
         # - macOS-latest
     
     runs-on: ${{ matrix.os }}
@@ -70,11 +70,6 @@ jobs:
           echo "Finished"
           ../configure --disable-docs --prefix $PWD/build
           # ../configure CC=../msvcc.sh CXX=../msvcc.sh LD=link CPP="cl -nologo -EP" CPPFLAGS="-DFFI_BUILDING_DLL"
-      
-      - name: Test
-        shell: bash
-        run: |
-          which bash
       
       - name: Run make
         shell: /bin/bash {0}
