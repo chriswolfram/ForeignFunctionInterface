@@ -49,9 +49,14 @@ jobs:
         run: |
           cd libffi/source-build
           make install
+      
+      - name: List files
+        shell: bash
+        run: ls -R
           
       - name: Upload libffi built artifacts
         uses: actions/upload-artifact@v3
         with:
           name: ${{ format('libffi-build-{0}', runner.os) }}
           path: ./libffi/build/
+          if-no-files-found: error
