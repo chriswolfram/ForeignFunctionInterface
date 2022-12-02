@@ -32,8 +32,7 @@ jobs:
 #       - uses: cygwin/cygwin-install-action@master
       - uses: egor-tensin/setup-cygwin@v3
         with:
-          platform: ${{ matrix.arch }}
-          packages: wget gcc-core make dejagnu automake autoconf libtool texinfo dos2unix unzip
+          packages: make dejagnu automake autoconf libtool texinfo dos2unix
         
 #       - name: Install Windows script dependencies
 #         if: runner.os == 'Windows'
