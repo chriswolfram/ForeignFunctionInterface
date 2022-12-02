@@ -19,9 +19,9 @@ jobs:
 #         shell: bash
 #         run: sudo apt install libffi-dev
 
-      - name: Install automake
+      - name: Install script dependencies
         shell: bash
-        run: brew install automake
+        run: brew install automake coreutils
           
       - name: Run autogen
         shell: bash
