@@ -57,7 +57,7 @@ jobs:
           echo "The path is:"
           echo $PATH
           echo "that's the path!"
-          ls
+          ls .
           cd libffi
           ./autogen.sh
           
