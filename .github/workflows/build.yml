@@ -42,7 +42,7 @@ jobs:
           mkdir source-build
           mkdir build
           cd source-build
-          ../configure --disable-docs --prefix RUNNER_WORKSPACE/libffi/build
+          ../configure --disable-docs --prefix $RUNNER_WORKSPACE/libffi/build
       
       - name: Run make
         shell: bash
