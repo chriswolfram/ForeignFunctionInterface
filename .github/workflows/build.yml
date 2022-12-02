@@ -106,7 +106,7 @@ jobs:
           repository: libffi/libffi
 
       - name: Set up Cygwin
-        uses: egor-tensin/setup-cygwin@v3
+        uses: cygwin/cygwin-install-action@master
         with:
           packages: wget gcc-core make dejagnu automake autoconf libtool texinfo dos2unix unzip
 
