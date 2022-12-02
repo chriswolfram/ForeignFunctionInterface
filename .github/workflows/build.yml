@@ -40,28 +40,21 @@ jobs:
         run: |
           cd libffi
           mkdir source-build
-          mkdir build
           cd source-build
-          ../configure --disable-docs --prefix `$RUNNER_WORKSPACE/libffi/build`
+          mkdir build
+          echo `$RUNNER_WORKSPACE/libffi/source-build/build`
+          ls -lah `$RUNNER_WORKSPACE/libffi/source-build/build`
+          ../configure --disable-docs --prefix `$RUNNER_WORKSPACE/libffi/source-build/build`
       
       - name: Run make
         shell: bash
         run: |
           cd libffi/source-build
           make install
-      
-      - name: List files
-        shell: bash
-        run: |
-          echo $RUNNER_WORKSPACE/libffi/build
-          echo "#########################################"
-          ls -R
-          echo "#########################################"
-          ls -R $RUNNER_WORKSPACE/libffi/build
           
       - name: Upload libffi built artifacts
         uses: actions/upload-artifact@v3
         with:
           name: ${{ format('libffi-build-{0}', runner.os) }}
-          path: ./libffi/build/
+          path: libffi/source-build/build/
           if-no-files-found: error
