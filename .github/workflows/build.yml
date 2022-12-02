@@ -18,6 +18,10 @@ jobs:
 #       - name: Test install
 #         shell: bash
 #         run: sudo apt install libffi-dev
+
+      - name: Install automake
+        shell: bash
+        run: brew install automake
           
       - name: Run autogen
         shell: bash
