@@ -80,3 +80,28 @@ jobs:
           name: ${{ format('libffi-build-{0}', runner.os) }}
           path: libffi/source-build/build/
           if-no-files-found: error
+          
+  build-constants: 
+    name: Build constants library
+    
+    needs: build-libffi
+    
+    strategy:
+      matrix:
+        os:
+        - ubuntu-latest
+        # - windows-latest
+        - macOS-latest
+    
+    runs-on: ${{ matrix.os }}
+    
+    steps:
+    
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ format('libffi-build-{0}', runner.os) }}
+          
+      - name: Show files
+        shell: bash
+        run: |
+          ls -R
