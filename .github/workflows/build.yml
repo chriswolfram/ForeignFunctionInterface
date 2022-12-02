@@ -52,7 +52,7 @@ jobs:
       - name: Configure libffi
         shell: bash
         run: |
-          ls -R
+          ls -lah
           mkdir source-build
           cd source-build
           mkdir build
