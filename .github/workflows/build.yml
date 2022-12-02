@@ -56,6 +56,10 @@ jobs:
           name: libffi-autogen
           
       - uses: Vampire/setup-wsl@v1
+      
+      - name: Install dependencies
+        shell: wsl-hash {0}
+        run: sudo apt-get install gcc -y
           
       - name: Configure libffi
         shell: wsl-bash {0}
@@ -69,7 +73,7 @@ jobs:
           # ../configure CC=../msvcc.sh CXX=../msvcc.sh LD=link CPP="cl -nologo -EP" CPPFLAGS="-DFFI_BUILDING_DLL"
       
       - name: Run make
-        shell: bash
+        shell: wsl-bash {0}
         run: |
           cd libffi
           cd source-build
