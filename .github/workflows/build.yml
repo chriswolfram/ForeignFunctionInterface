@@ -49,6 +49,9 @@ jobs:
     
     runs-on: ${{ matrix.os }}
     
+    env:
+      SHELL: "/bin/sh"
+    
     steps:
     
       - uses: actions/download-artifact@v3
@@ -58,19 +61,19 @@ jobs:
       - name: Configure libffi
         shell: cmd
         run: |
-          export SHELL="/bin/sh"
+          # export SHELL="/bin/sh"
           tar -xvf libffi.tar
           cd libffi
           mkdir source-build
           cd source-build          
           mkdir build
-          "../configure" --disable-docs --prefix $PWD/build
+          ../configure --disable-docs --prefix $PWD/build
           :: ../configure CC=../msvcc.sh CXX=../msvcc.sh LD=link CPP="cl -nologo -EP" CPPFLAGS="-DFFI_BUILDING_DLL"
       
       - name: Run make
         shell: powershell
         run: |
-          export SHELL="/bin/sh"
+          # export SHELL="/bin/sh"
           cd libffi
           cd source-build
           make install
