@@ -30,8 +30,8 @@ jobs:
         run: |
           if [ "$RUNNER_OS" == "MacOS" ]; then
             brew install automake coreutils
-          elif [ "$RUNNER_OS" == "Windows" ];
-            echo "failed"
+          # elif [ "$RUNNER_OS" == "Windows" ];
+          #  echo "failed"
           fi
           
       - name: Run autogen
