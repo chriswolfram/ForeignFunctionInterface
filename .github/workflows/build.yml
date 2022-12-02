@@ -49,6 +49,9 @@ jobs:
     
     runs-on: ${{ matrix.os }}
     
+    env:
+      SHELL: /usr/bin/sh
+    
     steps:
     
       - uses: actions/download-artifact@v3
