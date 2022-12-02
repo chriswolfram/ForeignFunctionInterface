@@ -1,7 +1,7 @@
 BeginPackage["ChristopherWolfram`ForeignFunctionInterface`LibFFI`"]
 
 
-$LibFFIPaths = {"/lib/x86_64-linux-gnu/libffi.so", "ffiConstants"};
+$LibFFIPaths = {"libffi", "ffiConstants"};
 
 
 Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`Base`"]
