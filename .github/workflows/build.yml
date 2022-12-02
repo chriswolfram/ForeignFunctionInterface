@@ -67,11 +67,11 @@ jobs:
           # ../configure CC=../msvcc.sh CXX=../msvcc.sh LD=link CPP="cl -nologo -EP" CPPFLAGS="-DFFI_BUILDING_DLL"
       
       - name: Run make
-        shell: bash
+        shell: cmd
         run: |
-          cd libffi
-          cd source-build
-          make install
+          chdir libffi
+          chdir source-build
+          make.exe install
           
       - name: Upload libffi built artifacts
         uses: actions/upload-artifact@v3
