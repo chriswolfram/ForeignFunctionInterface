@@ -61,7 +61,7 @@ jobs:
         shell: wsl-bash {0}
         run: |
           sudo apt-get update && sudo apt-get upgrade -y
-          sudo apt-get install gcc -y
+          sudo apt-get install gcc make -y
           
       - name: Configure libffi
         shell: wsl-bash {0}
