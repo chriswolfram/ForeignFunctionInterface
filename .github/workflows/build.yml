@@ -34,7 +34,7 @@ jobs:
         
       - uses: cygwin/cygwin-install-action@master
         with:
-          packages: autoconf automake
+          packages: autoconf automake libtool
       
 #       - uses: egor-tensin/setup-cygwin@v3
 #         with:
