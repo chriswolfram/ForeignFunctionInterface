@@ -11,9 +11,6 @@ jobs:
     
     runs-on: ubuntu-latest
     
-    env:
-      SHELL: "/bin/sh"
-    
     steps:
     
       - uses: actions/checkout@v2
@@ -51,6 +48,9 @@ jobs:
         # - macOS-latest
     
     runs-on: ${{ matrix.os }}
+    
+    env:
+      SHELL: "/bin/sh"
     
     steps:
     
