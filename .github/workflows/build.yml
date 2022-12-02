@@ -125,9 +125,7 @@ jobs:
   final-assembly:
     name: Final paclet assembly
     
-    needs: |
-      build-libffi
-      build-constants
+    needs: [build-libffi, build-constants]
     
     runs-on: ${{ matrix.os }}
       
