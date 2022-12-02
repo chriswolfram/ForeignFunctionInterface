@@ -35,6 +35,7 @@ jobs:
         run: |
           choco install cyg-get
           cyg-get autoconf
+          export PATH=$PATH:/usr/bin:$(cygpath ${SYSTEMROOT})/system32
 
 #       - uses: msys2/setup-msys2@v2
 #         if: runner.os == 'Windows'
@@ -50,17 +51,19 @@ jobs:
       - name: Run autogen
         shell: bash
         run: |
+          export PATH=$PATH:/usr/bin:$(cygpath ${SYSTEMROOT})/system32
           cd libffi
           ./autogen.sh
           
       - name: Configure libffi
         shell: bash
         run: |
+          export PATH=$PATH:/usr/bin:$(cygpath ${SYSTEMROOT})/system32
           cd libffi
           mkdir source-build
           cd source-build
           mkdir build
-          msys2 {0} -c '../configure --disable-docs --prefix $PWD/build'
+          ../configure --disable-docs --prefix $PWD/build
       
       - name: Run make
         shell: bash
