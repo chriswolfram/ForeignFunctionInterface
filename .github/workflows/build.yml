@@ -112,4 +112,6 @@ jobs:
       - name: Compile constants library
         shell: bash
         run: |
-          gcc -o ffiConstants.so -Llibffi/lib -Ilibffi/include -lffi ffiConstants/ffiConstants.c
+          ls $PWD/libffi/lib
+          ls $PWD/libffi/include
+          gcc -o ffiConstants.so -L$PWD/libffi/lib -I$PWD/libffi/include -lffi ffiConstants/ffiConstants.c
