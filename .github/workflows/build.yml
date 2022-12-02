@@ -65,8 +65,15 @@ jobs:
           # ./configure
           
           mkdir build
-          ../configure --prefix $PWD/build
+          ../configure --disable-docs --prefix $PWD/build
           # ../configure CC=../msvcc.sh CXX=../msvcc.sh LD=link CPP="cl -nologo -EP" CPPFLAGS="-DFFI_BUILDING_DLL"
+      
+      - name: Upload intermediate artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: libffi-windows-test
+          path: libffi/source-build
+          if-no-files-found: error
       
       - name: Run make
         shell: bash
