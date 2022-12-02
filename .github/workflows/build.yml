@@ -60,9 +60,8 @@ jobs:
         run: |
           tar -xvf libffi.tar
           cd libffi
-          mkdir source-build
-          cd source-build
-          autoreconf -f -v -i
+          # mkdir source-build
+          # cd source-build
           ./configure
           
           # mkdir build
@@ -73,10 +72,7 @@ jobs:
         shell: bash
         run: |
           cd libffi
-          cd source-build
-          echo "Which sh?"
-          where sh
-          echo "That's the one!"
+          # cd source-build
           make
           make install
           
