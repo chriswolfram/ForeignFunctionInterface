@@ -43,9 +43,9 @@ jobs:
     strategy:
       matrix:
         os:
-        - ubuntu-latest
+        # - ubuntu-latest
         - windows-latest
-        - macOS-latest
+        # - macOS-latest
     
     runs-on: ${{ matrix.os }}
     
@@ -63,7 +63,8 @@ jobs:
           mkdir source-build
           cd source-build
           mkdir build
-          ../configure --disable-docs --prefix $PWD/build
+          # ../configure --disable-docs --prefix $PWD/build
+          ..configure CC=../msvcc.sh CXX=../msvcc.sh LD=link CPP="cl -nologo -EP" CPPFLAGS="-DFFI_BUILDING_DLL"
       
       - name: Run make
         shell: bash
