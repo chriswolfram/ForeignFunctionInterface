@@ -62,7 +62,7 @@ jobs:
           cd libffi
           mkdir source-build
           cd source-build
-          # autoreconf -f -v -i
+          autoreconf -f -v -i
           ./configure
           
           # mkdir build
