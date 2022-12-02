@@ -47,6 +47,10 @@ jobs:
             automake
             libtool
             make
+            dejagnu
+            mingw-w64-${{ matrix.MSYS2_ARCH }}-gcc
+            mingw-w64-${{ matrix.MSYS2_ARCH }}-gcc-libs
+            unzip
         
       - name: Run autogen
         shell: bash
