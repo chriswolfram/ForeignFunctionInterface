@@ -114,4 +114,4 @@ jobs:
         run: |
           ls $PWD/libffi/lib
           ls $PWD/libffi/include
-          gcc -o ffiConstants -Llibffi/lib -Ilibffi/include -lffi --shared -fPIC ffiConstants/ffiConstants.c
+          gcc -o ffiConstants/ffiConstants -Llibffi/lib -Ilibffi/include -lffi --shared -fPIC ffiConstants/ffiConstants.c
