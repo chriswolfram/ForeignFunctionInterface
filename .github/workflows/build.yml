@@ -32,6 +32,8 @@ jobs:
   build-libffi: 
     name: Build libffi
     
+    needs: build-libffi-autogen
+    
     strategy:
       matrix:
         os:
