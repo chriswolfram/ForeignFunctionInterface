@@ -54,7 +54,9 @@ jobs:
       - name: Run autogen
         shell: bash
         run: |
-          echo $PWD
+          echo "The path is:"
+          echo $PATH
+          echo "that's the path!"
           ls
           cd libffi
           ./autogen.sh
