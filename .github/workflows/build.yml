@@ -58,7 +58,6 @@ jobs:
       - name: Configure libffi
         shell: bash
         run: |
-          export SHELL="/bin/sh"
           tar -xvf libffi.tar
           cd libffi
           mkdir source-build
@@ -113,9 +112,9 @@ jobs:
         shell: bash
         run: |
           if [ "$RUNNER_OS" == "Linux" ]; then
-            export $LIBRARY_EXTENSION='so'
+            export $LIBRARY_EXTENSION=so
           elif [ "$RUNNER_OS" == "Windows" ]; then
-            export $LIBRARY_EXTENSION='dylib'
+            export $LIBRARY_EXTENSION=dylib
           fi
 
           gcc -o ffiConstants/ffiConstants.$LIBRARY_EXTENSION -Llibffi/lib -Ilibffi/include -lffi --shared -fPIC ffiConstants/ffiConstants.c
