@@ -29,14 +29,16 @@ jobs:
         shell: bash
         run: brew install automake
         
-      - name: Install Windows script dependencies
-        if: runner.os == 'Windows'
-        shell: powershell
-        run: |
-          choco install cyg-get
-          cyg-get autoconf
-          echo `cygpath`
-          echo cygpath
+      - uses: cygwin/cygwin-install-action@master
+        
+#       - name: Install Windows script dependencies
+#         if: runner.os == 'Windows'
+#         shell: powershell
+#         run: |
+#           choco install cyg-get
+#           cyg-get autoconf
+#           echo `cygpath`
+#           echo cygpath
 
 #       - uses: msys2/setup-msys2@v2
 #         if: runner.os == 'Windows'
