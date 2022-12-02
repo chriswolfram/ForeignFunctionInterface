@@ -56,7 +56,7 @@ jobs:
           name: libffi-autogen
           
       - name: Configure libffi
-        shell: bash
+        shell: cmd
         run: |
           tar -xvf libffi.tar
           cd libffi
