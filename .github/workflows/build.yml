@@ -25,7 +25,7 @@ jobs:
           submodules: recursive
 
       - name: Install MacOS script dependencies
-        if: matrix.os == "macOS"
+        if: runner.os == 'macOS'
         shell: bash
         run: brew install automake
         
