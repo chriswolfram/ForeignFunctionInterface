@@ -52,7 +52,7 @@ jobs:
       - name: Configure libffi
         shell: bash
         run: |
-          cd libffi
+          ls -R
           mkdir source-build
           cd source-build
           mkdir build
@@ -61,12 +61,12 @@ jobs:
       - name: Run make
         shell: bash
         run: |
-          cd libffi/source-build
+          cd source-build
           make install
           
       - name: Upload libffi built artifacts
         uses: actions/upload-artifact@v3
         with:
           name: ${{ format('libffi-build-{0}', runner.os) }}
-          path: libffi/source-build/build/
+          path: source-build/build/
           if-no-files-found: error
