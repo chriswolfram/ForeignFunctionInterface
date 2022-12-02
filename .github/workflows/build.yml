@@ -43,8 +43,8 @@ jobs:
     strategy:
       matrix:
         os:
-        # - ubuntu-latest
-        - windows-latest
+        - ubuntu-latest
+        # - windows-latest
         # - macOS-latest
     
     runs-on: ${{ matrix.os }}
@@ -92,3 +92,29 @@ jobs:
           name: ${{ format('libffi-build-{0}', runner.os) }}
           path: libffi/source-build/build/
           if-no-files-found: error
+          
+  build-libffi-windows:
+    name: Build libffi Windows
+    
+    runs-on: windows-latest
+    
+    steps:
+      - run: git config --global core.autocrlf input
+
+      - uses: actions/checkout@v2
+        with:
+          repository: libffi/libffi
+
+      - name: Set up Cygwin
+        uses: egor-tensin/setup-cygwin@v3
+        with:
+          packages: wget gcc-core make dejagnu automake autoconf libtool texinfo dos2unix unzip
+
+      - run: |
+          set -x
+          cd $(cygpath $RUNNER_WORKSPACE)/libffi
+          wget https://rl.gl/cli/rlgl-windows-amd64.zip
+          unzip rlgl-windows-amd64.zip
+          autoreconf -f -v -i
+          ./configure
+          make -j 4
