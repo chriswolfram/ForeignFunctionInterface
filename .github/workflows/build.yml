@@ -84,7 +84,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: ${{ format('libffi-core-build-{0}', runner.os) }}
-        path: libffi/source-build/build/lib/
+        path: libffi/source-build/build/lib/libffi.*
         if-no-files-found: error
           
   build-constants: 
@@ -115,7 +115,7 @@ jobs:
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
           export LIBRARY_EXTENSION="so"
-        elif [ "$RUNNER_OS" == "Windows" ]; then
+        elif [ "$RUNNER_OS" == "macOS" ]; then
           export LIBRARY_EXTENSION="dylib"
         fi
 
@@ -146,17 +146,20 @@ jobs:
         name: libffi-core-build-macOS
         path: ForeignFunctionInterface/LibraryResources/MacOSX-x86-64/
         
-    - uses: actions/download-artifact@v3
+    - name: Download macOS constants
+      uses: actions/download-artifact@v3
       with:
         name: ffiConstants-macOS
         path: ForeignFunctionInterface/LibraryResources/MacOSX-x86-64/
         
-    - uses: actions/download-artifact@v3
+    - name: Download Linux libffi builds
+      uses: actions/download-artifact@v3
       with:
         name: libffi-core-build-Linux
         path: ForeignFunctionInterface/LibraryResources/Linux-x86-64/
         
-    - uses: actions/download-artifact@v3
+    - name: Download Linux constants
+      uses: actions/download-artifact@v3
       with:
         name: ffiConstants-Linux
         path: ForeignFunctionInterface/LibraryResources/Linux-x86-64/
