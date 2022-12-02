@@ -31,7 +31,7 @@ jobs:
         
       - name: Install Windows script dependencies
         if: runner.os == 'Windows'
-        shell: bash
+        shell: powershell
         run: |
           choco install cyg-get
           cyg-get autoconf
