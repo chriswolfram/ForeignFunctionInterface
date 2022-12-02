@@ -32,11 +32,13 @@ jobs:
         shell: bash
         run: brew install automake
         
-#       - uses: cygwin/cygwin-install-action@master
-      
-      - uses: egor-tensin/setup-cygwin@v3
+      - uses: cygwin/cygwin-install-action@master
         with:
-          packages: make dejagnu automake autoconf libtool texinfo dos2unix
+          packages: autoconf
+      
+#       - uses: egor-tensin/setup-cygwin@v3
+#         with:
+#           packages: make dejagnu automake autoconf libtool texinfo dos2unix
         
 #       - name: Install Windows script dependencies
 #         if: runner.os == 'Windows'
