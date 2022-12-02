@@ -29,23 +29,23 @@ jobs:
         shell: bash
         run: brew install automake
         
-#       - name: Install Windows script dependencies
-#         if: runner.os == 'Windows'
-#         shell: bash
-#         run: |
-#           choco install cygwin
-#           cygwin
-
-      - uses: msys2/setup-msys2@v2
+      - name: Install Windows script dependencies
         if: runner.os == 'Windows'
-        with:
-          update: true
-          install: >-
-            base-devel
-            autoconf-wrapper
-            autoconf
-            automake
-            libtool
+        shell: bash
+        run: |
+          choco install cyg-get
+          cyg-get autoconf
+
+#       - uses: msys2/setup-msys2@v2
+#         if: runner.os == 'Windows'
+#         with:
+#           update: true
+#           install: >-
+#             base-devel
+#             autoconf-wrapper
+#             autoconf
+#             automake
+#             libtool
         
       - name: Run autogen
         shell: bash
