@@ -79,6 +79,13 @@ jobs:
         name: ${{ format('libffi-build-{0}', runner.os) }}
         path: libffi/source-build/build/
         if-no-files-found: error
+    
+    - name: Upload libffi core library artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ format('libffi-core-build-{0}', runner.os) }}
+        path: libffi/source-build/build/lib/
+        if-no-files-found: error
           
   build-constants: 
     name: Build constants library
@@ -119,7 +126,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: ${{ format('ffiConstants-{0}', runner.os) }}
-        path: lib/ffiConstants.*
+        path: lib
         if-no-files-found: error
 
   final-assembly:
@@ -133,9 +140,10 @@ jobs:
       
     - uses: actions/checkout@v3
     
-    - uses: actions/download-artifact@v3
+    - name: Download macOS libffi builds
+      uses: actions/download-artifact@v3
       with:
-        name: libffi-build-macOS
+        name: libffi-core-build-macOS
         path: ForeignFunctionInterface/LibraryResources/MacOSX-x86-64/
         
     - uses: actions/download-artifact@v3
@@ -145,7 +153,7 @@ jobs:
         
     - uses: actions/download-artifact@v3
       with:
-        name: libffi-build-Linux
+        name: libffi-core-build-Linux
         path: ForeignFunctionInterface/LibraryResources/Linux-x86-64/
         
     - uses: actions/download-artifact@v3
