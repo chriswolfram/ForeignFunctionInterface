@@ -54,12 +54,6 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: libffi-autogen
-      
-      - name: Install dependencies
-        shell: bash
-        run: |
-          sudo apt-get update && sudo apt-get upgrade -y
-          sudo apt-get install gcc make -y
           
       - name: Configure libffi
         shell: bash
