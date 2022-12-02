@@ -58,10 +58,8 @@ jobs:
       - name: Configure libffi
         shell: bash
         run: |
-          ls -lah
           tar -xvf libffi.tar
-          echo "TARRRRRRRED!"
-          ls -lah
+          cd libffi
           mkdir source-build
           cd source-build
           mkdir build
@@ -70,6 +68,7 @@ jobs:
       - name: Run make
         shell: bash
         run: |
+          cd libffi
           cd source-build
           make install
           
@@ -77,5 +76,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ${{ format('libffi-build-{0}', runner.os) }}
-          path: source-build/build/
+          path: libffi/source-build/build/
           if-no-files-found: error
