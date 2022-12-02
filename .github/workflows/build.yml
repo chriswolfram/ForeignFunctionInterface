@@ -127,7 +127,7 @@ jobs:
     
     needs: [build-libffi, build-constants]
     
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
       
     steps:
       
