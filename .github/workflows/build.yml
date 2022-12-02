@@ -24,7 +24,7 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Install MacOS script dependencies
+      - name: Install macOS script dependencies
         if: runner.os == 'macOS'
         shell: bash
         run: brew install automake
@@ -54,4 +54,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: libffi-build
-          path: libffi/build
+          path: libffi/build/
