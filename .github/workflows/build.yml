@@ -8,7 +8,13 @@ on:
 jobs: 
   build-libffi: 
     name: Build libffi
-    runs-on: macos-latest
+    
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+    
+    runs-on: matrix.os
+    
     steps:
     
       - uses: actions/checkout@v2
@@ -21,7 +27,12 @@ jobs:
 
       - name: Install script dependencies
         shell: bash
-        run: brew install automake coreutils
+        run: |
+          if [ "$RUNNER_OS" == "MacOS" ]; then
+            brew install automake coreutils
+          elif [ "$RUNNER_OS" == "Windows" ];
+            echo "failed"
+          fi
           
       - name: Run autogen
         shell: bash
