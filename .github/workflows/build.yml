@@ -54,8 +54,6 @@ jobs:
       - name: Run autogen
         shell: bash
         run: |
-          echo `cygpath`
-          echo cygpath
           cd libffi
           ./autogen.sh
           
