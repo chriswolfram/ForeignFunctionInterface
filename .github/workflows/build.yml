@@ -65,6 +65,7 @@ jobs:
           # ./configure
           
           mkdir build
+          rm 'C:/Program Files/Git/usr/bin/sh.exe'
           ../configure --disable-docs --prefix $PWD/build
           # ../configure CC=../msvcc.sh CXX=../msvcc.sh LD=link CPP="cl -nologo -EP" CPPFLAGS="-DFFI_BUILDING_DLL"
       
