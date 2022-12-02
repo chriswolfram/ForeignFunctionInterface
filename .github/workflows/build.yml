@@ -29,7 +29,11 @@ jobs:
         shell: bash
         run: brew install automake
         
-      - uses: cygwin/cygwin-install-action@master
+#       - uses: cygwin/cygwin-install-action@master
+      - uses: egor-tensin/setup-cygwin@v3
+        with:
+          platform: ${{ matrix.arch }}
+          packages: wget gcc-core make dejagnu automake autoconf libtool texinfo dos2unix unzip
         
 #       - name: Install Windows script dependencies
 #         if: runner.os == 'Windows'
