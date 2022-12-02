@@ -6,8 +6,8 @@ on:
     # branches: ["master"]
   workflow_dispatch:
 jobs:
-  build-libffi-autogen:
-    name: Build libffi autogen
+  run-libffi-autogen:
+    name: Run libffi autogen
     
     runs-on: ubuntu-latest
     
@@ -31,14 +31,14 @@ jobs:
       - name: Upload libffi autogen built artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: libffi-build-autogen
+          name: libffi-autogen
           path: libffi.tar
           if-no-files-found: error
     
   build-libffi: 
     name: Build libffi
     
-    needs: build-libffi-autogen
+    needs: run-libffi-autogen
     
     strategy:
       matrix:
@@ -53,7 +53,7 @@ jobs:
     
       - uses: actions/download-artifact@v3
         with:
-          name: libffi-build-autogen
+          name: libffi-autogen
           
       - name: Configure libffi
         shell: bash
@@ -70,6 +70,7 @@ jobs:
         run: |
           cd libffi
           cd source-build
+          make
           make install
           
       - name: Upload libffi built artifacts
