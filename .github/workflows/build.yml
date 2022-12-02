@@ -167,6 +167,5 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: ForeignFunctionInterface
-        path: ForeignFunctionInterface
         if-no-files-found: error
     
