@@ -36,7 +36,7 @@ jobs:
           mkdir source-build
           cd source-build
           mkdir build
-          ../configure --disable-docs --prefix /home/runner/work/ForeignFunctionInterface/ForeignFunctionInterface/libffi/source-build/build
+          ../configure --disable-docs --prefix `realpath build`
       
       - name: Run make
         shell: bash
