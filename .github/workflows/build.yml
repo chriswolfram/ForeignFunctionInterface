@@ -29,6 +29,29 @@ jobs:
         shell: bash
         run: brew install automake
         
+#       - name: Install Windows script dependencies
+#         if: runner.os == 'Windows'
+#         shell: bash
+#         run: |
+#           choco install cygwin
+#           cygwin
+
+      - uses: msys2/setup-msys2@v2
+        if: runner.os == 'Windows'
+        with:
+          update: true
+          install: >-
+            # base-devel
+            # autoconf-wrapper
+            autoconf
+            # automake
+            # libtool
+            # make
+            # dejagnu
+            # mingw-w64-${{ matrix.MSYS2_ARCH }}-gcc
+            # mingw-w64-${{ matrix.MSYS2_ARCH }}-gcc-libs
+            # unzip
+        
       - name: Run autogen
         shell: bash
         run: |
