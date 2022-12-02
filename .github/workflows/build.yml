@@ -70,6 +70,9 @@ jobs:
         run: |
           cd libffi
           cd source-build
+          echo "Which sh?"
+          which sh
+          echo "That's the one!"
           make
           make install
           
