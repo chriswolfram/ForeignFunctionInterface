@@ -28,6 +28,7 @@ jobs:
       - name: Install script dependencies
         shell: bash
         run: |
+          echo "$RUNNER_OS"
           if [ "$RUNNER_OS" == "MacOS" ]; then
             brew install automake coreutils
           # elif [ "$RUNNER_OS" == "Windows" ];
