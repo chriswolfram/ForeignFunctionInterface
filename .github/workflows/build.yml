@@ -43,8 +43,8 @@ jobs:
     strategy:
       matrix:
         os:
-        - ubuntu-latest
-        # - windows-latest
+        # - ubuntu-latest
+        - windows-latest
         # - macOS-latest
     
     runs-on: ${{ matrix.os }}
@@ -79,7 +79,7 @@ jobs:
           if-no-files-found: error
       
       - name: Run make
-        shell: bash
+        shell: /bin/sh {0}
         run: |
           cd libffi
           cd source-build
@@ -93,27 +93,37 @@ jobs:
           path: libffi/source-build/build/
           if-no-files-found: error
           
-  build-libffi-windows:
-    name: Build libffi Windows
+#   build-libffi-windows:
+#     name: Build libffi Windows
     
-    runs-on: windows-latest
+#     runs-on: windows-latest
     
-    steps:
-      - run: git config --global core.autocrlf input
+#     steps:
+#       - run: git config --global core.autocrlf input
 
-      - uses: actions/checkout@v2
-        with:
-          repository: libffi/libffi
+#       - uses: actions/checkout@v2
+#         with:
+#           repository: libffi/libffi
 
-      - name: Set up Cygwin
-        uses: cygwin/cygwin-install-action@master
-        with:
-          packages: wget gcc-core make dejagnu automake autoconf libtool texinfo dos2unix unzip
+#       - name: Set up Cygwin
+#         uses: cygwin/cygwin-install-action@master
+#         with:
+#           packages: wget gcc-core make dejagnu automake autoconf libtool texinfo dos2unix unzip
 
-      - run: |
-          cd $(cygpath $RUNNER_WORKSPACE)/libffi
-          wget https://rl.gl/cli/rlgl-windows-amd64.zip
-          unzip rlgl-windows-amd64.zip
-          autoreconf -f -v -i
-          ./configure
-          make -j 4
+#       - run: |
+#           set -x
+#           cd $(cygpath $RUNNER_WORKSPACE)/libffi
+#           wget https://rl.gl/cli/rlgl-windows-amd64.zip
+#           unzip rlgl-windows-amd64.zip
+#           autoreconf -f -v -i
+#           ./configure
+#           make -j 4
+#           TERM=none DEJAGNU=$(pwd)/.ci/site.exp BOARDSDIR=$(pwd)/.ci GCC_COLORS= make check || true
+#           ./rlgl/rlgl.exe l --key=0LIBFFI-0LIBFFI-0LIBFFI-0LIBFFI https://rl.gl
+#           ./rlgl/rlgl.exe e \
+#                           -l project=libffi \
+#                           -l sha=${GITHUB_SHA:0:7} \
+#                           -l CC=gcc \
+#                           -l host=${{ matrix.host }} \
+#                           --policy=https://github.com/libffi/rlgl-policy.git $(find . -name libffi.log)
+#         shell: C:\tools\cygwin\bin\bash.exe --login --norc -eo pipefail -o igncr '{0}'
