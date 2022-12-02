@@ -11,6 +11,9 @@ jobs:
     
     runs-on: ubuntu-latest
     
+    env:
+      SHELL: "/bin/sh"
+    
     steps:
     
       - uses: actions/checkout@v2
