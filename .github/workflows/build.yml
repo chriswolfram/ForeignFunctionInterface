@@ -34,7 +34,7 @@ jobs:
         
       - uses: cygwin/cygwin-install-action@master
         with:
-          packages: base-devel autoconf-wrapper autoconf automake libtool make
+          packages: wget gcc-core make dejagnu automake autoconf libtool texinfo dos2unix unzip
       
 #       - uses: egor-tensin/setup-cygwin@v3
 #         with:
