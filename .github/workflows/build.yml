@@ -24,15 +24,11 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Install script dependencies
+      - name: Install MacOS script dependencies
+        if: matrix.os == "macOS"
         shell: bash
-        run: |
-          if [ "$RUNNER_OS" == "macOS" ]; then
-            brew install automake coreutils
-          # elif [ "$RUNNER_OS" == "Windows" ];
-          #  echo "failed"
-          fi
-          
+        run: brew install automake
+        
       - name: Run autogen
         shell: bash
         run: |
@@ -44,9 +40,9 @@ jobs:
         run: |
           cd libffi
           mkdir source-build
-          cd source-build
           mkdir build
-          ../configure --disable-docs --prefix `realpath build`
+          cd source-build
+          ../configure --disable-docs --prefix RUNNER_WORKSPACE/libffi/build
       
       - name: Run make
         shell: bash
@@ -58,4 +54,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: libffi-build
-          path: libffi/source-build/build
+          path: libffi/build
