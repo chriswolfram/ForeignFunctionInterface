@@ -15,8 +15,18 @@ PacletObject[
         "Root" -> "Kernel",
         "Context" -> "ChristopherWolfram`ForeignFunctionInterface`",
         "Symbols" -> {
+          "ChristopherWolfram`ForeignFunctionInterface`BufferToNumericArray",
+          "ChristopherWolfram`ForeignFunctionInterface`BufferToString",
           "ChristopherWolfram`ForeignFunctionInterface`CallForeignFunction",
-          "ChristopherWolfram`ForeignFunctionInterface`CreateForeignFunction"
+          "ChristopherWolfram`ForeignFunctionInterface`CreateBuffer",
+          "ChristopherWolfram`ForeignFunctionInterface`CreateForeignFunction",
+          "ChristopherWolfram`ForeignFunctionInterface`CreateManagedExpression",
+          "ChristopherWolfram`ForeignFunctionInterface`DereferenceBuffer",
+          "ChristopherWolfram`ForeignFunctionInterface`FFIType",
+          "ChristopherWolfram`ForeignFunctionInterface`FreeBuffer",
+          "ChristopherWolfram`ForeignFunctionInterface`GetManagedExpression",
+          "ChristopherWolfram`ForeignFunctionInterface`OpaqueRawPointer",
+          "ChristopherWolfram`ForeignFunctionInterface`StringToBuffer"
         }
       },
       {"Compiler", "Components" -> {"ForeignFunctionInterface"}},
