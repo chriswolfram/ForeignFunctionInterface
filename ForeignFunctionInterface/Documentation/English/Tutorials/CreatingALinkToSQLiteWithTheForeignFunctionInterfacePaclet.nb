@@ -1,0 +1,3528 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[    152662,       3520]
+NotebookOptionsPosition[    134096,       3094]
+NotebookOutlinePosition[    134969,       3119]
+CellTagsIndexPosition[    134926,       3116]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["\<\
+Creating a Link to SQLite With the ForeignFunctionInterface Paclet\
+\>", "Title",
+ CellChangeTimes->{{3.879094233365703*^9, 3.879094245521627*^9}},
+ CellID->540842567,ExpressionUUID->"a1d3a2f9-c332-4c2a-8c9f-ac9bf0bfed48"],
+
+Cell[CellGroupData[{
+
+Cell["Introduction", "Section",
+ CellChangeTimes->{{3.8790919833718*^9, 3.8790919849415207`*^9}},
+ CellID->1552953309,ExpressionUUID->"c7e2129b-95f4-4ed1-be37-bb59f4850fff"],
+
+Cell[TextData[{
+ "This shows how to realistically use this paclet to create top-level links \
+to C-compatible libraries. Many features are based on the ",
+ ButtonBox["Calling External Libraries with the Wolfram Compiler",
+  BaseStyle->"Link",
+  ButtonData->"paclet:tutorial/CallingExternalLibrariesWithTheCompiler"],
+ " tutorial."
+}], "Text",
+ CellChangeTimes->{{3.879092061152791*^9, 3.879092152073971*^9}, 
+   3.879092194353915*^9, 3.879094207930932*^9},
+ CellID->565347632,ExpressionUUID->"0cc99262-b581-4352-9b7f-024dac28caa1"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Examples", "Section",
+ CellChangeTimes->{{3.879091987332111*^9, 3.879091988075807*^9}, {
+  3.879092214355497*^9, 3.879092215125835*^9}},
+ CellID->752625884,ExpressionUUID->"96b2823f-d84a-491d-a1fe-20388193da8f"],
+
+Cell[CellGroupData[{
+
+Cell["Evaluate this command to download SQLite:", "MathCaption",
+ CellChangeTimes->{{3.879092243543148*^9, 3.879092268919902*^9}},
+ CellID->1733749028,ExpressionUUID->"8ec8984e-1da8-4dae-8306-9a306fb1b088"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"PacletInstall", "[", "\"\<LibSQLite\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.879092251313148*^9, 3.879092266082491*^9}},
+ CellLabel->"In[3]:=",
+ CellID->332068966,ExpressionUUID->"ccef1535-86a9-4788-ad88-e722628f6e91"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["PacletObject",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            GraphicsBox[{
+              Thickness[0.0416667], {
+               FaceForm[{
+                 RGBColor[0.961, 0.961, 0.961], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{12.5454, 
+                22.5972}, {7.5464, 20.5002}, {2.5454, 18.4022}, {2.5454, 
+                12.5982}, {2.5454, 12.5972}, {2.5454, 6.7952}, {7.5454, 
+                4.6962}, {7.546, 4.6972}, {12.5454, 2.5992}, {17.5454, 
+                4.6972}, {17.5454, 4.6962}, {22.5454, 6.7952}, {22.5454, 
+                12.5972}, {22.5454, 12.5982}, {22.5454, 18.4022}}}]}, {
+               FaceForm[{
+                 RGBColor[0.898, 0.898, 0.898], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}, {0, 1, 0}}}, {{{17.125, 8.3359}, {17.125, 
+                14.0569}, {16.875, 14.0569}, {16.875, 8.3359}, {17., 
+                8.1169}, {21.952, 6.0399}, {22.049, 6.2709}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}, {0, 1, 0}}}, {{{7.125, 8.3359}, {7.125, 14.0569}, {
+                6.875, 14.0569}, {6.875, 8.3359}, {1.952, 6.2709}, {2.048, 
+                6.0399}, {7., 8.1169}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}}}, {{{11.8745, 6.2383}, {6.9515, 4.1733}, {7.0475, 
+                3.9423}, {11.9995, 6.0193}, {16.9515, 3.9423}, {17.0475, 
+                4.1733}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}, {0, 1, 0}}}, {{{17.125, 14.1392}, {17.125, 
+                19.8602}, {16.875, 19.8602}, {16.875, 14.1392}, {17., 
+                13.9202}, {21.952, 11.8432}, {22.049, 12.0742}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}, {0, 1, 0}}}, {{{7.125, 14.1392}, {7.125, 19.8602}, {
+                6.875, 19.8602}, {6.875, 14.1392}, {1.952, 12.0742}, {2.048, 
+                11.8432}, {7., 13.9202}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}}}, {{{11.8746, 21.3633}, {11.8746, 18.3563}, {
+                11.9996, 18.3033}, {12.1246, 18.3563}, {12.1246, 21.3633}, {
+                11.9996, 21.4153}}}]}, {
+               FaceForm[{
+                 RGBColor[0.749, 0.749, 0.749], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {1, 3, 
+                 3}}}, {{{8.292, 19.8594}, {12., 21.4154}, {15.707, 
+                 19.8594}, {12., 18.3034}}, {{17.5, 19.5274}, {17.5, 
+                 20.1924}, {12., 22.5004}, {6.5, 20.1924}, {6.5, 19.5284}, {
+                 12., 17.2194}, {12., 17.2194}, {15.7, 18.7724}, {17.5, 
+                 19.5274}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}}}, {{{11.5, 8.5156}, {11.5, 6.4876}, {11.5, 
+                5.4026}, {12.5, 5.8226}, {12.5, 8.5156}, {12., 8.3056}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                 0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                 0}, {0, 1, 0}}}, {{{21.5, 6.4873}, {17.5, 4.8083}, {17.5, 
+                 9.5283}, {21.5, 11.2073}}, {{21.5, 12.7113}, {21.5, 
+                 12.2913}, {17., 10.4033}, {16.5, 10.6133}, {16.5, 10.1943}, {
+                 15.707, 9.8613}, {16.5, 9.5283}, {16.5, 4.8083}, {16.5, 
+                 4.8093}, {16.5, 4.3903}, {15.707, 4.0573}, {17., 3.5143}, {
+                 22.5, 5.8223}, {22.5, 12.2913}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                 0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                 0}, {0, 1, 0}}}, {{{6.5, 4.8086}, {2.5, 6.4876}, {2.5, 
+                 11.2066}, {6.5, 9.5286}}, {{7.5, 9.1096}, {7.5, 9.1096}, {
+                 7.5, 9.5286}, {8.292, 9.8616}, {7.5, 10.1936}, {7.5, 
+                 10.6136}, {7., 10.4036}, {2.5, 12.2906}, {2.5, 12.7106}, {
+                 1.5, 12.2916}, {1.5, 5.8226}, {7., 3.5146}, {8.293, 
+                 4.0576}, {7.5, 4.3906}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                 0, 1, 0}, {0, 1, 0}}}, {{{3.2925, 17.7622}, {7.0005, 
+                 19.3182}, {10.7075, 17.7622}, {7.0005, 16.2062}}, {{6.5005, 
+                 10.6122}, {2.5005, 12.2912}, {2.5005, 17.0102}, {6.5005, 
+                 15.3322}}, {{7.5005, 10.1932}, {7.5005, 10.6122}, {7.5005, 
+                 15.3322}, {12.0005, 17.2202}, {12.5005, 17.0102}, {12.5005, 
+                 18.0952}, {7.0005, 20.4032}, {1.5005, 18.0952}, {1.5005, 
+                 11.6262}, {7.0005, 9.3182}, {8.2935, 9.8612}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                 0, 1, 0}, {0, 1, 0}}}, {{{21.5, 12.291}, {17.5, 10.612}, {
+                 17.5, 15.332}, {21.5, 17.01}}, {{13.293, 17.762}, {17., 
+                 19.318}, {20.708, 17.762}, {17., 16.207}}, {{17., 20.403}, {
+                 11.5, 18.095}, {11.5, 17.01}, {12., 17.22}, {16.5, 15.332}, {
+                 16.5, 10.612}, {16.5, 10.194}, {15.706, 9.861}, {17., 
+                 9.318}, {22.5, 11.626}, {22.5, 18.095}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                 0, 1, 0}, {0, 1, 0}}}, {{{16.4995, 4.3906}, {12.4995, 
+                 2.7116}, {12.4995, 7.4316}, {16.4995, 9.1096}}, {{11.4995, 
+                 2.7116}, {7.4995, 4.3906}, {7.4995, 9.1096}, {11.4995, 
+                 7.4316}}, {{16.4995, 10.6136}, {16.4995, 10.1946}, {11.9995, 
+                 8.3056}, {8.2915, 9.8616}, {7.4995, 10.1936}, {7.4995, 
+                 10.6146}, {6.4995, 10.1946}, {6.4995, 3.7256}, {11.9995, 
+                 1.4176}, {17.4995, 3.7256}, {17.4995, 10.1946}}}]}, {
+               FaceForm[{
+                 RGBColor[0.965, 0.765, 0.749], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}}}, {{{12., 17.6616}, {16.945, 15.5856}, {16.945, 
+                9.9376}, {12., 7.8636}, {7.055, 9.9376}, {7.055, 
+                15.5856}}}]}, {
+               FaceForm[{
+                 RGBColor[0.91, 0.655, 0.635], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{12.125, 
+                17.7627}, {11.875, 17.7627}, {11.875, 12.0407}, {6.952, 
+                9.9757}, {7.048, 9.7447}, {12., 11.8227}, {16.952, 9.7447}, {
+                17.048, 9.9757}, {12.125, 12.0407}}}]}, {
+               FaceForm[{
+                 RGBColor[0.867, 0.067, 0.], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                 0}}}, {{{12.5, 8.5146}, {12.5, 13.2336}, {16.5, 14.9116}, {
+                 16.5, 10.1926}}, {{7.5, 14.9116}, {11.5, 13.2336}, {11.5, 
+                 8.5146}, {7.5, 10.1926}}, {{15.708, 15.6636}, {12., 
+                 14.1086}, {8.292, 15.6636}, {12., 17.2206}}, {{12., 
+                 18.3046}, {6.5, 15.9956}, {6.5, 9.5286}, {12., 7.2206}, {
+                 17.5, 9.5286}, {17.5, 15.9956}}}]}}, AspectRatio -> 
+             Automatic, ImageSize -> {24., 24.}, 
+             PlotRange -> {{0., 24.}, {0., 24.}}], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Name: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["\"LibSQLite\"", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Version: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["\"3.38.05\"", "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            GraphicsBox[{
+              Thickness[0.0416667], {
+               FaceForm[{
+                 RGBColor[0.961, 0.961, 0.961], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{12.5454, 
+                22.5972}, {7.5464, 20.5002}, {2.5454, 18.4022}, {2.5454, 
+                12.5982}, {2.5454, 12.5972}, {2.5454, 6.7952}, {7.5454, 
+                4.6962}, {7.546, 4.6972}, {12.5454, 2.5992}, {17.5454, 
+                4.6972}, {17.5454, 4.6962}, {22.5454, 6.7952}, {22.5454, 
+                12.5972}, {22.5454, 12.5982}, {22.5454, 18.4022}}}]}, {
+               FaceForm[{
+                 RGBColor[0.898, 0.898, 0.898], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}, {0, 1, 0}}}, {{{17.125, 8.3359}, {17.125, 
+                14.0569}, {16.875, 14.0569}, {16.875, 8.3359}, {17., 
+                8.1169}, {21.952, 6.0399}, {22.049, 6.2709}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}, {0, 1, 0}}}, {{{7.125, 8.3359}, {7.125, 14.0569}, {
+                6.875, 14.0569}, {6.875, 8.3359}, {1.952, 6.2709}, {2.048, 
+                6.0399}, {7., 8.1169}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}}}, {{{11.8745, 6.2383}, {6.9515, 4.1733}, {7.0475, 
+                3.9423}, {11.9995, 6.0193}, {16.9515, 3.9423}, {17.0475, 
+                4.1733}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}, {0, 1, 0}}}, {{{17.125, 14.1392}, {17.125, 
+                19.8602}, {16.875, 19.8602}, {16.875, 14.1392}, {17., 
+                13.9202}, {21.952, 11.8432}, {22.049, 12.0742}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}, {0, 1, 0}}}, {{{7.125, 14.1392}, {7.125, 19.8602}, {
+                6.875, 19.8602}, {6.875, 14.1392}, {1.952, 12.0742}, {2.048, 
+                11.8432}, {7., 13.9202}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}}}, {{{11.8746, 21.3633}, {11.8746, 18.3563}, {
+                11.9996, 18.3033}, {12.1246, 18.3563}, {12.1246, 21.3633}, {
+                11.9996, 21.4153}}}]}, {
+               FaceForm[{
+                 RGBColor[0.749, 0.749, 0.749], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {1, 3, 
+                 3}}}, {{{8.292, 19.8594}, {12., 21.4154}, {15.707, 
+                 19.8594}, {12., 18.3034}}, {{17.5, 19.5274}, {17.5, 
+                 20.1924}, {12., 22.5004}, {6.5, 20.1924}, {6.5, 19.5284}, {
+                 12., 17.2194}, {12., 17.2194}, {15.7, 18.7724}, {17.5, 
+                 19.5274}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}}}, {{{11.5, 8.5156}, {11.5, 6.4876}, {11.5, 
+                5.4026}, {12.5, 5.8226}, {12.5, 8.5156}, {12., 8.3056}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                 0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                 0}, {0, 1, 0}}}, {{{21.5, 6.4873}, {17.5, 4.8083}, {17.5, 
+                 9.5283}, {21.5, 11.2073}}, {{21.5, 12.7113}, {21.5, 
+                 12.2913}, {17., 10.4033}, {16.5, 10.6133}, {16.5, 10.1943}, {
+                 15.707, 9.8613}, {16.5, 9.5283}, {16.5, 4.8083}, {16.5, 
+                 4.8093}, {16.5, 4.3903}, {15.707, 4.0573}, {17., 3.5143}, {
+                 22.5, 5.8223}, {22.5, 12.2913}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                 0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                 0}, {0, 1, 0}}}, {{{6.5, 4.8086}, {2.5, 6.4876}, {2.5, 
+                 11.2066}, {6.5, 9.5286}}, {{7.5, 9.1096}, {7.5, 9.1096}, {
+                 7.5, 9.5286}, {8.292, 9.8616}, {7.5, 10.1936}, {7.5, 
+                 10.6136}, {7., 10.4036}, {2.5, 12.2906}, {2.5, 12.7106}, {
+                 1.5, 12.2916}, {1.5, 5.8226}, {7., 3.5146}, {8.293, 
+                 4.0576}, {7.5, 4.3906}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                 0, 1, 0}, {0, 1, 0}}}, {{{3.2925, 17.7622}, {7.0005, 
+                 19.3182}, {10.7075, 17.7622}, {7.0005, 16.2062}}, {{6.5005, 
+                 10.6122}, {2.5005, 12.2912}, {2.5005, 17.0102}, {6.5005, 
+                 15.3322}}, {{7.5005, 10.1932}, {7.5005, 10.6122}, {7.5005, 
+                 15.3322}, {12.0005, 17.2202}, {12.5005, 17.0102}, {12.5005, 
+                 18.0952}, {7.0005, 20.4032}, {1.5005, 18.0952}, {1.5005, 
+                 11.6262}, {7.0005, 9.3182}, {8.2935, 9.8612}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                 0, 1, 0}, {0, 1, 0}}}, {{{21.5, 12.291}, {17.5, 10.612}, {
+                 17.5, 15.332}, {21.5, 17.01}}, {{13.293, 17.762}, {17., 
+                 19.318}, {20.708, 17.762}, {17., 16.207}}, {{17., 20.403}, {
+                 11.5, 18.095}, {11.5, 17.01}, {12., 17.22}, {16.5, 15.332}, {
+                 16.5, 10.612}, {16.5, 10.194}, {15.706, 9.861}, {17., 
+                 9.318}, {22.5, 11.626}, {22.5, 18.095}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                 0, 1, 0}, {0, 1, 0}}}, {{{16.4995, 4.3906}, {12.4995, 
+                 2.7116}, {12.4995, 7.4316}, {16.4995, 9.1096}}, {{11.4995, 
+                 2.7116}, {7.4995, 4.3906}, {7.4995, 9.1096}, {11.4995, 
+                 7.4316}}, {{16.4995, 10.6136}, {16.4995, 10.1946}, {11.9995, 
+                 8.3056}, {8.2915, 9.8616}, {7.4995, 10.1936}, {7.4995, 
+                 10.6146}, {6.4995, 10.1946}, {6.4995, 3.7256}, {11.9995, 
+                 1.4176}, {17.4995, 3.7256}, {17.4995, 10.1946}}}]}, {
+               FaceForm[{
+                 RGBColor[0.965, 0.765, 0.749], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}}}, {{{12., 17.6616}, {16.945, 15.5856}, {16.945, 
+                9.9376}, {12., 7.8636}, {7.055, 9.9376}, {7.055, 
+                15.5856}}}]}, {
+               FaceForm[{
+                 RGBColor[0.91, 0.655, 0.635], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{12.125, 
+                17.7627}, {11.875, 17.7627}, {11.875, 12.0407}, {6.952, 
+                9.9757}, {7.048, 9.7447}, {12., 11.8227}, {16.952, 9.7447}, {
+                17.048, 9.9757}, {12.125, 12.0407}}}]}, {
+               FaceForm[{
+                 RGBColor[0.867, 0.067, 0.], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 
+                 0}, {0, 1, 0}, {0, 1, 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 
+                 0}}, {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                 0}}}, {{{12.5, 8.5146}, {12.5, 13.2336}, {16.5, 14.9116}, {
+                 16.5, 10.1926}}, {{7.5, 14.9116}, {11.5, 13.2336}, {11.5, 
+                 8.5146}, {7.5, 10.1926}}, {{15.708, 15.6636}, {12., 
+                 14.1086}, {8.292, 15.6636}, {12., 17.2206}}, {{12., 
+                 18.3046}, {6.5, 15.9956}, {6.5, 9.5286}, {12., 7.2206}, {
+                 17.5, 9.5286}, {17.5, 15.9956}}}]}}, AspectRatio -> 
+             Automatic, ImageSize -> {24., 24.}, 
+             PlotRange -> {{0., 24.}, {0., 24.}}], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Name: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["\"LibSQLite\"", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Version: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["\"3.38.05\"", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Location: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox[
+                 "\"/home/christopher/.Mathematica/Paclets/Repository/\
+LibSQLite-3.38.05\"", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Description: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox[
+                   
+                   RowBox[{
+                    "\"Provides SQLite dynamic libraries fo\"", "\[Ellipsis]",
+                     "\" used by any built-in functionality.\""}], Short], 
+                  "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  PacletObject[<|
+   "Name" -> "LibSQLite", "Version" -> "3.38.05", "WolframVersion" -> "13.1+",
+     "Extensions" -> {{"LibraryLink"}}, "Description" -> 
+    "Provides SQLite dynamic libraries for use as an example in \
+tutorial/CallingExternalLibrariesWithTheCompiler. Not used by any built-in \
+functionality.", "Location" -> 
+    "/home/christopher/.Mathematica/Paclets/Repository/LibSQLite-3.38.05"|>],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{{3.879092255619503*^9, 3.87909226652743*^9}},
+ CellLabel->"Out[3]=",
+ CellID->924964886,ExpressionUUID->"99a0721a-fee0-4f66-b761-67df9c5d1898"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[TextData[{
+ "The paclet can be deleted with ",
+ Cell[BoxData[
+  ButtonBox["PacletUninstall",
+   BaseStyle->"Link"]], "InlineFormula",ExpressionUUID->
+  "9dc8c7af-a12c-41ad-bf56-07f0a17e7172"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.879092283273149*^9, 3.8790923034577723`*^9}},
+ CellID->330434547,ExpressionUUID->"916031b7-0a03-42ce-927a-1153e59f47b8"],
+
+Cell[CellGroupData[{
+
+Cell["Load the library:", "MathCaption",
+ CellChangeTimes->{{3.8790924770236683`*^9, 3.879092479231917*^9}},
+ CellID->2130073303,ExpressionUUID->"d35b3dd2-0ff6-4245-ac74-cd53d59ff392"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"LibraryLoad", "[", "\"\<libsqlite3\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.8790924800651083`*^9, 3.879092484368061*^9}},
+ CellLabel->"In[5]:=",
+ CellID->1013780221,ExpressionUUID->"3b4cf44e-2abe-4148-a717-c0d25d3f947b"],
+
+Cell[BoxData["\<\"/home/christopher/.Mathematica/Paclets/Repository/LibSQLite-\
+3.38.05/LibraryResources/Linux-x86-64/libsqlite3.so\"\>"], "Output",
+ CellChangeTimes->{3.879092484945207*^9},
+ CellLabel->"Out[5]=",
+ CellID->479352537,ExpressionUUID->"4fb9eaad-6b73-4b78-b115-1080ea598182"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Simple Example", "Subsection",
+ CellChangeTimes->{{3.879092537002356*^9, 3.87909254025014*^9}},
+ CellID->365914658,ExpressionUUID->"262078d1-5fee-48f4-a21a-b3f342dc0e16"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ ButtonBox["SQLite's documented C interface",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["https://www.sqlite.org/c3ref/intro.html"], None},
+  ButtonNote->"https://www.sqlite.org/c3ref/intro.html"],
+ " contains a function called ",
+ ButtonBox["sqlite3_libversion_number",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["https://www.sqlite.org/c3ref/libversion.html"], None},
+  ButtonNote->"https://www.sqlite.org/c3ref/libversion.html"],
+ " with the following signature:"
+}], "Text",
+ CellChangeTimes->{{3.861726831315591*^9, 3.861726955455146*^9}, {
+  3.86172698835217*^9, 3.861726988664131*^9}},
+ CellID->180883014,ExpressionUUID->"fce8bf52-1c38-4ae3-b2bc-27793f940021"],
+
+Cell["int sqlite3_libversion_number(void);", "Program",
+ CellChangeTimes->{3.861726975037237*^9},
+ CellID->1358161467,ExpressionUUID->"d9de31fd-6a0a-4a2e-858a-98ba764a34b4"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "This C signature can be referenced with the following call to ",
+ Cell[BoxData[
+  ButtonBox["CreateForeignFunction",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:ChristopherWolfram/ForeignFunctionInterface/ref/\
+CreateForeignFunction"]], "InlineFormula",ExpressionUUID->
+  "2d359b54-a4d4-484d-a66a-e939f5734a54"],
+ ":"
+}], "MathCaption",
+ CellChangeTimes->{{3.861726984000926*^9, 3.861727008717787*^9}, {
+   3.863692186995245*^9, 3.863692188179221*^9}, 3.863692753179709*^9, {
+   3.879092407501175*^9, 3.879092449626315*^9}},
+ CellID->1500989788,ExpressionUUID->"597135e9-4404-4573-9a5c-1db1587cc3e5"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"sqliteVersion", "=", 
+  RowBox[{"CreateForeignFunction", "[", 
+   RowBox[{"\"\<sqlite3_libversion_number\>\"", ",", 
+    RowBox[{"{", "}"}], ",", 
+    RowBox[{"FFIType", "[", "\"\<CInt\>\"", "]"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.861727010809771*^9, 3.861727017945429*^9}, {
+  3.8790924608640842`*^9, 3.879092465375293*^9}},
+ CellLabel->"In[6]:=",
+ CellID->845635981,ExpressionUUID->"9592999e-b138-4d76-8425-6e8eeded59f8"],
+
+Cell[BoxData[
+ TagBox[
+  TemplateBox[{
+    RowBox[{
+      StyleBox[
+       TagBox["TypeProduct", "SummaryHead"], "NonInterpretableSummary"], 
+      StyleBox["[", "NonInterpretableSummary"], 
+      DynamicModuleBox[{
+       Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+       TemplateBox[{
+         PaneSelectorBox[{False -> GridBox[{{
+               GraphicsBox[
+                InsetBox[
+                 FormBox[
+                  StyleBox["\"BasicF\"", 
+                   GrayLevel[0.7], Bold, 7.62890625, StripOnInput -> False], 
+                  TraditionalForm], {0, 0}], Background -> GrayLevel[0.93], 
+                Axes -> False, AspectRatio -> 1, ImageSize -> 
+                Dynamic[{
+                  Automatic, 
+                   3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.55]]], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionObject\"", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}], True -> GridBox[{{
+               GraphicsBox[
+                InsetBox[
+                 FormBox[
+                  StyleBox["\"BasicF\"", 
+                   GrayLevel[0.7], Bold, 7.62890625, StripOnInput -> False], 
+                  TraditionalForm], {0, 0}], Background -> GrayLevel[0.93], 
+                Axes -> False, AspectRatio -> 1, ImageSize -> 
+                Dynamic[{
+                  Automatic, 
+                   3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.55]]], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionObject\"", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}]}, 
+          Dynamic[Typeset`open$$], ImageSize -> Automatic]}, "SummaryPanel"], 
+       DynamicModuleValues :> {}], 
+      StyleBox["]", "NonInterpretableSummary"]}]},
+   "CopyTag",
+   DisplayFunction->(#& ),
+   InterpretationFunction->(
+    "DataStructure[ForeignFunctionObject, $Failed]"& )],
+  False,
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{{3.8790924656859493`*^9, 3.879092491462494*^9}},
+ CellLabel->"Out[6]=",
+ CellID->643901660,ExpressionUUID->"6acc2c3a-4e80-4cee-9062-54ebcacdb593"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Call the foreign function to get the version number:", "MathCaption",
+ CellChangeTimes->{{3.863604027483633*^9, 3.8636040420123262`*^9}, {
+  3.879092496112314*^9, 3.879092502832601*^9}},
+ CellID->1420519008,ExpressionUUID->"2e8eb315-aa37-4c4a-a1d8-bedfa1c2cf59"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"CallForeignFunction", "[", 
+  RowBox[{"sqliteVersion", ",", 
+   RowBox[{"{", "}"}]}], "]"}]], "Input",
+ CellLabel->"In[7]:=",
+ CellID->1555243949,ExpressionUUID->"c8acbdb8-3afc-4ba1-9809-9ac09928d6f7"],
+
+Cell[BoxData["3038005"], "Output",
+ CellChangeTimes->{3.879092506744968*^9},
+ CellLabel->"Out[7]=",
+ CellID->1225954138,ExpressionUUID->"a01b3cd7-7005-4e56-a710-9bfd64df9b0b"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Opening and Closing Databases", "Subsection",
+ CellChangeTimes->{3.87909255721628*^9},
+ CellID->37045157,ExpressionUUID->"61c9a4b6-1d76-4816-bcfd-e8c2b70e9dcc"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+The first step in connecting to an SQLite database is opening and closing it. \
+This is done through two functions, which have the following signatures:\
+\>", "Text",
+ CellChangeTimes->{{3.863604415461206*^9, 3.863604462965028*^9}},
+ CellID->2001435311,ExpressionUUID->"0fef1601-f1b4-4fc0-8c72-159dbb90d2cd"],
+
+Cell["\<\
+int sqlite3_open(
+  const char *filename,   /* Database filename (UTF-8) */
+  sqlite3 **ppDb          /* OUT: SQLite db handle */
+);
+
+int sqlite3_close(sqlite3*);\
+\>", "Program",
+ CellChangeTimes->{
+  3.861727807858041*^9, {3.861727840914398*^9, 3.861727866526002*^9}, {
+   3.861728323614162*^9, 3.86172832407038*^9}, {3.861728354583385*^9, 
+   3.861728355143365*^9}},
+ CellID->975167677,ExpressionUUID->"0f7eeeee-ec66-4115-b934-03fde3a4fc90"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+These can be represented with the following two foreign function objects:\
+\>", "MathCaption",
+ CellChangeTimes->{{3.879092703895897*^9, 3.879092713328322*^9}},
+ CellID->1348247232,ExpressionUUID->"65d7ff2d-d975-47e2-b70a-793f31a25f45"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"sqliteOpenC", "=", 
+  RowBox[{"CreateForeignFunction", "[", 
+   RowBox[{"\"\<sqlite3_open\>\"", ",", 
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"FFIType", "[", "\"\<OpaqueRawPointer\>\"", "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"FFIType", "[", "\"\<OpaqueRawPointer\>\"", "]"}]}], 
+     "\[IndentingNewLine]", "}"}], ",", 
+    RowBox[{"FFIType", "[", "\"\<CInt\>\"", "]"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.878391165861327*^9, 3.878391191878581*^9}, 
+   3.878723497893715*^9, {3.8787261344304333`*^9, 3.878726139494321*^9}},
+ CellLabel->"In[8]:=",
+ CellID->271807548,ExpressionUUID->"18fef7ee-8f13-433d-bd6f-d8f288b7418f"],
+
+Cell[BoxData[
+ TagBox[
+  TemplateBox[{
+    RowBox[{
+      StyleBox[
+       TagBox["TypeProduct", "SummaryHead"], "NonInterpretableSummary"], 
+      StyleBox["[", "NonInterpretableSummary"], 
+      DynamicModuleBox[{
+       Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+       TemplateBox[{
+         PaneSelectorBox[{False -> GridBox[{{
+               GraphicsBox[
+                InsetBox[
+                 FormBox[
+                  StyleBox["\"BasicF\"", 
+                   GrayLevel[0.7], Bold, 7.62890625, StripOnInput -> False], 
+                  TraditionalForm], {0, 0}], Background -> GrayLevel[0.93], 
+                Axes -> False, AspectRatio -> 1, ImageSize -> 
+                Dynamic[{
+                  Automatic, 
+                   3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.55]]], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionObject\"", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}], True -> GridBox[{{
+               GraphicsBox[
+                InsetBox[
+                 FormBox[
+                  StyleBox["\"BasicF\"", 
+                   GrayLevel[0.7], Bold, 7.62890625, StripOnInput -> False], 
+                  TraditionalForm], {0, 0}], Background -> GrayLevel[0.93], 
+                Axes -> False, AspectRatio -> 1, ImageSize -> 
+                Dynamic[{
+                  Automatic, 
+                   3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.55]]], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionObject\"", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}]}, 
+          Dynamic[Typeset`open$$], ImageSize -> Automatic]}, "SummaryPanel"], 
+       DynamicModuleValues :> {}], 
+      StyleBox["]", "NonInterpretableSummary"]}]},
+   "CopyTag",
+   DisplayFunction->(#& ),
+   InterpretationFunction->(
+    "DataStructure[ForeignFunctionObject, $Failed]"& )],
+  False,
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{{3.8783911872560863`*^9, 3.8783911922574587`*^9}, 
+   3.878398416103396*^9, 3.87839954898429*^9, 3.878400094377494*^9, 
+   3.8787235023789043`*^9, 3.878724094488122*^9, 3.878726924597698*^9, 
+   3.878728949035925*^9, 3.878741160442379*^9, 3.878741651932487*^9, 
+   3.8787444836558323`*^9, 3.878747466324601*^9, 3.8787475263220997`*^9, 
+   3.878751777005631*^9, 3.878752023018855*^9, 3.878753289994605*^9, 
+   3.8787541289566383`*^9, 3.878777282078442*^9, 3.87878038130828*^9, 
+   3.8790927150569897`*^9},
+ CellLabel->"Out[8]=",
+ CellID->344632369,ExpressionUUID->"38a55b57-6f27-4531-9642-327ad51ca1e7"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"sqliteCloseC", "=", 
+  RowBox[{"CreateForeignFunction", "[", 
+   RowBox[{"\"\<sqlite3_close\>\"", ",", 
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{"FFIType", "[", "\"\<OpaqueRawPointer\>\"", "]"}], 
+     "\[IndentingNewLine]", "}"}], ",", 
+    RowBox[{"FFIType", "[", "\"\<CInt\>\"", "]"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.878724384309444*^9, 3.878724395061852*^9}, {
+  3.878726143622785*^9, 3.878726144638603*^9}},
+ CellLabel->"In[9]:=",
+ CellID->1034745601,ExpressionUUID->"6e38b3ad-e766-426d-bd0b-dfc7837c7d30"],
+
+Cell[BoxData[
+ TagBox[
+  TemplateBox[{
+    RowBox[{
+      StyleBox[
+       TagBox["TypeProduct", "SummaryHead"], "NonInterpretableSummary"], 
+      StyleBox["[", "NonInterpretableSummary"], 
+      DynamicModuleBox[{
+       Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+       TemplateBox[{
+         PaneSelectorBox[{False -> GridBox[{{
+               GraphicsBox[
+                InsetBox[
+                 FormBox[
+                  StyleBox["\"BasicF\"", 
+                   GrayLevel[0.7], Bold, 7.62890625, StripOnInput -> False], 
+                  TraditionalForm], {0, 0}], Background -> GrayLevel[0.93], 
+                Axes -> False, AspectRatio -> 1, ImageSize -> 
+                Dynamic[{
+                  Automatic, 
+                   3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.55]]], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionObject\"", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}], True -> GridBox[{{
+               GraphicsBox[
+                InsetBox[
+                 FormBox[
+                  StyleBox["\"BasicF\"", 
+                   GrayLevel[0.7], Bold, 7.62890625, StripOnInput -> False], 
+                  TraditionalForm], {0, 0}], Background -> GrayLevel[0.93], 
+                Axes -> False, AspectRatio -> 1, ImageSize -> 
+                Dynamic[{
+                  Automatic, 
+                   3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.55]]], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionObject\"", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}]}, 
+          Dynamic[Typeset`open$$], ImageSize -> Automatic]}, "SummaryPanel"], 
+       DynamicModuleValues :> {}], 
+      StyleBox["]", "NonInterpretableSummary"]}]},
+   "CopyTag",
+   DisplayFunction->(#& ),
+   InterpretationFunction->(
+    "DataStructure[ForeignFunctionObject, $Failed]"& )],
+  False,
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.878724404948501*^9, 3.878724806165435*^9, 
+  3.878724874306552*^9, 3.878725348022159*^9, 3.878726939635331*^9, 
+  3.8787289763545628`*^9, 3.878741165676037*^9, 3.878741655844644*^9, 
+  3.878744487555067*^9, 3.8787475313880587`*^9, 3.878751781384029*^9, 
+  3.878752026741836*^9, 3.878753293340818*^9, 3.8787541323772984`*^9, 
+  3.878777296143826*^9, 3.878780382641366*^9, 3.879092716149584*^9},
+ CellLabel->"Out[9]=",
+ CellID->1160432749,ExpressionUUID->"541c27a9-0b6e-4354-bd02-cee750e53a23"]
+}, Open  ]]
+}, Open  ]],
+
+Cell["\<\
+It is often useful to package the raw foreign functions objects into Wolfram \
+Language functions.\
+\>", "Text",
+ CellChangeTimes->{{3.879092723824546*^9, 3.879092761169962*^9}},
+ CellID->884319594,ExpressionUUID->"7ab0a3ec-9ae7-4470-ae2e-9fc2a8482d6f"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+The closing function is quite simple as it just takes a pointer to the \
+database to close:\
+\>", "MathCaption",
+ CellChangeTimes->{{3.8790927664981413`*^9, 3.879092784066822*^9}},
+ CellID->899409223,ExpressionUUID->"7e42cb94-1615-4d16-8e79-667c71c8297f"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"sqliteClose", "[", "db_", "]"}], ":=", 
+  RowBox[{"CallForeignFunction", "[", 
+   RowBox[{"sqliteCloseC", ",", 
+    RowBox[{"{", "db", "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.8787244150462847`*^9, 3.878724427422718*^9}},
+ CellLabel->"In[10]:=",
+ CellID->1725780381,ExpressionUUID->"e1a8e243-5116-4ad8-bcc9-26120fea759c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+The function for opening is more complicated as it needs to take a string \
+containing a path to the database, as well as the fact that it uses an in-out \
+parameter to return its output:\
+\>", "MathCaption",
+ CellChangeTimes->{{3.8790927872988863`*^9, 3.879092838597383*^9}},
+ CellID->470584974,ExpressionUUID->"41a7c18f-4e2f-4d23-b904-2555f2d8e4be"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"sqliteOpen", "[", "path_", "]"}], ":=", "\[IndentingNewLine]", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"databaseArr", ",", "pathC", ",", "errorCode"}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"databaseArr", "=", 
+      RowBox[{"CreateManagedExpression", "[", 
+       RowBox[{
+        RowBox[{"CreateBuffer", "[", 
+         RowBox[{
+          RowBox[{"FFIType", "[", "\"\<OpaqueRawPointer\>\"", "]"}], ",", 
+          "1"}], "]"}], ",", "FreeBuffer"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"pathC", "=", 
+      RowBox[{"CreateManagedExpression", "[", 
+       RowBox[{
+        RowBox[{"StringToBuffer", "[", "path", "]"}], ",", "FreeBuffer"}], 
+       "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"errorCode", "=", 
+      RowBox[{"CallForeignFunction", "[", 
+       RowBox[{"sqliteOpenC", ",", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"GetManagedExpression", "[", "pathC", "]"}], ",", 
+          RowBox[{"GetManagedExpression", "[", "databaseArr", "]"}]}], 
+         "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{"errorCode", "===", "0"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"DereferenceBuffer", "[", 
+        RowBox[{
+         RowBox[{"GetManagedExpression", "[", "databaseArr", "]"}], ",", 
+         RowBox[{"FFIType", "[", "\"\<OpaqueRawPointer\>\"", "]"}], ",", 
+         "0"}], "]"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"Failure", "[", 
+        RowBox[{"\"\<FailedOpenDatabase\>\"", ",", 
+         RowBox[{"<|", 
+          RowBox[{
+           RowBox[{"\"\<ErrorCode\>\"", "->", "errorCode"}], ",", 
+           RowBox[{"\"\<Path\>\"", "->", "path"}]}], "|>"}]}], "]"}]}], 
+      "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.8787235096623497`*^9, 3.878723546950807*^9}, {
+  3.878723614249161*^9, 3.8787238969084682`*^9}, {3.8787241049321938`*^9, 
+  3.878724109956058*^9}, {3.878724626415357*^9, 3.878724667345357*^9}, {
+  3.878724816206153*^9, 3.878724828079401*^9}, {3.878725371259581*^9, 
+  3.8787253968760967`*^9}, {3.8787773009419813`*^9, 3.878777380376244*^9}, {
+  3.87877742486862*^9, 3.878777428825976*^9}, {3.878780386807866*^9, 
+  3.878780387511672*^9}},
+ CellLabel->"In[11]:=",
+ CellID->2147386804,ExpressionUUID->"83fa798e-d9de-44f4-8d72-7138bc5210ed"]
+}, Open  ]],
+
+Cell[TextData[{
+ "Essentially, ",
+ StyleBox["databaseArr", "Input"],
+ " contains a pointer to a pointer which will be populated by sqliteOpenC. ",
+ Cell[BoxData[
+  ButtonBox["DereferenceBuffer",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:ChristopherWolfram/ForeignFunctionInterface/ref/\
+DereferenceBuffer"]], "InlineFormula",ExpressionUUID->
+  "85870755-45db-42f0-8f14-6811da5e9806"],
+ " is used later to extract the populated value."
+}], "Text",
+ CellChangeTimes->{{3.8790928494132357`*^9, 3.879092923695836*^9}},
+ CellID->2057849348,ExpressionUUID->"5077cab0-f809-4a64-b91b-a255f758f56d"],
+
+Cell[TextData[{
+ StyleBox["pathC", "Input"],
+ " is a representation of the path to the database as a C-compatible buffer."
+}], "Text",
+ CellChangeTimes->{{3.879092930080762*^9, 3.879092948528864*^9}},
+ CellID->536908172,ExpressionUUID->"9759600a-ba9e-4581-9d3a-d56f34660c4d"],
+
+Cell[TextData[{
+ "Finally, ",
+ StyleBox["errorCode", "Input"],
+ " is the return value from sqliteOpenC. If it isn't 0 (",
+ ButtonBox["SQLITE_OK",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["https://www.sqlite.org/rescode.html#ok"], None},
+  ButtonNote->"https://www.sqlite.org/rescode.html#ok"],
+ "), then return a ",
+ Cell[BoxData[
+  ButtonBox["Failure",
+   BaseStyle->"Link"]], "InlineFormula",ExpressionUUID->
+  "d9eeff91-7451-4d30-b673-ba34fe1e0246"],
+ " object."
+}], "Text",
+ CellChangeTimes->{{3.879092958209581*^9, 3.879092998009533*^9}},
+ CellID->835330586,ExpressionUUID->"e22078bd-48de-4d7a-8915-4f1f95485577"],
+
+Cell[CellGroupData[{
+
+Cell["Now, open a database:", "MathCaption",
+ CellChangeTimes->{{3.879093011411188*^9, 3.8790930162194347`*^9}},
+ CellID->655192026,ExpressionUUID->"dea0d109-7791-4c0b-8c4e-ec0882d92edc"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"db", "=", 
+  RowBox[{"sqliteOpen", "[", 
+   RowBox[{
+   "FindFile", "[", "\"\<ExampleData/ecommerce-database.sqlite\>\"", "]"}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.878724447096733*^9, 3.878724448719523*^9}},
+ CellLabel->"In[12]:=",
+ CellID->1386302740,ExpressionUUID->"228b4ff8-861b-40f8-af4d-7dd1ed2fd741"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["OpaqueRawPointer",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            GridBox[{{
+               TagBox["\"address: \"", "SummaryItem"]}, {
+               TagBox["38800584", "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            GridBox[{{
+               TagBox["\"address: \"", "SummaryItem"]}, {
+               TagBox["38800584", "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  ChristopherWolfram`ForeignFunctionInterface`OpaqueRawPointer[38800584],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.879093019002046*^9},
+ CellLabel->"Out[12]=",
+ CellID->959958218,ExpressionUUID->"55bf79f3-a976-4787-95f1-66c63be9bd69"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Close it:", "MathCaption",
+ CellChangeTimes->{{3.879093020627537*^9, 3.879093021619575*^9}},
+ CellID->1734785018,ExpressionUUID->"0c4e671a-b5ff-41f4-8c7e-b07ea62c6bc6"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"sqliteClose", "[", "db", "]"}]], "Input",
+ CellChangeTimes->{{3.878724430584406*^9, 3.878724451287737*^9}},
+ CellLabel->"In[13]:=",
+ CellID->1165765133,ExpressionUUID->"59a51af5-4c63-4265-bfa7-dd10671a43bb"],
+
+Cell[BoxData["0"], "Output",
+ CellChangeTimes->{3.8790930227089033`*^9},
+ CellLabel->"Out[13]=",
+ CellID->1148354788,ExpressionUUID->"97147969-98c7-4bad-98a7-ca82ef7e66e1"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Making Queries", "Subsection",
+ CellChangeTimes->{{3.879093076411725*^9, 3.879093084045816*^9}},
+ CellID->1381498740,ExpressionUUID->"3d7a9a9a-df69-4520-9e4e-f93d84bb47cb"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+ The following SQLite functions are used for making queries and reading the \
+results:\
+\>", "Text",
+ CellChangeTimes->{{3.8790930879778214`*^9, 3.879093111822961*^9}},
+ CellID->1292608045,ExpressionUUID->"0e118301-312f-4373-a2d9-64278c2f115d"],
+
+Cell["\<\
+int sqlite3_prepare(
+  sqlite3 *db,            /* Database handle */
+  const char *zSql,       /* SQL statement, UTF-8 encoded */
+  int nByte,              /* Maximum length of zSql in bytes. */
+  sqlite3_stmt **ppStmt,  /* OUT: Statement handle */
+  const char **pzTail     /* OUT: Pointer to unused portion of zSql */
+);
+
+int sqlite3_step(sqlite3_stmt*);
+
+int sqlite3_finalize(sqlite3_stmt *pStmt);\
+\>", "Program",
+ CellChangeTimes->{{3.861790364778318*^9, 3.861790387496607*^9}, {
+  3.86179111731679*^9, 3.861791118708953*^9}, {3.87909313296821*^9, 
+  3.8790931335686617`*^9}},
+ CellID->1614424200,ExpressionUUID->"2e16402c-7623-4c64-b445-c56c6fdac412"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+These can be represented with the following foreign functions:\
+\>", "MathCaption",
+ CellChangeTimes->{{3.879093148576027*^9, 3.879093155904256*^9}},
+ CellID->324945580,ExpressionUUID->"fa17f170-fd9c-48ba-963e-9b7caf6e1fc8"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"sqlitePrepareC", "=", 
+  RowBox[{"CreateForeignFunction", "[", 
+   RowBox[{"\"\<sqlite3_prepare\>\"", ",", 
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"FFIType", "[", "\"\<OpaqueRawPointer\>\"", "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"FFIType", "[", "\"\<OpaqueRawPointer\>\"", "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"FFIType", "[", "\"\<CInt\>\"", "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"FFIType", "[", "\"\<OpaqueRawPointer\>\"", "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"FFIType", "[", "\"\<OpaqueRawPointer\>\"", "]"}]}], 
+     "\[IndentingNewLine]", "}"}], ",", 
+    RowBox[{"FFIType", "[", "\"\<CInt\>\"", "]"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.87872429733038*^9, 3.8787243289321136`*^9}, {
+  3.878726150119156*^9, 3.878726156711125*^9}},
+ CellLabel->"In[15]:=",
+ CellID->390826430,ExpressionUUID->"7e7f5199-6eb9-4148-bf34-aa11442a01fb"],
+
+Cell[BoxData[
+ TagBox[
+  TemplateBox[{
+    RowBox[{
+      StyleBox[
+       TagBox["TypeProduct", "SummaryHead"], "NonInterpretableSummary"], 
+      StyleBox["[", "NonInterpretableSummary"], 
+      DynamicModuleBox[{
+       Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+       TemplateBox[{
+         PaneSelectorBox[{False -> GridBox[{{
+               GraphicsBox[
+                InsetBox[
+                 FormBox[
+                  StyleBox["\"BasicF\"", 
+                   GrayLevel[0.7], Bold, 7.62890625, StripOnInput -> False], 
+                  TraditionalForm], {0, 0}], Background -> GrayLevel[0.93], 
+                Axes -> False, AspectRatio -> 1, ImageSize -> 
+                Dynamic[{
+                  Automatic, 
+                   3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.55]]], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionObject\"", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}], True -> GridBox[{{
+               GraphicsBox[
+                InsetBox[
+                 FormBox[
+                  StyleBox["\"BasicF\"", 
+                   GrayLevel[0.7], Bold, 7.62890625, StripOnInput -> False], 
+                  TraditionalForm], {0, 0}], Background -> GrayLevel[0.93], 
+                Axes -> False, AspectRatio -> 1, ImageSize -> 
+                Dynamic[{
+                  Automatic, 
+                   3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.55]]], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionObject\"", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}]}, 
+          Dynamic[Typeset`open$$], ImageSize -> Automatic]}, "SummaryPanel"], 
+       DynamicModuleValues :> {}], 
+      StyleBox["]", "NonInterpretableSummary"]}]},
+   "CopyTag",
+   DisplayFunction->(#& ),
+   InterpretationFunction->(
+    "DataStructure[ForeignFunctionObject, $Failed]"& )],
+  False,
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.879093157666102*^9},
+ CellLabel->"Out[15]=",
+ CellID->1739073662,ExpressionUUID->"9d0d3c1b-49c6-4e41-b841-e7c9401dbc6f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"sqliteFinalizeC", "=", 
+  RowBox[{"CreateForeignFunction", "[", 
+   RowBox[{"\"\<sqlite3_finalize\>\"", ",", 
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{"FFIType", "[", "\"\<OpaqueRawPointer\>\"", "]"}], 
+     "\[IndentingNewLine]", "}"}], ",", 
+    RowBox[{"FFIType", "[", "\"\<CInt\>\"", "]"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.878725898269553*^9, 3.878725906845842*^9}, {
+  3.8787261618557997`*^9, 3.8787261631510878`*^9}},
+ CellLabel->"In[16]:=",
+ CellID->1658522703,ExpressionUUID->"54e3de31-3f01-4312-873f-02944387aa86"],
+
+Cell[BoxData[
+ TagBox[
+  TemplateBox[{
+    RowBox[{
+      StyleBox[
+       TagBox["TypeProduct", "SummaryHead"], "NonInterpretableSummary"], 
+      StyleBox["[", "NonInterpretableSummary"], 
+      DynamicModuleBox[{
+       Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+       TemplateBox[{
+         PaneSelectorBox[{False -> GridBox[{{
+               GraphicsBox[
+                InsetBox[
+                 FormBox[
+                  StyleBox["\"BasicF\"", 
+                   GrayLevel[0.7], Bold, 7.62890625, StripOnInput -> False], 
+                  TraditionalForm], {0, 0}], Background -> GrayLevel[0.93], 
+                Axes -> False, AspectRatio -> 1, ImageSize -> 
+                Dynamic[{
+                  Automatic, 
+                   3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.55]]], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionObject\"", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}], True -> GridBox[{{
+               GraphicsBox[
+                InsetBox[
+                 FormBox[
+                  StyleBox["\"BasicF\"", 
+                   GrayLevel[0.7], Bold, 7.62890625, StripOnInput -> False], 
+                  TraditionalForm], {0, 0}], Background -> GrayLevel[0.93], 
+                Axes -> False, AspectRatio -> 1, ImageSize -> 
+                Dynamic[{
+                  Automatic, 
+                   3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.55]]], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionObject\"", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}]}, 
+          Dynamic[Typeset`open$$], ImageSize -> Automatic]}, "SummaryPanel"], 
+       DynamicModuleValues :> {}], 
+      StyleBox["]", "NonInterpretableSummary"]}]},
+   "CopyTag",
+   DisplayFunction->(#& ),
+   InterpretationFunction->(
+    "DataStructure[ForeignFunctionObject, $Failed]"& )],
+  False,
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.8790931584183807`*^9},
+ CellLabel->"Out[16]=",
+ CellID->1930330251,ExpressionUUID->"d1a05d7b-cedc-49b0-ad29-937c1b5f2d41"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"sqliteStepC", "=", 
+  RowBox[{"CreateForeignFunction", "[", 
+   RowBox[{"\"\<sqlite3_step\>\"", ",", 
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{"FFIType", "[", "\"\<OpaqueRawPointer\>\"", "]"}], 
+     "\[IndentingNewLine]", "}"}], ",", 
+    RowBox[{"FFIType", "[", "\"\<CInt\>\"", "]"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.87872429733038*^9, 3.8787243289321136`*^9}, {
+  3.8787258691488647`*^9, 3.878725874884891*^9}, {3.878726169896111*^9, 
+  3.878726171343873*^9}},
+ CellLabel->"In[17]:=",
+ CellID->361990738,ExpressionUUID->"7188ef60-f0b8-4669-b067-f8c4c97adeb8"],
+
+Cell[BoxData[
+ TagBox[
+  TemplateBox[{
+    RowBox[{
+      StyleBox[
+       TagBox["TypeProduct", "SummaryHead"], "NonInterpretableSummary"], 
+      StyleBox["[", "NonInterpretableSummary"], 
+      DynamicModuleBox[{
+       Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+       TemplateBox[{
+         PaneSelectorBox[{False -> GridBox[{{
+               GraphicsBox[
+                InsetBox[
+                 FormBox[
+                  StyleBox["\"BasicF\"", 
+                   GrayLevel[0.7], Bold, 7.62890625, StripOnInput -> False], 
+                  TraditionalForm], {0, 0}], Background -> GrayLevel[0.93], 
+                Axes -> False, AspectRatio -> 1, ImageSize -> 
+                Dynamic[{
+                  Automatic, 
+                   3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.55]]], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionObject\"", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}], True -> GridBox[{{
+               GraphicsBox[
+                InsetBox[
+                 FormBox[
+                  StyleBox["\"BasicF\"", 
+                   GrayLevel[0.7], Bold, 7.62890625, StripOnInput -> False], 
+                  TraditionalForm], {0, 0}], Background -> GrayLevel[0.93], 
+                Axes -> False, AspectRatio -> 1, ImageSize -> 
+                Dynamic[{
+                  Automatic, 
+                   3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.55]]], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionObject\"", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}]}, 
+          Dynamic[Typeset`open$$], ImageSize -> Automatic]}, "SummaryPanel"], 
+       DynamicModuleValues :> {}], 
+      StyleBox["]", "NonInterpretableSummary"]}]},
+   "CopyTag",
+   DisplayFunction->(#& ),
+   InterpretationFunction->(
+    "DataStructure[ForeignFunctionObject, $Failed]"& )],
+  False,
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.8790931593448153`*^9},
+ CellLabel->"Out[17]=",
+ CellID->1152550591,ExpressionUUID->"d0e0e270-4e59-496b-940d-d19385c674c7"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Again, these are best packaged into Wolfram Language functions. The simplest \
+are sqliteFinalizeC:\
+\>", "MathCaption",
+ CellChangeTimes->{{3.879093175809342*^9, 3.8790932372754383`*^9}},
+ CellID->626335616,ExpressionUUID->"74d76d02-1f3d-4452-89f7-4967a460c078"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"sqliteFinalize", "[", "statement_", "]"}], ":=", 
+  RowBox[{"CallForeignFunction", "[", 
+   RowBox[{"sqliteFinalizeC", ",", 
+    RowBox[{"{", "statement", "}"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.8787259183837357`*^9, 3.8787259460477533`*^9}},
+ CellLabel->"In[18]:=",
+ CellID->323369859,ExpressionUUID->"72044a8c-9a78-48fe-aa36-acc7655901eb"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+The most complicated is sqlitePrepare which makes a query and returns a \
+\"statement\" which can be stepped through to read the results. This is \
+relatively similar to the call to sqliteOpenC:\
+\>", "MathCaption",
+ CellChangeTimes->{{3.879093282301145*^9, 3.879093336630917*^9}},
+ CellID->249108536,ExpressionUUID->"68586e5e-c923-49c8-85ee-55ecdb9d52e3"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"sqlitePrepare", "[", 
+   RowBox[{"database_", ",", "query_"}], "]"}], ":=", "\[IndentingNewLine]", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"statementArr", ",", "queryC", ",", "errorCode"}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"statementArr", "=", 
+      RowBox[{"CreateManagedExpression", "[", 
+       RowBox[{
+        RowBox[{"CreateBuffer", "[", 
+         RowBox[{
+          RowBox[{"FFIType", "[", "\"\<OpaqueRawPointer\>\"", "]"}], ",", 
+          "1"}], "]"}], ",", "FreeBuffer"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"queryC", "=", 
+      RowBox[{"CreateManagedExpression", "[", 
+       RowBox[{
+        RowBox[{"StringToBuffer", "[", "query", "]"}], ",", "FreeBuffer"}], 
+       "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"errorCode", "=", 
+      RowBox[{"CallForeignFunction", "[", 
+       RowBox[{"sqlitePrepareC", ",", 
+        RowBox[{"{", "\[IndentingNewLine]", 
+         RowBox[{"database", ",", "\[IndentingNewLine]", 
+          RowBox[{"GetManagedExpression", "[", "queryC", "]"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"StringLength", "[", "query", "]"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"GetManagedExpression", "[", "statementArr", "]"}], ",", 
+          "\[IndentingNewLine]", 
+          RowBox[{"OpaqueRawPointer", "[", "0", "]"}]}], 
+         "\[IndentingNewLine]", "}"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+     
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{"errorCode", "===", "0"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"CreateManagedExpression", "[", 
+        RowBox[{
+         RowBox[{"DereferenceBuffer", "[", 
+          RowBox[{
+           RowBox[{"GetManagedExpression", "[", "statementArr", "]"}], ",", 
+           RowBox[{"FFIType", "[", "\"\<OpaqueRawPointer\>\"", "]"}], ",", 
+           "0"}], "]"}], ",", "sqliteFinalize"}], "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Failure", "[", 
+        RowBox[{"\"\<FailedCreateStatement\>\"", ",", 
+         RowBox[{"<|", 
+          RowBox[{
+           RowBox[{"\"\<ErrorCode\>\"", "->", "errorCode"}], ",", 
+           RowBox[{"\"\<Query\>\"", "->", "query"}]}], "|>"}]}], "]"}]}], 
+      "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.8787235096623497`*^9, 3.878723546950807*^9}, {
+  3.878723614249161*^9, 3.8787238969084682`*^9}, {3.8787241049321938`*^9, 
+  3.878724109956058*^9}, {3.878724288458991*^9, 3.878724289162558*^9}, {
+  3.87872433542063*^9, 3.878724345780273*^9}, {3.878725436253014*^9, 
+  3.8787255867308197`*^9}, {3.878725631724326*^9, 3.878725659598205*^9}, {
+  3.8787257304646673`*^9, 3.878725730744844*^9}, {3.8787257611053743`*^9, 
+  3.878725766201399*^9}, {3.878725803475935*^9, 3.8787258191323*^9}, {
+  3.878725968529066*^9, 3.878725980225472*^9}, {3.878777443466984*^9, 
+  3.87877746337941*^9}, {3.8787803986162863`*^9, 3.878780399272204*^9}},
+ CellLabel->"In[21]:=",
+ CellID->1365065099,ExpressionUUID->"4d1a9452-13ad-4639-add0-dd6f8ad82950"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Because sqlitePrepare returns a managed statement, sqliteStep should be able \
+to automatically unwrap such a statement:\
+\>", "MathCaption",
+ CellChangeTimes->{{3.87909324556384*^9, 3.879093275493045*^9}},
+ CellID->1786768365,ExpressionUUID->"a33c4c6b-fc78-4909-8bed-b2264bc9ce46"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"sqliteStep", "[", "statement_", "]"}], ":=", 
+  RowBox[{"CallForeignFunction", "[", 
+   RowBox[{"sqliteStepC", ",", 
+    RowBox[{"{", 
+     RowBox[{"GetManagedExpression", "[", "statement", "]"}], "}"}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.878726005771246*^9, 3.8787260280345917`*^9}},
+ CellLabel->"In[20]:=",
+ CellID->1207689453,ExpressionUUID->"c6082f90-4dbe-4b13-a1d1-0e992b1fd0f0"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["To test it, open a database:", "MathCaption",
+ CellChangeTimes->{{3.879093351351865*^9, 3.879093354992251*^9}},
+ CellID->1678274427,ExpressionUUID->"bb997d2f-53e7-4f10-9ba9-9db0ce0cc52f"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"db", "=", 
+  RowBox[{"sqliteOpen", "[", 
+   RowBox[{
+   "FindFile", "[", "\"\<ExampleData/ecommerce-database.sqlite\>\"", "]"}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.878724447096733*^9, 3.878724448719523*^9}},
+ CellLabel->"In[22]:=",
+ CellID->249011692,ExpressionUUID->"11d15186-3d54-403c-816e-546d951de2e6"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["OpaqueRawPointer",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            GridBox[{{
+               TagBox["\"address: \"", "SummaryItem"]}, {
+               TagBox["38800584", "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            GridBox[{{
+               TagBox["\"address: \"", "SummaryItem"]}, {
+               TagBox["38800584", "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  ChristopherWolfram`ForeignFunctionInterface`OpaqueRawPointer[38800584],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{{3.878724448963282*^9, 3.878724456697667*^9}, 
+   3.878724651115843*^9, 3.878725352388691*^9, {3.87872538641527*^9, 
+   3.8787253987723417`*^9}, 3.878725601947315*^9, 3.878725641260551*^9, 
+   3.8787257328571663`*^9, {3.87872580666928*^9, 3.878725811985902*^9}, 
+   3.8787269511825323`*^9, 3.878729037065591*^9, 3.878741173098535*^9, 
+   3.878741659959763*^9, 3.878744491710022*^9, 3.8787475806284933`*^9, 
+   3.8787517916500397`*^9, 3.878752043328167*^9, 3.878753293548974*^9, 
+   3.878754132758997*^9, 3.878777466252914*^9, 3.878780401338214*^9, 
+   3.8790933583931847`*^9},
+ CellLabel->"Out[22]=",
+ CellID->24738957,ExpressionUUID->"f405af50-b2af-49ce-a56d-281b0fa08327"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Make a query to get a statement object:", "MathCaption",
+ CellChangeTimes->{{3.879093370432207*^9, 3.879093386961238*^9}},
+ CellID->1129042870,ExpressionUUID->"b3b35b2c-f69e-4f2a-817e-d2c206a2315a"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"sqlitePrepare", "[", 
+  RowBox[{"db", ",", "\"\<SELECT * FROM customers;\>\""}], "]"}]], "Input",
+ CellChangeTimes->{3.878725833491146*^9},
+ CellLabel->"In[23]:=",
+ CellID->2110761385,ExpressionUUID->"11911532-3080-4ded-8696-6a7dd66ca0ab"],
+
+Cell[BoxData[
+ TagBox[
+  TemplateBox[{
+    RowBox[{
+      StyleBox[
+       TagBox["TypeProduct", "SummaryHead"], "NonInterpretableSummary"], 
+      StyleBox["[", "NonInterpretableSummary"], 
+      DynamicModuleBox[{
+       Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+       TemplateBox[{
+         PaneSelectorBox[{False -> GridBox[{{
+               GraphicsBox[
+                InsetBox[
+                 FormBox[
+                  StyleBox["\"BasicF\"", 
+                   GrayLevel[0.7], Bold, 7.62890625, StripOnInput -> False], 
+                  TraditionalForm], {0, 0}], Background -> GrayLevel[0.93], 
+                Axes -> False, AspectRatio -> 1, ImageSize -> 
+                Dynamic[{
+                  Automatic, 
+                   3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.55]]], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ManagedExpression\"", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}], True -> GridBox[{{
+               GraphicsBox[
+                InsetBox[
+                 FormBox[
+                  StyleBox["\"BasicF\"", 
+                   GrayLevel[0.7], Bold, 7.62890625, StripOnInput -> False], 
+                  TraditionalForm], {0, 0}], Background -> GrayLevel[0.93], 
+                Axes -> False, AspectRatio -> 1, ImageSize -> 
+                Dynamic[{
+                  Automatic, 
+                   3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.55]]], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ManagedExpression\"", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}]}, 
+          Dynamic[Typeset`open$$], ImageSize -> Automatic]}, "SummaryPanel"], 
+       DynamicModuleValues :> {}], 
+      StyleBox["]", "NonInterpretableSummary"]}]},
+   "CopyTag",
+   DisplayFunction->(#& ),
+   InterpretationFunction->("DataStructure[ManagedExpression, $Failed]"& )],
+  False,
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{
+  3.8787258338051577`*^9, {3.878725985142023*^9, 3.878725988125525*^9}, 
+   3.878726952305799*^9, 3.878729047112661*^9, 3.878741174305002*^9, 
+   3.8787416600981903`*^9, 3.878744491818132*^9, 3.878747582829919*^9, 
+   3.878751794431698*^9, 3.878752044916148*^9, 3.878753293650732*^9, 
+   3.878754132855592*^9, 3.878777467920204*^9, 3.8787804028305883`*^9, 
+   3.879093375920397*^9},
+ CellLabel->"Out[23]=",
+ CellID->101509093,ExpressionUUID->"0d184791-e901-4581-9f30-f39cd39b7053"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Invalid queries are automatically turned into ",
+ Cell[BoxData[
+  ButtonBox["Failure",
+   BaseStyle->"Link"]], "InlineFormula",ExpressionUUID->
+  "e7b53f0a-4b8a-4ab5-a746-3d96ef92e01c"],
+ " objects:"
+}], "MathCaption",
+ CellChangeTimes->{{3.879093388905429*^9, 3.879093405298409*^9}},
+ CellID->1759523975,ExpressionUUID->"71841c43-ce04-4486-bfc0-ea8afcb179bd"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"sqlitePrepare", "[", 
+  RowBox[{"db", ",", "\"\<SELECT * FROM blah;\>\""}], "]"}]], "Input",
+ CellChangeTimes->{{3.8787256041080236`*^9, 3.87872561390924*^9}, {
+  3.8787258255075417`*^9, 3.8787258315071697`*^9}},
+ CellLabel->"In[24]:=",
+ CellID->633842497,ExpressionUUID->"d5913239-f0a4-4dde-8b56-e0d24c3b15fb"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["Failure",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            FrameBox[
+             StyleBox["\"\[WarningSign]\"", 
+              Directive["Message", 35], StripOnInput -> False], 
+             ContentPadding -> False, FrameStyle -> None, 
+             FrameMargins -> {{0, 0}, {0, 0}}, StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"ErrorCode\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["1", HoldForm], "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Query\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["\"SELECT * FROM blah;\"", HoldForm], 
+                  "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Tag\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["\"FailedCreateStatement\"", HoldForm], 
+                  "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            FrameBox[
+             StyleBox["\"\[WarningSign]\"", 
+              Directive["Message", 35], StripOnInput -> False], 
+             ContentPadding -> False, FrameStyle -> None, 
+             FrameMargins -> {{0, 0}, {0, 0}}, StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"ErrorCode\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["1", HoldForm], "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Query\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["\"SELECT * FROM blah;\"", HoldForm], 
+                  "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Tag\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["\"FailedCreateStatement\"", HoldForm], 
+                  "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  Failure[
+  "FailedCreateStatement", <|
+   "ErrorCode" -> 1, "Query" -> "SELECT * FROM blah;"|>],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{{3.878725617807053*^9, 3.8787256620193033`*^9}, 
+   3.878725733512362*^9, {3.8787258074677763`*^9, 3.8787258318684072`*^9}, 
+   3.878725982923143*^9, 3.878726951764031*^9, 3.878729038879553*^9, 
+   3.878741173554003*^9, 3.878741660029851*^9, 3.878744491770752*^9, 
+   3.878747581756262*^9, 3.878751793588777*^9, 3.878752044090309*^9, 
+   3.878753293579713*^9, 3.878754132805612*^9, 3.878777467085257*^9, 
+   3.878780402045671*^9, 3.879093407652573*^9},
+ CellLabel->"Out[24]=",
+ CellID->129914011,ExpressionUUID->"48d9bf9f-2bda-4a69-822f-262f59c4ff72"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Make a query and step through the results until an end-of-query signal is \
+reached, effectively counting the number of rows in the result:\
+\>", "MathCaption",
+ CellChangeTimes->{{3.879093430530712*^9, 3.87909347091615*^9}},
+ CellID->2075247533,ExpressionUUID->"3caf80d3-3472-410f-b105-1a8858a76a0d"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Module", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"statement", ",", "n"}], "}"}], ",", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"statement", "=", 
+     RowBox[{"sqlitePrepare", "[", 
+      RowBox[{"db", ",", "\"\<SELECT * FROM customers;\>\""}], "]"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"n", "=", "0"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"While", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"sqliteStep", "[", "statement", "]"}], "===", "100"}], ",", 
+      RowBox[{"n", "++"}]}], "]"}], ";", "\[IndentingNewLine]", "n"}]}], 
+  "\[IndentingNewLine]", "]"}]], "Input",
+ CellChangeTimes->{{3.878726029939157*^9, 3.878726085692665*^9}},
+ CellLabel->"In[25]:=",
+ CellID->1826177882,ExpressionUUID->"82b08eda-363e-4472-80da-2a12d5983b34"],
+
+Cell[BoxData["122"], "Output",
+ CellChangeTimes->{3.879093459861549*^9},
+ CellLabel->"Out[25]=",
+ CellID->1922170459,ExpressionUUID->"6e316948-607f-486b-ac94-7d6e9a372111"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Reading Query Results", "Subsection",
+ CellChangeTimes->{{3.87909348093285*^9, 3.879093483852438*^9}},
+ CellID->1309262625,ExpressionUUID->"a18e03ec-a747-44ed-9127-2a22ed91ab69"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+The following functions can be used to get metadata about how a row of \
+results should be read:\
+\>", "Text",
+ CellChangeTimes->{{3.879093504326829*^9, 3.8790935288299313`*^9}},
+ CellID->971302279,ExpressionUUID->"64fa4b7e-4a6c-43db-80fa-060111781146"],
+
+Cell["\<\
+int sqlite3_column_count(sqlite3_stmt *pStmt);
+
+const char *sqlite3_column_name(sqlite3_stmt*, int N);
+
+int sqlite3_column_type(sqlite3_stmt*, int iCol);\
+\>", "Program",
+ CellChangeTimes->{{3.861810270418022*^9, 3.86181027144009*^9}, 
+   3.861810308675055*^9, {3.861810353466997*^9, 3.8618103538288603`*^9}},
+ CellID->1473512218,ExpressionUUID->"14cead93-9802-46d2-8a11-e649d1a80c71"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+First, create a function for getting the number of columns in a row of \
+results:\
+\>", "MathCaption",
+ CellChangeTimes->{{3.8790935323502407`*^9, 3.879093576599634*^9}},
+ CellID->99632392,ExpressionUUID->"fd25e9cb-bf0b-423b-b516-5e195d90e572"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"sqliteColumnCountC", "=", 
+  RowBox[{"CreateForeignFunction", "[", 
+   RowBox[{"\"\<sqlite3_column_count\>\"", ",", 
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{"FFIType", "[", "\"\<OpaqueRawPointer\>\"", "]"}], 
+     "\[IndentingNewLine]", "}"}], ",", 
+    RowBox[{"FFIType", "[", "\"\<CInt\>\"", "]"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.8787262109299107`*^9, 3.8787262407304907`*^9}},
+ CellLabel->"In[26]:=",
+ CellID->1700089055,ExpressionUUID->"c3daf4f1-6129-4df3-8d63-bb240346fc86"],
+
+Cell[BoxData[
+ TagBox[
+  TemplateBox[{
+    RowBox[{
+      StyleBox[
+       TagBox["TypeProduct", "SummaryHead"], "NonInterpretableSummary"], 
+      StyleBox["[", "NonInterpretableSummary"], 
+      DynamicModuleBox[{
+       Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+       TemplateBox[{
+         PaneSelectorBox[{False -> GridBox[{{
+               GraphicsBox[
+                InsetBox[
+                 FormBox[
+                  StyleBox["\"BasicF\"", 
+                   GrayLevel[0.7], Bold, 7.62890625, StripOnInput -> False], 
+                  TraditionalForm], {0, 0}], Background -> GrayLevel[0.93], 
+                Axes -> False, AspectRatio -> 1, ImageSize -> 
+                Dynamic[{
+                  Automatic, 
+                   3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.55]]], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionObject\"", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}], True -> GridBox[{{
+               GraphicsBox[
+                InsetBox[
+                 FormBox[
+                  StyleBox["\"BasicF\"", 
+                   GrayLevel[0.7], Bold, 7.62890625, StripOnInput -> False], 
+                  TraditionalForm], {0, 0}], Background -> GrayLevel[0.93], 
+                Axes -> False, AspectRatio -> 1, ImageSize -> 
+                Dynamic[{
+                  Automatic, 
+                   3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.55]]], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionObject\"", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}]}, 
+          Dynamic[Typeset`open$$], ImageSize -> Automatic]}, "SummaryPanel"], 
+       DynamicModuleValues :> {}], 
+      StyleBox["]", "NonInterpretableSummary"]}]},
+   "CopyTag",
+   DisplayFunction->(#& ),
+   InterpretationFunction->(
+    "DataStructure[ForeignFunctionObject, $Failed]"& )],
+  False,
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.878726241003808*^9, 3.878726957343799*^9, 
+  3.878729064668561*^9, 3.878741178370596*^9, 3.878741660311227*^9, 
+  3.8787444919639997`*^9, 3.878747587432029*^9, 3.878751798987245*^9, 
+  3.8787520540236263`*^9, 3.878753293776782*^9, 3.878754133031621*^9, 
+  3.878777471963831*^9, 3.878780406968129*^9, 3.879093578515074*^9},
+ CellLabel->"Out[26]=",
+ CellID->1614173721,ExpressionUUID->"76080fab-4a15-4b72-a07b-1a4e778dfc27"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"sqliteColumnCount", "[", "statement_", "]"}], ":=", 
+  RowBox[{"CallForeignFunction", "[", 
+   RowBox[{"sqliteColumnCountC", ",", 
+    RowBox[{"{", 
+     RowBox[{"GetManagedExpression", "[", "statement", "]"}], "}"}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.878726187034272*^9, 3.87872620332908*^9}, {
+  3.878726242474098*^9, 3.878726251067219*^9}},
+ CellLabel->"In[27]:=",
+ CellID->461623130,ExpressionUUID->"8cc4a2bc-2211-477e-a199-be39165976aa"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"statement", "=", 
+   RowBox[{"sqlitePrepare", "[", 
+    RowBox[{"db", ",", "\"\<SELECT * FROM customers;\>\""}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"sqliteStep", "[", "statement", "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.879093685061071*^9, 3.879093690123911*^9}, {
+  3.879093752799254*^9, 3.8790937550864058`*^9}},
+ CellLabel->"In[51]:=",
+ CellID->1884692412,ExpressionUUID->"3e60ed6d-523c-4889-be03-135cc44a2862"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"sqliteColumnCount", "[", "statement", "]"}]], "Input",
+ CellChangeTimes->{{3.878726252052*^9, 3.878726258571433*^9}, {
+  3.879093691573654*^9, 3.87909369237195*^9}},
+ CellLabel->"In[53]:=",
+ CellID->1291679070,ExpressionUUID->"df1169eb-99e6-40a8-bd7b-4e81de980ea9"],
+
+Cell[BoxData["13"], "Output",
+ CellChangeTimes->{{3.878726259118384*^9, 3.878726261814908*^9}, 
+   3.878726959013651*^9, 3.878729069504046*^9, 3.878741180580311*^9, 
+   3.87874166037913*^9, 3.878744492021577*^9, 3.8787475891976624`*^9, 
+   3.8787518000364237`*^9, 3.87875205641586*^9, 3.878753293822394*^9, 
+   3.87875413310185*^9, 3.878777473067934*^9, 3.8787804085849*^9, 
+   3.879093579732862*^9, 3.879093692673978*^9, 3.8790937575431747`*^9},
+ CellLabel->"Out[53]=",
+ CellID->927695031,ExpressionUUID->"5a78cd5c-9c6f-432a-8587-a6fe311b3894"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Next, get the names of the columns:", "MathCaption",
+ CellChangeTimes->{{3.8790935862799883`*^9, 3.879093592336392*^9}},
+ CellID->588557797,ExpressionUUID->"25f070dc-c12f-49b0-ab15-fe1234dd24fb"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"sqliteColumnNameC", "=", 
+  RowBox[{"CreateForeignFunction", "[", 
+   RowBox[{"\"\<sqlite3_column_name\>\"", ",", 
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"FFIType", "[", "\"\<OpaqueRawPointer\>\"", "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"FFIType", "[", "\"\<CInt\>\"", "]"}]}], "\[IndentingNewLine]", 
+     "}"}], ",", 
+    RowBox[{"FFIType", "[", "\"\<OpaqueRawPointer\>\"", "]"}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.8787262109299107`*^9, 3.8787262407304907`*^9}, {
+  3.8787262798282213`*^9, 3.878726297284232*^9}},
+ CellLabel->"In[29]:=",
+ CellID->963873034,ExpressionUUID->"40ff0a20-e2d1-42b3-a560-3b0cf9ee22bd"],
+
+Cell[BoxData[
+ TagBox[
+  TemplateBox[{
+    RowBox[{
+      StyleBox[
+       TagBox["TypeProduct", "SummaryHead"], "NonInterpretableSummary"], 
+      StyleBox["[", "NonInterpretableSummary"], 
+      DynamicModuleBox[{
+       Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+       TemplateBox[{
+         PaneSelectorBox[{False -> GridBox[{{
+               GraphicsBox[
+                InsetBox[
+                 FormBox[
+                  StyleBox["\"BasicF\"", 
+                   GrayLevel[0.7], Bold, 7.62890625, StripOnInput -> False], 
+                  TraditionalForm], {0, 0}], Background -> GrayLevel[0.93], 
+                Axes -> False, AspectRatio -> 1, ImageSize -> 
+                Dynamic[{
+                  Automatic, 
+                   3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.55]]], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionObject\"", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}], True -> GridBox[{{
+               GraphicsBox[
+                InsetBox[
+                 FormBox[
+                  StyleBox["\"BasicF\"", 
+                   GrayLevel[0.7], Bold, 7.62890625, StripOnInput -> False], 
+                  TraditionalForm], {0, 0}], Background -> GrayLevel[0.93], 
+                Axes -> False, AspectRatio -> 1, ImageSize -> 
+                Dynamic[{
+                  Automatic, 
+                   3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.55]]], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionObject\"", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}]}, 
+          Dynamic[Typeset`open$$], ImageSize -> Automatic]}, "SummaryPanel"], 
+       DynamicModuleValues :> {}], 
+      StyleBox["]", "NonInterpretableSummary"]}]},
+   "CopyTag",
+   DisplayFunction->(#& ),
+   InterpretationFunction->(
+    "DataStructure[ForeignFunctionObject, $Failed]"& )],
+  False,
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.878726299130666*^9, 3.8787269602902813`*^9, 
+  3.878729070935377*^9, 3.878741181044827*^9, 3.878741660428981*^9, 
+  3.87874449206637*^9, 3.878747590222906*^9, 3.878751801283308*^9, 
+  3.878752056864032*^9, 3.878753293854615*^9, 3.878754133144492*^9, 
+  3.878777473729023*^9, 3.878780409327898*^9, 3.879093598297328*^9},
+ CellLabel->"Out[29]=",
+ CellID->1212981570,ExpressionUUID->"93ed2786-605c-4db4-aa06-7516c3727a53"]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"sqliteColumnName", "[", 
+   RowBox[{"statement_", ",", "index_"}], "]"}], ":=", "\[IndentingNewLine]", 
+  
+  RowBox[{"BufferToString", "@", 
+   RowBox[{"CallForeignFunction", "[", 
+    RowBox[{"sqliteColumnNameC", ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"GetManagedExpression", "[", "statement", "]"}], ",", 
+       "index"}], "}"}]}], "]"}]}]}], "\n", 
+ RowBox[{
+  RowBox[{"sqliteColumnName", "[", "statement_", "]"}], ":=", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"sqliteColumnName", "[", 
+     RowBox[{"statement", ",", 
+      RowBox[{"#", "-", "1"}]}], "]"}], "&"}], "/@", 
+   RowBox[{"Range", "[", 
+    RowBox[{"sqliteColumnCount", "[", "statement", "]"}], "]"}]}]}]}], "Input",\
+
+ CellChangeTimes->{{3.878726187034272*^9, 3.87872620332908*^9}, {
+   3.878726242474098*^9, 3.878726251067219*^9}, {3.8787263024687*^9, 
+   3.878726379415827*^9}, {3.878726963773551*^9, 3.878726976493516*^9}, 
+   3.8787305125859623`*^9, {3.878780413392187*^9, 3.8787804145599747`*^9}},
+ CellLabel->"In[30]:=",
+ CellID->1796247250,ExpressionUUID->"6edefc5d-ca73-4759-b950-1d0ec20e0a06"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"sqliteColumnName", "[", "statement", "]"}]], "Input",
+ CellChangeTimes->{{3.879093602529117*^9, 3.8790936057453012`*^9}, 
+   3.879093696062166*^9},
+ CellLabel->"In[54]:=",
+ CellID->774880854,ExpressionUUID->"82aa6c1b-4c47-435a-b359-5ff5eed504b6"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"customerNumber\"\>", ",", "\<\"customerName\"\>", 
+   ",", "\<\"contactLastName\"\>", ",", "\<\"contactFirstName\"\>", 
+   ",", "\<\"phone\"\>", ",", "\<\"addressLine1\"\>", 
+   ",", "\<\"addressLine2\"\>", ",", "\<\"city\"\>", ",", "\<\"state\"\>", 
+   ",", "\<\"postalCode\"\>", ",", "\<\"country\"\>", 
+   ",", "\<\"salesRepEmployeeNumber\"\>", ",", "\<\"creditLimit\"\>"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{3.8790936061040983`*^9, 3.8790936963909473`*^9, 
+  3.879093760017971*^9},
+ CellLabel->"Out[54]=",
+ CellID->908298874,ExpressionUUID->"ac511f72-3e88-401a-ad08-debe811ed632"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Finally, get the types of the columns:", "MathCaption",
+ CellChangeTimes->{{3.879093614393065*^9, 3.87909362564165*^9}},
+ CellID->1461993262,ExpressionUUID->"68e56732-d4d9-4b0f-86b6-86c849b518a5"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"sqliteColumnTypeC", "=", 
+  RowBox[{"CreateForeignFunction", "[", 
+   RowBox[{"\"\<sqlite3_column_type\>\"", ",", 
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"FFIType", "[", "\"\<OpaqueRawPointer\>\"", "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"FFIType", "[", "\"\<CInt\>\"", "]"}]}], "\[IndentingNewLine]", 
+     "}"}], ",", 
+    RowBox[{"FFIType", "[", "\"\<CInt\>\"", "]"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.8787262109299107`*^9, 3.8787262407304907`*^9}, {
+  3.8787262798282213`*^9, 3.878726297284232*^9}, {3.878730492551899*^9, 
+  3.878730501790666*^9}, {3.878732208076178*^9, 3.878732210231242*^9}},
+ CellLabel->"In[33]:=",
+ CellID->2050311653,ExpressionUUID->"debed545-3d5d-444a-a9e7-d77dcae7362b"],
+
+Cell[BoxData[
+ TagBox[
+  TemplateBox[{
+    RowBox[{
+      StyleBox[
+       TagBox["TypeProduct", "SummaryHead"], "NonInterpretableSummary"], 
+      StyleBox["[", "NonInterpretableSummary"], 
+      DynamicModuleBox[{
+       Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+       TemplateBox[{
+         PaneSelectorBox[{False -> GridBox[{{
+               GraphicsBox[
+                InsetBox[
+                 FormBox[
+                  StyleBox["\"BasicF\"", 
+                   GrayLevel[0.7], Bold, 7.62890625, StripOnInput -> False], 
+                  TraditionalForm], {0, 0}], Background -> GrayLevel[0.93], 
+                Axes -> False, AspectRatio -> 1, ImageSize -> 
+                Dynamic[{
+                  Automatic, 
+                   3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.55]]], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionObject\"", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}], True -> GridBox[{{
+               GraphicsBox[
+                InsetBox[
+                 FormBox[
+                  StyleBox["\"BasicF\"", 
+                   GrayLevel[0.7], Bold, 7.62890625, StripOnInput -> False], 
+                  TraditionalForm], {0, 0}], Background -> GrayLevel[0.93], 
+                Axes -> False, AspectRatio -> 1, ImageSize -> 
+                Dynamic[{
+                  Automatic, 
+                   3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.55]]], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionObject\"", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}]}, 
+          Dynamic[Typeset`open$$], ImageSize -> Automatic]}, "SummaryPanel"], 
+       DynamicModuleValues :> {}], 
+      StyleBox["]", "NonInterpretableSummary"]}]},
+   "CopyTag",
+   DisplayFunction->(#& ),
+   InterpretationFunction->(
+    "DataStructure[ForeignFunctionObject, $Failed]"& )],
+  False,
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.8790936280667562`*^9},
+ CellLabel->"Out[33]=",
+ CellID->100429479,ExpressionUUID->"da13aa86-6130-441c-b4bf-ae9d8ca77708"]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"sqliteColumnType", "[", 
+   RowBox[{"statement_", ",", "index_"}], "]"}], ":=", "\[IndentingNewLine]", 
+  
+  RowBox[{"CallForeignFunction", "[", 
+   RowBox[{"sqliteColumnTypeC", ",", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"GetManagedExpression", "[", "statement", "]"}], ",", "index"}],
+      "}"}]}], "]"}]}], "\n", 
+ RowBox[{
+  RowBox[{"sqliteColumnType", "[", "statement_", "]"}], ":=", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"sqliteColumnType", "[", 
+     RowBox[{"statement", ",", 
+      RowBox[{"#", "-", "1"}]}], "]"}], "&"}], "/@", 
+   RowBox[{"Range", "[", 
+    RowBox[{"sqliteColumnCount", "[", "statement", "]"}], "]"}]}]}]}], "Input",\
+
+ CellChangeTimes->{{3.878726187034272*^9, 3.87872620332908*^9}, {
+  3.878726242474098*^9, 3.878726251067219*^9}, {3.8787263024687*^9, 
+  3.878726379415827*^9}, {3.878726963773551*^9, 3.878726976493516*^9}, {
+  3.878730516519608*^9, 3.878730533602624*^9}},
+ CellLabel->"In[34]:=",
+ CellID->1960880527,ExpressionUUID->"460975d7-b16d-47ec-9e9f-5dcb988d5cef"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"sqliteColumnType", "[", "statement", "]"}]], "Input",
+ CellChangeTimes->{{3.8790936353784113`*^9, 3.8790936541566753`*^9}, 
+   3.879093698638225*^9},
+ CellLabel->"In[55]:=",
+ CellID->2013589390,ExpressionUUID->"2dee1767-f40b-4ef6-a039-82a80ee427c9"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "1", ",", "3", ",", "3", ",", "3", ",", "3", ",", "3", ",", "5", ",", "3", 
+   ",", "5", ",", "3", ",", "3", ",", "1", ",", "1"}], "}"}]], "Output",
+ CellChangeTimes->{{3.87909363586386*^9, 3.8790936549476423`*^9}, {
+  3.879093698998377*^9, 3.879093760781025*^9}},
+ CellLabel->"Out[55]=",
+ CellID->1723292348,ExpressionUUID->"7755fb57-963a-4078-9615-5f83164a7a42"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+The following functions can be used to extract columns of a specified type:\
+\>", "Text",
+ CellChangeTimes->{{3.879093775927706*^9, 3.879093804040496*^9}},
+ CellID->318114629,ExpressionUUID->"93ab791e-f650-4465-ac1e-1f9773669e1c"],
+
+Cell["\<\
+double sqlite3_column_double(sqlite3_stmt*, int iCol);
+
+sqlite3_int64 sqlite3_column_int64(sqlite3_stmt*, int iCol);
+
+const unsigned char *sqlite3_column_text(sqlite3_stmt*, int iCol);\
+\>", "Program",
+ CellChangeTimes->{{3.861810422933221*^9, 3.861810424261125*^9}, {
+  3.861810476217181*^9, 3.8618104790233393`*^9}, {3.861812118400568*^9, 
+  3.861812118824677*^9}},
+ CellID->631253354,ExpressionUUID->"da6baab9-0911-4222-a9af-31272d52196b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Create foreign function objects for getting column values:", \
+"MathCaption",
+ CellChangeTimes->{{3.8790938113041553`*^9, 3.8790938233525877`*^9}},
+ CellID->957065987,ExpressionUUID->"3a91f78a-feef-45be-a987-3727e48594cc"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"sqliteGetColumnDoubleC", "=", 
+   RowBox[{"CreateForeignFunction", "[", 
+    RowBox[{"\"\<sqlite3_column_double\>\"", ",", 
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"FFIType", "[", "\"\<OpaqueRawPointer\>\"", "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"FFIType", "[", "\"\<CInt\>\"", "]"}]}], "\[IndentingNewLine]",
+       "}"}], ",", 
+     RowBox[{"FFIType", "[", "\"\<CDouble\>\"", "]"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"sqliteGetColumnIntC", "=", 
+   RowBox[{"CreateForeignFunction", "[", 
+    RowBox[{"\"\<sqlite3_column_int64\>\"", ",", 
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"FFIType", "[", "\"\<OpaqueRawPointer\>\"", "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"FFIType", "[", "\"\<CInt\>\"", "]"}]}], "\[IndentingNewLine]",
+       "}"}], ",", 
+     RowBox[{"FFIType", "[", "\"\<Integer64\>\"", "]"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"sqliteGetColumnTextC", "=", 
+   RowBox[{"CreateForeignFunction", "[", 
+    RowBox[{"\"\<sqlite3_column_text\>\"", ",", 
+     RowBox[{"{", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"FFIType", "[", "\"\<OpaqueRawPointer\>\"", "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"FFIType", "[", "\"\<CInt\>\"", "]"}]}], "\[IndentingNewLine]",
+       "}"}], ",", 
+     RowBox[{"FFIType", "[", "\"\<OpaqueRawPointer\>\"", "]"}]}], "]"}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.878730578058999*^9, 3.8787306533485126`*^9}},
+ CellLabel->"In[56]:=",
+ CellID->1092995484,ExpressionUUID->"dc17e907-97d3-4275-99ad-f0b2c9e2df02"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Create a function for getting the value of a column of any type: \
+\>", "MathCaption",
+ CellChangeTimes->{{3.8790938294086733`*^9, 3.879093856497759*^9}},
+ CellID->551610331,ExpressionUUID->"bf60e8a7-04ac-4fcf-88c8-f1db1e0eec3f"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"sqliteColumnValue", "[", 
+   RowBox[{"statement_", ",", "index_", ",", "type_"}], "]"}], ":=", 
+  "\[IndentingNewLine]", 
+  RowBox[{"Switch", "[", 
+   RowBox[{"type", ",", "\[IndentingNewLine]", "1", ",", 
+    RowBox[{"CallForeignFunction", "[", 
+     RowBox[{"sqliteGetColumnIntC", ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"GetManagedExpression", "@", "statement"}], ",", "index"}], 
+       "}"}]}], "]"}], ",", "\[IndentingNewLine]", "2", ",", 
+    RowBox[{"CallForeignFunction", "[", 
+     RowBox[{"sqliteGetColumnDoubleC", ",", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"GetManagedExpression", "@", "statement"}], ",", "index"}], 
+       "}"}]}], "]"}], ",", "\[IndentingNewLine]", "3", ",", 
+    RowBox[{"BufferToString", "@", 
+     RowBox[{"CallForeignFunction", "[", 
+      RowBox[{"sqliteGetColumnTextC", ",", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"GetManagedExpression", "@", "statement"}], ",", "index"}], 
+        "}"}]}], "]"}]}], ",", "\[IndentingNewLine]", "5", ",", 
+    RowBox[{"Missing", "[", "\"\<NullValue\>\"", "]"}], ",", 
+    "\[IndentingNewLine]", "_", ",", 
+    RowBox[{"Missing", "[", "\"\<UnsupportedType\>\"", "]"}]}], 
+   "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellLabel->"In[59]:=",
+ CellID->271575601,ExpressionUUID->"1ff2222d-f64b-4aad-b387-f1ba9a54f527"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Create additional usages that automatically get the column types:\
+\>", "MathCaption",
+ CellChangeTimes->{{3.879093863841967*^9, 3.879093874298423*^9}},
+ CellID->995823489,ExpressionUUID->"9daf43f4-6e15-4241-9da9-dc9105a5fe88"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"sqliteColumnValue", "[", 
+   RowBox[{"statement_", ",", "index_"}], "]"}], ":=", "\[IndentingNewLine]", 
+  
+  RowBox[{"sqliteColumnValue", "[", 
+   RowBox[{"statement", ",", "index", ",", 
+    RowBox[{"sqliteColumnType", "[", 
+     RowBox[{"statement", ",", "index"}], "]"}]}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"sqliteColumnValue", "[", "statement_", "]"}], ":=", 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"sqliteColumnValue", "[", 
+     RowBox[{"statement", ",", 
+      RowBox[{"#", "-", "1"}]}], "]"}], "&"}], "/@", 
+   RowBox[{"Range", "[", 
+    RowBox[{"sqliteColumnCount", "[", "statement", "]"}], "]"}]}]}]}], "Input",\
+
+ CellLabel->"In[60]:=",
+ CellID->365007210,ExpressionUUID->"3a9f9f5d-6d37-4fc1-b255-daec2e86d8f9"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"sqliteColumnValue", "[", "statement", "]"}]], "Input",
+ CellChangeTimes->{{3.8790938787308893`*^9, 3.8790938798586817`*^9}},
+ CellLabel->"In[62]:=",
+ CellID->372005081,ExpressionUUID->"80562a53-3ccf-4be2-a9f4-1617f11ab168"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "103", ",", "\<\"Atelier graphique\"\>", ",", "\<\"Schmitt\"\>", 
+   ",", "\<\"Carine \"\>", ",", "\<\"40.32.2555\"\>", 
+   ",", "\<\"54, rue Royale\"\>", ",", 
+   RowBox[{"Missing", "[", "\<\"NullValue\"\>", "]"}], ",", "\<\"Nantes\"\>", 
+   ",", 
+   RowBox[{"Missing", "[", "\<\"NullValue\"\>", "]"}], ",", "\<\"44000\"\>", 
+   ",", "\<\"France\"\>", ",", "1370", ",", "21000"}], "}"}]], "Output",
+ CellChangeTimes->{3.8790938801600857`*^9},
+ CellLabel->"Out[62]=",
+ CellID->861929232,ExpressionUUID->"dc562952-7b76-476b-be1a-c065098fc825"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Putting It All Together", "Subsection",
+ CellChangeTimes->{{3.879093894955472*^9, 3.8790939234857693`*^9}},
+ CellID->1467438613,ExpressionUUID->"9fc7d2bf-5ef6-4a36-9cad-48be072f3658"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Finally, put it all together into a query function that makes a statement, \
+steps through the results, and collects them into a list of associations:\
+\>", "MathCaption",
+ CellChangeTimes->{{3.879093928316247*^9, 3.87909392904456*^9}, {
+  3.879093959694044*^9, 3.8790939853108053`*^9}},
+ CellID->1857077845,ExpressionUUID->"23b1a186-622e-443a-9f9e-d2d53d7fc308"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"sqliteQuery", "[", 
+   RowBox[{"db_", ",", "query_"}], "]"}], ":=", "\[IndentingNewLine]", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"statement", ",", "columnNames", ",", "tag", ",", "res"}], "}"}],
+     ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"statement", "=", 
+      RowBox[{"sqlitePrepare", "[", 
+       RowBox[{"db", ",", "query"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"columnNames", "=", 
+      RowBox[{"sqliteColumnName", "[", "statement", "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"res", "=", 
+      RowBox[{"Reap", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"While", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"sqliteStep", "[", "statement", "]"}], "===", "100"}], ",",
+           "\[IndentingNewLine]", 
+          RowBox[{"Sow", "[", 
+           RowBox[{
+            RowBox[{"AssociationThread", "[", 
+             RowBox[{"columnNames", ",", 
+              RowBox[{"sqliteColumnValue", "[", "statement", "]"}]}], "]"}], 
+            ",", "tag"}], "]"}]}], "\[IndentingNewLine]", "]"}], ",", 
+        "\[IndentingNewLine]", "tag"}], "\[IndentingNewLine]", "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"First", "@", 
+      RowBox[{"Replace", "[", 
+       RowBox[{
+        RowBox[{"res", "[", 
+         RowBox[{"[", "2", "]"}], "]"}], ",", 
+        RowBox[{
+         RowBox[{"{", "}"}], "->", 
+         RowBox[{"{", 
+          RowBox[{"{", "}"}], "}"}]}]}], "]"}]}]}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.878730534616651*^9, 3.8787305424889793`*^9}, {
+  3.8787322240003233`*^9, 3.8787322376951027`*^9}, {3.878732667600132*^9, 
+  3.878732696192134*^9}, {3.8787327438286133`*^9, 3.878732864255022*^9}, {
+  3.878732911778027*^9, 3.8787329760756607`*^9}, {3.878733224621714*^9, 
+  3.8787332403184423`*^9}},
+ CellLabel->"In[63]:=",
+ CellID->497173518,ExpressionUUID->"9af776e0-2831-47ab-b114-7a66ad4dc5c5"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["To try it out, open a database:", "MathCaption",
+ CellChangeTimes->{{3.87909400196672*^9, 3.87909400761515*^9}},
+ CellID->523895461,ExpressionUUID->"7c4883ce-37b5-420e-9cd3-96a9d8f85dfd"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"db", "=", 
+  RowBox[{"sqliteOpen", "[", 
+   RowBox[{
+   "FindFile", "[", "\"\<ExampleData/ecommerce-database.sqlite\>\"", "]"}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.878724447096733*^9, 3.878724448719523*^9}},
+ CellLabel->"In[64]:=",
+ CellID->234382282,ExpressionUUID->"505c9d94-c3e1-4478-85f4-bd5c658f2362"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["OpaqueRawPointer",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            GridBox[{{
+               TagBox["\"address: \"", "SummaryItem"]}, {
+               TagBox["82320616", "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            GridBox[{{
+               TagBox["\"address: \"", "SummaryItem"]}, {
+               TagBox["82320616", "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  ChristopherWolfram`ForeignFunctionInterface`OpaqueRawPointer[82320616],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.879093019002046*^9, 3.879094010308291*^9},
+ CellLabel->"Out[64]=",
+ CellID->1655599842,ExpressionUUID->"66d18752-127d-4790-b9a1-683a394f37e9"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Query it:", "MathCaption",
+ CellChangeTimes->{{3.8790940145992126`*^9, 3.87909401789536*^9}},
+ CellID->1797768929,ExpressionUUID->"dd5311c7-f353-4ed5-8e74-8ac2f585c36c"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"sqliteQuery", "[", 
+  RowBox[{
+  "db", ",", "\"\<SELECT * FROM customers WHERE creditLimit > 200000;\>\""}], 
+  "]"}]], "Input",
+ CellLabel->"In[65]:=",
+ CellID->1734406256,ExpressionUUID->"6f0379d0-5c4e-4494-a22c-14365235e26a"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"customerNumber\"\>", "\[Rule]", "124"}], ",", 
+     RowBox[{"\<\"customerName\"\>", 
+      "\[Rule]", "\<\"Mini Gifts Distributors Ltd.\"\>"}], ",", 
+     RowBox[{"\<\"contactLastName\"\>", "\[Rule]", "\<\"Nelson\"\>"}], ",", 
+     RowBox[{"\<\"contactFirstName\"\>", "\[Rule]", "\<\"Susan\"\>"}], ",", 
+     RowBox[{"\<\"phone\"\>", "\[Rule]", "\<\"4155551450\"\>"}], ",", 
+     RowBox[{"\<\"addressLine1\"\>", "\[Rule]", "\<\"5677 Strong St.\"\>"}], 
+     ",", 
+     RowBox[{"\<\"addressLine2\"\>", "\[Rule]", 
+      RowBox[{"Missing", "[", "\<\"NullValue\"\>", "]"}]}], ",", 
+     RowBox[{"\<\"city\"\>", "\[Rule]", "\<\"San Rafael\"\>"}], ",", 
+     RowBox[{"\<\"state\"\>", "\[Rule]", "\<\"CA\"\>"}], ",", 
+     RowBox[{"\<\"postalCode\"\>", "\[Rule]", "\<\"97562\"\>"}], ",", 
+     RowBox[{"\<\"country\"\>", "\[Rule]", "\<\"USA\"\>"}], ",", 
+     RowBox[{"\<\"salesRepEmployeeNumber\"\>", "\[Rule]", "1165"}], ",", 
+     RowBox[{"\<\"creditLimit\"\>", "\[Rule]", "210500"}]}], 
+    "\[RightAssociation]"}], ",", 
+   RowBox[{"\[LeftAssociation]", 
+    RowBox[{
+     RowBox[{"\<\"customerNumber\"\>", "\[Rule]", "141"}], ",", 
+     RowBox[{"\<\"customerName\"\>", 
+      "\[Rule]", "\<\"Euro+ Shopping Channel\"\>"}], ",", 
+     RowBox[{"\<\"contactLastName\"\>", "\[Rule]", "\<\"Freyre\"\>"}], ",", 
+     RowBox[{"\<\"contactFirstName\"\>", "\[Rule]", "\<\"Diego \"\>"}], ",", 
+     RowBox[{"\<\"phone\"\>", "\[Rule]", "\<\"(91) 555 94 44\"\>"}], ",", 
+     RowBox[{"\<\"addressLine1\"\>", 
+      "\[Rule]", "\<\"C/ Moralzarzal, 86\"\>"}], ",", 
+     RowBox[{"\<\"addressLine2\"\>", "\[Rule]", 
+      RowBox[{"Missing", "[", "\<\"NullValue\"\>", "]"}]}], ",", 
+     RowBox[{"\<\"city\"\>", "\[Rule]", "\<\"Madrid\"\>"}], ",", 
+     RowBox[{"\<\"state\"\>", "\[Rule]", 
+      RowBox[{"Missing", "[", "\<\"NullValue\"\>", "]"}]}], ",", 
+     RowBox[{"\<\"postalCode\"\>", "\[Rule]", "\<\"28034\"\>"}], ",", 
+     RowBox[{"\<\"country\"\>", "\[Rule]", "\<\"Spain\"\>"}], ",", 
+     RowBox[{"\<\"salesRepEmployeeNumber\"\>", "\[Rule]", "1370"}], ",", 
+     RowBox[{"\<\"creditLimit\"\>", "\[Rule]", "227600"}]}], 
+    "\[RightAssociation]"}]}], "}"}]], "Output",
+ CellChangeTimes->{3.879094019771092*^9},
+ CellLabel->"Out[65]=",
+ CellID->1949083200,ExpressionUUID->"2b7517e8-212a-479b-81f7-ff77226c5066"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["There is relatively little overhead:", "MathCaption",
+ CellChangeTimes->{{3.879094032167905*^9, 3.879094036688128*^9}},
+ CellID->37490560,ExpressionUUID->"1dab9078-2e16-4952-b6e1-b7007589607d"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"RepeatedTiming", "[", 
+  RowBox[{
+   RowBox[{"sqliteQuery", "[", 
+    RowBox[{
+    "db", ",", 
+     "\"\<SELECT * FROM customers WHERE creditLimit > 200000;\>\""}], "]"}], 
+   ";"}], "]"}]], "Input",
+ CellChangeTimes->{{3.879094038608255*^9, 3.879094048568809*^9}},
+ CellLabel->"In[67]:=",
+ CellID->586304436,ExpressionUUID->"fb750d0c-faae-488c-a0c8-989c79c4bce6"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.000218371826171875`", ",", "Null"}], "}"}]], "Output",
+ CellChangeTimes->{{3.879094042074597*^9, 3.879094050740752*^9}},
+ CellLabel->"Out[67]=",
+ CellID->907037173,ExpressionUUID->"a1e4a966-8058-44f7-bfb8-e8d81a70b342"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Even for relatively large queries:", "MathCaption",
+ CellChangeTimes->{{3.879094053128624*^9, 3.8790940575847893`*^9}},
+ CellID->785456154,ExpressionUUID->"e9c84c03-42e8-4635-af13-1e14f84b9427"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"RepeatedTiming", "[", 
+  RowBox[{
+   RowBox[{"sqliteQuery", "[", 
+    RowBox[{"db", ",", "\"\<SELECT * FROM customers;\>\""}], "]"}], ";"}], 
+  "]"}]], "Input",
+ CellChangeTimes->{3.8790940646018257`*^9},
+ CellLabel->"In[68]:=",
+ CellID->2047309393,ExpressionUUID->"44b72e66-6338-4b40-bc4c-952188924864"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.008243625`", ",", "Null"}], "}"}]], "Output",
+ CellChangeTimes->{3.87909406603782*^9},
+ CellLabel->"Out[68]=",
+ CellID->2041771724,ExpressionUUID->"f513cc10-c940-4d8c-ba27-8f7e103db6a4"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Guides", "TutorialMoreAboutSection",
+ CellChangeTimes->{{3.843042384656711*^9, 3.843042386024461*^9}},
+ CellID->948041467,ExpressionUUID->"07ff885f-b155-4562-8286-072c05b6d9b8"],
+
+Cell["XXXX", "TutorialMoreAbout",
+ CellChangeTimes->{{3.87909408289776*^9, 3.879094083777625*^9}, 
+   3.8790941639064293`*^9},
+ CellID->439188779,ExpressionUUID->"1083e125-91a2-4ec1-8c5b-d3207ee280aa"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Tech Notes", "RelatedTutorialsSection",
+ CellID->75080631,ExpressionUUID->"6a3bdb7f-5031-4cdc-beb1-690dc60f50eb"],
+
+Cell[TextData[ButtonBox["Calling External Libraries with the Wolfram Compiler",
+ BaseStyle->"Link",
+ ButtonData->
+  "paclet:tutorial/CallingExternalLibrariesWithTheCompiler"]], \
+"RelatedTutorials",
+ CellChangeTimes->{{3.879094254712452*^9, 3.879094263109482*^9}},
+ CellID->1000704339,ExpressionUUID->"9fa39622-984c-4fdf-8b2f-f361dcb74835"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Metadata", "MetadataSection",
+ CellID->439660484,ExpressionUUID->"93167fc4-6903-4697-abc5-3f66f447f57f"],
+
+Cell[TextData[{
+ "New in: ",
+ Cell["XX", "HistoryData",
+  CellTags->"New",ExpressionUUID->"0382570a-120c-4797-a03c-fda84e4f5c02"],
+ " | Modified in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Modified",ExpressionUUID->"9df6feb2-e3d1-4964-928d-a02a559e8397"],
+ " | Obsolete in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Obsolete",ExpressionUUID->
+  "ea7777de-6760-4a36-8b68-ca853d66713c"]
+}], "History",
+ CellID->1389952690,ExpressionUUID->"10dbe49b-06d4-4cb9-bbda-f1ec8165335b"],
+
+Cell[CellGroupData[{
+
+Cell["Categorization", "CategorizationSection",
+ CellID->693200726,ExpressionUUID->"b5fbe7c6-e3e2-415f-aab8-3fc2e49f6b51"],
+
+Cell["Tech Note", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->1914204982,ExpressionUUID->"bc2bd0b5-c4bd-4cbc-a8a2-e7c1e043d4ca"],
+
+Cell["ChristopherWolfram/ForeignFunctionInterface", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->1046201363,ExpressionUUID->"d4edc9e8-c99a-449b-b073-0379b8950126"],
+
+Cell["ChristopherWolfram`ForeignFunctionInterface`", "Categorization",
+ CellLabel->"Context",
+ CellID->1436511083,ExpressionUUID->"65b2587a-ed0b-4125-82bd-b5f562f941aa"],
+
+Cell["\<\
+ChristopherWolfram/ForeignFunctionInterface/tutorial/\
+CreatingALinkToSQLiteWithTheForeignFunctionInterfacePaclet\
+\>", "Categorization",
+ CellLabel->"URI",
+ CellID->592895919,ExpressionUUID->"b547e219-7e49-4408-bfd3-0b77d1cb6ee8"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->1067157212,ExpressionUUID->"e20e9c16-9b25-4137-9b19-ceca5c47d937"],
+
+Cell["XXXX", "Keywords",
+ CellID->312389552,ExpressionUUID->"5b093b2e-3db0-4dcf-aac7-c3d83ba36867"]
+}, Closed]]
+}, Open  ]]
+},
+WindowSize->{700.125, 770.25},
+WindowMargins->{{Automatic, 338.25}, {-7.5, Automatic}},
+TaggingRules-><|
+ "DocuToolsSettingsInternal" -> {
+   "$ApplicationName" -> "Mathematica", "$LinkBase" -> "Mathematica", 
+    "$ApplicationDirectory" -> "/home/christopher/cvs/Mathematica/", 
+    "$DocumentationDirectory" -> 
+    "/home/christopher/cvs/Mathematica/Documentation/English/", 
+    "$UseNewPageDialog" -> ""}, "Paclet" -> 
+  "ChristopherWolfram/ForeignFunctionInterface"|>,
+FrontEndVersion->"13.2 for Linux x86 (64-bit) (November 18, 2022)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "TechNotePageStylesExt.nb", 
+  CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"c24e54ad-315d-4dc6-b2e3-7f73f055fc0b"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 232, 4, 149, "Title",ExpressionUUID->"a1d3a2f9-c332-4c2a-8c9f-ac9bf0bfed48",
+ CellID->540842567],
+Cell[CellGroupData[{
+Cell[837, 30, 173, 2, 46, "Section",ExpressionUUID->"c7e2129b-95f4-4ed1-be37-bb59f4850fff",
+ CellID->1552953309],
+Cell[1013, 34, 531, 10, 44, "Text",ExpressionUUID->"0cc99262-b581-4352-9b7f-024dac28caa1",
+ CellID->565347632]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1581, 49, 217, 3, 46, "Section",ExpressionUUID->"96b2823f-d84a-491d-a1fe-20388193da8f",
+ CellID->752625884],
+Cell[CellGroupData[{
+Cell[1823, 56, 206, 2, 40, "MathCaption",ExpressionUUID->"8ec8984e-1da8-4dae-8306-9a306fb1b088",
+ CellID->1733749028],
+Cell[CellGroupData[{
+Cell[2054, 62, 246, 4, 26, "Input",ExpressionUUID->"ccef1535-86a9-4788-ad88-e722628f6e91",
+ CellID->332068966],
+Cell[2303, 68, 22549, 398, 58, "Output",ExpressionUUID->"99a0721a-fee0-4f66-b761-67df9c5d1898",
+ CellID->924964886]
+}, Open  ]]
+}, Open  ]],
+Cell[24879, 470, 357, 9, 30, "Text",ExpressionUUID->"916031b7-0a03-42ce-927a-1153e59f47b8",
+ CellID->330434547],
+Cell[CellGroupData[{
+Cell[25261, 483, 184, 2, 40, "MathCaption",ExpressionUUID->"d35b3dd2-0ff6-4245-ac74-cd53d59ff392",
+ CellID->2130073303],
+Cell[CellGroupData[{
+Cell[25470, 489, 248, 4, 26, "Input",ExpressionUUID->"3b4cf44e-2abe-4148-a717-c0d25d3f947b",
+ CellID->1013780221],
+Cell[25721, 495, 288, 4, 45, "Output",ExpressionUUID->"4fb9eaad-6b73-4b78-b115-1080ea598182",
+ CellID->479352537]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[26058, 505, 176, 2, 42, "Subsection",ExpressionUUID->"262078d1-5fee-48f4-a21a-b3f342dc0e16",
+ CellID->365914658],
+Cell[CellGroupData[{
+Cell[26259, 511, 697, 16, 44, "Text",ExpressionUUID->"fce8bf52-1c38-4ae3-b2bc-27793f940021",
+ CellID->180883014],
+Cell[26959, 529, 173, 2, 44, "Program",ExpressionUUID->"d9de31fd-6a0a-4a2e-858a-98ba764a34b4",
+ CellID->1358161467]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[27169, 536, 624, 14, 44, "MathCaption",ExpressionUUID->"597135e9-4404-4573-9a5c-1db1587cc3e5",
+ CellID->1500989788],
+Cell[CellGroupData[{
+Cell[27818, 554, 457, 9, 46, "Input",ExpressionUUID->"9592999e-b138-4d76-8425-6e8eeded59f8",
+ CellID->845635981],
+Cell[28278, 565, 4324, 90, 54, "Output",ExpressionUUID->"6acc2c3a-4e80-4cee-9062-54ebcacdb593",
+ CellID->643901660]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[32651, 661, 268, 3, 40, "MathCaption",ExpressionUUID->"2e8eb315-aa37-4c4a-a1d8-bedfa1c2cf59",
+ CellID->1420519008],
+Cell[CellGroupData[{
+Cell[32944, 668, 225, 5, 26, "Input",ExpressionUUID->"c8acbdb8-3afc-4ba1-9809-9ac09928d6f7",
+ CellID->1555243949],
+Cell[33172, 675, 175, 3, 25, "Output",ExpressionUUID->"a01b3cd7-7005-4e56-a710-9bfd64df9b0b",
+ CellID->1225954138]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[33408, 685, 166, 2, 42, "Subsection",ExpressionUUID->"61c9a4b6-1d76-4816-bcfd-e8c2b70e9dcc",
+ CellID->37045157],
+Cell[CellGroupData[{
+Cell[33599, 691, 318, 5, 44, "Text",ExpressionUUID->"0fef1601-f1b4-4fc0-8c72-159dbb90d2cd",
+ CellID->2001435311],
+Cell[33920, 698, 454, 12, 145, "Program",ExpressionUUID->"0f7eeeee-ec66-4115-b934-03fde3a4fc90",
+ CellID->975167677]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[34411, 715, 246, 4, 40, "MathCaption",ExpressionUUID->"65d7ff2d-d975-47e2-b70a-793f31a25f45",
+ CellID->1348247232],
+Cell[CellGroupData[{
+Cell[34682, 723, 700, 14, 85, "Input",ExpressionUUID->"18fef7ee-8f13-433d-bd6f-d8f288b7418f",
+ CellID->271807548],
+Cell[35385, 739, 4780, 97, 54, "Output",ExpressionUUID->"38a55b57-6f27-4531-9642-327ad51ca1e7",
+ CellID->344632369]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[40202, 841, 560, 11, 65, "Input",ExpressionUUID->"6e38b3ad-e766-426d-bd0b-dfc7837c7d30",
+ CellID->1034745601],
+Cell[40765, 854, 4672, 95, 54, "Output",ExpressionUUID->"541c27a9-0b6e-4354-bd02-cee750e53a23",
+ CellID->1160432749]
+}, Open  ]]
+}, Open  ]],
+Cell[45464, 953, 263, 5, 25, "Text",ExpressionUUID->"7ab0a3ec-9ae7-4470-ae2e-9fc2a8482d6f",
+ CellID->884319594],
+Cell[CellGroupData[{
+Cell[45752, 962, 265, 5, 40, "MathCaption",ExpressionUUID->"7e42cb94-1615-4d16-8e79-667c71c8297f",
+ CellID->899409223],
+Cell[46020, 969, 365, 8, 26, "Input",ExpressionUUID->"e1a8e243-5116-4ad8-bcc9-26120fea759c",
+ CellID->1725780381]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[46422, 982, 361, 6, 57, "MathCaption",ExpressionUUID->"41a7c18f-4e2f-4d23-b904-2555f2d8e4be",
+ CellID->470584974],
+Cell[46786, 990, 2431, 54, 258, "Input",ExpressionUUID->"83fa798e-d9de-44f4-8d72-7138bc5210ed",
+ CellID->2147386804]
+}, Open  ]],
+Cell[49232, 1047, 598, 14, 49, "Text",ExpressionUUID->"5077cab0-f809-4a64-b91b-a255f758f56d",
+ CellID->2057849348],
+Cell[49833, 1063, 275, 5, 25, "Text",ExpressionUUID->"9759600a-ba9e-4581-9d3a-d56f34660c4d",
+ CellID->536908172],
+Cell[50111, 1070, 627, 17, 49, "Text",ExpressionUUID->"e22078bd-48de-4d7a-8915-4f1f95485577",
+ CellID->835330586],
+Cell[CellGroupData[{
+Cell[50763, 1091, 187, 2, 40, "MathCaption",ExpressionUUID->"dea0d109-7791-4c0b-8c4e-ec0882d92edc",
+ CellID->655192026],
+Cell[CellGroupData[{
+Cell[50975, 1097, 341, 8, 26, "Input",ExpressionUUID->"228b4ff8-861b-40f8-af4d-7dd1ed2fd741",
+ CellID->1386302740],
+Cell[51319, 1107, 2366, 50, 56, "Output",ExpressionUUID->"55bf79f3-a976-4787-95f1-66c63be9bd69",
+ CellID->959958218]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[53734, 1163, 174, 2, 40, "MathCaption",ExpressionUUID->"0c4e671a-b5ff-41f4-8c7e-b07ea62c6bc6",
+ CellID->1734785018],
+Cell[CellGroupData[{
+Cell[53933, 1169, 231, 4, 26, "Input",ExpressionUUID->"59a51af5-4c63-4265-bfa7-dd10671a43bb",
+ CellID->1165765133],
+Cell[54167, 1175, 172, 3, 25, "Output",ExpressionUUID->"97147969-98c7-4bad-98a7-ca82ef7e66e1",
+ CellID->1148354788]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[54400, 1185, 178, 2, 42, "Subsection",ExpressionUUID->"3d7a9a9a-df69-4520-9e4e-f93d84bb47cb",
+ CellID->1381498740],
+Cell[CellGroupData[{
+Cell[54603, 1191, 254, 5, 25, "Text",ExpressionUUID->"0e118301-312f-4373-a2d9-64278c2f115d",
+ CellID->1292608045],
+Cell[54860, 1198, 667, 16, 245, "Program",ExpressionUUID->"2e16402c-7623-4c64-b445-c56c6fdac412",
+ CellID->1614424200]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[55564, 1219, 234, 4, 40, "MathCaption",ExpressionUUID->"fa17f170-fd9c-48ba-963e-9b7caf6e1fc8",
+ CellID->324945580],
+Cell[CellGroupData[{
+Cell[55823, 1227, 974, 20, 142, "Input",ExpressionUUID->"7e7f5199-6eb9-4148-bf34-aa11442a01fb",
+ CellID->390826430],
+Cell[56800, 1249, 4300, 90, 54, "Output",ExpressionUUID->"9d0d3c1b-49c6-4e41-b841-e7c9401dbc6f",
+ CellID->1739073662]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[61137, 1344, 571, 11, 65, "Input",ExpressionUUID->"54e3de31-3f01-4312-873f-02944387aa86",
+ CellID->1658522703],
+Cell[61711, 1357, 4302, 90, 54, "Output",ExpressionUUID->"d1a05d7b-cedc-49b0-ad29-937c1b5f2d41",
+ CellID->1930330251]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[66050, 1452, 610, 12, 65, "Input",ExpressionUUID->"7188ef60-f0b8-4669-b067-f8c4c97adeb8",
+ CellID->361990738],
+Cell[66663, 1466, 4302, 90, 54, "Output",ExpressionUUID->"d0e0e270-4e59-496b-940d-d19385c674c7",
+ CellID->1152550591]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[71014, 1562, 273, 5, 57, "MathCaption",ExpressionUUID->"74d76d02-1f3d-4452-89f7-4967a460c078",
+ CellID->626335616],
+Cell[71290, 1569, 386, 8, 26, "Input",ExpressionUUID->"72044a8c-9a78-48fe-aa36-acc7655901eb",
+ CellID->323369859]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[71713, 1582, 366, 6, 57, "MathCaption",ExpressionUUID->"68586e5e-c923-49c8-85ee-55ecdb9d52e3",
+ CellID->249108536],
+Cell[72082, 1590, 3105, 66, 392, "Input",ExpressionUUID->"4d1a9452-13ad-4639-add0-dd6f8ad82950",
+ CellID->1365065099]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[75224, 1661, 292, 5, 57, "MathCaption",ExpressionUUID->"a33c4c6b-fc78-4909-8bed-b2264bc9ce46",
+ CellID->1786768365],
+Cell[75519, 1668, 431, 10, 46, "Input",ExpressionUUID->"c6082f90-4dbe-4b13-a1d1-0e992b1fd0f0",
+ CellID->1207689453]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[75987, 1683, 193, 2, 40, "MathCaption",ExpressionUUID->"bb997d2f-53e7-4f10-9ba9-9db0ce0cc52f",
+ CellID->1678274427],
+Cell[CellGroupData[{
+Cell[76205, 1689, 340, 8, 26, "Input",ExpressionUUID->"11d15186-3d54-403c-816e-546d951de2e6",
+ CellID->249011692],
+Cell[76548, 1699, 2919, 58, 56, "Output",ExpressionUUID->"f405af50-b2af-49ce-a56d-281b0fa08327",
+ CellID->24738957]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[79516, 1763, 204, 2, 40, "MathCaption",ExpressionUUID->"b3b35b2c-f69e-4f2a-817e-d2c206a2315a",
+ CellID->1129042870],
+Cell[CellGroupData[{
+Cell[79745, 1769, 263, 5, 28, "Input",ExpressionUUID->"11911532-3080-4ded-8696-6a7dd66ca0ab",
+ CellID->2110761385],
+Cell[80011, 1776, 4643, 95, 54, "Output",ExpressionUUID->"0d184791-e901-4581-9f30-f39cd39b7053",
+ CellID->101509093]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[84703, 1877, 378, 9, 44, "MathCaption",ExpressionUUID->"71841c43-ce04-4486-bfc0-ea8afcb179bd",
+ CellID->1759523975],
+Cell[CellGroupData[{
+Cell[85106, 1890, 335, 6, 28, "Input",ExpressionUUID->"d5913239-f0a4-4dde-8b56-e0d24c3b15fb",
+ CellID->633842497],
+Cell[85444, 1898, 4926, 104, 74, "Output",ExpressionUUID->"48d9bf9f-2bda-4a69-822f-262f59c4ff72",
+ CellID->129914011]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[90419, 2008, 311, 5, 57, "MathCaption",ExpressionUUID->"3caf80d3-3472-410f-b105-1a8858a76a0d",
+ CellID->2075247533],
+Cell[CellGroupData[{
+Cell[90755, 2017, 796, 19, 129, "Input",ExpressionUUID->"82b08eda-363e-4472-80da-2a12d5983b34",
+ CellID->1826177882],
+Cell[91554, 2038, 172, 3, 25, "Output",ExpressionUUID->"6e316948-607f-486b-ac94-7d6e9a372111",
+ CellID->1922170459]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[91787, 2048, 184, 2, 42, "Subsection",ExpressionUUID->"a18e03ec-a747-44ed-9127-2a22ed91ab69",
+ CellID->1309262625],
+Cell[CellGroupData[{
+Cell[91996, 2054, 263, 5, 25, "Text",ExpressionUUID->"64fa4b7e-4a6c-43db-80fa-060111781146",
+ CellID->971302279],
+Cell[92262, 2061, 395, 9, 124, "Program",ExpressionUUID->"14cead93-9802-46d2-8a11-e649d1a80c71",
+ CellID->1473512218]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[92694, 2075, 254, 5, 40, "MathCaption",ExpressionUUID->"fd25e9cb-bf0b-423b-b516-5e195d90e572",
+ CellID->99632392],
+Cell[CellGroupData[{
+Cell[92973, 2084, 529, 10, 65, "Input",ExpressionUUID->"c3daf4f1-6129-4df3-8d63-bb240346fc86",
+ CellID->1700089055],
+Cell[93505, 2096, 4602, 94, 54, "Output",ExpressionUUID->"76080fab-4a15-4b72-a07b-1a4e778dfc27",
+ CellID->1614173721]
+}, Open  ]],
+Cell[98122, 2193, 490, 11, 46, "Input",ExpressionUUID->"8cc4a2bc-2211-477e-a199-be39165976aa",
+ CellID->461623130],
+Cell[98615, 2206, 485, 11, 48, "Input",ExpressionUUID->"3e60ed6d-523c-4889-be03-135cc44a2862",
+ CellID->1884692412],
+Cell[CellGroupData[{
+Cell[99125, 2221, 289, 5, 26, "Input",ExpressionUUID->"df1169eb-99e6-40a8-bd7b-4e81de980ea9",
+ CellID->1291679070],
+Cell[99417, 2228, 545, 8, 25, "Output",ExpressionUUID->"5a78cd5c-9c6f-432a-8587-a6fe311b3894",
+ CellID->927695031]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[100011, 2242, 201, 2, 40, "MathCaption",ExpressionUUID->"25f070dc-c12f-49b0-ab15-fe1234dd24fb",
+ CellID->588557797],
+Cell[CellGroupData[{
+Cell[100237, 2248, 699, 15, 85, "Input",ExpressionUUID->"40ff0a20-e2d1-42b3-a560-3b0cf9ee22bd",
+ CellID->963873034],
+Cell[100939, 2265, 4599, 94, 54, "Output",ExpressionUUID->"93ed2786-605c-4db4-aa06-7516c3727a53",
+ CellID->1212981570]
+}, Open  ]],
+Cell[105553, 2362, 1117, 27, 104, "Input",ExpressionUUID->"6edefc5d-ca73-4759-b950-1d0ec20e0a06",
+ CellID->1796247250],
+Cell[CellGroupData[{
+Cell[106695, 2393, 270, 5, 26, "Input",ExpressionUUID->"82aa6c1b-4c47-435a-b359-5ff5eed504b6",
+ CellID->774880854],
+Cell[106968, 2400, 634, 12, 64, "Output",ExpressionUUID->"ac511f72-3e88-401a-ad08-debe811ed632",
+ CellID->908298874]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[107651, 2418, 202, 2, 40, "MathCaption",ExpressionUUID->"68e56732-d4d9-4b0f-86b6-86c849b518a5",
+ CellID->1461993262],
+Cell[CellGroupData[{
+Cell[107878, 2424, 779, 15, 85, "Input",ExpressionUUID->"debed545-3d5d-444a-a9e7-d77dcae7362b",
+ CellID->2050311653],
+Cell[108660, 2441, 4301, 90, 54, "Output",ExpressionUUID->"da13aa86-6130-441c-b4bf-ae9d8ca77708",
+ CellID->100429479]
+}, Open  ]],
+Cell[112976, 2534, 1045, 26, 104, "Input",ExpressionUUID->"460975d7-b16d-47ec-9e9f-5dcb988d5cef",
+ CellID->1960880527],
+Cell[CellGroupData[{
+Cell[114046, 2564, 273, 5, 26, "Input",ExpressionUUID->"2dee1767-f40b-4ef6-a039-82a80ee427c9",
+ CellID->2013589390],
+Cell[114322, 2571, 406, 8, 25, "Output",ExpressionUUID->"7755fb57-963a-4078-9615-5f83164a7a42",
+ CellID->1723292348]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[114777, 2585, 240, 4, 25, "Text",ExpressionUUID->"93ab791e-f650-4465-ac1e-1f9773669e1c",
+ CellID->318114629],
+Cell[115020, 2591, 452, 10, 124, "Program",ExpressionUUID->"da6baab9-0911-4222-a9af-31272d52196b",
+ CellID->631253354]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[115509, 2606, 228, 3, 40, "MathCaption",ExpressionUUID->"3a91f78a-feef-45be-a987-3727e48594cc",
+ CellID->957065987],
+Cell[115740, 2611, 1684, 39, 238, "Input",ExpressionUUID->"dc17e907-97d3-4275-99ad-f0b2c9e2df02",
+ CellID->1092995484]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[117461, 2655, 239, 4, 40, "MathCaption",ExpressionUUID->"bf60e8a7-04ac-4fcf-88c8-f1db1e0eec3f",
+ CellID->551610331],
+Cell[117703, 2661, 1371, 31, 219, "Input",ExpressionUUID->"1ff2222d-f64b-4aad-b387-f1ba9a54f527",
+ CellID->271575601]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[119111, 2697, 237, 4, 40, "MathCaption",ExpressionUUID->"9daf43f4-6e15-4241-9da9-dc9105a5fe88",
+ CellID->995823489],
+Cell[119351, 2703, 805, 22, 85, "Input",ExpressionUUID->"3a9f9f5d-6d37-4fc1-b255-daec2e86d8f9",
+ CellID->365007210],
+Cell[CellGroupData[{
+Cell[120181, 2729, 247, 4, 26, "Input",ExpressionUUID->"80562a53-3ccf-4be2-a9f4-1617f11ab168",
+ CellID->372005081],
+Cell[120431, 2735, 584, 12, 49, "Output",ExpressionUUID->"dc562952-7b76-476b-be1a-c065098fc825",
+ CellID->861929232]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[121076, 2754, 189, 2, 42, "Subsection",ExpressionUUID->"9fc7d2bf-5ef6-4a36-9cad-48be072f3658",
+ CellID->1467438613],
+Cell[CellGroupData[{
+Cell[121290, 2760, 373, 6, 57, "MathCaption",ExpressionUUID->"23b1a186-622e-443a-9f9e-d2d53d7fc308",
+ CellID->1857077845],
+Cell[121666, 2768, 1999, 48, 238, "Input",ExpressionUUID->"9af776e0-2831-47ab-b114-7a66ad4dc5c5",
+ CellID->497173518]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[123702, 2821, 193, 2, 40, "MathCaption",ExpressionUUID->"7c4883ce-37b5-420e-9cd3-96a9d8f85dfd",
+ CellID->523895461],
+Cell[CellGroupData[{
+Cell[123920, 2827, 340, 8, 26, "Input",ExpressionUUID->"505c9d94-c3e1-4478-85f4-bd5c658f2362",
+ CellID->234382282],
+Cell[124263, 2837, 2389, 50, 56, "Output",ExpressionUUID->"66d18752-127d-4790-b9a1-683a394f37e9",
+ CellID->1655599842]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[126701, 2893, 175, 2, 40, "MathCaption",ExpressionUUID->"dd5311c7-f353-4ed5-8e74-8ac2f585c36c",
+ CellID->1797768929],
+Cell[CellGroupData[{
+Cell[126901, 2899, 252, 6, 28, "Input",ExpressionUUID->"6f0379d0-5c4e-4494-a22c-14365235e26a",
+ CellID->1734406256],
+Cell[127156, 2907, 2411, 44, 217, "Output",ExpressionUUID->"2b7517e8-212a-479b-81f7-ff77226c5066",
+ CellID->1949083200]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[129616, 2957, 199, 2, 40, "MathCaption",ExpressionUUID->"1dab9078-2e16-4952-b6e1-b7007589607d",
+ CellID->37490560],
+Cell[CellGroupData[{
+Cell[129840, 2963, 388, 10, 50, "Input",ExpressionUUID->"fb750d0c-faae-488c-a0c8-989c79c4bce6",
+ CellID->586304436],
+Cell[130231, 2975, 261, 5, 25, "Output",ExpressionUUID->"a1e4a966-8058-44f7-bfb8-e8d81a70b342",
+ CellID->907037173]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[130541, 2986, 200, 2, 40, "MathCaption",ExpressionUUID->"e9c84c03-42e8-4635-af13-1e14f84b9427",
+ CellID->785456154],
+Cell[CellGroupData[{
+Cell[130766, 2992, 328, 8, 28, "Input",ExpressionUUID->"44b72e66-6338-4b40-bc4c-952188924864",
+ CellID->2047309393],
+Cell[131097, 3002, 228, 5, 25, "Output",ExpressionUUID->"f513cc10-c940-4d8c-ba27-8f7e103db6a4",
+ CellID->2041771724]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[131398, 3015, 191, 2, 75, "TutorialMoreAboutSection",ExpressionUUID->"07ff885f-b155-4562-8286-072c05b6d9b8",
+ CellID->948041467],
+Cell[131592, 3019, 201, 3, 24, "TutorialMoreAbout",ExpressionUUID->"1083e125-91a2-4ec1-8c5b-d3207ee280aa",
+ CellID->439188779]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[131830, 3027, 127, 1, 75, "RelatedTutorialsSection",ExpressionUUID->"6a3bdb7f-5031-4cdc-beb1-690dc60f50eb",
+ CellID->75080631],
+Cell[131960, 3030, 340, 6, 24, "RelatedTutorials",ExpressionUUID->"9fa39622-984c-4fdf-8b2f-f361dcb74835",
+ CellID->1000704339]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[132349, 3042, 110, 1, 72, "MetadataSection",ExpressionUUID->"93167fc4-6903-4697-abc5-3f66f447f57f",
+ CellID->439660484],
+Cell[132462, 3045, 477, 12, 27, "History",ExpressionUUID->"10dbe49b-06d4-4cb9-bbda-f1ec8165335b",
+ CellID->1389952690],
+Cell[CellGroupData[{
+Cell[132964, 3061, 122, 1, 21, "CategorizationSection",ExpressionUUID->"b5fbe7c6-e3e2-415f-aab8-3fc2e49f6b51",
+ CellID->693200726],
+Cell[133089, 3064, 138, 2, 70, "Categorization",ExpressionUUID->"bc2bd0b5-c4bd-4cbc-a8a2-e7c1e043d4ca",
+ CellID->1914204982],
+Cell[133230, 3068, 172, 2, 70, "Categorization",ExpressionUUID->"d4edc9e8-c99a-449b-b073-0379b8950126",
+ CellID->1046201363],
+Cell[133405, 3072, 169, 2, 70, "Categorization",ExpressionUUID->"65b2587a-ed0b-4125-82bd-b5f562f941aa",
+ CellID->1436511083],
+Cell[133577, 3076, 241, 5, 70, "Categorization",ExpressionUUID->"b547e219-7e49-4408-bfd3-0b77d1cb6ee8",
+ CellID->592895919]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[133855, 3086, 111, 1, 21, "KeywordsSection",ExpressionUUID->"e20e9c16-9b25-4137-9b19-ceca5c47d937",
+ CellID->1067157212],
+Cell[133969, 3089, 99, 1, 70, "Keywords",ExpressionUUID->"5b093b2e-3db0-4dcf-aac7-c3d83ba36867",
+ CellID->312389552]
+}, Closed]]
+}, Open  ]]
+}
+]
+*)
+
