@@ -622,7 +622,7 @@ Cell[BoxData[
     Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
  CellID->1713519798,ExpressionUUID->"aca857bc-deb7-4b5c-9dd9-eaafa915987b"]
-}, Closed]]
+}, Open  ]]
 }, Open  ]]
 }, Open  ]],
 
@@ -871,7 +871,7 @@ Cell[BoxData[
     Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
  CellID->1915005964,ExpressionUUID->"2d3c3caa-1d9b-4056-8441-1fd72236ba7f"]
-}, Closed]],
+}, Open  ]],
 
 Cell[BoxData[
  InterpretationBox[
@@ -920,7 +920,7 @@ Cell[BoxData[
     Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
  CellID->1614812711,ExpressionUUID->"bb101b81-9619-41f3-ba36-a935e5926625"]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -1177,7 +1177,7 @@ Cell[BoxData[
      Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
  CellID->1566061610,ExpressionUUID->"5715ef4d-2994-483c-b966-381812e81b8c"]
-}, Closed]],
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -1344,8 +1344,8 @@ Cell[BoxData[
      Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
  CellID->1933181507,ExpressionUUID->"3348b37f-b95d-4fe7-97fe-998355c78edd"]
-}, Closed]]
-}, Closed]],
+}, Open  ]]
+}, Open  ]],
 
 Cell[BoxData[
  InterpretationBox[
@@ -6180,13 +6180,13 @@ though they are all relatively simple to implement. Here are some of them:\
 Cell["\<\
 Windows support. The current platform list is just those that I can easily \
 build for.\
-\>", "Text",
+\>", "Item",
  TaggingRules->{},
  CellChangeTimes->{{3.879012650459634*^9, 3.879012653363989*^9}, {
   3.879089722275063*^9, 3.879089745211446*^9}},
  CellID->272145761,ExpressionUUID->"a77cac3f-d327-4e5b-bbc8-09745acf1e9e"],
 
-Cell["The ability to pass structs to and from external libraries.", "Text",
+Cell["The ability to pass structs to and from external libraries.", "Item",
  TaggingRules->{},
  CellChangeTimes->{{3.879012513566786*^9, 3.879012524471169*^9}},
  CellID->1558992567,ExpressionUUID->"d8db7811-3013-4fa8-a375-f8b70f8ac74a"],
@@ -6198,17 +6198,25 @@ Cell[TextData[{
    BaseStyle->"Link"]], "InlineFormula",ExpressionUUID->
   "e8b01b79-14e8-482c-aaeb-044725201971"],
  " (instead of just strings)."
-}], "Text",
+}], "Item",
  TaggingRules->{},
  CellChangeTimes->{{3.879012525791195*^9, 3.879012568577507*^9}},
  CellID->426287031,ExpressionUUID->"3810e932-cab2-44ee-831a-6d793be804ee"],
 
 Cell["\<\
 More functions for creating and manipulating buffers / structs.\
-\>", "Text",
+\>", "Item",
  TaggingRules->{},
  CellChangeTimes->{{3.8790125517444763`*^9, 3.879012565480771*^9}},
- CellID->1432170511,ExpressionUUID->"efd7d164-0ac2-48da-960b-03501ef8c286"]
+ CellID->1432170511,ExpressionUUID->"efd7d164-0ac2-48da-960b-03501ef8c286"],
+
+Cell["\<\
+The logo for this paclet is Sumerian for \"foreign language\" (or at least an \
+attempt to mean that).\
+\>", "Text",
+ CellChangeTimes->{{3.8790945625479307`*^9, 3.879094581579425*^9}, {
+  3.8790946773911343`*^9, 3.879094757369752*^9}},
+ CellID->1718031012,ExpressionUUID->"699c15c6-17ef-4b78-acae-1ed7ac93cdf8"]
 }, Open  ]]
 }, Open  ]]
 },
