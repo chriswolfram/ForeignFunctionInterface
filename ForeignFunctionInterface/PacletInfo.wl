@@ -15,7 +15,8 @@ PacletObject[
         "Root" -> "Kernel",
         "Context" -> "ChristopherWolfram`ForeignFunctionInterface`",
         "Symbols" -> {
-          "ChristopherWolfram`ForeignFunctionInterface`CallForeignFunction"
+          "ChristopherWolfram`ForeignFunctionInterface`CallForeignFunction",
+          "ChristopherWolfram`ForeignFunctionInterface`CreateForeignFunction"
         }
       },
       {"Compiler", "Components" -> {"ForeignFunctionInterface"}},

@@ -42,7 +42,7 @@ Cell["", "FileManagerTopSpacer",
  CellGroupingRules->{"SectionGrouping", 99},
  TaggingRules->{},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->1613555142,ExpressionUUID->"4cc743b2-cc82-4614-b73e-f692168eafc7"],
+ CellID->1613555142,ExpressionUUID->"f8055208-1e6d-48a3-bd9f-6b945a709213"],
 
 Cell[CellGroupData[{
 
@@ -71,7 +71,7 @@ Cell[TextData[Cell[BoxData[
     NotebookDirectory[], "Documentation"}],
   BoxID -> "FileTreePath",
   BaseStyle->{
-   "Text"}]],ExpressionUUID->"e7adbc07-fef7-4b90-996d-ee3366177284"]], \
+   "Text"}]],ExpressionUUID->"f4ad1a9d-c159-4709-98d1-9cb64e1f2db2"]], \
 "FileManagerDirectory",
  CellMargins->{{Inherited, Inherited}, {Inherited, Inherited}},
  CellGroupingRules->{"SectionGrouping", 100},
@@ -82,7 +82,7 @@ Cell[TextData[Cell[BoxData[
       TemplateBox[{}, "FileManagerDocumentationIconTemplate"]], Background -> 
      None], Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->762544827,ExpressionUUID->"e640237c-c432-4f8d-a871-8da5a9f1e9cd"],
+ CellID->762544827,ExpressionUUID->"2e4704cc-46a8-4419-91f9-38e379eaab5c"],
 
 Cell[CellGroupData[{
 
@@ -111,7 +111,7 @@ Cell[TextData[Cell[BoxData[
     NotebookDirectory[], "Documentation", "English"}],
   BoxID -> "FileTreePath",
   BaseStyle->{
-   "Text"}]],ExpressionUUID->"2fad16c6-59da-4e13-9c84-053c91f6c67f"]], \
+   "Text"}]],ExpressionUUID->"04d0ebf3-c96f-4242-a994-d36a2b2198b1"]], \
 "FileManagerDirectory",
  CellMargins->{{23 + Inherited, Inherited}, {Inherited, Inherited}},
  CellGroupingRules->{"SectionGrouping", 110},
@@ -122,7 +122,7 @@ Cell[TextData[Cell[BoxData[
       TemplateBox[{}, "FileManagerDirectoryIconTemplate"]], Background -> 
      None], Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->1958581994,ExpressionUUID->"3b15ab09-fabc-48c5-9b53-dc93a4dd4a1d"],
+ CellID->1958581994,ExpressionUUID->"8050626e-7747-4edb-afe1-448c4d315b2f"],
 
 Cell[CellGroupData[{
 
@@ -151,7 +151,7 @@ Cell[TextData[Cell[BoxData[
     NotebookDirectory[], "Documentation", "English", "ReferencePages"}],
   BoxID -> "FileTreePath",
   BaseStyle->{
-   "Text"}]],ExpressionUUID->"d80a5868-8998-4042-bbed-88e8eeca1f06"]], \
+   "Text"}]],ExpressionUUID->"b9d592b1-c426-4d1e-ad7c-e01586b22b28"]], \
 "FileManagerDirectory",
  CellMargins->{{46 + Inherited, Inherited}, {Inherited, Inherited}},
  CellGroupingRules->{"SectionGrouping", 120},
@@ -162,7 +162,7 @@ Cell[TextData[Cell[BoxData[
       TemplateBox[{}, "FileManagerDirectoryIconTemplate"]], Background -> 
      None], Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->1851915245,ExpressionUUID->"9aa99df1-040d-478f-ac98-1793a9054183"],
+ CellID->1851915245,ExpressionUUID->"6ee6cca1-6aeb-4b67-890f-afb12c7fbac2"],
 
 Cell[CellGroupData[{
 
@@ -192,7 +192,7 @@ Cell[TextData[Cell[BoxData[
     "Symbols"}],
   BoxID -> "FileTreePath",
   BaseStyle->{
-   "Text"}]],ExpressionUUID->"ad372b86-2251-478c-90ef-194e75c4e513"]], \
+   "Text"}]],ExpressionUUID->"787e0708-cb02-409a-bab3-99d3090afb8f"]], \
 "FileManagerDirectory",
  CellMargins->{{69 + Inherited, Inherited}, {Inherited, Inherited}},
  CellGroupingRules->{"SectionGrouping", 130},
@@ -203,7 +203,7 @@ Cell[TextData[Cell[BoxData[
       TemplateBox[{}, "FileManagerDirectoryIconTemplate"]], Background -> 
      None], Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->898462711,ExpressionUUID->"0da6ee4f-6b15-4d2d-8432-c5a0dd6e5e0e"],
+ CellID->898462711,ExpressionUUID->"f1222ecf-56b1-4fc2-aece-01b89e6cf7c1"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -229,11 +229,37 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerNBIconTemplate"]], Background -> None], 
     Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->929561290,ExpressionUUID->"20968631-778d-4df8-a73b-db4c3e7d3c9e"]
-}, Closed]]
-}, Closed]]
-}, Closed]]
-}, Closed]],
+ CellID->929561290,ExpressionUUID->"6d37acfd-269f-42b2-9b19-6154f4017b53"],
+
+Cell[BoxData[
+ InterpretationBox[
+  TagBox[
+   TemplateBox[{"\"CreateForeignFunction.nb\"", 
+     FileNameJoin[{
+       NotebookDirectory[], "Documentation", "English", "ReferencePages", 
+       "Symbols", "CreateForeignFunction.nb"}]},
+    "FileManagerFileOpenerTemplate"],
+   Annotation[#, 
+    DefinitionNotebookClient`TemplateCells`PackagePrivate`fileDepth[4]]& ],
+  FileNameJoin[{
+    NotebookDirectory[], "Documentation", "English", "ReferencePages", 
+    "Symbols", "CreateForeignFunction.nb"}],
+  BoxID -> "FileTreePath",
+  BaseStyle->{"Text"}]], "FileManagerFile",
+ CellMargins->{{92 + Inherited, Inherited}, {Inherited, Inherited}},
+ CellGroupingRules->{"SectionGrouping", 140},
+ TaggingRules->{},
+ CellFrameLabels->{{
+    Cell[
+     BoxData[
+      TemplateBox[{}, "FileManagerNBIconTemplate"]], Background -> None], 
+    Inherited}, {Inherited, Inherited}},
+ CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
+ CellID->164254989,ExpressionUUID->"01561557-3257-4bc1-989b-ebda775b433f"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -261,7 +287,7 @@ Cell[TextData[Cell[BoxData[
     NotebookDirectory[], "Kernel"}],
   BoxID -> "FileTreePath",
   BaseStyle->{
-   "Text"}]],ExpressionUUID->"d18e4179-1ee1-41d2-ae66-a7bd02663067"]], \
+   "Text"}]],ExpressionUUID->"3dd6bcea-a567-485f-ac5e-301c7c80083c"]], \
 "FileManagerDirectory",
  CellMargins->{{Inherited, Inherited}, {Inherited, Inherited}},
  CellGroupingRules->{"SectionGrouping", 100},
@@ -272,7 +298,7 @@ Cell[TextData[Cell[BoxData[
       TemplateBox[{}, "FileManagerKernelIconTemplate"]], Background -> None], 
     Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->900045512,ExpressionUUID->"5a20ae96-9879-4ea8-8a96-25d2ade74d56"],
+ CellID->900045512,ExpressionUUID->"d92ae4a9-1354-4649-86da-96e4e77200fa"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -296,7 +322,7 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerWLIconTemplate"]], Background -> None], 
     Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->2109231025,ExpressionUUID->"87b9fff1-11a6-45e8-8292-50d44aa35f17"],
+ CellID->2109231025,ExpressionUUID->"fc71b931-48d6-4f99-8693-3b64b0c09c23"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -320,7 +346,7 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerWLIconTemplate"]], Background -> None], 
     Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->79846661,ExpressionUUID->"cdfeff2c-fd0a-4e1f-adee-06a64db1c4e0"],
+ CellID->79846661,ExpressionUUID->"acd6f0c3-5f90-45bd-9bae-cf7960b14bfa"],
 
 Cell[CellGroupData[{
 
@@ -348,7 +374,7 @@ Cell[TextData[Cell[BoxData[
     NotebookDirectory[], "Kernel", "LibFFI"}],
   BoxID -> "FileTreePath",
   BaseStyle->{
-   "Text"}]],ExpressionUUID->"6b3de64d-c0e8-43ef-81d5-b16356e8a6d1"]], \
+   "Text"}]],ExpressionUUID->"a2b4995c-38de-416b-92e4-10e9790ed5a3"]], \
 "FileManagerDirectory",
  CellMargins->{{23 + Inherited, Inherited}, {Inherited, Inherited}},
  CellGroupingRules->{"SectionGrouping", 110},
@@ -359,7 +385,7 @@ Cell[TextData[Cell[BoxData[
       TemplateBox[{}, "FileManagerDirectoryIconTemplate"]], Background -> 
      None], Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->396832773,ExpressionUUID->"f729c095-ebf1-41f6-9dbe-14844ae6e5b6"],
+ CellID->396832773,ExpressionUUID->"6cd73637-be5a-4f71-92fb-2eea40f4b0e7"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -383,7 +409,7 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerWLIconTemplate"]], Background -> None], 
     Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->2044189363,ExpressionUUID->"327a4ee0-e4ff-4015-a479-f92c055f515b"],
+ CellID->2044189363,ExpressionUUID->"b5d1c8f5-bd84-4a4a-8f04-abe0f5b4f661"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -407,7 +433,7 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerWLIconTemplate"]], Background -> None], 
     Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->1243291116,ExpressionUUID->"790a2ce6-b2a9-4e83-801a-79040a3fa8ad"],
+ CellID->1243291116,ExpressionUUID->"cec49cd1-f93d-467b-8e69-e2d7cf847708"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -431,7 +457,7 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerWLIconTemplate"]], Background -> None], 
     Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->1758350136,ExpressionUUID->"0d93cead-d0fe-40a8-b373-88f8c0626d20"],
+ CellID->1758350136,ExpressionUUID->"d86b3b48-04ff-49db-92c6-2d652d9e2898"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -455,7 +481,7 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerWLIconTemplate"]], Background -> None], 
     Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->2103771319,ExpressionUUID->"b171c93c-cda0-4202-8d1c-8b774adbb669"],
+ CellID->2103771319,ExpressionUUID->"29933e9d-3441-4068-8485-fad6d99fd622"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -479,7 +505,7 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerWLIconTemplate"]], Background -> None], 
     Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->1915005964,ExpressionUUID->"3a2a717e-272c-4213-8baa-4309a107aca4"]
+ CellID->1915005964,ExpressionUUID->"c3f6a4b5-ae6f-44c4-8b6c-14298f295811"]
 }, Closed]],
 
 Cell[BoxData[
@@ -504,7 +530,7 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerWLIconTemplate"]], Background -> None], 
     Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->102438519,ExpressionUUID->"9e04f4c0-5d7e-4814-b40d-a190c5391e33"],
+ CellID->102438519,ExpressionUUID->"79691b24-7b7f-41a6-a3b7-5a3cdccc6ce2"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -528,7 +554,7 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerWLIconTemplate"]], Background -> None], 
     Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->1614812711,ExpressionUUID->"d5be44d8-2b03-4461-b6d4-18f15098e5ef"]
+ CellID->1614812711,ExpressionUUID->"a8a7c68d-c804-48e8-a740-b8f93c709e8d"]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -558,7 +584,7 @@ Cell[TextData[Cell[BoxData[
     NotebookDirectory[], "LibraryResources"}],
   BoxID -> "FileTreePath",
   BaseStyle->{
-   "Text"}]],ExpressionUUID->"c2e6111e-3028-4e69-95a7-5ad3f3189b69"]], \
+   "Text"}]],ExpressionUUID->"cc035897-40f0-43a2-8d85-e972fa1318ee"]], \
 "FileManagerDirectory",
  CellMargins->{{Inherited, Inherited}, {Inherited, Inherited}},
  CellGroupingRules->{"SectionGrouping", 100},
@@ -569,7 +595,7 @@ Cell[TextData[Cell[BoxData[
       TemplateBox[{}, "FileManagerDirectoryIconTemplate"]], Background -> 
      None], Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->1381077459,ExpressionUUID->"6f9f9cad-e517-4284-a428-a7b381327891"],
+ CellID->1381077459,ExpressionUUID->"19201783-367d-4127-8635-1e66e9aff4be"],
 
 Cell[CellGroupData[{
 
@@ -598,7 +624,7 @@ Cell[TextData[Cell[BoxData[
     NotebookDirectory[], "LibraryResources", "Linux-x86-64"}],
   BoxID -> "FileTreePath",
   BaseStyle->{
-   "Text"}]],ExpressionUUID->"ff1c6350-03e1-4b81-b7e5-1b7f014192b0"]], \
+   "Text"}]],ExpressionUUID->"411c9c38-21f9-4cfa-b86d-1353d5f66650"]], \
 "FileManagerDirectory",
  CellMargins->{{23 + Inherited, Inherited}, {Inherited, Inherited}},
  CellGroupingRules->{"SectionGrouping", 110},
@@ -609,7 +635,7 @@ Cell[TextData[Cell[BoxData[
       TemplateBox[{}, "FileManagerDirectoryIconTemplate"]], Background -> 
      None], Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->1137295362,ExpressionUUID->"6c7f63ce-d227-4081-ae1e-7a02aa1d57df"],
+ CellID->1137295362,ExpressionUUID->"a7394d2e-5324-4c1b-b6be-6dd1bef0e5b0"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -635,7 +661,7 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerUnknownIconTemplate"]], Background -> None],
      Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->1314310370,ExpressionUUID->"716f770a-25c4-4859-bc1f-24870114a3f7"],
+ CellID->1314310370,ExpressionUUID->"24efc66a-33e3-46e0-bfcd-1093bd4c0943"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -661,7 +687,7 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerUnknownIconTemplate"]], Background -> None],
      Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->1722023798,ExpressionUUID->"caf07d13-9a37-4086-93a4-7c8ad139ae99"],
+ CellID->1722023798,ExpressionUUID->"6f864fef-297c-409e-8854-42615444bcea"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -686,7 +712,7 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerUnknownIconTemplate"]], Background -> None],
      Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->491262114,ExpressionUUID->"4f5fcc2f-2690-499d-8a8a-3d32853647e8"],
+ CellID->491262114,ExpressionUUID->"57b4bd95-1ed6-49c6-be33-bf35200cad56"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -710,7 +736,7 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerUnknownIconTemplate"]], Background -> None],
      Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->1613034666,ExpressionUUID->"6a2df1a5-4c04-49fc-a724-6d32a14cdabf"],
+ CellID->1613034666,ExpressionUUID->"a40d5962-f37d-498e-92ac-b43362540b02"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -734,7 +760,7 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerUnknownIconTemplate"]], Background -> None],
      Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->2112316286,ExpressionUUID->"b36f6920-2fdb-4144-9c59-e36486456d2c"],
+ CellID->2112316286,ExpressionUUID->"0e36648b-99dd-4463-bf90-dfe9bdce4c6b"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -759,7 +785,7 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerUnknownIconTemplate"]], Background -> None],
      Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->1900793623,ExpressionUUID->"de49d9b0-e615-465b-9f1e-930604752fdd"],
+ CellID->1900793623,ExpressionUUID->"3425b31d-b411-402d-aa5f-655de5e43410"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -785,7 +811,7 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerUnknownIconTemplate"]], Background -> None],
      Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->1566061610,ExpressionUUID->"b4ee7af6-edf1-4cad-a1b9-f4ea318dbcf8"]
+ CellID->1566061610,ExpressionUUID->"56e29506-eaa8-481c-abed-906148d32f18"]
 }, Closed]],
 
 Cell[CellGroupData[{
@@ -815,7 +841,7 @@ Cell[TextData[Cell[BoxData[
     NotebookDirectory[], "LibraryResources", "MacOSX-x86-64"}],
   BoxID -> "FileTreePath",
   BaseStyle->{
-   "Text"}]],ExpressionUUID->"e96016f8-4fb0-4350-83cc-d7e58722e085"]], \
+   "Text"}]],ExpressionUUID->"6d9935fc-bf9a-418e-87d6-6e4808f770a3"]], \
 "FileManagerDirectory",
  CellMargins->{{23 + Inherited, Inherited}, {Inherited, Inherited}},
  CellGroupingRules->{"SectionGrouping", 110},
@@ -826,7 +852,7 @@ Cell[TextData[Cell[BoxData[
       TemplateBox[{}, "FileManagerDirectoryIconTemplate"]], Background -> 
      None], Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->1732990117,ExpressionUUID->"7461c0b4-4953-4644-a74a-ba37430f9b33"],
+ CellID->1732990117,ExpressionUUID->"0a346418-2d86-4ed1-ad92-07e5858f3f67"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -852,7 +878,7 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerUnknownIconTemplate"]], Background -> None],
      Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->249614156,ExpressionUUID->"232ba388-e797-4266-aeff-1b8daa43f792"],
+ CellID->249614156,ExpressionUUID->"3298b521-33d8-4db6-888e-25a876094f95"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -878,7 +904,7 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerUnknownIconTemplate"]], Background -> None],
      Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->931595879,ExpressionUUID->"1a383125-6906-4f58-b3ec-468ef1cf988e"],
+ CellID->931595879,ExpressionUUID->"279df749-4553-4c08-a1d4-287b7a277bbd"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -902,7 +928,7 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerUnknownIconTemplate"]], Background -> None],
      Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->738086829,ExpressionUUID->"00af0078-96ed-447d-9b80-00d7256cb918"],
+ CellID->738086829,ExpressionUUID->"9cbc9419-0f58-4ff4-8a42-1637d64053de"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -927,7 +953,7 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerUnknownIconTemplate"]], Background -> None],
      Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->67995853,ExpressionUUID->"b2eaee49-151c-400c-97f4-0c215bb8f8bd"],
+ CellID->67995853,ExpressionUUID->"e54a3265-7511-4ab0-973d-b18094d982f2"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -952,7 +978,7 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerUnknownIconTemplate"]], Background -> None],
      Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->1933181507,ExpressionUUID->"2bc35b7a-f1fc-4186-b5d6-31bc3d08c0ab"]
+ CellID->1933181507,ExpressionUUID->"916b6f20-05bd-42ce-8f93-c42bb3b6d986"]
 }, Closed]]
 }, Closed]],
 
@@ -978,7 +1004,7 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerPacletInfoIconTemplate"]], Background -> 
      None], Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->123261028,ExpressionUUID->"2784a3b7-17e9-4fc7-987a-c278e984c8e9"],
+ CellID->123261028,ExpressionUUID->"4d7385a1-cada-4997-8e5e-ca224d56e59b"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -1002,13 +1028,13 @@ Cell[BoxData[
       TemplateBox[{}, "FileManagerNBIconTemplate"]], Background -> None], 
     Inherited}, {Inherited, Inherited}},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->740710303,ExpressionUUID->"690d8049-86d7-436e-9151-dbd469e6cac0"],
+ CellID->740710303,ExpressionUUID->"8590f42f-892b-4909-b8f3-85a7d14c1de3"],
 
 Cell["", "FileManagerBottomSpacer",
  CellGroupingRules->{"SectionGrouping", 100},
  TaggingRules->{},
  CellTags->{"FileManagerCell", "FileManager-PacletFiles"},
- CellID->768693083,ExpressionUUID->"10b833c3-44cb-40d9-9b7b-c5017f95f584"]
+ CellID->768693083,ExpressionUUID->"bb6bcb9a-7a55-4928-b501-240af4ebaa79"]
 }, Open  ]]
 }, Open  ]],
 
@@ -1122,31 +1148,72 @@ image from a local file, use notebook-relative paths when possible (e.g. ",
  CellTags->{"Headline Image", "HeroImage", "TemplateCellGroup"},
  CellID->509724307,ExpressionUUID->"2742f7f6-1a53-4ef0-8429-15f5b8cdc7ae"],
 
+Cell[CellGroupData[{
+
 Cell[BoxData[
- TagBox[
-  GraphicsBox[
-   {EdgeForm[GrayLevel[0]], FaceForm[GrayLevel[1]], RectangleBox[{0, 0}], 
-    InsetBox[
-     StyleBox[
-      TagBox["\<\"Image Placeholder\"\>",
-       Annotation[#, "PlaceholderImage"]& ],
-      StripOnInput->False,
-      FontFamily->"Source Sans Pro",
-      FontSize->16], {0.5, 0.6}], InsetBox[
-     StyleBox["\<\"Replace this with an image\\nthat you would like to \
-display\\non the landing page for your paclet.\"\>",
-      StripOnInput->False,
-      TextAlignment->Center,
-      FontFamily->"Source Sans Pro",
-      FontSize->10,
-      FontColor->GrayLevel[0.5]], {0.5, 0.4}]},
-   ImageSize->250],
-  #& ,
-  TaggingRules -> {"DefaultContentBoxes" -> True},
-  AutoDelete->True]], "Input",
+ RowBox[{"Graphics", "[", 
+  RowBox[{
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"Black", ",", 
+       RowBox[{"Rectangle", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"-", "1"}], ",", 
+           RowBox[{"-", "1"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1", ",", "1"}], "}"}]}], "]"}], ",", "\[IndentingNewLine]",
+        "White", ",", 
+       RowBox[{"Rectangle", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"-", "0.85"}], ",", 
+           RowBox[{"-", "0.85"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"0.85", ",", "0.85"}], "}"}]}], "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"Rectangle", "[", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"-", "1"}], ",", 
+           RowBox[{"-", "0.5"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1", ",", "0.5"}], "}"}]}], "]"}]}], "\[IndentingNewLine]", 
+      "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"FontSize", "->", 
+        RowBox[{"Scaled", "[", "0.35", "]"}]}], ",", 
+       RowBox[{"Text", "[", "\"\<\|012174\|012047\>\"", "]"}]}], "}"}]}], 
+    "\[IndentingNewLine]", "}"}], ",", 
+   RowBox[{"PlotRange", "->", "1"}], ",", 
+   RowBox[{"PlotRangePadding", "->", "0"}]}], "]"}]], "Input",
  TaggingRules->{},
+ CellChangeTimes->{
+  3.879037154655178*^9, {3.8790377089891453`*^9, 3.879037709513942*^9}},
  CellTags->"DefaultContent",
- CellID->445097320,ExpressionUUID->"2d591dce-fb8b-40a9-8a39-42d5a11019f0"]
+ CellLabel->"In[58]:=",
+ CellID->445097320,ExpressionUUID->"2d591dce-fb8b-40a9-8a39-42d5a11019f0"],
+
+Cell[BoxData[
+ GraphicsBox[{{
+    {GrayLevel[0], RectangleBox[{-1, -1}, {1, 1}]}, 
+    {GrayLevel[1], RectangleBox[{-0.85, -0.85}, {0.85, 0.85}], 
+     RectangleBox[{-1, -0.5}, {1, 0.5}]}}, 
+   StyleBox[InsetBox["\<\"\|012174\|012047\"\>", {0, 0}],
+    FontSize->Scaled[0.35]]},
+  PlotRange->1,
+  PlotRangePadding->0]], "Output",
+ TaggingRules->{},
+ CellChangeTimes->{3.879037735585005*^9},
+ CellTags->"DefaultContent",
+ CellLabel->"Out[58]=",
+ CellID->829755125,ExpressionUUID->"d31ba744-5258-4bc7-b072-2b1784c7f77d"]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1180,8 +1247,13 @@ text that users will see when visiting the main landing page of your paclet.",
  CellTags->{"Basic Description", "LongDescription", "TemplateCellGroup"},
  CellID->433339604,ExpressionUUID->"32013482-cad3-49a9-b5aa-153f35d0015a"],
 
-Cell["A paragraph that describes your paclet in more detail.", "Text",
+Cell["\<\
+ForeignFunctionInterface makes it possible to efficiently call functions from \
+C-compatible libraries directly from the Wolfram Language, without the need \
+to compile an interface layer.\
+\>", "Text",
  TaggingRules->{},
+ CellChangeTimes->{{3.879035880189403*^9, 3.8790359588081408`*^9}},
  CellTags->"DefaultContent",
  CellID->441612482,ExpressionUUID->"861f7e0f-8d7b-4c23-90bc-2555add81634"]
 }, Open  ]],
@@ -1219,10 +1291,27 @@ examples on the webpage for the resource.", "MoreInfoText"], Background ->
  CellTags->{"Details", "TemplateCellGroup"},
  CellID->484110581,ExpressionUUID->"9709d2b0-1bbd-4674-85a6-85605b7904fa"],
 
-Cell["Additional information about the paclet.", "Notes",
+Cell[TextData[{
+ "This paclet uses ",
+ ButtonBox["libffi",
+  BaseStyle->"Hyperlink",
+  ButtonData->{
+    URL["https://sourceware.org/libffi/"], None},
+  ButtonNote->"https://sourceware.org/libffi/"],
+ " to dynamically link to C-compatible libraries at runtime"
+}], "Notes",
  TaggingRules->{},
+ CellChangeTimes->{{3.879035689318179*^9, 3.879035729743834*^9}},
  CellTags->"DefaultContent",
- CellID->889292814,ExpressionUUID->"78ce0b7e-8f82-4430-aa79-48dc0aa12785"]
+ CellID->889292814,ExpressionUUID->"78ce0b7e-8f82-4430-aa79-48dc0aa12785"],
+
+Cell["\<\
+Though this paclet could be built on all platforms supported by Wolfram \
+Language, it is currently only built for x86 macOS and Linux.\
+\>", "Notes",
+ TaggingRules->{},
+ CellChangeTimes->{{3.879035738979327*^9, 3.879035803346382*^9}},
+ CellID->135701756,ExpressionUUID->"0c48f6e7-4119-4f50-ac8b-46ef35a0b864"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1376,378 +1465,6 @@ Cell[CellGroupData[{
 Cell["Basic Examples", "Subsection",
  TaggingRules->{},
  CellID->462042388,ExpressionUUID->"aa92fcb1-30d9-4cde-a2e8-011f87d26879"],
-
-Cell["\<\
-Build the compiled component and save it in the paclet. This only ever needs \
-to be run once:\
-\>", "Text",
- TaggingRules->{},
- CellChangeTimes->{{3.879010830976832*^9, 3.879010836649816*^9}, {
-  3.879010872674745*^9, 3.879010907580041*^9}},
- CellTags->"DefaultContent",
- CellID->319073343,ExpressionUUID->"dd0bd165-174a-44cd-a029-fd24d1519998"],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"BuildCompiledComponent", "[", 
-  RowBox[{"\"\<ForeignFunctionInterface\>\"", ",", 
-   RowBox[{
-   "PacletObject", "[", "\"\<ChristopherWolfram/ForeignFunctionInterface\>\"",
-     "]"}]}], "]"}]], "Input",
- TaggingRules->{},
- CellChangeTimes->{{3.879010838497589*^9, 3.879010862066773*^9}},
- CellTags->"DefaultContent",
- CellLabel->"In[6]:=",
- CellID->593829399,ExpressionUUID->"8eb09e89-747f-4edd-9b98-eb720c6ced1e"],
-
-Cell[BoxData[
- InterpretationBox[
-  RowBox[{
-   TagBox["Success",
-    "SummaryHead"], "[", 
-   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
-    
-    TemplateBox[{
-      PaneSelectorBox[{False -> GridBox[{{
-            PaneBox[
-             ButtonBox[
-              DynamicBox[
-               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
-              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
-              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
-              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
-             Dynamic[{
-               Automatic, 
-                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
-                 Magnification])}]], 
-            FrameBox[
-             StyleBox["\"\[Checkmark]\"", 
-              Directive[
-               RGBColor[
-               0.3607843137254902, 0.596078431372549, 0.3803921568627451], 
-               25], StripOnInput -> False], ContentPadding -> False, 
-             FrameStyle -> None, FrameMargins -> {{0, 0}, {0, 0}}, 
-             StripOnInput -> False], 
-            GridBox[{{
-               RowBox[{
-                 TagBox[
-                  TemplateBox[{"\"Component\"", "\": \""}, "RowDefault"], 
-                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
-                 TagBox[
-                  InterpretationBox[
-                   RowBox[{
-                    TagBox["CompiledComponent", "SummaryHead"], "[", 
-                    
-                    DynamicModuleBox[{
-                    Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
-                    TemplateBox[{
-                    PaneSelectorBox[{False -> GridBox[{{
-                    PaneBox[
-                    ButtonBox[
-                    DynamicBox[
-                    FEPrivate`FrontEndResource[
-                    "FEBitmaps", "SummaryBoxOpener"]], 
-                    ButtonFunction :> (Typeset`open$$ = True), Appearance -> 
-                    None, BaseStyle -> {}, Evaluator -> Automatic, Method -> 
-                    "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
-                    Dynamic[{Automatic, 
-                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
-                    Magnification])}]], 
-                    GridBox[{{
-                    RowBox[{
-                    TagBox["\"Name: \"", "SummaryItemAnnotation"], 
-                    "\[InvisibleSpace]", 
-                    TagBox["\"ForeignFunctionInterface\"", "SummaryItem"]}]}, {
-                    RowBox[{
-                    TagBox["\"Declarations: \"", "SummaryItemAnnotation"], 
-                    "\[InvisibleSpace]", 
-                    TagBox["96", "SummaryItem"]}]}}, 
-                    GridBoxAlignment -> {
-                    "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, 
-                    AutoDelete -> False, 
-                    GridBoxItemSize -> {
-                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
-                    GridBoxSpacings -> {
-                    "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
-                    BaseStyle -> {
-                    ShowStringCharacters -> False, NumberMarks -> False, 
-                    PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
-                    GridBoxAlignment -> {
-                    "Columns" -> {{Left}}, "Rows" -> {{Top}}}, AutoDelete -> 
-                    False, GridBoxItemSize -> {
-                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
-                    BaselinePosition -> {1, 1}], True -> GridBox[{{
-                    PaneBox[
-                    ButtonBox[
-                    DynamicBox[
-                    FEPrivate`FrontEndResource[
-                    "FEBitmaps", "SummaryBoxCloser"]], 
-                    ButtonFunction :> (Typeset`open$$ = False), Appearance -> 
-                    None, BaseStyle -> {}, Evaluator -> Automatic, Method -> 
-                    "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
-                    Dynamic[{Automatic, 
-                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
-                    Magnification])}]], 
-                    GridBox[{{
-                    RowBox[{
-                    TagBox["\"Name: \"", "SummaryItemAnnotation"], 
-                    "\[InvisibleSpace]", 
-                    TagBox["\"ForeignFunctionInterface\"", "SummaryItem"]}]}, {
-                    RowBox[{
-                    TagBox["\"Declarations: \"", "SummaryItemAnnotation"], 
-                    "\[InvisibleSpace]", 
-                    TagBox["96", "SummaryItem"]}]}, {
-                    RowBox[{
-                    TagBox["\"LibraryFunctions: \"", "SummaryItemAnnotation"],
-                     "\[InvisibleSpace]", 
-                    TagBox["0", "SummaryItem"]}]}, {
-                    RowBox[{
-                    TagBox[
-                    "\"InstalledFunctions: \"", "SummaryItemAnnotation"], 
-                    "\[InvisibleSpace]", 
-                    TagBox["14", "SummaryItem"]}]}, {
-                    RowBox[{
-                    TagBox[
-                    "\"ExternalLibraries: \"", "SummaryItemAnnotation"], 
-                    "\[InvisibleSpace]", 
-                    TagBox["2", "SummaryItem"]}]}, {
-                    RowBox[{
-                    TagBox["\"LoadingEpilogs: \"", "SummaryItemAnnotation"], 
-                    "\[InvisibleSpace]", 
-                    TagBox["0", "SummaryItem"]}]}}, 
-                    GridBoxAlignment -> {
-                    "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, 
-                    AutoDelete -> False, 
-                    GridBoxItemSize -> {
-                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
-                    GridBoxSpacings -> {
-                    "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
-                    BaseStyle -> {
-                    ShowStringCharacters -> False, NumberMarks -> False, 
-                    PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
-                    GridBoxAlignment -> {
-                    "Columns" -> {{Left}}, "Rows" -> {{Top}}}, AutoDelete -> 
-                    False, GridBoxItemSize -> {
-                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
-                    BaselinePosition -> {1, 1}]}, 
-                    Dynamic[Typeset`open$$], ImageSize -> Automatic]}, 
-                    "SummaryPanel"], DynamicModuleValues :> {}], "]"}], 
-                   CompiledComponent["ForeignFunctionInterface"], Selectable -> 
-                   False, Editable -> False, SelectWithContents -> True], 
-                  "SummaryItem"]}]}, {
-               RowBox[{
-                 TagBox[
-                  TemplateBox[{"\"BuildDirectory\"", "\": \""}, "RowDefault"],
-                   "SummaryItemAnnotation"], "\[InvisibleSpace]", 
-                 TagBox[
-                 "\"/home/christopher/git/ForeignFunctionInterface/\
-ForeignFunctionInterface/LibraryResources/Linux-x86-64\"", "SummaryItem"]}]}},
-              GridBoxAlignment -> {
-              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
-             False, GridBoxItemSize -> {
-              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
-             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
-              BaseStyle -> {
-              ShowStringCharacters -> False, NumberMarks -> False, 
-               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
-          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
-          AutoDelete -> False, 
-          GridBoxItemSize -> {
-           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
-          BaselinePosition -> {1, 1}], True -> GridBox[{{
-            PaneBox[
-             ButtonBox[
-              DynamicBox[
-               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
-              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
-              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
-              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
-             Dynamic[{
-               Automatic, 
-                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
-                 Magnification])}]], 
-            FrameBox[
-             StyleBox["\"\[Checkmark]\"", 
-              Directive[
-               RGBColor[
-               0.3607843137254902, 0.596078431372549, 0.3803921568627451], 
-               25], StripOnInput -> False], ContentPadding -> False, 
-             FrameStyle -> None, FrameMargins -> {{0, 0}, {0, 0}}, 
-             StripOnInput -> False], 
-            GridBox[{{
-               RowBox[{
-                 TagBox[
-                  TemplateBox[{"\"Component\"", "\": \""}, "RowDefault"], 
-                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
-                 TagBox[
-                  InterpretationBox[
-                   RowBox[{
-                    TagBox["CompiledComponent", "SummaryHead"], "[", 
-                    
-                    DynamicModuleBox[{
-                    Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
-                    TemplateBox[{
-                    PaneSelectorBox[{False -> GridBox[{{
-                    PaneBox[
-                    ButtonBox[
-                    DynamicBox[
-                    FEPrivate`FrontEndResource[
-                    "FEBitmaps", "SummaryBoxOpener"]], 
-                    ButtonFunction :> (Typeset`open$$ = True), Appearance -> 
-                    None, BaseStyle -> {}, Evaluator -> Automatic, Method -> 
-                    "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
-                    Dynamic[{Automatic, 
-                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
-                    Magnification])}]], 
-                    GridBox[{{
-                    RowBox[{
-                    TagBox["\"Name: \"", "SummaryItemAnnotation"], 
-                    "\[InvisibleSpace]", 
-                    TagBox["\"ForeignFunctionInterface\"", "SummaryItem"]}]}, {
-                    RowBox[{
-                    TagBox["\"Declarations: \"", "SummaryItemAnnotation"], 
-                    "\[InvisibleSpace]", 
-                    TagBox["96", "SummaryItem"]}]}}, 
-                    GridBoxAlignment -> {
-                    "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, 
-                    AutoDelete -> False, 
-                    GridBoxItemSize -> {
-                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
-                    GridBoxSpacings -> {
-                    "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
-                    BaseStyle -> {
-                    ShowStringCharacters -> False, NumberMarks -> False, 
-                    PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
-                    GridBoxAlignment -> {
-                    "Columns" -> {{Left}}, "Rows" -> {{Top}}}, AutoDelete -> 
-                    False, GridBoxItemSize -> {
-                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
-                    BaselinePosition -> {1, 1}], True -> GridBox[{{
-                    PaneBox[
-                    ButtonBox[
-                    DynamicBox[
-                    FEPrivate`FrontEndResource[
-                    "FEBitmaps", "SummaryBoxCloser"]], 
-                    ButtonFunction :> (Typeset`open$$ = False), Appearance -> 
-                    None, BaseStyle -> {}, Evaluator -> Automatic, Method -> 
-                    "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
-                    Dynamic[{Automatic, 
-                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
-                    Magnification])}]], 
-                    GridBox[{{
-                    RowBox[{
-                    TagBox["\"Name: \"", "SummaryItemAnnotation"], 
-                    "\[InvisibleSpace]", 
-                    TagBox["\"ForeignFunctionInterface\"", "SummaryItem"]}]}, {
-                    RowBox[{
-                    TagBox["\"Declarations: \"", "SummaryItemAnnotation"], 
-                    "\[InvisibleSpace]", 
-                    TagBox["96", "SummaryItem"]}]}, {
-                    RowBox[{
-                    TagBox["\"LibraryFunctions: \"", "SummaryItemAnnotation"],
-                     "\[InvisibleSpace]", 
-                    TagBox["0", "SummaryItem"]}]}, {
-                    RowBox[{
-                    TagBox[
-                    "\"InstalledFunctions: \"", "SummaryItemAnnotation"], 
-                    "\[InvisibleSpace]", 
-                    TagBox["14", "SummaryItem"]}]}, {
-                    RowBox[{
-                    TagBox[
-                    "\"ExternalLibraries: \"", "SummaryItemAnnotation"], 
-                    "\[InvisibleSpace]", 
-                    TagBox["2", "SummaryItem"]}]}, {
-                    RowBox[{
-                    TagBox["\"LoadingEpilogs: \"", "SummaryItemAnnotation"], 
-                    "\[InvisibleSpace]", 
-                    TagBox["0", "SummaryItem"]}]}}, 
-                    GridBoxAlignment -> {
-                    "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, 
-                    AutoDelete -> False, 
-                    GridBoxItemSize -> {
-                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
-                    GridBoxSpacings -> {
-                    "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
-                    BaseStyle -> {
-                    ShowStringCharacters -> False, NumberMarks -> False, 
-                    PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
-                    GridBoxAlignment -> {
-                    "Columns" -> {{Left}}, "Rows" -> {{Top}}}, AutoDelete -> 
-                    False, GridBoxItemSize -> {
-                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
-                    BaselinePosition -> {1, 1}]}, 
-                    Dynamic[Typeset`open$$], ImageSize -> Automatic]}, 
-                    "SummaryPanel"], DynamicModuleValues :> {}], "]"}], 
-                   CompiledComponent["ForeignFunctionInterface"], Selectable -> 
-                   False, Editable -> False, SelectWithContents -> True], 
-                  "SummaryItem"]}]}, {
-               RowBox[{
-                 TagBox[
-                  TemplateBox[{"\"BuildDirectory\"", "\": \""}, "RowDefault"],
-                   "SummaryItemAnnotation"], "\[InvisibleSpace]", 
-                 TagBox[
-                 "\"/home/christopher/git/ForeignFunctionInterface/\
-ForeignFunctionInterface/LibraryResources/Linux-x86-64\"", "SummaryItem"]}]}, {
-               RowBox[{
-                 TagBox[
-                  TemplateBox[{"\"Artifacts\"", "\": \""}, "RowDefault"], 
-                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
-                 TagBox[
-                  
-                  RowBox[{
-                   "{", "\"/home/christopher/git/ForeignFunctionInterface/\
-ForeignFunctionInterface/LibraryResources/Linux-x86-64/\
-ForeignFunctionInterface.so\"", "}"}], "SummaryItem"]}]}, {
-               RowBox[{
-                 TagBox[
-                  TemplateBox[{"\"BuildTime\"", "\": \""}, "RowDefault"], 
-                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
-                 TagBox[
-                  
-                  TemplateBox[{
-                   "85.478539`", "\"s\"", "seconds", "\"Seconds\""}, 
-                   "Quantity", SyntaxForm -> Mod], "SummaryItem"]}]}, {
-               RowBox[{
-                 TagBox[
-                  TemplateBox[{"\"Tag\"", "\": \""}, "RowDefault"], 
-                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
-                 TagBox["\"ComponentBuilt\"", "SummaryItem"]}]}}, 
-             GridBoxAlignment -> {
-              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
-             False, GridBoxItemSize -> {
-              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
-             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
-              BaseStyle -> {
-              ShowStringCharacters -> False, NumberMarks -> False, 
-               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
-          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
-          AutoDelete -> False, 
-          GridBoxItemSize -> {
-           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
-          BaselinePosition -> {1, 1}]}, 
-       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
-     "SummaryPanel"],
-    DynamicModuleValues:>{}], "]"}],
-  Success[
-  "ComponentBuilt", <|
-   "Component" -> CompiledComponent["ForeignFunctionInterface"], 
-    "BuildDirectory" -> 
-    "/home/christopher/git/ForeignFunctionInterface/ForeignFunctionInterface/\
-LibraryResources/Linux-x86-64", 
-    "Artifacts" -> {
-     "/home/christopher/git/ForeignFunctionInterface/ForeignFunctionInterface/\
-LibraryResources/Linux-x86-64/ForeignFunctionInterface.so"}, "BuildTime" -> 
-    Quantity[85.478539, "Seconds"]|>],
-  Editable->False,
-  SelectWithContents->True,
-  Selectable->False]], "Output",
- TaggingRules->{},
- CellChangeTimes->{3.879010956798964*^9},
- CellTags->"DefaultContent",
- CellLabel->"Out[6]=",
- CellID->552590410,ExpressionUUID->"9a3a633e-64fc-458e-9a0b-b77a9540b6ea"]
-}, Open  ]],
 
 Cell["Load a library:", "Text",
  TaggingRules->{},
@@ -3176,11 +2893,783 @@ Cell[BoxData[
 }, Open  ]]
 }, Open  ]],
 
+Cell[CellGroupData[{
+
 Cell["Properties and Relations", "Subsection",
  TaggingRules->{},
  CellChangeTimes->{{3.879011121388132*^9, 3.879011123379876*^9}, {
   3.879012244893215*^9, 3.8790122484294558`*^9}},
- CellID->752530764,ExpressionUUID->"b6207105-c20c-4bc5-9179-5a818ce0ccd0"]
+ CellID->752530764,ExpressionUUID->"b6207105-c20c-4bc5-9179-5a818ce0ccd0"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["CreateForeignFunction",
+   BaseStyle->"Link",
+   ButtonData->
+    "paclet:ChristopherWolfram/ForeignFunctionInterface/ref/\
+CreateForeignFunction"]], "InlineFormula",ExpressionUUID->
+  "83d68989-f9a8-40f5-96c4-cbfad794f36c"],
+ " can create callable links to libraries much faster than custom compiling a \
+link:"
+}], "Text",
+ TaggingRules->{},
+ CellChangeTimes->{{3.879035377714695*^9, 3.879035464871684*^9}},
+ CellID->1267059190,ExpressionUUID->"7f24fa65-7a10-41bc-bdfc-99f914bf2294"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"LibraryLoad", "[", "\"\<compilerDemoBase\>\"", "]"}], 
+  ";"}]], "Input",
+ TaggingRules->{},
+ CellChangeTimes->{{3.878160315790765*^9, 3.878160321206682*^9}, 
+   3.8787404597394238`*^9},
+ CellLabel->"In[5]:=",
+ CellID->2144308902,ExpressionUUID->"260e6b5a-cec4-4605-a2ac-6fdcea059660"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"RepeatedTiming", "[", 
+  RowBox[{"addone", "=", 
+   RowBox[{"CreateForeignFunction", "[", 
+    RowBox[{"\"\<addone\>\"", ",", 
+     RowBox[{"{", 
+      RowBox[{"FFIType", "[", "\"\<CInt\>\"", "]"}], "}"}], ",", 
+     RowBox[{"FFIType", "[", "\"\<CInt\>\"", "]"}]}], "]"}]}], "]"}]], "Input",
+ TaggingRules->{},
+ CellChangeTimes->{{3.879035515912182*^9, 3.8790355184001913`*^9}},
+ CellLabel->"In[7]:=",
+ CellID->1369167568,ExpressionUUID->"cabc055a-4c56-43a1-94fc-dc9362db6434"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"3.27325439453125`*^-6", ",", 
+   TagBox[
+    TemplateBox[{
+      RowBox[{
+        StyleBox[
+         TagBox["TypeProduct", "SummaryHead"], "NonInterpretableSummary"], 
+        StyleBox["[", "NonInterpretableSummary"], 
+        DynamicModuleBox[{
+         Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+         TemplateBox[{
+           PaneSelectorBox[{False -> GridBox[{{
+                 GraphicsBox[
+                  InsetBox[
+                   FormBox[
+                    StyleBox["\"BasicF\"", 
+                    GrayLevel[0.7], Bold, 8.109375, StripOnInput -> False], 
+                    TraditionalForm], {0, 0}], Background -> GrayLevel[0.93], 
+                  Axes -> False, AspectRatio -> 1, ImageSize -> 
+                  Dynamic[{
+                    Automatic, 
+                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                  Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                    Thickness[Tiny], 
+                    GrayLevel[0.55]]], 
+                 GridBox[{{
+                    RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionObject\"", "SummaryItem"]}]}}, 
+                  GridBoxAlignment -> {
+                   "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, 
+                  AutoDelete -> False, 
+                  GridBoxItemSize -> {
+                   "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                  GridBoxSpacings -> {
+                   "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                  BaseStyle -> {
+                   ShowStringCharacters -> False, NumberMarks -> False, 
+                    PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+               GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}},
+                AutoDelete -> False, 
+               GridBoxItemSize -> {
+                "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+               BaselinePosition -> {1, 1}], True -> GridBox[{{
+                 GraphicsBox[
+                  InsetBox[
+                   FormBox[
+                    StyleBox["\"BasicF\"", 
+                    GrayLevel[0.7], Bold, 8.109375, StripOnInput -> False], 
+                    TraditionalForm], {0, 0}], Background -> GrayLevel[0.93], 
+                  Axes -> False, AspectRatio -> 1, ImageSize -> 
+                  Dynamic[{
+                    Automatic, 
+                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                  Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                    Thickness[Tiny], 
+                    GrayLevel[0.55]]], 
+                 GridBox[{{
+                    RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionObject\"", "SummaryItem"]}]}}, 
+                  GridBoxAlignment -> {
+                   "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, 
+                  AutoDelete -> False, 
+                  GridBoxItemSize -> {
+                   "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                  GridBoxSpacings -> {
+                   "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                  BaseStyle -> {
+                   ShowStringCharacters -> False, NumberMarks -> False, 
+                    PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+               GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}},
+                AutoDelete -> False, 
+               GridBoxItemSize -> {
+                "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+               BaselinePosition -> {1, 1}]}, 
+            Dynamic[Typeset`open$$], ImageSize -> Automatic]}, 
+          "SummaryPanel"], DynamicModuleValues :> {}], 
+        StyleBox["]", "NonInterpretableSummary"]}]},
+     "CopyTag",
+     DisplayFunction->(#& ),
+     InterpretationFunction->(
+      "DataStructure[ForeignFunctionObject, $Failed]"& )],
+    False,
+    Editable->False,
+    SelectWithContents->True,
+    Selectable->False]}], "}"}]], "Output",
+ TaggingRules->{},
+ CellChangeTimes->{{3.8790355283685093`*^9, 3.8790355315787907`*^9}},
+ CellLabel->"Out[7]=",
+ CellID->924364061,ExpressionUUID->"0ae3960b-9f85-4342-a2b6-de14f2ff6aeb"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"RepeatedTiming", "[", 
+  RowBox[{"addoneCf", "=", 
+   RowBox[{"FunctionCompile", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"LibraryFunctionDeclaration", "[", 
+      RowBox[{"\"\<addone\>\"", ",", "\"\<compilerDemoBase\>\"", ",", 
+       RowBox[{
+        RowBox[{"{", "\"\<CInt\>\"", "}"}], "->", "\"\<CInt\>\""}]}], "]"}], 
+     ",", "\[IndentingNewLine]", 
+     RowBox[{"Function", "[", 
+      RowBox[{
+       RowBox[{"Typed", "[", 
+        RowBox[{"x", ",", "\"\<CInt\>\""}], "]"}], ",", 
+       RowBox[{
+        RowBox[{"LibraryFunction", "[", "\"\<addone\>\"", "]"}], "[", "x", 
+        "]"}]}], "]"}]}], "\[IndentingNewLine]", "]"}]}], "]"}]], "Input",
+ TaggingRules->{},
+ CellChangeTimes->{{3.87903553483257*^9, 3.879035581315153*^9}},
+ CellLabel->"In[10]:=",
+ CellID->1548358367,ExpressionUUID->"50f626b1-a8dd-473b-b8c8-02e9e35a3f02"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.17368375`", ",", 
+   InterpretationBox[
+    RowBox[{
+     TagBox["CompiledCodeFunction",
+      "SummaryHead"], "[", 
+     DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = 
+      "Ready"}, 
+      TemplateBox[{
+        PaneSelectorBox[{False -> GridBox[{{
+              GraphicsBox[
+               InsetBox[
+                FormBox[
+                 StyleBox["\"Code\"", 
+                  GrayLevel[0.7], Bold, 8.109375, StripOnInput -> False], 
+                 TraditionalForm], {0, 0}], Background -> GrayLevel[0.93], 
+               Axes -> False, AspectRatio -> 1, ImageSize -> 
+               Dynamic[{
+                 Automatic, 
+                  3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                   Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+               Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                 Thickness[Tiny], 
+                 GrayLevel[0.55]]], 
+              GridBox[{{
+                 RowBox[{
+                   TagBox["\"Signature: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox[
+                    RowBox[{
+                    RowBox[{"{", "\"Integer32\"", "}"}], "\[Rule]", 
+                    "\"Integer32\""}], "SummaryItem"]}]}}, 
+               GridBoxAlignment -> {
+                "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+               False, GridBoxItemSize -> {
+                "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+               GridBoxSpacings -> {
+                "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+               BaseStyle -> {
+                ShowStringCharacters -> False, NumberMarks -> False, 
+                 PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+            GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+            AutoDelete -> False, 
+            GridBoxItemSize -> {
+             "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+            BaselinePosition -> {1, 1}], True -> GridBox[{{
+              GraphicsBox[
+               InsetBox[
+                FormBox[
+                 StyleBox["\"Code\"", 
+                  GrayLevel[0.7], Bold, 8.109375, StripOnInput -> False], 
+                 TraditionalForm], {0, 0}], Background -> GrayLevel[0.93], 
+               Axes -> False, AspectRatio -> 1, ImageSize -> 
+               Dynamic[{
+                 Automatic, 
+                  3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                   Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+               Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                 Thickness[Tiny], 
+                 GrayLevel[0.55]]], 
+              GridBox[{{
+                 RowBox[{
+                   TagBox["\"Signature: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox[
+                    RowBox[{
+                    RowBox[{"{", "\"Integer32\"", "}"}], "\[Rule]", 
+                    "\"Integer32\""}], "SummaryItem"]}]}}, 
+               GridBoxAlignment -> {
+                "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+               False, GridBoxItemSize -> {
+                "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+               GridBoxSpacings -> {
+                "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+               BaseStyle -> {
+                ShowStringCharacters -> False, NumberMarks -> False, 
+                 PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+            GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+            AutoDelete -> False, 
+            GridBoxItemSize -> {
+             "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+            BaselinePosition -> {1, 1}]}, 
+         Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+       "SummaryPanel"],
+      DynamicModuleValues:>{}], "]"}],
+    CompiledCodeFunction[<|
+     "Signature" -> TypeSpecifier[{"Integer32"} -> "Integer32"], "Input" -> 
+      Compile`Program[
+        LibraryFunctionDeclaration[
+        "addone", "compilerDemoBase", {"CInt"} -> "CInt"], 
+        Function[
+         Typed[$CellContext`x, "CInt"], 
+         LibraryFunction["addone"][$CellContext`x]]], "ErrorFunction" -> 
+      Automatic, "InitializationName" -> 
+      "Initialization_564f31fe_f5e5_4921_9d04_304ab5e92473", "ExpressionName" -> 
+      "Main_ExprInvocation", "CName" -> "Main_CInvocation", "FunctionName" -> 
+      "Main", "SystemID" -> "Linux-x86-64", "VersionData" -> {13.2, 0, 0}, 
+      "CompiledIR" -> <|"Linux-x86-64" -> ByteArray[CompressedData["
+1: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
+RR1NRTU/8zwZ//8BD+hG5A==
+          "]]|>, "ExternalLibraryPaths" -> {"compilerDemoBase"}, 
+      "orcInstance" -> 69456800, "orcModuleId" -> 67596256, "targetMachineId" -> 
+      67142960|>, 139930598686864, 139930598686736, 139930598686800, 
+     139930598686720, "{\"Integer32\"} -> \"Integer32\""],
+    Editable->False,
+    SelectWithContents->True,
+    Selectable->False]}], "}"}]], "Output",
+ TaggingRules->{},
+ CellChangeTimes->{{3.8790355923639517`*^9, 3.879035596076768*^9}},
+ CellLabel->"Out[10]=",
+ CellID->860652560,ExpressionUUID->"3c351df5-e5bf-42c7-aa00-6fd4a2dd54b0"]
+}, Open  ]],
+
+Cell["\<\
+However, the custom compiled versions usually have slightly less overhead:\
+\>", "Text",
+ TaggingRules->{},
+ CellChangeTimes->{{3.879035596202931*^9, 3.879035608907823*^9}},
+ CellID->503475645,ExpressionUUID->"746a66a4-423f-416e-9ebd-5f0f640d21a5"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"RepeatedTiming", "[", 
+  RowBox[{"CallForeignFunction", "[", 
+   RowBox[{"addone", ",", 
+    RowBox[{"{", "10", "}"}]}], "]"}], "]"}]], "Input",
+ TaggingRules->{},
+ CellChangeTimes->{{3.8790356200117283`*^9, 3.8790356247401047`*^9}},
+ CellLabel->"In[12]:=",
+ CellID->645961359,ExpressionUUID->"27795c7b-6017-406b-b866-8288ca48cece"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"4.195866584777832`*^-7", ",", "11"}], "}"}]], "Output",
+ TaggingRules->{},
+ CellChangeTimes->{3.879035626832251*^9},
+ CellLabel->"Out[12]=",
+ CellID->1966722449,ExpressionUUID->"19905666-bf6f-4abe-a783-a1fe83074171"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"RepeatedTiming", "[", 
+  RowBox[{"addoneCf", "[", "10", "]"}], "]"}]], "Input",
+ TaggingRules->{},
+ CellChangeTimes->{{3.879035611884654*^9, 3.879035616067465*^9}},
+ CellLabel->"In[11]:=",
+ CellID->917867914,ExpressionUUID->"5d591388-f3d7-432d-8bd1-703e2af1b98f"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"1.5992903709411622`*^-7", ",", "11"}], "}"}]], "Output",
+ TaggingRules->{},
+ CellChangeTimes->{3.879035617724599*^9},
+ CellLabel->"Out[11]=",
+ CellID->428316144,ExpressionUUID->"54122060-4cdb-47b7-ae4e-4d7055d06493"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Possible Issues", "Subsection",
+ TaggingRules->{},
+ CellChangeTimes->{{3.879011121388132*^9, 3.879011123379876*^9}, {
+  3.879012244893215*^9, 3.8790122484294558`*^9}, {3.87903525187024*^9, 
+  3.879035253613902*^9}},
+ CellID->412087985,ExpressionUUID->"2ffdcded-d9f1-45f5-b08b-0643d86ba930"],
+
+Cell["\<\
+Platforms other than x86 Linux and macOS can be made to work by adding builds \
+of libffi and the ffiConstants library (found in the source repository) to \
+LibraryResources. Then, the linking code can be created by building the \
+compiled component in a one-time operation:\
+\>", "Text",
+ TaggingRules->{},
+ CellChangeTimes->{{3.879010830976832*^9, 3.879010836649816*^9}, {
+  3.879010872674745*^9, 3.879010907580041*^9}, {3.879035259806356*^9, 
+  3.879035345729394*^9}},
+ CellTags->"DefaultContent",
+ CellID->319073343,ExpressionUUID->"dd0bd165-174a-44cd-a029-fd24d1519998"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"BuildCompiledComponent", "[", 
+  RowBox[{"\"\<ForeignFunctionInterface\>\"", ",", 
+   RowBox[{
+   "PacletObject", "[", "\"\<ChristopherWolfram/ForeignFunctionInterface\>\"",
+     "]"}]}], "]"}]], "Input",
+ TaggingRules->{},
+ CellChangeTimes->{{3.879010838497589*^9, 3.879010862066773*^9}},
+ CellTags->"DefaultContent",
+ CellLabel->"In[6]:=",
+ CellID->593829399,ExpressionUUID->"8eb09e89-747f-4edd-9b98-eb720c6ced1e"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["Success",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[Checkmark]\"", 
+              Directive[
+               RGBColor[
+               0.3607843137254902, 0.596078431372549, 0.3803921568627451], 
+               25], StripOnInput -> False], ContentPadding -> False, 
+             FrameStyle -> None, FrameMargins -> {{0, 0}, {0, 0}}, 
+             StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Component\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  InterpretationBox[
+                   RowBox[{
+                    TagBox["CompiledComponent", "SummaryHead"], "[", 
+                    
+                    DynamicModuleBox[{
+                    Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+                    TemplateBox[{
+                    PaneSelectorBox[{False -> GridBox[{{
+                    PaneBox[
+                    ButtonBox[
+                    DynamicBox[
+                    FEPrivate`FrontEndResource[
+                    "FEBitmaps", "SummaryBoxOpener"]], 
+                    ButtonFunction :> (Typeset`open$$ = True), Appearance -> 
+                    None, BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+                    "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+                    Dynamic[{Automatic, 
+                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}]], 
+                    GridBox[{{
+                    RowBox[{
+                    TagBox["\"Name: \"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionInterface\"", "SummaryItem"]}]}, {
+                    RowBox[{
+                    TagBox["\"Declarations: \"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["96", "SummaryItem"]}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, 
+                    AutoDelete -> False, 
+                    GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {
+                    "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                    BaseStyle -> {
+                    ShowStringCharacters -> False, NumberMarks -> False, 
+                    PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Top}}}, AutoDelete -> 
+                    False, GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    BaselinePosition -> {1, 1}], True -> GridBox[{{
+                    PaneBox[
+                    ButtonBox[
+                    DynamicBox[
+                    FEPrivate`FrontEndResource[
+                    "FEBitmaps", "SummaryBoxCloser"]], 
+                    ButtonFunction :> (Typeset`open$$ = False), Appearance -> 
+                    None, BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+                    "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+                    Dynamic[{Automatic, 
+                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}]], 
+                    GridBox[{{
+                    RowBox[{
+                    TagBox["\"Name: \"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionInterface\"", "SummaryItem"]}]}, {
+                    RowBox[{
+                    TagBox["\"Declarations: \"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["96", "SummaryItem"]}]}, {
+                    RowBox[{
+                    TagBox["\"LibraryFunctions: \"", "SummaryItemAnnotation"],
+                     "\[InvisibleSpace]", 
+                    TagBox["0", "SummaryItem"]}]}, {
+                    RowBox[{
+                    TagBox[
+                    "\"InstalledFunctions: \"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["14", "SummaryItem"]}]}, {
+                    RowBox[{
+                    TagBox["\"ExternalLibraries: \"", 
+                    "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                    TagBox["2", "SummaryItem"]}]}, {
+                    RowBox[{
+                    TagBox["\"LoadingEpilogs: \"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["0", "SummaryItem"]}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, 
+                    AutoDelete -> False, 
+                    GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {
+                    "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                    BaseStyle -> {
+                    ShowStringCharacters -> False, NumberMarks -> False, 
+                    PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Top}}}, AutoDelete -> 
+                    False, GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    BaselinePosition -> {1, 1}]}, 
+                    Dynamic[Typeset`open$$], ImageSize -> Automatic]}, 
+                    "SummaryPanel"], DynamicModuleValues :> {}], "]"}], 
+                   CompiledComponent["ForeignFunctionInterface"], Selectable -> 
+                   False, Editable -> False, SelectWithContents -> True], 
+                  "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"BuildDirectory\"", "\": \""}, "RowDefault"],
+                   "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                 "\"/home/christopher/git/ForeignFunctionInterface/\
+ForeignFunctionInterface/LibraryResources/Linux-x86-64\"", "SummaryItem"]}]}},
+              GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[Checkmark]\"", 
+              Directive[
+               RGBColor[
+               0.3607843137254902, 0.596078431372549, 0.3803921568627451], 
+               25], StripOnInput -> False], ContentPadding -> False, 
+             FrameStyle -> None, FrameMargins -> {{0, 0}, {0, 0}}, 
+             StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Component\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  InterpretationBox[
+                   RowBox[{
+                    TagBox["CompiledComponent", "SummaryHead"], "[", 
+                    
+                    DynamicModuleBox[{
+                    Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+                    TemplateBox[{
+                    PaneSelectorBox[{False -> GridBox[{{
+                    PaneBox[
+                    ButtonBox[
+                    DynamicBox[
+                    FEPrivate`FrontEndResource[
+                    "FEBitmaps", "SummaryBoxOpener"]], 
+                    ButtonFunction :> (Typeset`open$$ = True), Appearance -> 
+                    None, BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+                    "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+                    Dynamic[{Automatic, 
+                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}]], 
+                    GridBox[{{
+                    RowBox[{
+                    TagBox["\"Name: \"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionInterface\"", "SummaryItem"]}]}, {
+                    RowBox[{
+                    TagBox["\"Declarations: \"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["96", "SummaryItem"]}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, 
+                    AutoDelete -> False, 
+                    GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {
+                    "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                    BaseStyle -> {
+                    ShowStringCharacters -> False, NumberMarks -> False, 
+                    PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Top}}}, AutoDelete -> 
+                    False, GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    BaselinePosition -> {1, 1}], True -> GridBox[{{
+                    PaneBox[
+                    ButtonBox[
+                    DynamicBox[
+                    FEPrivate`FrontEndResource[
+                    "FEBitmaps", "SummaryBoxCloser"]], 
+                    ButtonFunction :> (Typeset`open$$ = False), Appearance -> 
+                    None, BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+                    "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+                    Dynamic[{Automatic, 
+                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}]], 
+                    GridBox[{{
+                    RowBox[{
+                    TagBox["\"Name: \"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionInterface\"", "SummaryItem"]}]}, {
+                    RowBox[{
+                    TagBox["\"Declarations: \"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["96", "SummaryItem"]}]}, {
+                    RowBox[{
+                    TagBox["\"LibraryFunctions: \"", "SummaryItemAnnotation"],
+                     "\[InvisibleSpace]", 
+                    TagBox["0", "SummaryItem"]}]}, {
+                    RowBox[{
+                    TagBox[
+                    "\"InstalledFunctions: \"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["14", "SummaryItem"]}]}, {
+                    RowBox[{
+                    TagBox[
+                    "\"ExternalLibraries: \"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["2", "SummaryItem"]}]}, {
+                    RowBox[{
+                    TagBox["\"LoadingEpilogs: \"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["0", "SummaryItem"]}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, 
+                    AutoDelete -> False, 
+                    GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    GridBoxSpacings -> {
+                    "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                    BaseStyle -> {
+                    ShowStringCharacters -> False, NumberMarks -> False, 
+                    PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+                    GridBoxAlignment -> {
+                    "Columns" -> {{Left}}, "Rows" -> {{Top}}}, AutoDelete -> 
+                    False, GridBoxItemSize -> {
+                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                    BaselinePosition -> {1, 1}]}, 
+                    Dynamic[Typeset`open$$], ImageSize -> Automatic]}, 
+                    "SummaryPanel"], DynamicModuleValues :> {}], "]"}], 
+                   CompiledComponent["ForeignFunctionInterface"], Selectable -> 
+                   False, Editable -> False, SelectWithContents -> True], 
+                  "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"BuildDirectory\"", "\": \""}, "RowDefault"],
+                   "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                 "\"/home/christopher/git/ForeignFunctionInterface/\
+ForeignFunctionInterface/LibraryResources/Linux-x86-64\"", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Artifacts\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  
+                  RowBox[{
+                   "{", "\"/home/christopher/git/ForeignFunctionInterface/\
+ForeignFunctionInterface/LibraryResources/Linux-x86-64/\
+ForeignFunctionInterface.so\"", "}"}], "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"BuildTime\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  
+                  TemplateBox[{
+                   "85.478539`", "\"s\"", "seconds", "\"Seconds\""}, 
+                   "Quantity", SyntaxForm -> Mod], "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Tag\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox["\"ComponentBuilt\"", "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  Success[
+  "ComponentBuilt", <|
+   "Component" -> CompiledComponent["ForeignFunctionInterface"], 
+    "BuildDirectory" -> 
+    "/home/christopher/git/ForeignFunctionInterface/ForeignFunctionInterface/\
+LibraryResources/Linux-x86-64", 
+    "Artifacts" -> {
+     "/home/christopher/git/ForeignFunctionInterface/ForeignFunctionInterface/\
+LibraryResources/Linux-x86-64/ForeignFunctionInterface.so"}, "BuildTime" -> 
+    Quantity[85.478539, "Seconds"]|>],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ TaggingRules->{},
+ CellChangeTimes->{3.879010956798964*^9},
+ CellTags->"DefaultContent",
+ CellLabel->"Out[6]=",
+ CellID->552590410,ExpressionUUID->"9a3a633e-64fc-458e-9a0b-b77a9540b6ea"]
+}, Open  ]]
+}, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
