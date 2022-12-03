@@ -1806,12 +1806,11 @@ excluded using ",
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{
-  "PacletDirectoryLoad", "[", 
-   "\"\</home/christopher/git/ForeignFunctionInterface/\
-ForeignFunctionInterface\>\"", "]"}], ";"}]], "Input", "Excluded",
+  RowBox[{"PacletDirectoryLoad", "[", 
+   RowBox[{"NotebookDirectory", "[", "]"}], "]"}], ";"}]], "Input", "Excluded",
  TaggingRules->{},
  InitializationCell->True,
+ CellChangeTimes->{{3.879095022507695*^9, 3.8790950240924053`*^9}},
  CellLabel->"In[1]:=",
  CellID->996717066,ExpressionUUID->"20a2896b-de9a-4737-bfe0-eb9e3103b75b"],
 
@@ -6221,7 +6220,7 @@ attempt to mean that).\
 }, Open  ]]
 },
 WindowSize->{1111.5, 909.},
-WindowMargins->{{234.75, Automatic}, {57.75, Automatic}},
+WindowMargins->{{234.75, Automatic}, {30, Automatic}},
 WindowTitle->"ForeignFunctionInterface | Definition Notebook",
 DockedCells->{
   Cell[
