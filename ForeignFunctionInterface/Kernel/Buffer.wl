@@ -93,63 +93,49 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 			]
 		],
 
-		FunctionDeclaration[numericArrayExpressionHasTypeQ,
-			Typed[ForAllType[ty, {"InertExpression", ty} -> "Boolean"]]@
-			Function[{expr, type},
-				Native`PrimitiveFunction["TestGet_MNumericArray"][expr, Array`ElementTypeID[type], 1, ToRawPointer[]]
-			]
-		],
-
 		FunctionDeclaration[NumericArrayToBuffer,
 			Typed[ForAllType[ty, {"NumericArray"::[ty,1]} -> "InertExpression"]]@
 			Function[arr,
-				Cast[
-					CreateTypeInstance["CArray", Array`GetData[arr], Echo@Array`NumberOfElements[arr]],
-					"OpaqueRawPointer", "BitCast"
-				][[0]]//Echo;
 				PointerToExpression@Cast[
-					CreateTypeInstance["CArray", Array`GetData[arr], Echo@Array`NumberOfElements[arr]],
+					CreateTypeInstance["CArray", Array`GetData[arr], Array`NumberOfElements[arr]],
 					"OpaqueRawPointer", "BitCast"
 				]
 			]
 		],
 
 		FunctionDeclaration[NumericArrayToBuffer,
-			Typed[{"InertExpression"} -> "InertExpression"]@
-			Function[expr,
-				Which[
-					numericArrayExpressionHasTypeQ[expr, TypeSpecifier["Integer8"]],
-						NumericArrayToBuffer[Cast[expr,"NumericArray"::["Integer8",1]]],
+			Typed[ForAllType[ty, {"InertExpression", "TypeSpecifier"::[ty]} -> "InertExpression"]]@
+			Function[{expr, elemTy},
+				NumericArrayToBuffer[Cast[expr, "NumericArray"::[elemTy,1]]]
+			]
+		],
 
-					numericArrayExpressionHasTypeQ[expr, TypeSpecifier["UnsignedInteger8"]],
-						NumericArrayToBuffer[Cast[expr,"NumericArray"::["UnsignedInteger8",1]]],
+		FunctionDeclaration[NumericArrayToBuffer,
+			Typed[{"InertExpression", "FFIType"} -> "InertExpression"]@
+			Function[{expr, type},
+				Switch[type,
 
-					numericArrayExpressionHasTypeQ[expr, TypeSpecifier["Integer16"]],
-						NumericArrayToBuffer[Cast[expr,"NumericArray"::["Integer16",1]]],
+					(* "Void" is removed *)
+					FFIType["UnsignedInteger8"],	NumericArrayToBuffer[expr, TypeSpecifier["UnsignedInteger8"]],
+					FFIType["Integer8"],					NumericArrayToBuffer[expr, TypeSpecifier["Integer8"]],
+					FFIType["UnsignedInteger16"],	NumericArrayToBuffer[expr, TypeSpecifier["UnsignedInteger16"]],
+					FFIType["Integer16"],					NumericArrayToBuffer[expr, TypeSpecifier["Integer16"]],
+					FFIType["UnsignedInteger32"],	NumericArrayToBuffer[expr, TypeSpecifier["UnsignedInteger32"]],
+					FFIType["Integer32"],					NumericArrayToBuffer[expr, TypeSpecifier["Integer32"]],
+					FFIType["UnsignedInteger64"],	NumericArrayToBuffer[expr, TypeSpecifier["UnsignedInteger64"]],
+					FFIType["Integer64"],					NumericArrayToBuffer[expr, TypeSpecifier["Integer64"]],
+					FFIType["CFloat"],						NumericArrayToBuffer[expr, TypeSpecifier["CFloat"]],
+					FFIType["CDouble"],						NumericArrayToBuffer[expr, TypeSpecifier["CDouble"]],
+					FFIType["CUnsignedChar"],			NumericArrayToBuffer[expr, TypeSpecifier["CUnsignedChar"]],
+					FFIType["CSignedChar"],				NumericArrayToBuffer[expr, TypeSpecifier["CSignedChar"]],
+					FFIType["CUnsignedShort"],		NumericArrayToBuffer[expr, TypeSpecifier["CUnsignedShort"]],
+					FFIType["CShort"],						NumericArrayToBuffer[expr, TypeSpecifier["CShort"]],
+					FFIType["CUnsignedInt"],			NumericArrayToBuffer[expr, TypeSpecifier["CUnsignedInt"]],
+					FFIType["CInt"],							NumericArrayToBuffer[expr, TypeSpecifier["CInt"]],
+					FFIType["CUnsignedLong"],			NumericArrayToBuffer[expr, TypeSpecifier["CUnsignedLong"]],
+					FFIType["CLong"],							NumericArrayToBuffer[expr, TypeSpecifier["CLong"]],
+					_, 														Native`ThrowWolframExceptionCode["Unimplemented"]
 
-					numericArrayExpressionHasTypeQ[expr, TypeSpecifier["UnsignedInteger16"]],
-						NumericArrayToBuffer[Cast[expr,"NumericArray"::["UnsignedInteger16",1]]],
-
-					numericArrayExpressionHasTypeQ[expr, TypeSpecifier["Integer32"]],
-						NumericArrayToBuffer[Cast[expr,"NumericArray"::["Integer32",1]]],
-
-					numericArrayExpressionHasTypeQ[expr, TypeSpecifier["UnsignedInteger32"]],
-						NumericArrayToBuffer[Cast[expr,"NumericArray"::["UnsignedInteger32",1]]],
-
-					numericArrayExpressionHasTypeQ[expr, TypeSpecifier["Integer64"]],
-						NumericArrayToBuffer[Cast[expr,"NumericArray"::["Integer64",1]]],
-
-					numericArrayExpressionHasTypeQ[expr, TypeSpecifier["UnsignedInteger64"]],
-						NumericArrayToBuffer[Cast[expr,"NumericArray"::["UnsignedInteger64",1]]],
-
-					numericArrayExpressionHasTypeQ[expr, TypeSpecifier["Real32"]],
-						NumericArrayToBuffer[Cast[expr,"NumericArray"::["Real32",1]]],
-
-					numericArrayExpressionHasTypeQ[expr, TypeSpecifier["Real64"]],
-						NumericArrayToBuffer[Cast[expr,"NumericArray"::["Real64",1]]],
-
-					True,
-						Native`ThrowWolframExceptionCode["ExpressionConversion"]
 				]
 			]
 		],
@@ -181,7 +167,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> {
 
 DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> <|
 	iCreateBuffer -> Typed[CreateBuffer, {"FFIType", "MachineInteger"} -> "InertExpression"],
-	NumericArrayToBuffer -> Typed[NumericArrayToBuffer, {"InertExpression"} -> "InertExpression"]
+	NumericArrayToBuffer -> Typed[NumericArrayToBuffer, {"InertExpression", "FFIType"} -> "InertExpression"]
 |>];
 
 
