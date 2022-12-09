@@ -6,6 +6,7 @@ GetManagedExpression
 
 CreateBuffer
 BufferToNumericArray
+NumericArrayToBuffer
 StringToBuffer
 BufferToString
 DereferenceBuffer

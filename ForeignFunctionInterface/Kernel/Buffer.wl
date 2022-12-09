@@ -93,6 +93,67 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 			]
 		],
 
+		FunctionDeclaration[numericArrayExpressionHasTypeQ,
+			Typed[ForAllType[ty, {"InertExpression", ty} -> "Boolean"]]@
+			Function[{expr, type},
+				Native`PrimitiveFunction["TestGet_MNumericArray"][expr, Array`ElementTypeID[type], 1, ToRawPointer[]]
+			]
+		],
+
+		FunctionDeclaration[NumericArrayToBuffer,
+			Typed[ForAllType[ty, {"NumericArray"::[ty,1]} -> "InertExpression"]]@
+			Function[arr,
+				Cast[
+					CreateTypeInstance["CArray", Array`GetData[arr], Echo@Array`NumberOfElements[arr]],
+					"OpaqueRawPointer", "BitCast"
+				][[0]]//Echo;
+				PointerToExpression@Cast[
+					CreateTypeInstance["CArray", Array`GetData[arr], Echo@Array`NumberOfElements[arr]],
+					"OpaqueRawPointer", "BitCast"
+				]
+			]
+		],
+
+		FunctionDeclaration[NumericArrayToBuffer,
+			Typed[{"InertExpression"} -> "InertExpression"]@
+			Function[expr,
+				Which[
+					numericArrayExpressionHasTypeQ[expr, TypeSpecifier["Integer8"]],
+						NumericArrayToBuffer[Cast[expr,"NumericArray"::["Integer8",1]]],
+
+					numericArrayExpressionHasTypeQ[expr, TypeSpecifier["UnsignedInteger8"]],
+						NumericArrayToBuffer[Cast[expr,"NumericArray"::["UnsignedInteger8",1]]],
+
+					numericArrayExpressionHasTypeQ[expr, TypeSpecifier["Integer16"]],
+						NumericArrayToBuffer[Cast[expr,"NumericArray"::["Integer16",1]]],
+
+					numericArrayExpressionHasTypeQ[expr, TypeSpecifier["UnsignedInteger16"]],
+						NumericArrayToBuffer[Cast[expr,"NumericArray"::["UnsignedInteger16",1]]],
+
+					numericArrayExpressionHasTypeQ[expr, TypeSpecifier["Integer32"]],
+						NumericArrayToBuffer[Cast[expr,"NumericArray"::["Integer32",1]]],
+
+					numericArrayExpressionHasTypeQ[expr, TypeSpecifier["UnsignedInteger32"]],
+						NumericArrayToBuffer[Cast[expr,"NumericArray"::["UnsignedInteger32",1]]],
+
+					numericArrayExpressionHasTypeQ[expr, TypeSpecifier["Integer64"]],
+						NumericArrayToBuffer[Cast[expr,"NumericArray"::["Integer64",1]]],
+
+					numericArrayExpressionHasTypeQ[expr, TypeSpecifier["UnsignedInteger64"]],
+						NumericArrayToBuffer[Cast[expr,"NumericArray"::["UnsignedInteger64",1]]],
+
+					numericArrayExpressionHasTypeQ[expr, TypeSpecifier["Real32"]],
+						NumericArrayToBuffer[Cast[expr,"NumericArray"::["Real32",1]]],
+
+					numericArrayExpressionHasTypeQ[expr, TypeSpecifier["Real64"]],
+						NumericArrayToBuffer[Cast[expr,"NumericArray"::["Real64",1]]],
+
+					True,
+						Native`ThrowWolframExceptionCode["ExpressionConversion"]
+				]
+			]
+		],
+
 		FunctionDeclaration[StringToBuffer,
 			Typed[{"String"} -> "InertExpression"]@
 			Function[str,
@@ -119,7 +180,8 @@ DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> {
 }];
 
 DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> <|
-	iCreateBuffer -> Typed[CreateBuffer, {"FFIType", "MachineInteger"} -> "InertExpression"]
+	iCreateBuffer -> Typed[CreateBuffer, {"FFIType", "MachineInteger"} -> "InertExpression"],
+	NumericArrayToBuffer -> Typed[NumericArrayToBuffer, {"InertExpression"} -> "InertExpression"]
 |>];
 
 
@@ -194,7 +256,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		],
 
 		(******* ManagedExpression case *******)
-		
+
 		FunctionDeclaration[DereferenceBuffer,
 			Typed[ForAllType[ty, {"ManagedExpression", ty, "MachineInteger"} -> "InertExpression"]]@
 			Function[{man, type, offset},

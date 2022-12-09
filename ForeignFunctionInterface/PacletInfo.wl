@@ -25,6 +25,7 @@ PacletObject[
           "ChristopherWolfram`ForeignFunctionInterface`FFIType",
           "ChristopherWolfram`ForeignFunctionInterface`FreeBuffer",
           "ChristopherWolfram`ForeignFunctionInterface`GetManagedExpression",
+          "ChristopherWolfram`ForeignFunctionInterface`NumericArrayToBuffer",
           "ChristopherWolfram`ForeignFunctionInterface`OpaqueRawPointer",
           "ChristopherWolfram`ForeignFunctionInterface`StringToBuffer"
         }

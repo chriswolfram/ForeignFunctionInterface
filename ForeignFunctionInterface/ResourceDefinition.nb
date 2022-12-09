@@ -6329,8 +6329,25 @@ Cell["\<\
 More functions for creating and manipulating buffers / structs.\
 \>", "Item",
  TaggingRules->{},
- CellChangeTimes->{{3.8790125517444763`*^9, 3.879012565480771*^9}},
+ CellChangeTimes->{{3.8790125517444763`*^9, 3.879012565480771*^9}, {
+  3.879558243866912*^9, 3.87955824386761*^9}},
  CellID->1432170511,ExpressionUUID->"efd7d164-0ac2-48da-960b-03501ef8c286"],
+
+Cell["More natural calling syntax.", "Item",
+ TaggingRules->{},
+ CellChangeTimes->{{3.8790125517444763`*^9, 3.879012565480771*^9}, {
+  3.879558244883972*^9, 3.879558250142619*^9}},
+ CellID->147240889,ExpressionUUID->"541176cd-2a09-4466-9d01-7ac3d1212844"],
+
+Cell[TextData[{
+ "Perhaps automatic type conversion (so a string could be passed to an \
+argument wit",
+ StyleBox["h type OpaqueRawPointer, etc.)", "Text"]
+}], "Item",
+ TaggingRules->{},
+ CellChangeTimes->{{3.8790125517444763`*^9, 3.879012565480771*^9}, {
+  3.879558244883972*^9, 3.8795582836690474`*^9}},
+ CellID->1428655808,ExpressionUUID->"51b14227-d02e-424c-a54c-4003a09e23ad"],
 
 Cell["\<\
 The logo for this paclet is Sumerian for \"foreign language\" (or at least an \

@@ -55,7 +55,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> {
 }];
 
 DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> <|
-	GetManagedExpression -> Typed[{"InertExpression"} -> "InertExpression"]@GetManagedExpression
+	GetManagedExpression -> Typed[GetManagedExpression, {"InertExpression"} -> "InertExpression"]
 |>];
 
 
