@@ -40,6 +40,11 @@ int get_FFI_BAD_ABI() {
 	return FFI_BAD_ABI;
 }
 
+// Closures
+size_t get_ffi_closure_size() {
+	return sizeof(ffi_closure);
+}
+
 
 // libffi types
 
