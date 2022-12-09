@@ -176,8 +176,12 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 
 	FunctionDeclaration[CallForeignFunction,
-		Typed[{"ForeignFunctionObject", "ListVector"::["InertExpression"]} -> "InertExpression"]@
+		Typed[{"ForeignFunctionObject", "InertExpression"} -> "InertExpression"]@
 		Function[{ff, args},
+			If[Head[args] =!= InertExpression[List] || Length[args] =!= ff["ArgumentCount"],
+				Native`ThrowWolframExceptionCode["Argument"]
+			];
+
 			Do[
 				populateArgumentPointer[
 					FromRawPointer[ff["ArgumentPointers"], i-1],
