@@ -13,9 +13,8 @@ Needs["ChristopherWolfram`ForeignFunctionInterface`OpaqueRawPointer`"]
 (***************************************************)
 
 
+(******* FreeBuffer *******)
 DeclareCompiledComponent["ForeignFunctionInterface", {
-
-		(******* Freeing buffers *******)
 
 		FunctionDeclaration[FreeBuffer,
 			Typed[{"InertExpression"} -> "Null"]@
@@ -23,9 +22,18 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 				(* TODO: This ignores the element type of the array. Confirm that this isn't a problem. *)
 				DeleteObject[Cast[ExpressionToPointer[ptr], "CArray"::["Integer8"], "BitCast"]]
 			]
-		],
+		]
 
-		(******* Creating uninitialized buffers *******)
+}];
+
+DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> {
+	FreeBuffer
+}];
+
+
+
+(******* CreateBuffer *******)
+DeclareCompiledComponent["ForeignFunctionInterface", {
 
 		FunctionDeclaration[CreateBuffer,
 			Typed[{"FFIType", "MachineInteger"} -> "InertExpression"]@
@@ -42,9 +50,27 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 			Function[type,
 				CreateBuffer[type, 1]
 			]
-		],
+		]
 
-		(******* Conversion between buffers and NumericArrays / Strings *******)
+}];
+
+DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> <|
+	iCreateBuffer -> Typed[CreateBuffer, {"FFIType", "MachineInteger"} -> "InertExpression"]
+|>];
+
+
+(* Down values *)
+
+CreateBuffer[ty_, len_] :=
+	iCreateBuffer[ty, len]
+
+CreateBuffer[ty_] :=
+	iCreateBuffer[ty, 1]
+
+
+
+(******* BufferToNumericArray / NumericArrayToBuffer *******)
+DeclareCompiledComponent["ForeignFunctionInterface", {
 
 		FunctionDeclaration[BufferToNumericArray,
 			Typed[ForAllType[elemType, {"InertExpression", "TypeSpecifier"::[elemType], "MachineInteger"} -> "InertExpression"]]@
@@ -138,7 +164,22 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 				]
 			]
-		],
+		]
+
+}];
+
+DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> {
+	BufferToNumericArray
+}];
+
+DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> <|
+	NumericArrayToBuffer -> Typed[NumericArrayToBuffer, {"InertExpression", "FFIType"} -> "InertExpression"]
+|>];
+
+
+
+(******* StringToBuffer / BufferToString *******)
+DeclareCompiledComponent["ForeignFunctionInterface", {
 
 		FunctionDeclaration[StringToBuffer,
 			Typed[{"String"} -> "InertExpression"]@
@@ -155,29 +196,11 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		]
 }];
 
-
-(* Installed functions *)
-
 DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> {
-	BufferToNumericArray,
 	StringToBuffer,
-	BufferToString,
-	FreeBuffer
+	BufferToString
 }];
 
-DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> <|
-	iCreateBuffer -> Typed[CreateBuffer, {"FFIType", "MachineInteger"} -> "InertExpression"],
-	NumericArrayToBuffer -> Typed[NumericArrayToBuffer, {"InertExpression", "FFIType"} -> "InertExpression"]
-|>];
-
-
-(* Down values *)
-
-CreateBuffer[ty_, len_] :=
-	iCreateBuffer[ty, len]
-
-CreateBuffer[ty_] :=
-	iCreateBuffer[ty, 1]
 
 
 (***************************************************)
@@ -269,9 +292,6 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		]
 
 }];
-
-
-(* Installed functions *)
 
 DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> <|
 	iDereferenceBuffer -> Typed[DereferenceBuffer, {"InertExpression", "FFIType", "MachineInteger"} -> "InertExpression"]
