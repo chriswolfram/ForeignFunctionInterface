@@ -53,7 +53,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 				Cast[
 					CreateTypeInstance[
 						"NumericArray"::[type,1],
-						Cast[ExpressionToPointer[ptr],"CArray"::[type],"BitCast"],
+						Cast[ExpressionToPointer[GetManagedExpression[ptr]],"CArray"::[type],"BitCast"],
 						len
 					],
 					"InertExpression"
@@ -103,7 +103,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		FunctionDeclaration[BufferToString,
 			Typed[{"InertExpression"} -> "String"]@
 			Function[carr,
-				CreateTypeInstance["String", Cast[ExpressionToPointer[carr], "CString", "BitCast"]]
+				CreateTypeInstance["String", Cast[ExpressionToPointer[GetManagedExpression[carr]], "CString", "BitCast"]]
 			]
 		]
 }];
@@ -193,12 +193,21 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 			]
 		],
 
+		(******* ManagedExpression case *******)
+		
+		FunctionDeclaration[DereferenceBuffer,
+			Typed[ForAllType[ty, {"ManagedExpression", ty, "MachineInteger"} -> "InertExpression"]]@
+			Function[{man, type, offset},
+				DereferenceBuffer[GetManagedExpression[man], type, offset]
+			]
+		],
+
 		(******* Expression case *******)
 
 		FunctionDeclaration[DereferenceBuffer,
 			Typed[{"InertExpression", "FFIType", "MachineInteger"} -> "InertExpression"]@
 			Function[{ptr, type, offset},
-				DereferenceBuffer[ExpressionToPointer[ptr], type, offset]
+				DereferenceBuffer[ExpressionToPointer[GetManagedExpression[ptr]], type, offset]
 			]
 		],
 

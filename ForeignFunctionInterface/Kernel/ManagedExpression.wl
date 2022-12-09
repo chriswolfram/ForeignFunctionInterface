@@ -35,15 +35,28 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 			Function[manExpr,
 				manExpr["Expression"]
 			]
+		],
+
+		FunctionDeclaration[GetManagedExpression,
+			Typed[{"InertExpression"} -> "InertExpression"]@
+			Function[expr,
+				If[Native`PrimitiveFunction["TestGet_ObjectInstanceByName"][expr, Typed["ManagedExpression","CString"], ToRawPointer[]],
+					GetManagedExpression[Cast[expr,"ManagedExpression"]],
+					expr
+				]
+			]
 		]
 
 }];
 
 
 DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> {
-	CreateManagedExpression,
-	GetManagedExpression
+	CreateManagedExpression
 }];
+
+DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> <|
+	GetManagedExpression -> Typed[{"InertExpression"} -> "InertExpression"]@GetManagedExpression
+|>];
 
 
 
