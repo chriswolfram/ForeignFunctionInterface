@@ -66,8 +66,8 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		Typed[{"CallbackObject"} -> "Null"]@
 		Function[callback,
 			DeleteObject[callback["CallInterface"]];
-			LibraryFunction["ffi_closure_free"][callback["CodeLocation"]];
-			(* TODO: Confirm that "Closure" doesn't need to be freed in some way. *)
+			LibraryFunction["ffi_closure_free"][callback["Closure"]];
+			(* TODO: Confirm that "CodeLocation" doesn't need to be freed in some way. *)
 		]
 	],
 
@@ -75,9 +75,9 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		Typed[{"InertExpression"} -> "InertExpression"]@
 		Function[expr,
 			If[Native`PrimitiveFunction["TestGet_ObjectInstanceByName"][expr, Typed["CallbackObject","CString"], ToRawPointer[]],
-					PointerToExpression[Cast[expr,"CallbackObject"]["CodeLocation"]],
-					expr
-				]
+				PointerToExpression[Cast[expr,"CallbackObject"]["CodeLocation"]],
+				expr
+			]
 		]
 	]
 
