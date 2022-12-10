@@ -39,13 +39,13 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	FunctionDeclaration[CompilerCallback["OnFree"],
 		Typed[{"ForeignFunctionObject"} -> "Null"]@
 		Function[ff,
-			DeleteFFICallInterface[ff["CallInterface"]];
 			Do[
 				DeleteObject@Cast[FromRawPointer[ff["ArgumentPointers"], i-1], "CArray"::["Integer8"], "BitCast"],
 				{i, ff["CallInterface"]["ArgumentCount"]}
 			];
 			DeleteObject[ff["ArgumentPointers"]];
 			DeleteObject[Cast[ff["OutputPointer"], "CArray"::["Integer8"], "BitCast"]];
+			DeleteFFICallInterface[ff["CallInterface"]];
 		]
 	],
 
