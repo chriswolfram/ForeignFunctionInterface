@@ -7,6 +7,7 @@ Begin["`Private`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`OpaqueRawPointer`"]
+Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`Callback`"] (* for GetCallbackPointer *)
 
 
 
@@ -27,7 +28,8 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		Function[{ptr, type, init},
 			ToRawPointer[
 				Cast[ptr, "RawPointer"::["OpaqueRawPointer"], "BitCast"],
-				ExpressionToPointer[GetManagedExpression[init]]
+				(* TODO: This could be more efficient. GetCallbackPointer turns a pointer to an expression, and this turns it back. *)
+				ExpressionToPointer[GetCallbackPointer[GetManagedExpression[init]]]
 			];
 		]
 	],
@@ -69,7 +71,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		Function[{ff, args},
 			Module[{argCount},
 				argCount = Cast[ff["CallInterface"]["ArgumentCount"], "MachineInteger", "CCast"];
-				
+
 				If[Head[args] =!= InertExpression[List] || Length[args] =!= argCount,
 					Native`ThrowWolframExceptionCode["Argument"]
 				];

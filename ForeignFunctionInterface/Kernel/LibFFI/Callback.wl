@@ -1,5 +1,7 @@
 BeginPackage["ChristopherWolfram`ForeignFunctionInterface`LibFFI`Callback`"]
 
+GetCallbackPointer
+
 Begin["`Private`"]
 
 
@@ -21,7 +23,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	],
 
 	FunctionDeclaration[CreateCallback,
-		Typed[{"InertExpression", "ListVector"::["FFIType"], "FFIType"} -> "InertExpression"]@
+		Typed[{"InertExpression", "ListVector"::["FFIType"], "FFIType"} -> "CallbackObject"]@
 		Function[{expr, argTypes, outputType},
 			Module[{codelocPtr, codeloc, closure, cif, fun},
 				codelocPtr = TypeHint[ToRawPointer[], "RawPointer"::["OpaqueRawPointer"]];
@@ -54,18 +56,36 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 					"CallInterface" -> cif,
 					"Closure" -> closure,
 					"CodeLocation" -> codeloc
-				|>];
-
-				PointerToExpression[codeloc]
+				|>]
 				
 			]
+		]
+	],
+
+	FunctionDeclaration[FreeCallback,
+		Typed[{"CallbackObject"} -> "Null"]@
+		Function[callback,
+			DeleteObject[callback["CallInterface"]];
+			LibraryFunction["ffi_closure_free"][callback["CodeLocation"]];
+			(* TODO: Confirm that "Closure" doesn't need to be freed in some way. *)
+		]
+	],
+
+	FunctionDeclaration[GetCallbackPointer,
+		Typed[{"InertExpression"} -> "InertExpression"]@
+		Function[expr,
+			If[Native`PrimitiveFunction["TestGet_ObjectInstanceByName"][expr, Typed["CallbackObject","CString"], ToRawPointer[]],
+					PointerToExpression[Cast[expr,"CallbackObject"]["CodeLocation"]],
+					expr
+				]
 		]
 	]
 
 }];
 
 DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> {
-	CreateCallback
+	CreateCallback,
+	FreeCallback
 }];
 
 
