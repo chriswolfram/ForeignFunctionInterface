@@ -46,7 +46,11 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		{} -> "CInt"],
 
 	LibraryFunctionDeclaration["get_FFI_BAD_ABI", $LibFFIPaths,
-		{} -> "CInt"]
+		{} -> "CInt"],
+
+	(* Closures *)
+	LibraryFunctionDeclaration["get_ffi_closure_size", $LibFFIPaths,
+		{} -> "CSizeT"]
 
 }];
 

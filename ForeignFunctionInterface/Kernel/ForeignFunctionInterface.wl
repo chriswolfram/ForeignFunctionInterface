@@ -1,8 +1,17 @@
 BeginPackage["ChristopherWolfram`ForeignFunctionInterface`"]
 
+FFIType
 
-CreateManagedExpression
-GetManagedExpression
+OpaqueRawPointer
+
+LoadExternalLibrary
+UnloadExternalLibrary
+CreateForeignFunctionWithLibrary
+CreateForeignFunction
+CallForeignFunction
+
+CreateCallback
+FreeCallback
 
 CreateBuffer
 BufferToNumericArray
@@ -12,15 +21,8 @@ BufferToString
 DereferenceBuffer
 FreeBuffer
 
-LoadExternalLibrary
-UnloadExternalLibrary
-CreateForeignFunctionWithLibrary
-CreateForeignFunction
-CallForeignFunction
-
-FFIType
-
-OpaqueRawPointer
+CreateManagedExpression
+GetManagedExpression
 
 
 Begin["`Private`"]

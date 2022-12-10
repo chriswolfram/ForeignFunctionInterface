@@ -47,6 +47,22 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	LibraryFunctionDeclaration["ffi_call", $LibFFIPaths,
 		{"FFICallInterface", "OpaqueRawPointer", "OpaqueRawPointer", "CArray"::["OpaqueRawPointer"]} -> "Void"],
 
+	LibraryFunctionDeclaration["ffi_closure_alloc", $LibFFIPaths,
+		{"CSizeT", "RawPointer"::["OpaqueRawPointer"]} -> "OpaqueRawPointer"],
+
+	LibraryFunctionDeclaration["ffi_closure_free", $LibFFIPaths,
+		{"OpaqueRawPointer"} -> "Void"],
+
+	LibraryFunctionDeclaration["ffi_prep_closure_loc", $LibFFIPaths,
+		{
+			"OpaqueRawPointer", (* ffi_closure* closure *)
+			"FFICallInterface", (* ffi_cif* cif *)
+			"OpaqueRawPointer",(*"RawFunction"::[{"FFICallInterface", "OpaqueRawPointer", "CArray"::["OpaqueRawPointer"], "OpaqueRawPointer"} -> "Void"],*) (* void ( *fun) (ffi_cif* cif, void* ret, void** args, void* user_data) *)
+			"OpaqueRawPointer", (* void* user_data *)
+			"OpaqueRawPointer" (* void* codeloc *)
+		} -> "CInt"
+	],
+
 
 	FunctionDeclaration[SameQ,
 		Typed[{"FFIType", "FFIType"} -> "Boolean"]@
