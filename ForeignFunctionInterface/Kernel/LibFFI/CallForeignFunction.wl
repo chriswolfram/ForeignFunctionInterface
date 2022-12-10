@@ -1,5 +1,6 @@
 BeginPackage["ChristopherWolfram`ForeignFunctionInterface`LibFFI`CallForeignFunction`"]
 
+ExpressionIntoPointer
 
 Begin["`Private`"]
 
@@ -13,7 +14,7 @@ Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`Callback`"] (* for Get
 
 DeclareCompiledComponent["ForeignFunctionInterface", {
 
-	FunctionDeclaration[populateArgumentPointer,
+	FunctionDeclaration[ExpressionIntoPointer,
 		Typed[ForAllType[ty, {"OpaqueRawPointer", "TypeSpecifier"::[ty], "InertExpression"} -> "Null"]]@
 		Function[{ptr, type, init},
 			ToRawPointer[
@@ -23,7 +24,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		]
 	],
 
-	FunctionDeclaration[populateArgumentPointer,
+	FunctionDeclaration[ExpressionIntoPointer,
 		Typed[ForAllType[ty, {"OpaqueRawPointer", "TypeSpecifier"::["OpaqueRawPointer"], "InertExpression"} -> "Null"]]@
 		Function[{ptr, type, init},
 			ToRawPointer[
@@ -34,31 +35,31 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		]
 	],
 
-	FunctionDeclaration[populateArgumentPointer,
+	FunctionDeclaration[ExpressionIntoPointer,
 		Typed[{"OpaqueRawPointer", "FFIType", "InertExpression"} -> "Null"]@
 		Function[{ptr, type, init},
 			Switch[type,
 
 				(* "Void" is removed *)
-				FFIType[LiteralType["UnsignedInteger8"]],		populateArgumentPointer[ptr, TypeSpecifier["UnsignedInteger8"], init],
-				FFIType[LiteralType["Integer8"]],						populateArgumentPointer[ptr, TypeSpecifier["Integer8"], init],
-				FFIType[LiteralType["UnsignedInteger16"]],	populateArgumentPointer[ptr, TypeSpecifier["UnsignedInteger16"], init],
-				FFIType[LiteralType["Integer16"]],					populateArgumentPointer[ptr, TypeSpecifier["Integer16"], init],
-				FFIType[LiteralType["UnsignedInteger32"]],	populateArgumentPointer[ptr, TypeSpecifier["UnsignedInteger32"], init],
-				FFIType[LiteralType["Integer32"]],					populateArgumentPointer[ptr, TypeSpecifier["Integer32"], init],
-				FFIType[LiteralType["UnsignedInteger64"]],	populateArgumentPointer[ptr, TypeSpecifier["UnsignedInteger64"], init],
-				FFIType[LiteralType["Integer64"]],					populateArgumentPointer[ptr, TypeSpecifier["Integer64"], init],
-				FFIType[LiteralType["CFloat"]],							populateArgumentPointer[ptr, TypeSpecifier["CFloat"], init],
-				FFIType[LiteralType["CDouble"]],						populateArgumentPointer[ptr, TypeSpecifier["CDouble"], init],
-				FFIType[LiteralType["CUnsignedChar"]],			populateArgumentPointer[ptr, TypeSpecifier["CUnsignedChar"], init],
-				FFIType[LiteralType["CSignedChar"]],				populateArgumentPointer[ptr, TypeSpecifier["CSignedChar"], init],
-				FFIType[LiteralType["CUnsignedShort"]],			populateArgumentPointer[ptr, TypeSpecifier["CUnsignedShort"], init],
-				FFIType[LiteralType["CShort"]],							populateArgumentPointer[ptr, TypeSpecifier["CShort"], init],
-				FFIType[LiteralType["CUnsignedInt"]],				populateArgumentPointer[ptr, TypeSpecifier["CUnsignedInt"], init],
-				FFIType[LiteralType["CInt"]],								populateArgumentPointer[ptr, TypeSpecifier["CInt"], init],
-				FFIType[LiteralType["CUnsignedLong"]],			populateArgumentPointer[ptr, TypeSpecifier["CUnsignedLong"], init],
-				FFIType[LiteralType["CLong"]],							populateArgumentPointer[ptr, TypeSpecifier["CLong"], init],
-				FFIType[LiteralType["OpaqueRawPointer"]],		populateArgumentPointer[ptr, TypeSpecifier["OpaqueRawPointer"], init],
+				FFIType[LiteralType["UnsignedInteger8"]],		ExpressionIntoPointer[ptr, TypeSpecifier["UnsignedInteger8"], init],
+				FFIType[LiteralType["Integer8"]],						ExpressionIntoPointer[ptr, TypeSpecifier["Integer8"], init],
+				FFIType[LiteralType["UnsignedInteger16"]],	ExpressionIntoPointer[ptr, TypeSpecifier["UnsignedInteger16"], init],
+				FFIType[LiteralType["Integer16"]],					ExpressionIntoPointer[ptr, TypeSpecifier["Integer16"], init],
+				FFIType[LiteralType["UnsignedInteger32"]],	ExpressionIntoPointer[ptr, TypeSpecifier["UnsignedInteger32"], init],
+				FFIType[LiteralType["Integer32"]],					ExpressionIntoPointer[ptr, TypeSpecifier["Integer32"], init],
+				FFIType[LiteralType["UnsignedInteger64"]],	ExpressionIntoPointer[ptr, TypeSpecifier["UnsignedInteger64"], init],
+				FFIType[LiteralType["Integer64"]],					ExpressionIntoPointer[ptr, TypeSpecifier["Integer64"], init],
+				FFIType[LiteralType["CFloat"]],							ExpressionIntoPointer[ptr, TypeSpecifier["CFloat"], init],
+				FFIType[LiteralType["CDouble"]],						ExpressionIntoPointer[ptr, TypeSpecifier["CDouble"], init],
+				FFIType[LiteralType["CUnsignedChar"]],			ExpressionIntoPointer[ptr, TypeSpecifier["CUnsignedChar"], init],
+				FFIType[LiteralType["CSignedChar"]],				ExpressionIntoPointer[ptr, TypeSpecifier["CSignedChar"], init],
+				FFIType[LiteralType["CUnsignedShort"]],			ExpressionIntoPointer[ptr, TypeSpecifier["CUnsignedShort"], init],
+				FFIType[LiteralType["CShort"]],							ExpressionIntoPointer[ptr, TypeSpecifier["CShort"], init],
+				FFIType[LiteralType["CUnsignedInt"]],				ExpressionIntoPointer[ptr, TypeSpecifier["CUnsignedInt"], init],
+				FFIType[LiteralType["CInt"]],								ExpressionIntoPointer[ptr, TypeSpecifier["CInt"], init],
+				FFIType[LiteralType["CUnsignedLong"]],			ExpressionIntoPointer[ptr, TypeSpecifier["CUnsignedLong"], init],
+				FFIType[LiteralType["CLong"]],							ExpressionIntoPointer[ptr, TypeSpecifier["CLong"], init],
+				FFIType[LiteralType["OpaqueRawPointer"]],		ExpressionIntoPointer[ptr, TypeSpecifier["OpaqueRawPointer"], init],
 				_, 																					Native`ThrowWolframExceptionCode["Unimplemented"]
 
 			]
@@ -77,7 +78,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 				];
 
 				Do[
-					populateArgumentPointer[
+					ExpressionIntoPointer[
 						FromRawPointer[ff["ArgumentPointers"], i-1],
 						FromRawPointer[ff["CallInterface"]["ArgumentTypes"], i-1],
 						args[[i]]

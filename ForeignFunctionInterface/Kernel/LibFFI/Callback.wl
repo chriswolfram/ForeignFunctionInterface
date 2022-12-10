@@ -9,6 +9,7 @@ Needs["ChristopherWolfram`ForeignFunctionInterface`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`OpaqueRawPointer`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`CreateForeignFunction`"]
+Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`CallForeignFunction`"]
 
 
 DeclareCompiledComponent["ForeignFunctionInterface", {
@@ -40,7 +41,20 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 					Typed["RawFunction"::[{"FFICallInterface", "OpaqueRawPointer", "CArray"::["OpaqueRawPointer"], "OpaqueRawPointer"} -> "Null"(*should be "Void"*)]]@
 					TypeFramework`MetaData[<|"FunctionCategory" -> "RawFunction"|>]@
 					Function[{Typed[cif, "FFICallInterface"], Typed[ret, "OpaqueRawPointer"], Typed[args, "CArray"::["OpaqueRawPointer"]], Typed[userData, "OpaqueRawPointer"]},
-						Echo[Cast[userData, "InertExpression", "BitCast"]];
+						Module[{head, argCount, expr},
+							argCount = Cast[cif["ArgumentCount"], "MachineInteger", "CCast"];
+							head = Cast[userData, "InertExpression", "BitCast"];
+							expr = Native`PrimitiveFunction["CreateHeaded_IE_E"][argCount, head];
+							Do[
+								Native`PrimitiveFunction["SetElement_EIE_Void"][
+									expr,
+									i,
+									DereferenceBuffer[FromRawPointer[args,i-1], FromRawPointer[cif["ArgumentTypes"],i-1]]
+								],
+								{i, argCount}
+							];
+							ExpressionIntoPointer[ret, cif["OutputType"], InertEvaluate[expr]];
+						];
 					];
 				
 				(*TODO: Check error code*)
