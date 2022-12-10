@@ -1,5 +1,7 @@
 BeginPackage["ChristopherWolfram`ForeignFunctionInterface`LibFFI`CreateForeignFunction`"]
 
+CreateFFICallInterface
+DeleteFFICallInterface
 
 Begin["`Private`"]
 
@@ -25,10 +27,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 	TypeDeclaration["Product", "ForeignFunctionObject",
 		<|
-			"ArgumentTypes" -> "CArray"::["FFIType"],
 			"ArgumentPointers" -> "CArray"::["OpaqueRawPointer"],
-			"ArgumentCount" -> "MachineInteger",
-			"OutputType" -> "FFIType",
 			"OutputPointer" -> "OpaqueRawPointer",
 			"CallInterface" -> "FFICallInterface",
 			"FunctionPointer" -> "OpaqueRawPointer"
@@ -36,19 +35,69 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		"AbstractTypes" -> {"DataStructures"}
 	],
 
+
 	FunctionDeclaration[CompilerCallback["OnFree"],
 		Typed[{"ForeignFunctionObject"} -> "Null"]@
 		Function[ff,
-			DeleteObject[ff["CallInterface"]];
-			DeleteObject[ff["ArgumentTypes"]];
+			DeleteFFICallInterface[ff["CallInterface"]];
 			Do[
 				DeleteObject@Cast[FromRawPointer[ff["ArgumentPointers"], i-1], "CArray"::["Integer8"], "BitCast"],
-				{i, ff["ArgumentCount"]}
+				{i, ff["CallInterface"]["ArgumentCount"]}
 			];
 			DeleteObject[ff["ArgumentPointers"]];
 			DeleteObject[Cast[ff["OutputPointer"], "CArray"::["Integer8"], "BitCast"]];
 		]
 	],
+
+
+	FunctionDeclaration[CreateFFICallInterface,
+		Typed[{"ListVector"::["FFIType"], "FFIType"} -> "FFICallInterface"]@
+		Function[{argTypes, outputType},
+			Module[{cif, argCount, argTypesArray, argValuesArray, outputValue},
+
+				argCount = Length[argTypes];
+
+				argTypesArray = CreateTypeInstance["CArray"::["FFIType"], argTypes];
+
+				argValuesArray = CreateTypeInstance["CArray"::["OpaqueRawPointer"], argCount];
+				Do[
+					ToRawPointer[argValuesArray, i-1,
+						Cast[CreateTypeInstance["CArray"::["Integer8"], typeSize[argTypes[[i]]]], "OpaqueRawPointer", "BitCast"]
+					],
+					{i, argCount}
+				];
+
+				(* TODO: This should be at least as big as the ffi_arg type *)
+				outputValue =
+					Cast[
+						CreateTypeInstance["CArray"::["Integer8"], Max[Native`SizeOf[TypeSpecifier["OpaqueRawPointer"]], typeSize[outputType]]],
+						"OpaqueRawPointer", "BitCast"
+					];
+
+				(* TODO: check error code *)
+				cif = CreateTypeInstance["FFICallInterface", <||>];
+				LibraryFunction["ffi_prep_cif"][
+					cif,
+					LibraryFunction["get_FFI_DEFAULT_ABI"][],
+					Cast[Length[argTypes],"CUnsignedInt","CCast"],
+					outputType,
+					argTypesArray
+				];
+
+				cif
+			]
+		]
+	],
+
+
+	FunctionDeclaration[DeleteFFICallInterface,
+		Typed[{"FFICallInterface"} -> "Null"]@
+		Function[cif,
+			DeleteObject[cif["ArgumentTypes"]];
+			DeleteObject[cif];
+		]
+	],
+
 
 	FunctionDeclaration[CreateForeignFunctionWithLibrary,
 		Typed[{"ExternalLibraryHandle", "String", "ListVector"::["FFIType"], "FFIType"} -> "ForeignFunctionObject"]@
@@ -90,10 +139,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 				];
 
 				CreateTypeInstance["ForeignFunctionObject", <|
-					"ArgumentTypes" -> argTypesArray,
 					"ArgumentPointers" -> argValuesArray,
-					"ArgumentCount" -> argCount,
-					"OutputType" -> outputType,
 					"OutputPointer" -> outputValue,
 					"CallInterface" -> cif,
 					"FunctionPointer" -> fun
@@ -101,6 +147,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 			]
 		]
 	],
+
 
 	FunctionDeclaration[CreateForeignFunction,
 		Typed[{"String", "ListVector"::["FFIType"], "FFIType"} -> "ForeignFunctionObject"]@

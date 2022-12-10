@@ -67,22 +67,26 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	FunctionDeclaration[CallForeignFunction,
 		Typed[{"ForeignFunctionObject", "InertExpression"} -> "InertExpression"]@
 		Function[{ff, args},
-			If[Head[args] =!= InertExpression[List] || Length[args] =!= ff["ArgumentCount"],
-				Native`ThrowWolframExceptionCode["Argument"]
-			];
+			Module[{argCount},
+				argCount = Cast[ff["CallInterface"]["ArgumentCount"], "MachineInteger", "CCast"];
+				
+				If[Head[args] =!= InertExpression[List] || Length[args] =!= argCount,
+					Native`ThrowWolframExceptionCode["Argument"]
+				];
 
-			Do[
-				populateArgumentPointer[
-					FromRawPointer[ff["ArgumentPointers"], i-1],
-					FromRawPointer[ff["ArgumentTypes"], i-1],
-					args[[i]]
-				],
-				{i, ff["ArgumentCount"]}
-			];
+				Do[
+					populateArgumentPointer[
+						FromRawPointer[ff["ArgumentPointers"], i-1],
+						FromRawPointer[ff["CallInterface"]["ArgumentTypes"], i-1],
+						args[[i]]
+					],
+					{i, argCount}
+				];
 
-			LibraryFunction["ffi_call"][ff["CallInterface"], ff["FunctionPointer"], ff["OutputPointer"], ff["ArgumentPointers"]];
+				LibraryFunction["ffi_call"][ff["CallInterface"], ff["FunctionPointer"], ff["OutputPointer"], ff["ArgumentPointers"]];
 
-			DereferenceBuffer[ff["OutputPointer"], ff["OutputType"]]
+				DereferenceBuffer[ff["OutputPointer"], ff["CallInterface"]["OutputType"]]
+			]
 		]
 	]
 

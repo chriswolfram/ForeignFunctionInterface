@@ -20,7 +20,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 			"ABI" -> "CInt",
 			"ArgumentCount" -> "CUnsignedInt",
 			"ArgumentTypes" -> "CArray"::["FFIType"],
-			"ReturnType" -> "FFIType",
+			"OutputType" -> "FFIType",
 			"Bytes" -> "CUnsignedInt",
 			"Flags" -> "CUnsignedInt"
 		|>,
