@@ -20,7 +20,10 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 			"Closure" -> "OpaqueRawPointer",
 			"CodeLocation" -> "OpaqueRawPointer"
 		|>,
-		"AbstractTypes" -> {"DataStructures"}
+		"AbstractTypes" -> {"DataStructures"},
+		"MemoryManaged" -> False
+		(* TODO: Arguably this should be memory managed. If it ever had refcount=0 but wasn't manually freed, it would be 
+		a memory leak, but it would be a smaller leak if this was memory managed. *)
 	],
 
 	FunctionDeclaration[CreateCallback,
@@ -81,7 +84,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		Function[callback,
 			DeleteObject[callback["CallInterface"]];
 			LibraryFunction["ffi_closure_free"][callback["Closure"]];
-			(* TODO: Confirm that "CodeLocation" doesn't need to be freed in some way. *)
+			DeleteObject[callback];
 		]
 	],
 
