@@ -45,6 +45,11 @@ size_t get_ffi_closure_size() {
 	return sizeof(ffi_closure);
 }
 
+// Type flags
+unsigned short get_ffi_type_struct() {
+	return FFI_TYPE_STRUCT;
+}
+
 
 // libffi types
 
