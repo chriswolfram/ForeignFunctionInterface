@@ -53,26 +53,9 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	FunctionDeclaration[CreateFFICallInterface,
 		Typed[{"ListVector"::["FFIType"], "FFIType"} -> "FFICallInterface"]@
 		Function[{argTypes, outputType},
-			Module[{cif, argCount, argTypesArray, argValuesArray, outputValue},
-
-				argCount = Length[argTypes];
+			Module[{cif, argTypesArray},
 
 				argTypesArray = CreateTypeInstance["CArray"::["FFIType"], argTypes];
-
-				argValuesArray = CreateTypeInstance["CArray"::["OpaqueRawPointer"], argCount];
-				Do[
-					ToRawPointer[argValuesArray, i-1,
-						Cast[CreateTypeInstance["CArray"::["Integer8"], typeSize[argTypes[[i]]]], "OpaqueRawPointer", "BitCast"]
-					],
-					{i, argCount}
-				];
-
-				(* TODO: This should be at least as big as the ffi_arg type *)
-				outputValue =
-					Cast[
-						CreateTypeInstance["CArray"::["Integer8"], Max[Native`SizeOf[TypeSpecifier["OpaqueRawPointer"]], typeSize[outputType]]],
-						"OpaqueRawPointer", "BitCast"
-					];
 
 				(* TODO: check error code *)
 				cif = CreateTypeInstance["FFICallInterface", <||>];
@@ -102,11 +85,9 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	FunctionDeclaration[CreateForeignFunctionWithLibrary,
 		Typed[{"ExternalLibraryHandle", "String", "ListVector"::["FFIType"], "FFIType"} -> "ForeignFunctionObject"]@
 		Function[{lib, funName, argTypes, outputType},
-			Module[{cif, argCount, argTypesArray, argValuesArray, outputValue, fun},
+			Module[{cif, argCount, argValuesArray, outputValue, fun},
 
 				argCount = Length[argTypes];
-
-				argTypesArray = CreateTypeInstance["CArray"::["FFIType"], argTypes];
 
 				argValuesArray = CreateTypeInstance["CArray"::["OpaqueRawPointer"], argCount];
 				Do[
@@ -123,15 +104,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 						"OpaqueRawPointer", "BitCast"
 					];
 
-				(* TODO: check error code *)
-				cif = CreateTypeInstance["FFICallInterface", <||>];
-				LibraryFunction["ffi_prep_cif"][
-					cif,
-					LibraryFunction["get_FFI_DEFAULT_ABI"][],
-					Cast[Length[argTypes],"CUnsignedInt","CCast"],
-					outputType,
-					argTypesArray
-				];
+				cif = CreateFFICallInterface[argTypes, outputType];
 
 				fun = LibraryFunction["dlsym"][lib, Cast[funName, "Managed"::["CString"]]];
 				If[fun === Cast[0, "OpaqueRawPointer", "BitCast"],

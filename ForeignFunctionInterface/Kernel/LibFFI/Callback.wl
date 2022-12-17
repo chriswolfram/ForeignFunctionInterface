@@ -82,7 +82,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	FunctionDeclaration[FreeCallback,
 		Typed[{"CallbackObject"} -> "Null"]@
 		Function[callback,
-			DeleteObject[callback["CallInterface"]];
+			DeleteFFICallInterface[callback["CallInterface"]];
 			LibraryFunction["ffi_closure_free"][callback["Closure"]];
 			DeleteObject[callback];
 		]
