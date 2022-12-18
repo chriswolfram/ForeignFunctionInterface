@@ -5,7 +5,6 @@ Begin["`Private`"]
 
 Needs["ChristopherWolfram`ForeignFunctionInterface`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`"]
-Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`Constants`"] (* for RawFFIType *)
 
 
 (************************* CreateFFIType ***************************)
@@ -16,6 +15,9 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		CreateFFIType[typeID_Integer]
 			creates an CreateFFIType with the type specified by the libffi type ID.
 
+		CreateFFIType["typeName"]
+			creates the FFI type analogous to the compiler type "typeName".
+
 		CreateFFIType[{ty1, ty2, ...}]
 			creates a struct type with the specified field type IDs.
 
@@ -23,10 +25,64 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	*)
 	FunctionDeclaration[CreateFFIType,
 		Typed[{"InertExpression"} -> "FFIType"]@
-		Function[typeIDSpec,
+		Function[typeSpec,
 			Which[
-				IntegerQ[typeIDSpec], typeFromIntegerID[Cast[typeIDSpec, "CUnsignedShort"]],
-				True,									Native`ThrowWolframExceptionCode["Unimplemented"]
+
+				StringQ[typeSpec],
+					typeFromString[Cast[typeSpec, "String"]],
+
+				IntegerQ[typeSpec],
+					typeFromIntegerID[Cast[typeSpec, "CUnsignedShort"]],
+
+				Head[typeSpec] === InertExpression[TypeSpecifier] && Length[typeSpec] === 1,
+					CreateFFIType[First[typeSpec]],
+
+				True,
+					Native`ThrowWolframExceptionCode["Unimplemented"]
+
+			]
+		]
+	],
+
+	FunctionDeclaration[typeFromString,
+		Typed[{"String"} -> "FFIType"]@
+		Function[typeName,
+			Module[{template},
+
+				template =
+					Switch[typeName,
+
+						"Void",								RawFFIType["Void"][],
+						"UnsignedInteger8",		RawFFIType["UnsignedInteger8"][],
+						"Integer8",						RawFFIType["Integer8"][],
+						"UnsignedInteger16",	RawFFIType["UnsignedInteger16"][],
+						"Integer16",					RawFFIType["Integer16"][],
+						"UnsignedInteger32",	RawFFIType["UnsignedInteger32"][],
+						"Integer32",					RawFFIType["Integer32"][],
+						"UnsignedInteger64",	RawFFIType["UnsignedInteger64"][],
+						"Integer64",					RawFFIType["Integer64"][],
+						"CFloat",							RawFFIType["CFloat"][],
+						"CDouble",						RawFFIType["CDouble"][],
+						"CChar",							RawFFIType["CUnsignedChar"][],
+						"CUnsignedChar",			RawFFIType["CUnsignedChar"][],
+						"CSignedChar",				RawFFIType["CSignedChar"][],
+						"CUnsignedShort",			RawFFIType["CUnsignedShort"][],
+						"CShort",							RawFFIType["CShort"][],
+						"CUnsignedInt",				RawFFIType["CUnsignedInt"][],
+						"CInt",								RawFFIType["CInt"][],
+						"CUnsignedLong",			RawFFIType["CUnsignedLong"][],
+						"CLong",							RawFFIType["CLong"][],
+						"OpaqueRawPointer",		RawFFIType["OpaqueRawPointer"][],
+						_, 										Native`ThrowWolframExceptionCode["Unimplemented"]
+
+					];
+
+				CreateTypeInstance["FFIType", <|
+					"Size" -> template["Size"],
+					"Alignment" -> TypeHint[0,"CUnsignedShort"],
+					"Type" -> template["Type"],
+					"Elements" -> Cast[0, "CArray"::["FFIType"], "BitCast"]
+				|>]
 			]
 		]
 	],

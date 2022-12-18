@@ -5,6 +5,7 @@ CreateFFIType
 DeleteFFIType
 
 NameFFITypeID
+RawFFIType
 
 FFITypeByteCount
 
