@@ -1,13 +1,10 @@
 BeginPackage["ChristopherWolfram`ForeignFunctionInterface`LibFFI`Constants`"]
 
-RawFFIType
-
 Begin["`Private`"]
 
 
 Needs["ChristopherWolfram`ForeignFunctionInterface`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`"]
-Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`FFIType`"] (* for the symbol NameFFITypeID *)
 
 
 
@@ -53,89 +50,6 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	(* Closures *)
 	LibraryFunctionDeclaration["get_ffi_closure_size", $LibFFIPaths,
 		{} -> "CSizeT"]
-
-}];
-
-
-
-(***************************************************)
-(********************* Types ***********************)
-(***************************************************)
-
-
-DeclareCompiledComponent["ForeignFunctionInterface", {
-
-	LibraryFunctionDeclaration[RawFFIType["Void"] -> "get_ffi_type_void", $LibFFIPaths,
-		{} -> "FFIType"],
-
-	LibraryFunctionDeclaration[RawFFIType["UnsignedInteger8"] -> "get_ffi_type_uint8", $LibFFIPaths,
-		{} -> "FFIType"],
-
-	LibraryFunctionDeclaration[RawFFIType["Integer8"] -> "get_ffi_type_sint8", $LibFFIPaths,
-		{} -> "FFIType"],
-
-	LibraryFunctionDeclaration[RawFFIType["UnsignedInteger16"] -> "get_ffi_type_uint16", $LibFFIPaths,
-		{} -> "FFIType"],
-
-	LibraryFunctionDeclaration[RawFFIType["Integer16"] -> "get_ffi_type_sint16", $LibFFIPaths,
-		{} -> "FFIType"],
-
-	LibraryFunctionDeclaration[RawFFIType["UnsignedInteger32"] -> "get_ffi_type_uint32", $LibFFIPaths,
-		{} -> "FFIType"],
-
-	LibraryFunctionDeclaration[RawFFIType["Integer32"] -> "get_ffi_type_sint32", $LibFFIPaths,
-		{} -> "FFIType"],
-
-	LibraryFunctionDeclaration[RawFFIType["UnsignedInteger64"] -> "get_ffi_type_uint64", $LibFFIPaths,
-		{} -> "FFIType"],
-
-	LibraryFunctionDeclaration[RawFFIType["Integer64"] -> "get_ffi_type_sint64", $LibFFIPaths,
-		{} -> "FFIType"],
-
-	LibraryFunctionDeclaration[RawFFIType["CFloat"] -> "get_ffi_type_float", $LibFFIPaths,
-		{} -> "FFIType"],
-
-	LibraryFunctionDeclaration[RawFFIType["CDouble"] -> "get_ffi_type_double", $LibFFIPaths,
-		{} -> "FFIType"],
-
-	LibraryFunctionDeclaration[RawFFIType["CUnsignedChar"] -> "get_ffi_type_uchar", $LibFFIPaths, (*Not a supported type*)
-		{} -> "FFIType"],
-
-	LibraryFunctionDeclaration[RawFFIType["CSignedChar"] -> "get_ffi_type_schar", $LibFFIPaths, (*Not a supported type*)
-		{} -> "FFIType"],
-
-	LibraryFunctionDeclaration[RawFFIType["CUnsignedShort"] -> "get_ffi_type_ushort", $LibFFIPaths,
-		{} -> "FFIType"],
-
-	LibraryFunctionDeclaration[RawFFIType["CShort"] -> "get_ffi_type_sshort", $LibFFIPaths,
-		{} -> "FFIType"],
-
-	LibraryFunctionDeclaration[RawFFIType["CUnsignedInt"] -> "get_ffi_type_uint", $LibFFIPaths,
-		{} -> "FFIType"],
-
-	LibraryFunctionDeclaration[RawFFIType["CInt"] -> "get_ffi_type_sint", $LibFFIPaths,
-		{} -> "FFIType"],
-
-	LibraryFunctionDeclaration[RawFFIType["CUnsignedLong"] -> "get_ffi_type_ulong", $LibFFIPaths,
-		{} -> "FFIType"],
-
-	LibraryFunctionDeclaration[RawFFIType["CLong"] -> "get_ffi_type_slong", $LibFFIPaths,
-		{} -> "FFIType"],
-
-	LibraryFunctionDeclaration["get_ffi_type_longdouble", $LibFFIPaths,
-		{} -> "FFIType"],
-
-	LibraryFunctionDeclaration[RawFFIType["OpaqueRawPointer"] -> "get_ffi_type_pointer", $LibFFIPaths,
-		{} -> "FFIType"],
-
-	LibraryFunctionDeclaration["get_ffi_type_complex_float", $LibFFIPaths,
-		{} -> "FFIType"],
-
-	LibraryFunctionDeclaration["get_ffi_type_complex_double", $LibFFIPaths,
-		{} -> "FFIType"],
-
-	LibraryFunctionDeclaration["get_ffi_type_complex_longdouble", $LibFFIPaths,
-		{} -> "FFIType"]
 
 }];
 

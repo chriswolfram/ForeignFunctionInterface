@@ -1,8 +1,5 @@
 BeginPackage["ChristopherWolfram`ForeignFunctionInterface`"]
 
-FFIType
-FFITypeByteCount
-
 OpaqueRawPointer
 
 LoadExternalLibrary

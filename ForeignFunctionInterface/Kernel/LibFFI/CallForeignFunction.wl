@@ -8,7 +8,6 @@ Begin["`Private`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`OpaqueRawPointer`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`"]
-Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`FFIType`"] (* for FFITypeID, NameFFITypeIDID *)
 Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`Callback`"] (* for GetCallbackPointer *)
 
 
@@ -39,7 +38,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	FunctionDeclaration[ExpressionIntoPointer,
 		Typed[{"OpaqueRawPointer", "FFIType", "InertExpression"} -> "Null"]@
 		Function[{ptr, type, init},
-			Switch[FFITypeID[type],
+			Switch[type["Type"],
 
 				NameFFITypeID["UINT8"][],		ExpressionIntoPointer[ptr, TypeSpecifier["UnsignedInteger8"], init],
 				NameFFITypeID["SINT8"][],		ExpressionIntoPointer[ptr, TypeSpecifier["Integer8"], init],
@@ -53,16 +52,9 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 				NameFFITypeID["FLOAT"][],		ExpressionIntoPointer[ptr, TypeSpecifier["CFloat"], init],
 				NameFFITypeID["DOUBLE"][],	ExpressionIntoPointer[ptr, TypeSpecifier["CDouble"], init],
 				NameFFITypeID["POINTER"][],	ExpressionIntoPointer[ptr, TypeSpecifier["OpaqueRawPointer"], init],
-				_, 												Native`ThrowWolframExceptionCode["Unimplemented"]
+				_, 													Native`ThrowWolframExceptionCode["Unimplemented"]
 
 			]
-		]
-	],
-
-	FunctionDeclaration[ExpressionIntoPointer,
-		Typed[{"OpaqueRawPointer", "Managed"::["FFIType"], "InertExpression"} -> "Null"]@
-		Function[{ptr, type, init},
-			ExpressionIntoPointer[ptr, Compile`BorrowManagedObject[type], init]
 		]
 	],
 

@@ -1,6 +1,14 @@
 BeginPackage["ChristopherWolfram`ForeignFunctionInterface`LibFFI`"]
 
 
+CreateFFIType
+DeleteFFIType
+
+NameFFITypeID
+
+FFITypeByteCount
+
+
 $LibFFIPaths = {"libffi", "ffiConstants"};
 
 

@@ -27,8 +27,6 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 	TypeDeclaration["Product", "ForeignFunctionObject",
 		<|
-			"ArgumentTypes" -> "ListVector"::["Managed"::["FFIType"]],
-			"OutputType" -> "Managed"::["FFIType"],
 			"ArgumentPointers" -> "CArray"::["OpaqueRawPointer"],
 			"OutputPointer" -> "OpaqueRawPointer",
 			"CallInterface" -> "FFICallInterface",
@@ -56,28 +54,41 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		CreateFFICallInterface[argTypes, outputType]
 			creates an FFICallInterface with the specified argument and output types.
 
-		Note: The caller is responsible for ensuring that the FFITypes passed in will not be freed
-		while the CallInterface is in use.
+		CreateFFICallInterface[argTypes, argCount, outputType]
+			takes a CArray of FFITypes for the arguments, and an FFIType in the output. Takes ownership of argument memory.
+
+		If the types are passed as FFITypes, then ownership of the types themselves and the array
+		containing the arguments will be passed to CreateFFICallInterface.
 	*)
 	FunctionDeclaration[CreateFFICallInterface,
-		Typed[{"ListVector"::["Managed"::["FFIType"]], "Managed"::["FFIType"]} -> "FFICallInterface"]@
+		Typed[{"ListVector"::["InertExpression"], "InertExpression"} -> "FFICallInterface"]@
 		Function[{argTypes, outputType},
-			Module[{cif, argTypesArray},
+			Module[{argFFITypes},
 
-				argTypesArray = CreateTypeInstance["CArray"::["FFIType"], Length[argTypes]];
+				argFFITypes = CreateTypeInstance["CArray"::["FFIType"], Length[argTypes]];
 				Do[
-					ToRawPointer[argTypesArray, i-1, Compile`BorrowManagedObject[argTypes[[i]]]],
+					ToRawPointer[argFFITypes, i-1, CreateFFIType[argTypes[[i]]]],
 					{i, Length[argTypes]}
 				];
+
+				CreateFFICallInterface[argFFITypes, Length[argTypes], CreateFFIType[outputType]]
+			]
+		]
+	],
+
+	FunctionDeclaration[CreateFFICallInterface,
+		Typed[{"CArray"::["FFIType"], "MachineInteger", "FFIType"} -> "FFICallInterface"]@
+		Function[{argFFITypes, argCount, outputFFIType},
+			Module[{cif},
 
 				(* TODO: check error code *)
 				cif = CreateTypeInstance["FFICallInterface", <||>];
 				LibraryFunction["ffi_prep_cif"][
 					cif,
 					LibraryFunction["get_FFI_DEFAULT_ABI"][],
-					Cast[Length[argTypes],"CUnsignedInt","CCast"],
-					outputType,
-					argTypesArray
+					Cast[argCount,"CUnsignedInt","CCast"],
+					outputFFIType,
+					argFFITypes
 				];
 
 				cif
@@ -89,6 +100,8 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	FunctionDeclaration[DeleteFFICallInterface,
 		Typed[{"FFICallInterface"} -> "Null"]@
 		Function[cif,
+			Do[DeleteFFIType[FromRawPointer[cif["ArgumentTypes"], i-1]], {i, cif["ArgumentCount"]}];
+			DeleteFFIType[cif["OutputType"]];
 			DeleteObject[cif["ArgumentTypes"]];
 			DeleteObject[cif];
 		]
@@ -96,16 +109,24 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 
 	FunctionDeclaration[CreateForeignFunctionWithLibrary,
-		Typed[{"ExternalLibraryHandle", "String", "ListVector"::["Managed"::["FFIType"]], "Managed"::["FFIType"]} -> "ForeignFunctionObject"]@
+		Typed[{"ExternalLibraryHandle", "String", "ListVector"::["InertExpression"], "InertExpression"} -> "ForeignFunctionObject"]@
 		Function[{lib, funName, argTypes, outputType},
-			Module[{cif, argCount, argValuesArray, outputValue, fun},
+			Module[{cif, argCount, argFFITypes, outputFFIType, argValuesArray, outputValue, fun},
 
 				argCount = Length[argTypes];
+
+				argFFITypes = CreateTypeInstance["CArray"::["FFIType"], Length[argTypes]];
+				Do[
+					ToRawPointer[argFFITypes, i-1, CreateFFIType[argTypes[[i]]]],
+					{i, Length[argTypes]}
+				];
+
+				outputFFIType = CreateFFIType[outputType];
 
 				argValuesArray = CreateTypeInstance["CArray"::["OpaqueRawPointer"], argCount];
 				Do[
 					ToRawPointer[argValuesArray, i-1,
-						Cast[CreateTypeInstance["CArray"::["Integer8"], typeSize[argTypes[[i]]]], "OpaqueRawPointer", "BitCast"]
+						Cast[CreateTypeInstance["CArray"::["Integer8"], FFITypeByteCount[FromRawPointer[argFFITypes,i-1]]], "OpaqueRawPointer", "BitCast"]
 					],
 					{i, argCount}
 				];
@@ -113,11 +134,11 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 				(* TODO: This should be at least as big as the ffi_arg type *)
 				outputValue =
 					Cast[
-						CreateTypeInstance["CArray"::["Integer8"], Max[Native`SizeOf[TypeSpecifier["OpaqueRawPointer"]], typeSize[outputType]]],
+						CreateTypeInstance["CArray"::["Integer8"], Max[Native`SizeOf[TypeSpecifier["OpaqueRawPointer"]], FFITypeByteCount[outputFFIType]]],
 						"OpaqueRawPointer", "BitCast"
 					];
 
-				cif = CreateFFICallInterface[argTypes, outputType];
+				cif = CreateFFICallInterface[argFFITypes, argCount, outputFFIType];
 
 				fun = LibraryFunction["dlsym"][lib, Cast[funName, "Managed"::["CString"]]];
 				If[fun === Cast[0, "OpaqueRawPointer", "BitCast"],
@@ -125,8 +146,6 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 				];
 
 				CreateTypeInstance["ForeignFunctionObject", <|
-					"ArgumentTypes" -> argTypes,
-					"OutputType" -> outputType,
 					"ArgumentPointers" -> argValuesArray,
 					"OutputPointer" -> outputValue,
 					"CallInterface" -> cif,
@@ -138,7 +157,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 
 	FunctionDeclaration[CreateForeignFunction,
-		Typed[{"String", "ListVector"::["Managed"::["FFIType"]], "Managed"::["FFIType"]} -> "ForeignFunctionObject"]@
+		Typed[{"String", "ListVector"::["InertExpression"], "InertExpression"} -> "ForeignFunctionObject"]@
 		Function[{funName, argTypes, outputType},
 			CreateForeignFunctionWithLibrary[
 				LibraryFunction["get_RTLD_DEFAULT"][],
@@ -146,21 +165,6 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 				argTypes,
 				outputType
 			]
-		]
-	],
-
-
-	FunctionDeclaration[typeSize,
-		Typed[{"FFIType"} -> "MachineInteger"]@
-		Function[type,
-			Cast[type["Size"], "MachineInteger", "CCast"]
-		]
-	],
-
-	FunctionDeclaration[typeSize,
-		Typed[{"Managed"::["FFIType"]} -> "MachineInteger"]@
-		Function[type,
-			typeSize[Compile`BorrowManagedObject[type]]
 		]
 	]
 

@@ -5,7 +5,7 @@ Begin["`Private`"]
 
 Needs["ChristopherWolfram`ForeignFunctionInterface`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`OpaqueRawPointer`"]
-Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`FFIType`"] (* for FFITypeID, NameFFITypeIDID *)
+Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`"]
 
 
 
@@ -37,26 +37,19 @@ DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> {
 DeclareCompiledComponent["ForeignFunctionInterface", {
 
 		FunctionDeclaration[CreateBuffer,
-			Typed[{"Managed"::["FFIType"], "MachineInteger"} -> "InertExpression"]@
+			Typed[{"InertExpression", "MachineInteger"} -> "InertExpression"]@
 			Function[{type, len},
 				PointerToExpression@Cast[
 					CreateTypeInstance["CArray"::["Integer8"], Cast[FFITypeByteCount[type]*len, "MachineInteger", "CCast"]],
 					"OpaqueRawPointer", "BitCast"
 				]
 			]
-		],
-
-		FunctionDeclaration[CreateBuffer,
-			Typed[{"Managed"::["FFIType"]} -> "InertExpression"]@
-			Function[type,
-				CreateBuffer[type, 1]
-			]
 		]
 
 }];
 
 DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> <|
-	iCreateBuffer -> Typed[CreateBuffer, {"Managed"::["FFIType"], "MachineInteger"} -> "InertExpression"]
+	iCreateBuffer -> Typed[CreateBuffer, {"InertExpression", "MachineInteger"} -> "InertExpression"]
 |>];
 
 
@@ -90,10 +83,10 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		],
 
 		FunctionDeclaration[BufferToNumericArray,
-			Typed[{"InertExpression", "FFIType", "MachineInteger"} -> "InertExpression"]@
-			Function[{ptr, type, len},
+			Typed[{"InertExpression", "CUnsignedShort", "MachineInteger"} -> "InertExpression"]@
+			Function[{ptr, typeID, len},
 
-				Switch[FFITypeID[type],
+				Switch[typeID,
 
 					NameFFITypeID["UINT8"][],		BufferToNumericArray[ptr, TypeSpecifier["UnsignedInteger8"], len],
 					NameFFITypeID["SINT8"][],		BufferToNumericArray[ptr, TypeSpecifier["Integer8"], len],
@@ -110,13 +103,6 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 				]
 				
-			]
-		],
-
-		FunctionDeclaration[BufferToNumericArray,
-			Typed[{"InertExpression", "Managed"::["FFIType"], "MachineInteger"} -> "InertExpression"]@
-			Function[{ptr, type, len},
-				BufferToNumericArray[ptr, Compile`BorrowManagedObject[type], len]
 			]
 		],
 
@@ -139,10 +125,10 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		],
 
 		FunctionDeclaration[NumericArrayToBuffer,
-			Typed[{"InertExpression", "FFIType"} -> "InertExpression"]@
-			Function[{expr, type},
+			Typed[{"InertExpression", "CUnsignedShort"} -> "InertExpression"]@
+			Function[{expr, typeID},
 
-				Switch[FFITypeID[type],
+				Switch[typeID,
 
 					NameFFITypeID["UINT8"][],		NumericArrayToBuffer[expr, TypeSpecifier["UnsignedInteger8"]],
 					NameFFITypeID["SINT8"][],		NumericArrayToBuffer[expr, TypeSpecifier["Integer8"]],
@@ -159,21 +145,14 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 				]
 			]
-		],
-
-		FunctionDeclaration[NumericArrayToBuffer,
-			Typed[{"InertExpression", "Managed"::["FFIType"]} -> "InertExpression"]@
-			Function[{expr, type},
-				NumericArrayToBuffer[expr, Compile`BorrowManagedObject[type]]
-			]
 		]
 
 }];
 
 
 DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> <|
-	BufferToNumericArray -> Typed[BufferToNumericArray, {"InertExpression", "Managed"::["FFIType"], "MachineInteger"} -> "InertExpression"],
-	NumericArrayToBuffer -> Typed[NumericArrayToBuffer, {"InertExpression", "Managed"::["FFIType"]} -> "InertExpression"]
+	BufferToNumericArray -> Typed[BufferToNumericArray, {"InertExpression", "CUnsignedShort", "MachineInteger"} -> "InertExpression"],
+	NumericArrayToBuffer -> Typed[NumericArrayToBuffer, {"InertExpression", "CUnsignedShort"} -> "InertExpression"]
 |>];
 
 
@@ -234,9 +213,23 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		],
 
 		FunctionDeclaration[DereferenceBuffer,
+			Typed[{"OpaqueRawPointer", "InertExpression", "MachineInteger"} -> "InertExpression"]@
+			Function[{ptr, type, offset},
+				DereferenceBuffer[ptr, Cast[type, "CUnsignedShort"], offset]
+			]
+		],
+
+		FunctionDeclaration[DereferenceBuffer,
 			Typed[{"OpaqueRawPointer", "FFIType", "MachineInteger"} -> "InertExpression"]@
 			Function[{ptr, type, offset},
-				Switch[FFITypeID[type],
+				DereferenceBuffer[ptr, type["Type"], offset]
+			]
+		],
+
+		FunctionDeclaration[DereferenceBuffer,
+			Typed[{"OpaqueRawPointer", "CUnsignedShort", "MachineInteger"} -> "InertExpression"]@
+			Function[{ptr, type, offset},
+				Switch[type,
 
 					NameFFITypeID["VOID"][],		DereferenceBuffer[ptr, TypeSpecifier["Void"], offset],
 					NameFFITypeID["UINT8"][],		DereferenceBuffer[ptr, TypeSpecifier["UnsignedInteger8"], offset],
@@ -254,13 +247,6 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 					_, 												Native`ThrowWolframExceptionCode["Unimplemented"]
 
 				]
-			]
-		],
-
-		FunctionDeclaration[DereferenceBuffer,
-			Typed[{"OpaqueRawPointer", "Managed"::["FFIType"], "MachineInteger"} -> "InertExpression"]@
-			Function[{ptr, type, offset},
-				DereferenceBuffer[ptr, Compile`BorrowManagedObject[type], offset]
 			]
 		],
 
@@ -294,7 +280,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 }];
 
 DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> <|
-	iDereferenceBuffer -> Typed[DereferenceBuffer, {"InertExpression", "Managed"::["FFIType"], "MachineInteger"} -> "InertExpression"]
+	iDereferenceBuffer -> Typed[DereferenceBuffer, {"InertExpression", "InertExpression", "MachineInteger"} -> "InertExpression"]
 |>];
 
 

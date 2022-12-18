@@ -23,8 +23,6 @@ PacletObject[
           "ChristopherWolfram`ForeignFunctionInterface`CreateForeignFunction",
           "ChristopherWolfram`ForeignFunctionInterface`CreateManagedExpression",
           "ChristopherWolfram`ForeignFunctionInterface`DereferenceBuffer",
-          "ChristopherWolfram`ForeignFunctionInterface`FFIType",
-          "ChristopherWolfram`ForeignFunctionInterface`FFITypeByteCount",
           "ChristopherWolfram`ForeignFunctionInterface`FreeBuffer",
           "ChristopherWolfram`ForeignFunctionInterface`FreeCallback",
           "ChristopherWolfram`ForeignFunctionInterface`GetManagedExpression",
