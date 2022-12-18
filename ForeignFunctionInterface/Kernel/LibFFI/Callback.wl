@@ -17,6 +17,8 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	TypeDeclaration["Product", "CallbackObject",
 		<|
 			"CallInterface" -> "FFICallInterface",
+			"ArgumentTypes" -> "ListVector"::["Managed"::["FFIType"]],
+			"OutputType" -> "Managed"::["FFIType"],
 			"Closure" -> "OpaqueRawPointer",
 			"CodeLocation" -> "OpaqueRawPointer"
 		|>,
@@ -27,7 +29,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	],
 
 	FunctionDeclaration[CreateCallback,
-		Typed[{"InertExpression", "ListVector"::["FFIType"], "FFIType"} -> "CallbackObject"]@
+		Typed[{"InertExpression", "ListVector"::["Managed"::["FFIType"]], "Managed"::["FFIType"]} -> "CallbackObject"]@
 		Function[{expr, argTypes, outputType},
 			Module[{codelocPtr, codeloc, closure, cif, fun},
 				codelocPtr = TypeHint[ToRawPointer[], "RawPointer"::["OpaqueRawPointer"]];
@@ -71,6 +73,8 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 				CreateTypeInstance["CallbackObject", <|
 					"CallInterface" -> cif,
+					"ArgumentTypes" -> argTypes,
+					"OutputType" -> outputType,
 					"Closure" -> closure,
 					"CodeLocation" -> codeloc
 				|>]

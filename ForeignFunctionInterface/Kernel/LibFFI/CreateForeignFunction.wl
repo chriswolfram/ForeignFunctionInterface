@@ -27,6 +27,8 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 	TypeDeclaration["Product", "ForeignFunctionObject",
 		<|
+			"ArgumentTypes" -> "ListVector"::["Managed"::["FFIType"]],
+			"OutputType" -> "Managed"::["FFIType"],
 			"ArgumentPointers" -> "CArray"::["OpaqueRawPointer"],
 			"OutputPointer" -> "OpaqueRawPointer",
 			"CallInterface" -> "FFICallInterface",
@@ -50,12 +52,23 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	],
 
 
+	(*
+		CreateFFICallInterface[argTypes, outputType]
+			creates an FFICallInterface with the specified argument and output types.
+
+		Note: The caller is responsible for ensuring that the FFITypes passed in will not be freed
+		while the CallInterface is in use.
+	*)
 	FunctionDeclaration[CreateFFICallInterface,
-		Typed[{"ListVector"::["FFIType"], "FFIType"} -> "FFICallInterface"]@
+		Typed[{"ListVector"::["Managed"::["FFIType"]], "Managed"::["FFIType"]} -> "FFICallInterface"]@
 		Function[{argTypes, outputType},
 			Module[{cif, argTypesArray},
 
-				argTypesArray = CreateTypeInstance["CArray"::["FFIType"], argTypes];
+				argTypesArray = CreateTypeInstance["CArray"::["FFIType"], Length[argTypes]];
+				Do[
+					ToRawPointer[argTypesArray, i-1, Compile`BorrowManagedObject[argTypes[[i]]]],
+					{i, Length[argTypes]}
+				];
 
 				(* TODO: check error code *)
 				cif = CreateTypeInstance["FFICallInterface", <||>];
@@ -83,7 +96,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 
 	FunctionDeclaration[CreateForeignFunctionWithLibrary,
-		Typed[{"ExternalLibraryHandle", "String", "ListVector"::["FFIType"], "FFIType"} -> "ForeignFunctionObject"]@
+		Typed[{"ExternalLibraryHandle", "String", "ListVector"::["Managed"::["FFIType"]], "Managed"::["FFIType"]} -> "ForeignFunctionObject"]@
 		Function[{lib, funName, argTypes, outputType},
 			Module[{cif, argCount, argValuesArray, outputValue, fun},
 
@@ -112,6 +125,8 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 				];
 
 				CreateTypeInstance["ForeignFunctionObject", <|
+					"ArgumentTypes" -> argTypes,
+					"OutputType" -> outputType,
 					"ArgumentPointers" -> argValuesArray,
 					"OutputPointer" -> outputValue,
 					"CallInterface" -> cif,
@@ -123,7 +138,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 
 	FunctionDeclaration[CreateForeignFunction,
-		Typed[{"String", "ListVector"::["FFIType"], "FFIType"} -> "ForeignFunctionObject"]@
+		Typed[{"String", "ListVector"::["Managed"::["FFIType"]], "Managed"::["FFIType"]} -> "ForeignFunctionObject"]@
 		Function[{funName, argTypes, outputType},
 			CreateForeignFunctionWithLibrary[
 				LibraryFunction["get_RTLD_DEFAULT"][],
@@ -139,6 +154,13 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		Typed[{"FFIType"} -> "MachineInteger"]@
 		Function[type,
 			Cast[type["Size"], "MachineInteger", "CCast"]
+		]
+	],
+
+	FunctionDeclaration[typeSize,
+		Typed[{"Managed"::["FFIType"]} -> "MachineInteger"]@
+		Function[type,
+			typeSize[Compile`BorrowManagedObject[type]]
 		]
 	]
 

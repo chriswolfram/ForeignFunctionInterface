@@ -1,6 +1,7 @@
 BeginPackage["ChristopherWolfram`ForeignFunctionInterface`"]
 
 FFIType
+FFITypeByteCount
 
 OpaqueRawPointer
 

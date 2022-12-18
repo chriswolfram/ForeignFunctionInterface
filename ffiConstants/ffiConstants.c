@@ -45,11 +45,6 @@ size_t get_ffi_closure_size() {
 	return sizeof(ffi_closure);
 }
 
-// Type flags
-unsigned short get_ffi_type_struct() {
-	return FFI_TYPE_STRUCT;
-}
-
 
 // libffi types
 
@@ -147,4 +142,71 @@ ffi_type* get_ffi_type_complex_double() {
 
 ffi_type* get_ffi_type_complex_longdouble() {
 	return &ffi_type_complex_longdouble;
+}
+
+
+// Type IDs
+
+unsigned short get_id_FFI_TYPE_VOID() {
+	return FFI_TYPE_VOID;
+}
+
+unsigned short get_id_FFI_TYPE_INT() {
+	return FFI_TYPE_INT;
+}
+
+unsigned short get_id_FFI_TYPE_FLOAT() {
+	return FFI_TYPE_FLOAT;
+}
+
+unsigned short get_id_FFI_TYPE_DOUBLE() {
+	return FFI_TYPE_DOUBLE;
+}
+
+unsigned short get_id_FFI_TYPE_LONGDOUBLE() {
+	return FFI_TYPE_LONGDOUBLE;
+}
+
+unsigned short get_id_FFI_TYPE_UINT8() {
+	return FFI_TYPE_UINT8;
+}
+
+unsigned short get_id_FFI_TYPE_SINT8() {
+	return FFI_TYPE_SINT8;
+}
+
+unsigned short get_id_FFI_TYPE_UINT16() {
+	return FFI_TYPE_UINT16;
+}
+
+unsigned short get_id_FFI_TYPE_SINT16() {
+	return FFI_TYPE_SINT16;
+}
+
+unsigned short get_id_FFI_TYPE_UINT32() {
+	return FFI_TYPE_UINT32;
+}
+
+unsigned short get_id_FFI_TYPE_SINT32() {
+	return FFI_TYPE_SINT32;
+}
+
+unsigned short get_id_FFI_TYPE_UINT64() {
+	return FFI_TYPE_UINT64;
+}
+
+unsigned short get_id_FFI_TYPE_SINT64() {
+	return FFI_TYPE_SINT64;
+}
+
+unsigned short get_id_FFI_TYPE_STRUCT() {
+	return FFI_TYPE_STRUCT;
+}
+
+unsigned short get_id_FFI_TYPE_POINTER() {
+	return FFI_TYPE_POINTER;
+}
+
+unsigned short get_id_FFI_TYPE_COMPLEX() {
+	return FFI_TYPE_COMPLEX;
 }

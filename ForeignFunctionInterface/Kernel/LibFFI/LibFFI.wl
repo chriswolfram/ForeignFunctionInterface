@@ -9,6 +9,7 @@ Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`CallForeignFunction`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`Callback`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`BaseTypes`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`Constants`"]
+Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`FFIType`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`RawFunctionLoading`"]
 
 

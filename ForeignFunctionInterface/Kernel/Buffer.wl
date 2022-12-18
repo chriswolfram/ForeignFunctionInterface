@@ -5,6 +5,7 @@ Begin["`Private`"]
 
 Needs["ChristopherWolfram`ForeignFunctionInterface`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`OpaqueRawPointer`"]
+Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`FFIType`"] (* for FFITypeID, NameFFITypeIDID *)
 
 
 
@@ -36,17 +37,17 @@ DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> {
 DeclareCompiledComponent["ForeignFunctionInterface", {
 
 		FunctionDeclaration[CreateBuffer,
-			Typed[{"FFIType", "MachineInteger"} -> "InertExpression"]@
+			Typed[{"Managed"::["FFIType"], "MachineInteger"} -> "InertExpression"]@
 			Function[{type, len},
 				PointerToExpression@Cast[
-					CreateTypeInstance["CArray"::["Integer8"], Cast[type["Size"]*len, "MachineInteger", "CCast"]],
+					CreateTypeInstance["CArray"::["Integer8"], Cast[FFITypeByteCount[type]*len, "MachineInteger", "CCast"]],
 					"OpaqueRawPointer", "BitCast"
 				]
 			]
 		],
 
 		FunctionDeclaration[CreateBuffer,
-			Typed[{"FFIType"} -> "InertExpression"]@
+			Typed[{"Managed"::["FFIType"]} -> "InertExpression"]@
 			Function[type,
 				CreateBuffer[type, 1]
 			]
@@ -55,7 +56,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 }];
 
 DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> <|
-	iCreateBuffer -> Typed[CreateBuffer, {"FFIType", "MachineInteger"} -> "InertExpression"]
+	iCreateBuffer -> Typed[CreateBuffer, {"Managed"::["FFIType"], "MachineInteger"} -> "InertExpression"]
 |>];
 
 
@@ -91,33 +92,34 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		FunctionDeclaration[BufferToNumericArray,
 			Typed[{"InertExpression", "FFIType", "MachineInteger"} -> "InertExpression"]@
 			Function[{ptr, type, len},
-				
-				Switch[type,
 
-					(* "Void" is removed *)
-					FFIType["UnsignedInteger8"],	BufferToNumericArray[ptr, TypeSpecifier["UnsignedInteger8"], len],
-					FFIType["Integer8"],					BufferToNumericArray[ptr, TypeSpecifier["Integer8"], len],
-					FFIType["UnsignedInteger16"],	BufferToNumericArray[ptr, TypeSpecifier["UnsignedInteger16"], len],
-					FFIType["Integer16"],					BufferToNumericArray[ptr, TypeSpecifier["Integer16"], len],
-					FFIType["UnsignedInteger32"],	BufferToNumericArray[ptr, TypeSpecifier["UnsignedInteger32"], len],
-					FFIType["Integer32"],					BufferToNumericArray[ptr, TypeSpecifier["Integer32"], len],
-					FFIType["UnsignedInteger64"],	BufferToNumericArray[ptr, TypeSpecifier["UnsignedInteger64"], len],
-					FFIType["Integer64"],					BufferToNumericArray[ptr, TypeSpecifier["Integer64"], len],
-					FFIType["CFloat"],						BufferToNumericArray[ptr, TypeSpecifier["CFloat"], len],
-					FFIType["CDouble"],						BufferToNumericArray[ptr, TypeSpecifier["CDouble"], len],
-					FFIType["CUnsignedChar"],			BufferToNumericArray[ptr, TypeSpecifier["CUnsignedChar"], len],
-					FFIType["CSignedChar"],				BufferToNumericArray[ptr, TypeSpecifier["CSignedChar"], len],
-					FFIType["CUnsignedShort"],		BufferToNumericArray[ptr, TypeSpecifier["CUnsignedShort"], len],
-					FFIType["CShort"],						BufferToNumericArray[ptr, TypeSpecifier["CShort"], len],
-					FFIType["CUnsignedInt"],			BufferToNumericArray[ptr, TypeSpecifier["CUnsignedInt"], len],
-					FFIType["CInt"],							BufferToNumericArray[ptr, TypeSpecifier["CInt"], len],
-					FFIType["CUnsignedLong"],			BufferToNumericArray[ptr, TypeSpecifier["CUnsignedLong"], len],
-					FFIType["CLong"],							BufferToNumericArray[ptr, TypeSpecifier["CLong"], len],
-					_, 														Native`ThrowWolframExceptionCode["Unimplemented"]
+				Switch[FFITypeID[type],
+
+					NameFFITypeID["UINT8"][],		BufferToNumericArray[ptr, TypeSpecifier["UnsignedInteger8"], len],
+					NameFFITypeID["SINT8"][],		BufferToNumericArray[ptr, TypeSpecifier["Integer8"], len],
+					NameFFITypeID["UINT16"][],	BufferToNumericArray[ptr, TypeSpecifier["UnsignedInteger16"], len],
+					NameFFITypeID["SINT16"][],	BufferToNumericArray[ptr, TypeSpecifier["Integer16"], len],
+					NameFFITypeID["UINT32"][],	BufferToNumericArray[ptr, TypeSpecifier["UnsignedInteger32"], len],
+					NameFFITypeID["SINT32"][],	BufferToNumericArray[ptr, TypeSpecifier["Integer32"], len],
+					NameFFITypeID["UINT64"][],	BufferToNumericArray[ptr, TypeSpecifier["UnsignedInteger64"], len],
+					NameFFITypeID["SINT64"][],	BufferToNumericArray[ptr, TypeSpecifier["Integer64"], len],
+					NameFFITypeID["INT"][],			BufferToNumericArray[ptr, TypeSpecifier["CInt"], len],
+					NameFFITypeID["FLOAT"][],		BufferToNumericArray[ptr, TypeSpecifier["CFloat"], len],
+					NameFFITypeID["DOUBLE"][],	BufferToNumericArray[ptr, TypeSpecifier["CDouble"], len],
+					_, 												Native`ThrowWolframExceptionCode["Unimplemented"]
 
 				]
+				
 			]
 		],
+
+		FunctionDeclaration[BufferToNumericArray,
+			Typed[{"InertExpression", "Managed"::["FFIType"], "MachineInteger"} -> "InertExpression"]@
+			Function[{ptr, type, len},
+				BufferToNumericArray[ptr, Compile`BorrowManagedObject[type], len]
+			]
+		],
+
 
 		FunctionDeclaration[NumericArrayToBuffer,
 			Typed[ForAllType[ty, {"NumericArray"::[ty,1]} -> "InertExpression"]]@
@@ -139,41 +141,39 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		FunctionDeclaration[NumericArrayToBuffer,
 			Typed[{"InertExpression", "FFIType"} -> "InertExpression"]@
 			Function[{expr, type},
-				Switch[type,
 
-					(* "Void" is removed *)
-					FFIType["UnsignedInteger8"],	NumericArrayToBuffer[expr, TypeSpecifier["UnsignedInteger8"]],
-					FFIType["Integer8"],					NumericArrayToBuffer[expr, TypeSpecifier["Integer8"]],
-					FFIType["UnsignedInteger16"],	NumericArrayToBuffer[expr, TypeSpecifier["UnsignedInteger16"]],
-					FFIType["Integer16"],					NumericArrayToBuffer[expr, TypeSpecifier["Integer16"]],
-					FFIType["UnsignedInteger32"],	NumericArrayToBuffer[expr, TypeSpecifier["UnsignedInteger32"]],
-					FFIType["Integer32"],					NumericArrayToBuffer[expr, TypeSpecifier["Integer32"]],
-					FFIType["UnsignedInteger64"],	NumericArrayToBuffer[expr, TypeSpecifier["UnsignedInteger64"]],
-					FFIType["Integer64"],					NumericArrayToBuffer[expr, TypeSpecifier["Integer64"]],
-					FFIType["CFloat"],						NumericArrayToBuffer[expr, TypeSpecifier["CFloat"]],
-					FFIType["CDouble"],						NumericArrayToBuffer[expr, TypeSpecifier["CDouble"]],
-					FFIType["CUnsignedChar"],			NumericArrayToBuffer[expr, TypeSpecifier["CUnsignedChar"]],
-					FFIType["CSignedChar"],				NumericArrayToBuffer[expr, TypeSpecifier["CSignedChar"]],
-					FFIType["CUnsignedShort"],		NumericArrayToBuffer[expr, TypeSpecifier["CUnsignedShort"]],
-					FFIType["CShort"],						NumericArrayToBuffer[expr, TypeSpecifier["CShort"]],
-					FFIType["CUnsignedInt"],			NumericArrayToBuffer[expr, TypeSpecifier["CUnsignedInt"]],
-					FFIType["CInt"],							NumericArrayToBuffer[expr, TypeSpecifier["CInt"]],
-					FFIType["CUnsignedLong"],			NumericArrayToBuffer[expr, TypeSpecifier["CUnsignedLong"]],
-					FFIType["CLong"],							NumericArrayToBuffer[expr, TypeSpecifier["CLong"]],
-					_, 														Native`ThrowWolframExceptionCode["Unimplemented"]
+				Switch[FFITypeID[type],
+
+					NameFFITypeID["UINT8"][],		NumericArrayToBuffer[expr, TypeSpecifier["UnsignedInteger8"]],
+					NameFFITypeID["SINT8"][],		NumericArrayToBuffer[expr, TypeSpecifier["Integer8"]],
+					NameFFITypeID["UINT16"][],	NumericArrayToBuffer[expr, TypeSpecifier["UnsignedInteger16"]],
+					NameFFITypeID["SINT16"][],	NumericArrayToBuffer[expr, TypeSpecifier["Integer16"]],
+					NameFFITypeID["UINT32"][],	NumericArrayToBuffer[expr, TypeSpecifier["UnsignedInteger32"]],
+					NameFFITypeID["SINT32"][],	NumericArrayToBuffer[expr, TypeSpecifier["Integer32"]],
+					NameFFITypeID["UINT64"][],	NumericArrayToBuffer[expr, TypeSpecifier["UnsignedInteger64"]],
+					NameFFITypeID["SINT64"][],	NumericArrayToBuffer[expr, TypeSpecifier["Integer64"]],
+					NameFFITypeID["INT"][],			NumericArrayToBuffer[expr, TypeSpecifier["CInt"]],
+					NameFFITypeID["FLOAT"][],		NumericArrayToBuffer[expr, TypeSpecifier["CFloat"]],
+					NameFFITypeID["DOUBLE"][],	NumericArrayToBuffer[expr, TypeSpecifier["CDouble"]],
+					_, 												Native`ThrowWolframExceptionCode["Unimplemented"]
 
 				]
+			]
+		],
+
+		FunctionDeclaration[NumericArrayToBuffer,
+			Typed[{"InertExpression", "Managed"::["FFIType"]} -> "InertExpression"]@
+			Function[{expr, type},
+				NumericArrayToBuffer[expr, Compile`BorrowManagedObject[type]]
 			]
 		]
 
 }];
 
-DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> {
-	BufferToNumericArray
-}];
 
 DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> <|
-	NumericArrayToBuffer -> Typed[NumericArrayToBuffer, {"InertExpression", "FFIType"} -> "InertExpression"]
+	BufferToNumericArray -> Typed[BufferToNumericArray, {"InertExpression", "Managed"::["FFIType"], "MachineInteger"} -> "InertExpression"],
+	NumericArrayToBuffer -> Typed[NumericArrayToBuffer, {"InertExpression", "Managed"::["FFIType"]} -> "InertExpression"]
 |>];
 
 
@@ -236,31 +236,31 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		FunctionDeclaration[DereferenceBuffer,
 			Typed[{"OpaqueRawPointer", "FFIType", "MachineInteger"} -> "InertExpression"]@
 			Function[{ptr, type, offset},
-				Switch[type,
+				Switch[FFITypeID[type],
 
-					FFIType[LiteralType["Void"]],								DereferenceBuffer[ptr, TypeSpecifier["Void"], offset],
-					FFIType[LiteralType["UnsignedInteger8"]],		DereferenceBuffer[ptr, TypeSpecifier["UnsignedInteger8"], offset],
-					FFIType[LiteralType["Integer8"]],						DereferenceBuffer[ptr, TypeSpecifier["Integer8"], offset],
-					FFIType[LiteralType["UnsignedInteger16"]],	DereferenceBuffer[ptr, TypeSpecifier["UnsignedInteger16"], offset],
-					FFIType[LiteralType["Integer16"]],					DereferenceBuffer[ptr, TypeSpecifier["Integer16"], offset],
-					FFIType[LiteralType["UnsignedInteger32"]],	DereferenceBuffer[ptr, TypeSpecifier["UnsignedInteger32"], offset],
-					FFIType[LiteralType["Integer32"]],					DereferenceBuffer[ptr, TypeSpecifier["Integer32"], offset],
-					FFIType[LiteralType["UnsignedInteger64"]],	DereferenceBuffer[ptr, TypeSpecifier["UnsignedInteger64"], offset],
-					FFIType[LiteralType["Integer64"]],					DereferenceBuffer[ptr, TypeSpecifier["Integer64"], offset],
-					FFIType[LiteralType["CFloat"]],							DereferenceBuffer[ptr, TypeSpecifier["CFloat"], offset],
-					FFIType[LiteralType["CDouble"]],						DereferenceBuffer[ptr, TypeSpecifier["CDouble"], offset],
-					FFIType[LiteralType["CUnsignedChar"]],			DereferenceBuffer[ptr, TypeSpecifier["CUnsignedChar"], offset],
-					FFIType[LiteralType["CSignedChar"]],				DereferenceBuffer[ptr, TypeSpecifier["CSignedChar"], offset],
-					FFIType[LiteralType["CUnsignedShort"]],			DereferenceBuffer[ptr, TypeSpecifier["CUnsignedShort"], offset],
-					FFIType[LiteralType["CShort"]],							DereferenceBuffer[ptr, TypeSpecifier["CShort"], offset],
-					FFIType[LiteralType["CUnsignedInt"]],				DereferenceBuffer[ptr, TypeSpecifier["CUnsignedInt"], offset],
-					FFIType[LiteralType["CInt"]],								DereferenceBuffer[ptr, TypeSpecifier["CInt"], offset],
-					FFIType[LiteralType["CUnsignedLong"]],			DereferenceBuffer[ptr, TypeSpecifier["CUnsignedLong"], offset],
-					FFIType[LiteralType["CLong"]],							DereferenceBuffer[ptr, TypeSpecifier["CLong"], offset],
-					FFIType[LiteralType["OpaqueRawPointer"]],		DereferenceBuffer[ptr, TypeSpecifier["OpaqueRawPointer"], offset],
-					_, 																					Native`ThrowWolframExceptionCode["Unimplemented"]
+					NameFFITypeID["VOID"][],		DereferenceBuffer[ptr, TypeSpecifier["Void"], offset],
+					NameFFITypeID["UINT8"][],		DereferenceBuffer[ptr, TypeSpecifier["UnsignedInteger8"], offset],
+					NameFFITypeID["SINT8"][],		DereferenceBuffer[ptr, TypeSpecifier["Integer8"], offset],
+					NameFFITypeID["UINT16"][],	DereferenceBuffer[ptr, TypeSpecifier["UnsignedInteger16"], offset],
+					NameFFITypeID["SINT16"][],	DereferenceBuffer[ptr, TypeSpecifier["Integer16"], offset],
+					NameFFITypeID["UINT32"][],	DereferenceBuffer[ptr, TypeSpecifier["UnsignedInteger32"], offset],
+					NameFFITypeID["SINT32"][],	DereferenceBuffer[ptr, TypeSpecifier["Integer32"], offset],
+					NameFFITypeID["UINT64"][],	DereferenceBuffer[ptr, TypeSpecifier["UnsignedInteger64"], offset],
+					NameFFITypeID["SINT64"][],	DereferenceBuffer[ptr, TypeSpecifier["Integer64"], offset],
+					NameFFITypeID["INT"][],			DereferenceBuffer[ptr, TypeSpecifier["CInt"], offset],
+					NameFFITypeID["FLOAT"][],		DereferenceBuffer[ptr, TypeSpecifier["CFloat"], offset],
+					NameFFITypeID["DOUBLE"][],	DereferenceBuffer[ptr, TypeSpecifier["CDouble"], offset],
+					NameFFITypeID["POINTER"][],	DereferenceBuffer[ptr, TypeSpecifier["OpaqueRawPointer"], offset],
+					_, 												Native`ThrowWolframExceptionCode["Unimplemented"]
 
 				]
+			]
+		],
+
+		FunctionDeclaration[DereferenceBuffer,
+			Typed[{"OpaqueRawPointer", "Managed"::["FFIType"], "MachineInteger"} -> "InertExpression"]@
+			Function[{ptr, type, offset},
+				DereferenceBuffer[ptr, Compile`BorrowManagedObject[type], offset]
 			]
 		],
 
@@ -276,7 +276,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		(******* Expression case *******)
 
 		FunctionDeclaration[DereferenceBuffer,
-			Typed[{"InertExpression", "FFIType", "MachineInteger"} -> "InertExpression"]@
+			Typed[ForAllType[ty, {"InertExpression", ty, "MachineInteger"} -> "InertExpression"]]@
 			Function[{ptr, type, offset},
 				DereferenceBuffer[ExpressionToPointer[GetManagedExpression[ptr]], type, offset]
 			]
@@ -294,7 +294,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 }];
 
 DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> <|
-	iDereferenceBuffer -> Typed[DereferenceBuffer, {"InertExpression", "FFIType", "MachineInteger"} -> "InertExpression"]
+	iDereferenceBuffer -> Typed[DereferenceBuffer, {"InertExpression", "Managed"::["FFIType"], "MachineInteger"} -> "InertExpression"]
 |>];
 
 
