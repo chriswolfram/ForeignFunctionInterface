@@ -8,6 +8,7 @@ NameFFITypeID
 RawFFIType
 
 FFITypeByteCount
+FFITypeElementCount
 
 
 $LibFFIPaths = {"libffi", "ffiConstants"};

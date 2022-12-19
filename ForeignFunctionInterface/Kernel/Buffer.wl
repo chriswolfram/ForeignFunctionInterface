@@ -215,21 +215,17 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		FunctionDeclaration[DereferenceBuffer,
 			Typed[{"OpaqueRawPointer", "InertExpression", "MachineInteger"} -> "InertExpression"]@
 			Function[{ptr, type, offset},
-				DereferenceBuffer[ptr, Cast[type, "CUnsignedShort"], offset]
+				Module[{ffiType, out},
+					ffiType = CreateTypeInstance["Managed", CreateFFIType[type], DeleteFFIType];
+					DereferenceBuffer[ptr, Compile`BorrowManagedObject[ffiType], offset]
+				]
 			]
 		],
 
 		FunctionDeclaration[DereferenceBuffer,
 			Typed[{"OpaqueRawPointer", "FFIType", "MachineInteger"} -> "InertExpression"]@
 			Function[{ptr, type, offset},
-				DereferenceBuffer[ptr, type["Type"], offset]
-			]
-		],
-
-		FunctionDeclaration[DereferenceBuffer,
-			Typed[{"OpaqueRawPointer", "CUnsignedShort", "MachineInteger"} -> "InertExpression"]@
-			Function[{ptr, type, offset},
-				Switch[type,
+				Switch[type["Type"],
 
 					NameFFITypeID["VOID"][],		DereferenceBuffer[ptr, TypeSpecifier["Void"], offset],
 					NameFFITypeID["UINT8"][],		DereferenceBuffer[ptr, TypeSpecifier["UnsignedInteger8"], offset],
@@ -244,7 +240,44 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 					NameFFITypeID["FLOAT"][],		DereferenceBuffer[ptr, TypeSpecifier["CFloat"], offset],
 					NameFFITypeID["DOUBLE"][],	DereferenceBuffer[ptr, TypeSpecifier["CDouble"], offset],
 					NameFFITypeID["POINTER"][],	DereferenceBuffer[ptr, TypeSpecifier["OpaqueRawPointer"], offset],
-					_, 												Native`ThrowWolframExceptionCode["Unimplemented"]
+					NameFFITypeID["STRUCT"][],	dereferenceStruct[ptr, type, offset],
+					_, 													Native`ThrowWolframExceptionCode["Unimplemented"]
+
+				]
+			]
+		],
+
+		(******* Structs *******)
+
+		FunctionDeclaration[dereferenceStruct,
+			Typed[{"OpaqueRawPointer", "FFIType", "MachineInteger"} -> "InertExpression"]@
+			Function[{ptr, type, offset},
+				Module[{elementCount, elementOffsets, expr},
+
+					elementCount = FFITypeElementCount[type];
+
+					(* TODO: Check error code *)
+					elementOffsets = CreateTypeInstance["Managed"::["CArray"::["CSizeT"]], elementCount];
+					LibraryFunction["ffi_get_struct_offsets"][
+						LibraryFunction["get_FFI_DEFAULT_ABI"][],
+						type,
+						elementOffsets
+					];
+
+					expr = Native`PrimitiveFunction["CreateHeaded_IE_E"][elementCount, InertExpression[List]];
+					Do[
+						Native`PrimitiveFunction["SetElement_EIE_Void"][
+							expr,
+							i,
+							DereferenceBuffer[
+								Cast[Cast[ptr,"UnsignedInteger64","BitCast"] + FromRawPointer[elementOffsets,i-1], "OpaqueRawPointer","BitCast"],
+								FromRawPointer[type["Elements"],i-1]
+							]
+						],
+						{i, elementCount}
+					];
+
+					expr
 
 				]
 			]

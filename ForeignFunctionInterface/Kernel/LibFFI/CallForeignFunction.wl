@@ -52,8 +52,40 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 				NameFFITypeID["FLOAT"][],		ExpressionIntoPointer[ptr, TypeSpecifier["CFloat"], init],
 				NameFFITypeID["DOUBLE"][],	ExpressionIntoPointer[ptr, TypeSpecifier["CDouble"], init],
 				NameFFITypeID["POINTER"][],	ExpressionIntoPointer[ptr, TypeSpecifier["OpaqueRawPointer"], init],
+				NameFFITypeID["STRUCT"][],	expressionIntoStructPointer[ptr, type, init],
 				_, 													Native`ThrowWolframExceptionCode["Unimplemented"]
 
+			]
+		]
+	],
+
+	FunctionDeclaration[expressionIntoStructPointer,
+		Typed[{"OpaqueRawPointer", "FFIType", "InertExpression"} -> "Null"]@
+		Function[{ptr, type, init},
+			Module[{elementCount, elementOffsets},
+
+				elementCount = FFITypeElementCount[type];
+
+				If[Head[init] =!= InertExpression[List] || Length[init] =!= elementCount,
+					Native`ThrowWolframExceptionCode["Argument"]
+				];
+
+				(* TODO: Check error code *)
+				elementOffsets = CreateTypeInstance["Managed"::["CArray"::["CSizeT"]], elementCount];
+				LibraryFunction["ffi_get_struct_offsets"][
+					LibraryFunction["get_FFI_DEFAULT_ABI"][],
+					type,
+					elementOffsets
+				];
+
+				Do[
+					expressionIntoStructPointer[
+						Cast[Cast[ptr,"UnsignedInteger64","BitCast"] + FromRawPointer[elementOffsets,i-1], "OpaqueRawPointer","BitCast"],
+						FromRawPointer[type["Elements"], i-1],
+						init[[i]]
+					],
+					{i, elementCount}
+				]
 			]
 		]
 	],

@@ -31,8 +31,10 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 				StringQ[typeSpec],
 					typeFromString[Cast[typeSpec, "String"]],
 
-				(* IntegerQ[typeSpec],
-					typeFromIntegerID[Cast[typeSpec, "CUnsignedShort"]], *)
+				Head[typeSpec] === InertExpression[TypeSpecifier["ListTuple"]] ||
+				Head[typeSpec] === InertExpression["ListTuple"] ||
+				ListQ[typeSpec],
+					typeFromList[typeSpec],
 
 				Head[typeSpec] === InertExpression[TypeSpecifier] && Length[typeSpec] === 1,
 					CreateFFIType[First[typeSpec]],
@@ -47,79 +49,65 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	FunctionDeclaration[typeFromString,
 		Typed[{"String"} -> "FFIType"]@
 		Function[typeName,
-			Module[{template},
+			Switch[typeName,
 
-				template =
-					Switch[typeName,
+				"Void",								RawFFIType["Void"][],
+				"UnsignedInteger8",		RawFFIType["UnsignedInteger8"][],
+				"Integer8",						RawFFIType["Integer8"][],
+				"UnsignedInteger16",	RawFFIType["UnsignedInteger16"][],
+				"Integer16",					RawFFIType["Integer16"][],
+				"UnsignedInteger32",	RawFFIType["UnsignedInteger32"][],
+				"Integer32",					RawFFIType["Integer32"][],
+				"UnsignedInteger64",	RawFFIType["UnsignedInteger64"][],
+				"Integer64",					RawFFIType["Integer64"][],
+				"CFloat",							RawFFIType["CFloat"][],
+				"CDouble",						RawFFIType["CDouble"][],
+				"CChar",							RawFFIType["CUnsignedChar"][],
+				"CUnsignedChar",			RawFFIType["CUnsignedChar"][],
+				"CSignedChar",				RawFFIType["CSignedChar"][],
+				"CUnsignedShort",			RawFFIType["CUnsignedShort"][],
+				"CShort",							RawFFIType["CShort"][],
+				"CUnsignedInt",				RawFFIType["CUnsignedInt"][],
+				"CInt",								RawFFIType["CInt"][],
+				"CUnsignedLong",			RawFFIType["CUnsignedLong"][],
+				"CLong",							RawFFIType["CLong"][],
+				"OpaqueRawPointer",		RawFFIType["OpaqueRawPointer"][],
+				_, 										Native`ThrowWolframExceptionCode["Unimplemented"]
 
-						"Void",								RawFFIType["Void"][],
-						"UnsignedInteger8",		RawFFIType["UnsignedInteger8"][],
-						"Integer8",						RawFFIType["Integer8"][],
-						"UnsignedInteger16",	RawFFIType["UnsignedInteger16"][],
-						"Integer16",					RawFFIType["Integer16"][],
-						"UnsignedInteger32",	RawFFIType["UnsignedInteger32"][],
-						"Integer32",					RawFFIType["Integer32"][],
-						"UnsignedInteger64",	RawFFIType["UnsignedInteger64"][],
-						"Integer64",					RawFFIType["Integer64"][],
-						"CFloat",							RawFFIType["CFloat"][],
-						"CDouble",						RawFFIType["CDouble"][],
-						"CChar",							RawFFIType["CUnsignedChar"][],
-						"CUnsignedChar",			RawFFIType["CUnsignedChar"][],
-						"CSignedChar",				RawFFIType["CSignedChar"][],
-						"CUnsignedShort",			RawFFIType["CUnsignedShort"][],
-						"CShort",							RawFFIType["CShort"][],
-						"CUnsignedInt",				RawFFIType["CUnsignedInt"][],
-						"CInt",								RawFFIType["CInt"][],
-						"CUnsignedLong",			RawFFIType["CUnsignedLong"][],
-						"CLong",							RawFFIType["CLong"][],
-						"OpaqueRawPointer",		RawFFIType["OpaqueRawPointer"][],
-						_, 										Native`ThrowWolframExceptionCode["Unimplemented"]
-
-					];
-
-				CreateTypeInstance["FFIType", <|
-					"Size" -> template["Size"],
-					"Alignment" -> TypeHint[0,"CUnsignedShort"],
-					"Type" -> template["Type"],
-					"Elements" -> Cast[0, "CArray"::["FFIType"], "BitCast"]
-				|>]
 			]
 		]
-	](* ,
+	],
 
-	FunctionDeclaration[typeFromIntegerID,
-		Typed[{"CUnsignedShort"} -> "FFIType"]@
-		Function[typeID,
-			Module[{size},
+	FunctionDeclaration[typeFromList,
+		Typed[{"InertExpression"} -> "FFIType"]@
+		Function[typeList,
+			Module[{elementCount, elements, type},
 
-				size =
-					Switch[typeID,
+				elementCount = Length[typeList];
 
-						NameFFITypeID["UINT8"][],		Native`SizeOf["UnsignedInteger8"],
-						NameFFITypeID["SINT8"][],		Native`SizeOf["Integer8"],
-						NameFFITypeID["UINT16"][],	Native`SizeOf["UnsignedInteger16"],
-						NameFFITypeID["SINT16"][],	Native`SizeOf["Integer16"],
-						NameFFITypeID["UINT32"][],	Native`SizeOf["UnsignedInteger32"],
-						NameFFITypeID["SINT32"][],	Native`SizeOf["Integer32"],
-						NameFFITypeID["UINT64"][],	Native`SizeOf["UnsignedInteger64"],
-						NameFFITypeID["SINT64"][],	Native`SizeOf["Integer64"],
-						NameFFITypeID["INT"][],			Native`SizeOf["CInt"],
-						NameFFITypeID["FLOAT"][],		Native`SizeOf["CFloat"],
-						NameFFITypeID["DOUBLE"][],	Native`SizeOf["CDouble"],
-						NameFFITypeID["POINTER"][],	Native`SizeOf["OpaqueRawPointer"],
-						_, 													Native`ThrowWolframExceptionCode["Unimplemented"]
+				(* TODO: This is potentially a memory leak if it fails after allocating a few types *)
+				elements = CreateTypeInstance["CArray"::["FFIType"], elementCount+1];
+				Do[ToRawPointer[elements, i-1, CreateFFIType[typeList[[i]]]], {i, elementCount}];
+				ToRawPointer[elements, elementCount, Cast[0, "FFIType", "BitCast"]];
 
-					];
-
-				CreateTypeInstance["FFIType", <|
-					"Size" -> Cast[size, "CSizeT", "CCast"],
+				type = CreateTypeInstance["FFIType", <|
+					"Size" -> Typed[0, "CSizeT"],
 					"Alignment" -> TypeHint[0,"CUnsignedShort"],
-					"Type" -> typeID,
-					"Elements" -> Cast[0, "CArray"::["FFIType"], "BitCast"]
-				|>]
+					"Type" -> NameFFITypeID["STRUCT"][],
+					"Elements" -> elements
+				|>];
+
+				(* TODO: Check error code *)
+				LibraryFunction["ffi_get_struct_offsets"][
+					LibraryFunction["get_FFI_DEFAULT_ABI"][],
+					type,
+					Cast[0, "CArray"::["CSizeT"], "BitCast"]
+				];
+
+				type
 			]
 		]
-	] *)
+	]
 
 }];
 
@@ -136,9 +124,49 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	FunctionDeclaration[DeleteFFIType,
 		Typed[{"FFIType"} -> "Null"]@
 		Function[type,
-			If[type["Type"] =!= NameFFITypeID["STRUCT"][],
+
+			If[type["Type"] === NameFFITypeID["STRUCT"][],
+
+				If[type["Elements"] =!= Cast[0, "CArray"::["FFIType"], "BitCast"],
+					Module[{i = 0},
+						While[FromRawPointer[type["Elements"], i] =!= Cast[0, "FFIType", "BitCast"],
+							DeleteFFIType[FromRawPointer[type["Elements"], i]];
+							i++
+						];
+						DeleteObject[type["Elements"]]
+					]
+				];
+
 				DeleteObject[type]
+
 			];
+		]
+	]
+
+}];
+
+
+
+(*********************** FFITypeElementCount *************************)
+
+DeclareCompiledComponent["ForeignFunctionInterface", {
+
+	(*
+		FFITypeElementCount[ffiType]
+			gives the number of elements (struct fields) in a type.
+	*)
+	FunctionDeclaration[FFITypeElementCount,
+		Typed[{"FFIType"} -> "MachineInteger"]@
+		Function[type,
+			If[type["Elements"] === Cast[0, "CArray"::["FFIType"], "BitCast"],
+				0,
+				Module[{i = 0},
+					While[FromRawPointer[type["Elements"], i] =!= Cast[0, "FFIType", "BitCast"],
+						i++
+					];
+					i
+				]
+			]
 		]
 	]
 

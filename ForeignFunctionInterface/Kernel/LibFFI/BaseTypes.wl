@@ -63,6 +63,9 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		} -> "CInt"
 	],
 
+	LibraryFunctionDeclaration["ffi_get_struct_offsets", $LibFFIPaths,
+		{"CInt", "FFIType", "CArray"::["CSizeT"]} -> "CInt"],
+
 
 	FunctionDeclaration[SameQ,
 		Typed[{"FFIType", "FFIType"} -> "Boolean"]@
