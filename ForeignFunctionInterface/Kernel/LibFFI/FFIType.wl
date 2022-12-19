@@ -31,8 +31,8 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 				StringQ[typeSpec],
 					typeFromString[Cast[typeSpec, "String"]],
 
-				IntegerQ[typeSpec],
-					typeFromIntegerID[Cast[typeSpec, "CUnsignedShort"]],
+				(* IntegerQ[typeSpec],
+					typeFromIntegerID[Cast[typeSpec, "CUnsignedShort"]], *)
 
 				Head[typeSpec] === InertExpression[TypeSpecifier] && Length[typeSpec] === 1,
 					CreateFFIType[First[typeSpec]],
@@ -85,7 +85,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 				|>]
 			]
 		]
-	],
+	](* ,
 
 	FunctionDeclaration[typeFromIntegerID,
 		Typed[{"CUnsignedShort"} -> "FFIType"]@
@@ -119,7 +119,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 				|>]
 			]
 		]
-	]
+	] *)
 
 }];
 
@@ -136,10 +136,9 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	FunctionDeclaration[DeleteFFIType,
 		Typed[{"FFIType"} -> "Null"]@
 		Function[type,
-			(* If[type["Elements"] =!= Cast[0, "CArray"::["FFIType"], "BitCast"],
-				Module[{}]
-			]; *)
-			DeleteObject[type];
+			If[type["Type"] =!= NameFFITypeID["STRUCT"][],
+				DeleteObject[type]
+			];
 		]
 	]
 
