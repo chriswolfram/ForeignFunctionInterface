@@ -58,8 +58,10 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	*)
 	FunctionDeclaration[CreateFFICallInterface,
 		Typed[{"InertExpression"} -> "FFICallInterface"]@
-		Function[funcType,
-			Module[{argTypes, outputType, argCount, argFFITypes, outputFFIType, cif},
+		Function[funcTypeI,
+			Module[{funcType, argTypes, outputType, argCount, argFFITypes, outputFFIType, cif},
+
+				funcType = unwrapTypeSpecifier[funcTypeI];
 
 				(* Check that the input type is well-formed *)
 				If[
@@ -92,6 +94,16 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 				];
 
 				cif
+			]
+		]
+	],
+
+	FunctionDeclaration[unwrapTypeSpecifier,
+		Typed[{"InertExpression"} -> "InertExpression"]@
+		Function[expr,
+			If[Head[expr] === InertExpression[TypeSpecifier] && Length[expr] === 1,
+				unwrapTypeSpecifier[First[expr]],
+				expr
 			]
 		]
 	],
