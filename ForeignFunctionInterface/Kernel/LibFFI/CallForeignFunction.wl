@@ -79,7 +79,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 				];
 
 				Do[
-					expressionIntoStructPointer[
+					ExpressionIntoPointer[
 						Cast[Cast[ptr,"UnsignedInteger64","BitCast"] + FromRawPointer[elementOffsets,i-1], "OpaqueRawPointer","BitCast"],
 						FromRawPointer[type["Elements"], i-1],
 						init[[i]]
