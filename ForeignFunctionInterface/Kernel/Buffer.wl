@@ -14,10 +14,10 @@ Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`"]
 (***************************************************)
 
 
-(******* FreeBuffer *******)
+(******* DeleteBuffer *******)
 DeclareCompiledComponent["ForeignFunctionInterface", {
 
-		FunctionDeclaration[FreeBuffer,
+		FunctionDeclaration[DeleteBuffer,
 			Typed[{"InertExpression"} -> "Null"]@
 			Function[ptr,
 				(* TODO: This ignores the element type of the array. Confirm that this isn't a problem. *)
@@ -28,7 +28,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 }];
 
 DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> {
-	FreeBuffer
+	DeleteBuffer
 }];
 
 

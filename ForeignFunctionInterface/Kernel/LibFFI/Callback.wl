@@ -79,7 +79,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		]
 	],
 
-	FunctionDeclaration[FreeCallback,
+	FunctionDeclaration[DeleteCallback,
 		Typed[{"CallbackObject"} -> "Null"]@
 		Function[callback,
 			DeleteFFICallInterface[callback["CallInterface"]];
@@ -102,7 +102,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> {
 	CreateCallback,
-	FreeCallback
+	DeleteCallback
 }];
 
 

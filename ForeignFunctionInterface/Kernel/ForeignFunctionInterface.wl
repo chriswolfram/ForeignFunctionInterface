@@ -9,7 +9,7 @@ CreateForeignFunction
 CallForeignFunction
 
 CreateCallback
-FreeCallback
+DeleteCallback
 
 CreateBuffer
 BufferToNumericArray
@@ -17,7 +17,7 @@ NumericArrayToBuffer
 StringToBuffer
 BufferToString
 DereferenceBuffer
-FreeBuffer
+DeleteBuffer
 
 CreateManagedExpression
 GetManagedExpression
