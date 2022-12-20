@@ -192,119 +192,31 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		(******* Dereferencing / indexing *******)
 
 		FunctionDeclaration[DereferenceBuffer,
-			Typed[ForAllType[ty, {"OpaqueRawPointer", "TypeSpecifier"::[ty], "MachineInteger"} -> "InertExpression"]]@
+			Typed[ForAllType[ty, {"OpaqueRawPointer", "InertExpression", "MachineInteger"} -> "InertExpression"]]@
 			Function[{ptr, type, offset},
-				Cast[FromRawPointer[Cast[ptr, "CArray"::[type], "BitCast"], offset], "InertExpression"]
-			]
-		],
-
-		FunctionDeclaration[DereferenceBuffer,
-			Typed[{"OpaqueRawPointer", "TypeSpecifier"::["Void"], "MachineInteger"} -> "InertExpression"]@
-			Function[{ptr, type, offset},
-				InertExpression[Null]
-			]
-		],
-
-		FunctionDeclaration[DereferenceBuffer,
-			Typed[{"OpaqueRawPointer", "TypeSpecifier"::["OpaqueRawPointer"], "MachineInteger"} -> "InertExpression"]@
-			Function[{ptr, type, offset},
-				PointerToExpression[FromRawPointer[Cast[ptr, "CArray"::["OpaqueRawPointer"], "BitCast"], offset]]
-			]
-		],
-
-		FunctionDeclaration[DereferenceBuffer,
-			Typed[{"OpaqueRawPointer", "InertExpression", "MachineInteger"} -> "InertExpression"]@
-			Function[{ptr, type, offset},
-				Module[{ffiType, out},
+				Module[{ffiType},
 					ffiType = CreateTypeInstance["Managed", CreateFFIType[type], DeleteFFIType];
-					DereferenceBuffer[ptr, Compile`BorrowManagedObject[ffiType], offset]
+					CToExpression[
+						Cast[Cast[ptr, "UnsignedInteger64", "BitCast"] + FFITypeByteCount[Compile`BorrowManagedObject[ffiType]] * offset, "OpaqueRawPointer", "BitCast"],
+						Compile`BorrowManagedObject[ffiType]
+					]
 				]
 			]
 		],
 
-		FunctionDeclaration[DereferenceBuffer,
-			Typed[{"OpaqueRawPointer", "FFIType", "MachineInteger"} -> "InertExpression"]@
-			Function[{ptr, type, offset},
-				Switch[type["Type"],
-
-					NameFFITypeID["VOID"][],		DereferenceBuffer[ptr, TypeSpecifier["Void"], offset],
-					NameFFITypeID["UINT8"][],		DereferenceBuffer[ptr, TypeSpecifier["UnsignedInteger8"], offset],
-					NameFFITypeID["SINT8"][],		DereferenceBuffer[ptr, TypeSpecifier["Integer8"], offset],
-					NameFFITypeID["UINT16"][],	DereferenceBuffer[ptr, TypeSpecifier["UnsignedInteger16"], offset],
-					NameFFITypeID["SINT16"][],	DereferenceBuffer[ptr, TypeSpecifier["Integer16"], offset],
-					NameFFITypeID["UINT32"][],	DereferenceBuffer[ptr, TypeSpecifier["UnsignedInteger32"], offset],
-					NameFFITypeID["SINT32"][],	DereferenceBuffer[ptr, TypeSpecifier["Integer32"], offset],
-					NameFFITypeID["UINT64"][],	DereferenceBuffer[ptr, TypeSpecifier["UnsignedInteger64"], offset],
-					NameFFITypeID["SINT64"][],	DereferenceBuffer[ptr, TypeSpecifier["Integer64"], offset],
-					NameFFITypeID["INT"][],			DereferenceBuffer[ptr, TypeSpecifier["CInt"], offset],
-					NameFFITypeID["FLOAT"][],		DereferenceBuffer[ptr, TypeSpecifier["CFloat"], offset],
-					NameFFITypeID["DOUBLE"][],	DereferenceBuffer[ptr, TypeSpecifier["CDouble"], offset],
-					NameFFITypeID["POINTER"][],	DereferenceBuffer[ptr, TypeSpecifier["OpaqueRawPointer"], offset],
-					NameFFITypeID["STRUCT"][],	dereferenceStruct[ptr, type, offset],
-					_, 													Native`ThrowWolframExceptionCode["Unimplemented"]
-
-				]
-			]
-		],
-
-		(******* Structs *******)
-
-		FunctionDeclaration[dereferenceStruct,
-			Typed[{"OpaqueRawPointer", "FFIType", "MachineInteger"} -> "InertExpression"]@
-			Function[{ptr, type, offset},
-				Module[{elementCount, elementOffsets, expr},
-
-					elementCount = FFITypeElementCount[type];
-
-					(* TODO: Check error code *)
-					elementOffsets = CreateTypeInstance["Managed"::["CArray"::["CSizeT"]], elementCount];
-					LibraryFunction["ffi_get_struct_offsets"][
-						LibraryFunction["get_FFI_DEFAULT_ABI"][],
-						type,
-						elementOffsets
-					];
-
-					expr = Native`PrimitiveFunction["CreateHeaded_IE_E"][elementCount, InertExpression[List]];
-					Do[
-						Native`PrimitiveFunction["SetElement_EIE_Void"][
-							expr,
-							i,
-							DereferenceBuffer[
-								Cast[Cast[ptr,"UnsignedInteger64","BitCast"] + FromRawPointer[elementOffsets,i-1], "OpaqueRawPointer","BitCast"],
-								FromRawPointer[type["Elements"],i-1]
-							]
-						],
-						{i, elementCount}
-					];
-
-					expr
-
-				]
-			]
-		],
-
-		(******* ManagedExpression case *******)
+		(******* Expression version *******)
 
 		FunctionDeclaration[DereferenceBuffer,
-			Typed[ForAllType[ty, {"ManagedExpression", ty, "MachineInteger"} -> "InertExpression"]]@
-			Function[{man, type, offset},
-				DereferenceBuffer[GetManagedExpression[man], type, offset]
-			]
-		],
-
-		(******* Expression case *******)
-
-		FunctionDeclaration[DereferenceBuffer,
-			Typed[ForAllType[ty, {"InertExpression", ty, "MachineInteger"} -> "InertExpression"]]@
-			Function[{ptr, type, offset},
-				DereferenceBuffer[ExpressionToPointer[GetManagedExpression[ptr]], type, offset]
+			Typed[ForAllType[ty, {"InertExpression", "InertExpression", "MachineInteger"} -> "InertExpression"]]@
+			Function[{expr, type, offset},
+				DereferenceBuffer[ExpressionToPointer[expr], type, offset]
 			]
 		],
 
 		(******* 2-argument form *******)
 
 		FunctionDeclaration[DereferenceBuffer,
-			Typed[ForAllType[{ptrTy, valTy}, {ptrTy, valTy} -> "InertExpression"]]@
+			Typed[ForAllType[p, (*Element[p, {"InertExpression", "OpaqueRawPointer"}],*) {p, "InertExpression"} -> "InertExpression"]]@
 			Function[{ptr, type},
 				DereferenceBuffer[ptr, type, 0]
 			]

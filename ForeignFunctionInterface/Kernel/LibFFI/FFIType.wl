@@ -193,6 +193,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		Typed[{"InertExpression"} -> "MachineInteger"]@
 		Function[type,
 			Module[{ty, size},
+				(* TODO: Maybe use a managed object instead of manually freeing? Might have better behavior in exceptions. *)
 				ty = CreateFFIType[type];
 				size = FFITypeByteCount[ty];
 				DeleteFFIType[ty];

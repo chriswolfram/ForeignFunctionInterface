@@ -27,8 +27,8 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	],
 
 	FunctionDeclaration[CreateCallback,
-		Typed[{"InertExpression", "ListVector"::["InertExpression"], "InertExpression"} -> "CallbackObject"]@
-		Function[{expr, argTypes, outputType},
+		Typed[{"InertExpression", "InertExpression"} -> "CallbackObject"]@
+		Function[{expr, funcType},
 			Module[{codelocPtr, codeloc, closure, cif, fun},
 				codelocPtr = TypeHint[ToRawPointer[], "RawPointer"::["OpaqueRawPointer"]];
 				closure =
@@ -38,7 +38,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 					];
 				codeloc = FromRawPointer[codelocPtr];
 				
-				cif = CreateFFICallInterface[argTypes, outputType];
+				cif = CreateFFICallInterface[funcType];
 				
 				fun =
 					Typed["RawFunction"::[{"FFICallInterface", "OpaqueRawPointer", "CArray"::["OpaqueRawPointer"], "OpaqueRawPointer"} -> "Null"(*should be "Void"*)]]@
@@ -52,11 +52,11 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 								Native`PrimitiveFunction["SetElement_EIE_Void"][
 									expr,
 									i,
-									DereferenceBuffer[FromRawPointer[args,i-1], FromRawPointer[cif["ArgumentTypes"],i-1]]
+									CToExpression[FromRawPointer[args,i-1], FromRawPointer[cif["ArgumentTypes"],i-1]]
 								],
 								{i, argCount}
 							];
-							ExpressionIntoPointer[ret, cif["OutputType"], InertEvaluate[expr]];
+							ExpressionToC[ret, cif["OutputType"], InertEvaluate[expr]];
 						];
 					];
 				
