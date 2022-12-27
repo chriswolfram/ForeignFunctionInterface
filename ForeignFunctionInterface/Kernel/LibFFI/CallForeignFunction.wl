@@ -15,7 +15,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	FunctionDeclaration[CallForeignFunction,
 		Typed[{"ForeignFunctionObject", "InertExpression"} -> "InertExpression"]@
 		Function[{ff, args},
-			Module[{argCount},
+			Module[{argCount, argumentPointersCopy},
 				argCount = Cast[ff["CallInterface"]["ArgumentCount"], "MachineInteger", "CCast"];
 
 				If[Head[args] =!= InertExpression[List] || Length[args] =!= argCount,
@@ -31,7 +31,17 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 					{i, argCount}
 				];
 
-				LibraryFunction["ffi_call"][ff["CallInterface"], ff["FunctionPointer"], ff["OutputPointer"], ff["ArgumentPointers"]];
+				(*
+					argumentPointersCopy is required because ffi_call seems to mutate array elements pointing to representations of
+					certain structs (usually with non-trivial alignment). I'm not entirely sure why it does this, but it probably has
+					something to do with this: https://sourceware.org/pipermail/libffi-discuss/2022/002701.html
+
+					I have also not been able to reproduce this behavior in C, and it seems to be very finicky.
+				*)
+
+				argumentPointersCopy = CreateTypeInstance["Managed"::["CArray"::["OpaqueRawPointer"]], ff["ArgumentPointers"], argCount];
+
+				LibraryFunction["ffi_call"][ff["CallInterface"], ff["FunctionPointer"], ff["OutputPointer"], argumentPointersCopy];
 
 				CToExpression[ff["OutputPointer"], ff["CallInterface"]["OutputType"]]
 			]

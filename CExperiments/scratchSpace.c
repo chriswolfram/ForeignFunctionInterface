@@ -1,29 +1,81 @@
 #include <stdio.h>
+#include <dlfcn.h>
+#include <stdlib.h>
 #include <ffi.h>
 
+typedef struct {
+	int a;
+	long b;
+	double c;
+} my_struct;
+
 int main() {
-	ffi_type tm_type;
-	ffi_type* tm_type_elements[3];
-	int i;
+	ffi_cif* cif = (ffi_cif*)malloc(sizeof(ffi_cif));
+	ffi_type** argTypes = (ffi_type**)malloc(sizeof(ffi_type*) * 1);
+	void** argValues = (void**)malloc(sizeof(void*) * 1);
+	double* rc = (double*)malloc(sizeof(double));
 
-	tm_type.size = tm_type.alignment = 0;
-	tm_type.type = FFI_TYPE_STRUCT;
-	tm_type.elements = &tm_type_elements;
+	ffi_type* struct_type = (ffi_type*)malloc(sizeof(ffi_type));
+	ffi_type** struct_type_elements = (ffi_type*)malloc(sizeof(ffi_type) * 4);
 
-	tm_type_elements[0] = &ffi_type_uint32;
-	tm_type_elements[1] = &ffi_type_uint32;
-	tm_type_elements[2] = &ffi_type_uint64;
-	tm_type_elements[3] = NULL;
+	struct_type->size = struct_type->alignment = 0;
+	struct_type->type = FFI_TYPE_STRUCT;
+	struct_type->elements = struct_type_elements;
 
-	size_t offsets[3] = {99,88,77};
+	struct_type_elements[0] = &ffi_type_sint;
+	struct_type_elements[1] = &ffi_type_slong;
+	struct_type_elements[2] = &ffi_type_double;
+	struct_type_elements[3] = NULL;
 
-	int error_code = ffi_get_struct_offsets(FFI_DEFAULT_ABI, &tm_type, offsets);
+	ffi_get_struct_offsets(FFI_DEFAULT_ABI, struct_type, NULL);
 
-	printf("Error code: %d\n", error_code);
-	printf("Bad typedef: %d\n", FFI_BAD_TYPEDEF);
+	printf("Type pointer: %d\n", struct_type);
+	printf("Type size: %d\n", struct_type->size);
+	printf("Type alignment: %d\n", struct_type->alignment);
+	printf("Type type: %d\n", struct_type->type);
 
-	for(int i = 0; i < 3; i++)
-		printf("offset: %d\n", offsets[i]);
+	printf("Type pointer: %d\n", struct_type_elements[0]);
+	printf("Type size: %d\n", struct_type_elements[0]->size);
+	printf("Type alignment: %d\n", struct_type_elements[0]->alignment);
+	printf("Type type: %d\n", struct_type_elements[0]->type);
+
+	printf("Type pointer: %d\n", struct_type_elements[1]);
+	printf("Type size: %d\n", struct_type_elements[1]->size);
+	printf("Type alignment: %d\n", struct_type_elements[1]->alignment);
+	printf("Type type: %d\n", struct_type_elements[1]->type);
+
+	printf("Type pointer: %d\n", struct_type_elements[2]);
+	printf("Type size: %d\n", struct_type_elements[2]->size);
+	printf("Type alignment: %d\n", struct_type_elements[2]->alignment);
+	printf("Type type: %d\n", struct_type_elements[2]->type);
+
+	argTypes[0] = struct_type;
+	my_struct* struct_value = (my_struct*)malloc(sizeof(my_struct));
+	struct_value->a = 4;
+	struct_value->b = 6;
+	struct_value->c = 5.6;
+	argValues[0] = struct_value;
+
+	ffi_prep_cif(cif, FFI_DEFAULT_ABI, 1, &ffi_type_double, argTypes);
+
+	dlopen("/private/var/folders/tz/hpyqywfd5n13zsbg6btzb31r0000gn/T/m0000117541/structTaker2.dylib", RTLD_LAZY | RTLD_GLOBAL);
+	printf("dlopen error: %s\n", dlerror());
+	void* fun_ptr = (void*)dlsym(RTLD_DEFAULT, "accept_struct2");
+	printf("fun_ptr: %d\n", (size_t)fun_ptr);
+
+	printf("Arg pointer: %d\n", argValues[0]);
+
+	ffi_call(cif, fun_ptr, rc, argValues);
+
+	printf("Arg pointer: %d\n", argValues[0]);
+
+	printf("Return value: %lf\n", *rc);
+
+	ffi_call(cif, fun_ptr, rc, argValues);
+
+	printf("Arg pointer: %d\n", argValues[0]);
+
+	printf("Return value: %lf\n", *rc);
 
 	return 0;
 }

@@ -1,0 +1,1148 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     46944,       1140]
+NotebookOptionsPosition[     37059,        919]
+NotebookOutlinePosition[     37992,        945]
+CellTagsIndexPosition[     37949,        942]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["FFI Types", "Title",
+ CellID->1632263355,ExpressionUUID->"e4097e1d-5d70-4056-b370-09c8766b550f"],
+
+Cell[CellGroupData[{
+
+Cell["Introduction", "Section",
+ CellChangeTimes->{{3.88054883786279*^9, 3.880548839219282*^9}},
+ CellID->637872574,ExpressionUUID->"12395653-c4a6-4fda-8122-f88ad96d8c32"],
+
+Cell[TextData[{
+ "The ForeignFunctionInterface paclet needs to know the type signature of a \
+target function in order to link to it. Similarly, functions like ",
+ Cell[BoxData[
+  ButtonBox["CreateBuffer",
+   BaseStyle->"Link",
+   ButtonData->"paclet:ForeignFunctionInterface/ref/CreateBuffer"]], 
+  "InlineFormula",ExpressionUUID->"4f63ea56-9820-4049-b010-b667cedcc845"],
+ " need to know how to layout the buffer in memory to fit elements of a \
+specific type. All of this means that there needs to be a way of representing \
+and referring to types."
+}], "Text",
+ CellChangeTimes->{{3.8805488572529*^9, 3.8805489858433847`*^9}},
+ CellID->1856121703,ExpressionUUID->"72df9170-525a-43dd-a084-9a408132ad77"],
+
+Cell[TextData[{
+ "In general, the ForeignFunctionInterface paclet uses a ",
+ ButtonBox["type system similar to that of the Wolfram Compiler",
+  BaseStyle->"Link",
+  ButtonData->"paclet:guide/CompiledTypes"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.880548995950963*^9, 3.8805491341643677`*^9}, {
+   3.880549166875354*^9, 3.8805491846883783`*^9}, 3.880549222693204*^9},
+ CellID->799915681,ExpressionUUID->"7afac0e9-db2d-4b71-9e57-97d262e35716"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Atomic Types", "Section",
+ CellChangeTimes->{{3.880549112091989*^9, 3.8805491139079123`*^9}},
+ CellID->1996021535,ExpressionUUID->"7bf39380-63f4-495d-b69e-48e1d3792171"],
+
+Cell["\<\
+The type system supports a number of atomic types which are represented as \
+strings. These include:\
+\>", "Text",
+ CellChangeTimes->{{3.880549203456098*^9, 3.8805492172977448`*^9}},
+ CellID->199717332,ExpressionUUID->"ac1b162b-852f-4721-ab52-1fe9bb9ffc89"],
+
+Cell[BoxData[GridBox[{
+   {"\"\<UnsignedInteger8\>\"", Cell[
+    "unsigned 8-bit integer", "TableText",ExpressionUUID->
+     "f0805bb2-fcdb-48e8-b9d0-011de03f9607"]},
+   {"\"\<Integer8\>\"", Cell[
+    "signed 8-bit integer", "TableText",ExpressionUUID->
+     "4b0bd256-cc63-4959-9df9-20c42921593e"]},
+   {"\"\<UnsignedInteger16\>\"", Cell[
+    "unsigned 16-bit integer", "TableText",ExpressionUUID->
+     "384f0e78-a956-4fcb-80f4-ddcf6d29e71e"]},
+   {"\"\<Integer16\>\"", Cell[
+    "signed 16-bit integer", "TableText",ExpressionUUID->
+     "ff833092-9192-433a-9b09-d8045cfe96ec"]},
+   {"\"\<UnsignedInteger32\>\"", Cell[
+    "unsigned 32-bit integer", "TableText",ExpressionUUID->
+     "88d93741-ad73-4f85-b378-d1247b7623ae"]},
+   {"\"\<Integer32\>\"", Cell[
+    "signed 32-bit integer", "TableText",ExpressionUUID->
+     "79c51a32-e72c-4648-90d2-74a78ad5e9d4"]},
+   {"\"\<UnsignedInteger64\>\"", Cell[
+    "unsigned 64-bit integer", "TableText",ExpressionUUID->
+     "9fc84936-d60f-4e27-a93b-e90c27f262a9"]},
+   {"\"\<Integer64\>\"", Cell[
+    "signed 64-bit integer", "TableText",ExpressionUUID->
+     "a790bb2c-529d-4c10-b957-bbc00f787ac5"]},
+   {"\"\<CFloat\>\"", Cell[
+    "C-compatible float", "TableText",ExpressionUUID->
+     "b0984b22-aea2-4732-9469-421a301fbb1b"]},
+   {"\"\<CDouble\>\"", Cell[
+    "C-compatible double", "TableText",ExpressionUUID->
+     "249771cd-43e9-4fbd-8d6c-3200ce61aeb7"]},
+   {"\"\<CChar\>\"", Cell[
+    "C-compatible char", "TableText",ExpressionUUID->
+     "01cb56d7-65fb-41c5-8de0-d2434ca0380b"]},
+   {"\"\<CUnsignedChar\>\"", Cell[
+    "C-compatible unsigned char", "TableText",ExpressionUUID->
+     "affeae40-6a60-4e3f-a5c6-5f371c0206ad"]},
+   {"\"\<CSignedChar\>\"", Cell[
+    "C-compatible signed char", "TableText",ExpressionUUID->
+     "7583d123-e00f-4dfe-85bd-3184015c60b4"]},
+   {"\"\<CUnsignedShort\>\"", Cell[
+    "C-compatible unsigned short", "TableText",ExpressionUUID->
+     "dc21344b-a4df-4e19-a536-209025cf107d"]},
+   {"\"\<CShort\>\"", Cell[
+    "C-compatible short", "TableText",ExpressionUUID->
+     "3164dd3a-99b5-4ca9-8a60-3b5c933faa4e"]},
+   {"\"\<CUnsignedInt\>\"", Cell[
+    "C-compatible unsigned int", "TableText",ExpressionUUID->
+     "8000673d-f9c4-4f85-9613-eceeda3de86b"]},
+   {"\"\<CInt\>\"", Cell[
+    "C-compatible int", "TableText",ExpressionUUID->
+     "4ea4ef0b-2ef4-4c1f-9a0f-6e3822f1dc56"]},
+   {"\"\<CUnsignedLong\>\"", Cell[
+    "C-compatible unsigned long", "TableText",ExpressionUUID->
+     "2e91e867-0772-4197-b766-b249a32735e1"]},
+   {"\"\<CLong\>\"", Cell[
+    "C-compatible long", "TableText",ExpressionUUID->
+     "3561d780-97d0-4e99-ab87-9b8c8b7bbee3"]},
+   {"\"\<OpaqueRawPointer\>\"", Cell[
+    "Generic pointer", "TableText",ExpressionUUID->
+     "9486ef52-b691-4e63-8fdf-d5844039914b"]},
+   {"\"\<Void\>\"", Cell[
+    "Analogous to the C void type", "TableText",ExpressionUUID->
+     "6c85ca33-cde3-42a1-aa65-2f28d0f3d69e"]}
+  }]], "DefinitionBox",
+ CellChangeTimes->{{3.880549236180122*^9, 3.88054953781387*^9}},
+ CellID->1153949451,ExpressionUUID->"030017a2-124d-4d1c-92b8-bdccaf0deff0"],
+
+Cell["Supported atomic types.", "Caption",
+ CellChangeTimes->{{3.8805493484704*^9, 3.8805493513373528`*^9}},
+ CellID->503606900,ExpressionUUID->"736d8076-0655-4465-be87-de73cab03637"],
+
+Cell["\<\
+All pointers are represented with \"OpaqueRawPointer\", regardless of the \
+type to which they point.\
+\>", "Text",
+ CellChangeTimes->{{3.8805497000141773`*^9, 3.88054971606569*^9}},
+ CellID->1740841154,ExpressionUUID->"fca09c19-c2b4-4d16-b73d-a22de7f755b9"],
+
+Cell["Function pointers are represented with \"OpaqueRawPointer\".", "Text",
+ CellChangeTimes->{{3.880549732124226*^9, 3.880549751883851*^9}},
+ CellID->671920153,ExpressionUUID->"9def0553-6136-4ce1-a18d-37c8cdc1b3f2"],
+
+Cell["\<\
+It is best to use the C types if the target library uses them as well. For \
+example, the long type in C is a 32-bit integer on some platforms, but a \
+64-bit integer on others. Using \"CLong\" will ensure that the correct size \
+is used for the current platform.\
+\>", "Text",
+ CellChangeTimes->{{3.880549548583185*^9, 3.880549670579084*^9}},
+ CellID->986291660,ExpressionUUID->"86d230ea-cb9e-46a5-b616-d35554e9705e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Struct Types", "Section",
+ CellChangeTimes->{{3.8805497634114017`*^9, 3.8805497664134207`*^9}},
+ CellID->480864139,ExpressionUUID->"96865f86-01c6-412d-81b8-15b48b29f60a"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Structs can be represented with the \"ListTuple\" parameterized type, or with \
+lists. For example, the following struct:\
+\>", "Text",
+ CellChangeTimes->{{3.8805497775993032`*^9, 3.880549799431666*^9}, {
+  3.880549879254958*^9, 3.880549911926888*^9}},
+ CellID->210299655,ExpressionUUID->"ad12cdd1-878d-4204-a60d-5c67a3c3e8ff"],
+
+Cell["\<\
+typedef struct {
+\tint a;
+\tlong b;
+\tdouble c;
+} my_struct;\
+\>", "Program",
+ CellChangeTimes->{{3.8805499462924337`*^9, 3.880549962872539*^9}},
+ CellID->878360205,ExpressionUUID->"b550278b-541d-458a-a7c5-05ce966d5f99"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["could be represented with:", "Text",
+ CellChangeTimes->{{3.880549917930387*^9, 3.880550012343289*^9}},
+ CellID->1116347675,ExpressionUUID->"5d6ed004-7f65-4a57-bae7-e1923c48389e"],
+
+Cell[BoxData[
+ RowBox[{"\"\<ListTuple\>\"", "::[", 
+  RowBox[{"\"\<CInt\>\"", ",", "\"\<CLong\>\"", ",", "\"\<CDouble\>\""}], 
+  "]"}]], "Input",
+ CellChangeTimes->{3.880550005961205*^9},
+ CellID->1270821179,ExpressionUUID->"2c04534f-5941-4c8e-ae92-952e852ccfbe"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["or with:", "Text",
+ CellChangeTimes->{{3.88055001592483*^9, 3.880550016932846*^9}},
+ CellID->1959214392,ExpressionUUID->"02976253-0bdb-45a6-8139-f7558a110ffa"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\"\<CInt\>\"", ",", "\"\<CLong\>\"", ",", "\"\<CDouble\>\""}], 
+  "}"}]], "Input",
+ CellChangeTimes->{{3.880549998545775*^9, 3.880550001729411*^9}},
+ CellID->1718402450,ExpressionUUID->"1e2b7c97-8552-4017-ba8d-a6d558e2aca2"]
+}, Open  ]],
+
+Cell["\<\
+All that matters is that the correct types are in the correct order. \
+Information about the names of the fields is ignored.\
+\>", "Text",
+ CellChangeTimes->{{3.880550023836279*^9, 3.880550058384231*^9}},
+ CellID->861311097,ExpressionUUID->"120d0d21-091c-47b1-87ea-432f69ee022b"],
+
+Cell["\<\
+Structs returned from external programs are represented with lists.\
+\>", "Text",
+ CellChangeTimes->{{3.880550281610855*^9, 3.8805503151660357`*^9}, {
+  3.8805503769404182`*^9, 3.880550390421949*^9}},
+ CellID->1120844026,ExpressionUUID->"3cddee79-7ce0-4475-8215-8979656c2580"],
+
+Cell[CellGroupData[{
+
+Cell["For example, compile a library that returns a struct:", "MathCaption",
+ CellChangeTimes->{{3.88055039230445*^9, 3.8805504024994793`*^9}, {
+  3.881155193003343*^9, 3.881155195499043*^9}},
+ CellID->2022823765,ExpressionUUID->"f478a078-8309-4528-9a1a-b4f110ab5ed2"],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<CCompilerDriver`\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.88055032187578*^9, 3.880550325826027*^9}},
+ CellLabel->"In[24]:=",
+ CellID->1025792630,ExpressionUUID->"aee90f68-aa51-4858-86e6-5595f50603f8"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"CreateLibrary", "[", 
+   RowBox[{
+   "\"\<\ntypedef struct {\n\tint a;\n\tlong b;\n\tdouble c;\n} my_struct;\n\n\
+my_struct make_struct() {\n\tmy_struct out;\n\tout.a = 6;\n\tout.b = 19;\n\t\
+out.c = 3.14159;\n\treturn out;\n}\n\>\"", ",", "\"\<structMaker\>\""}], 
+   "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.8805503166715117`*^9, 3.880550418479988*^9}},
+ CellLabel->"In[25]:=",
+ CellID->1606662351,ExpressionUUID->"7ddfab07-1e03-4887-89d7-6e5042d540b7"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Load it:", "MathCaption",
+ CellChangeTimes->{{3.880550423095256*^9, 3.8805504241366997`*^9}},
+ CellID->1843008875,ExpressionUUID->"995a6680-01ac-4b6f-95f9-6f4af08e2f65"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"LibraryLoad", "[", "\"\<structMaker\>\"", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.880550408999756*^9, 3.880550420051674*^9}},
+ CellLabel->"In[26]:=",
+ CellID->129621211,ExpressionUUID->"0c2dbd2f-aac3-427c-bdd5-4d52cab3b42e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Create a foreign function object for make_struct:", "MathCaption",
+ CellChangeTimes->{{3.880550427180011*^9, 3.88055043363527*^9}, {
+  3.880550498513075*^9, 3.880550504499445*^9}},
+ CellID->1327996981,ExpressionUUID->"a541a191-5ab2-4654-b0cd-54a2e73efd0e"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"makeStruct", "=", 
+  RowBox[{"CreateForeignFunction", "[", 
+   RowBox[{"\"\<make_struct\>\"", ",", 
+    RowBox[{
+     RowBox[{"{", "}"}], "->", 
+     RowBox[{"\"\<ListTuple\>\"", "::[", 
+      RowBox[{"\"\<CInt\>\"", ",", "\"\<CLong\>\"", ",", "\"\<CDouble\>\""}], 
+      "]"}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.880550436461789*^9, 3.880550457608164*^9}},
+ CellLabel->"In[27]:=",
+ CellID->1813039739,ExpressionUUID->"e58abdc5-715f-4def-ac4a-cb9b84375321"],
+
+Cell[BoxData[
+ TagBox[
+  TemplateBox[{
+    RowBox[{
+      StyleBox[
+       TagBox["TypeProduct", "SummaryHead"], "NonInterpretableSummary"], 
+      StyleBox["[", "NonInterpretableSummary"], 
+      DynamicModuleBox[{
+       Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+       TemplateBox[{
+         PaneSelectorBox[{False -> GridBox[{{
+               GraphicsBox[
+                InsetBox[
+                 FormBox[
+                  StyleBox["\"BasicF\"", 
+                   GrayLevel[0.7], Bold, 7.632000000000001, StripOnInput -> 
+                   False], TraditionalForm], {0, 0}], Background -> 
+                GrayLevel[0.93], Axes -> False, AspectRatio -> 1, ImageSize -> 
+                Dynamic[{
+                  Automatic, 
+                   3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.55]]], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionObject\"", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}], True -> GridBox[{{
+               GraphicsBox[
+                InsetBox[
+                 FormBox[
+                  StyleBox["\"BasicF\"", 
+                   GrayLevel[0.7], Bold, 7.632000000000001, StripOnInput -> 
+                   False], TraditionalForm], {0, 0}], Background -> 
+                GrayLevel[0.93], Axes -> False, AspectRatio -> 1, ImageSize -> 
+                Dynamic[{
+                  Automatic, 
+                   3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.55]]], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionObject\"", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}]}, 
+          Dynamic[Typeset`open$$], ImageSize -> Automatic]}, "SummaryPanel"], 
+       DynamicModuleValues :> {}], 
+      StyleBox["]", "NonInterpretableSummary"]}]},
+   "CopyTag",
+   DisplayFunction->(#& ),
+   InterpretationFunction->(
+    "DataStructure[ForeignFunctionObject, $Failed]"& )],
+  False,
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.880550458543147*^9, 3.881155201713654*^9},
+ CellLabel->"Out[27]=",
+ CellID->898379765,ExpressionUUID->"ec0afd2f-12d1-4111-b207-ce6a1f521a27"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Call the function to create the struct:", "MathCaption",
+ CellChangeTimes->{{3.880550427180011*^9, 3.88055043363527*^9}},
+ CellID->118419925,ExpressionUUID->"254e0f9a-44ca-4479-bdc1-4820c4145ff6"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"CallForeignFunction", "[", 
+  RowBox[{"makeStruct", ",", 
+   RowBox[{"{", "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.880550460036529*^9, 3.880550463046461*^9}},
+ CellLabel->"In[28]:=",
+ CellID->1638620379,ExpressionUUID->"30f61ee0-bbe5-4ae1-b15e-6bfed1ea590f"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"6", ",", "19", ",", "3.14159`"}], "}"}]], "Output",
+ CellChangeTimes->{3.880550463411187*^9, 3.881155203556994*^9},
+ CellLabel->"Out[28]=",
+ CellID->444779,ExpressionUUID->"7253220a-5ae9-4517-9539-41dae979fc37"]
+}, Open  ]]
+}, Open  ]],
+
+Cell["\<\
+The first element of the returned list corresponds to the field \"a\", the \
+second to the field \"b\", and the third to the field \"c\".\
+\>", "Text",
+ CellChangeTimes->{{3.8805504742777853`*^9, 3.880550494306344*^9}},
+ CellID->930749696,ExpressionUUID->"8bb54ef5-eba5-430f-8bf0-0521a333e73b"],
+
+Cell["\<\
+Structs can also be passed as arguments using the same format:\
+\>", "Text",
+ CellChangeTimes->{{3.880550516231028*^9, 3.880550525830044*^9}},
+ CellID->798149378,ExpressionUUID->"eba24065-0772-46a8-9ee8-ad7ae2f23562"],
+
+Cell[CellGroupData[{
+
+Cell["Compile a library that accepts a struct:", "MathCaption",
+ CellChangeTimes->{{3.88055039230445*^9, 3.8805504024994793`*^9}, {
+  3.880550529617128*^9, 3.880550530580971*^9}},
+ CellID->326642603,ExpressionUUID->"5f42b46e-1a3a-4ece-b669-96f0461c20ef"],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<CCompilerDriver`\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.88055032187578*^9, 3.880550325826027*^9}},
+ CellLabel->"In[8]:=",
+ CellID->914026889,ExpressionUUID->"5da6cddf-80e1-4b89-96a1-cc632e7345be"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"CreateLibrary", "[", 
+   RowBox[{
+   "\"\<\ntypedef struct {\n\tint a;\n\tlong b;\n\tdouble c;\n} my_struct;\n\n\
+double accept_struct(my_struct in) {\n\treturn in.c;\n}\n\>\"", ",", 
+    "\"\<structTaker\>\""}], "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.8805503166715117`*^9, 3.880550418479988*^9}, {
+  3.880550600476536*^9, 3.880550619581896*^9}, {3.880550746109309*^9, 
+  3.8805507475211153`*^9}},
+ CellLabel->"In[29]:=",
+ CellID->1099396432,ExpressionUUID->"a939bbf6-0a5c-42e0-8b33-1809023e1040"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Load it:", "MathCaption",
+ CellChangeTimes->{{3.880550423095256*^9, 3.8805504241366997`*^9}},
+ CellID->205312625,ExpressionUUID->"e53196db-2ff7-4cd8-bb1a-43d27a52c320"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"LibraryLoad", "[", "\"\<structTaker\>\"", "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.880550408999756*^9, 3.880550420051674*^9}, {
+  3.880550634242694*^9, 3.880550635643497*^9}, {3.880550749396418*^9, 
+  3.880550750583802*^9}, {3.880550826744362*^9, 3.880550827824533*^9}},
+ CellLabel->"In[30]:=",
+ CellID->1830551293,ExpressionUUID->"2a681a98-203d-47e6-96b7-4754891d70b4"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Create a foreign function object for accept_struct:", "MathCaption",
+ CellChangeTimes->{{3.880550427180011*^9, 3.88055043363527*^9}, {
+  3.880550498513075*^9, 3.880550504499445*^9}, {3.880550654792733*^9, 
+  3.880550655644302*^9}},
+ CellID->1224854529,ExpressionUUID->"7ecf58ab-c7a5-41f0-961b-74a238b4b29d"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"acceptStruct", "=", 
+  RowBox[{"CreateForeignFunction", "[", 
+   RowBox[{"\"\<accept_struct\>\"", ",", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\"\<ListTuple\>\"", "::[", 
+       RowBox[{"\"\<CInt\>\"", ",", "\"\<CLong\>\"", ",", "\"\<CDouble\>\""}],
+        "]"}], "}"}], "->", "\"\<CDouble\>\""}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.880550436461789*^9, 3.880550457608164*^9}, {
+  3.8805506384757423`*^9, 3.880550653430046*^9}, {3.8805507578886423`*^9, 
+  3.880550762455051*^9}},
+ CellLabel->"In[31]:=",
+ CellID->351828761,ExpressionUUID->"6c2f39e3-eb75-4711-b52d-2d03bf1638bc"],
+
+Cell[BoxData[
+ TagBox[
+  TemplateBox[{
+    RowBox[{
+      StyleBox[
+       TagBox["TypeProduct", "SummaryHead"], "NonInterpretableSummary"], 
+      StyleBox["[", "NonInterpretableSummary"], 
+      DynamicModuleBox[{
+       Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+       TemplateBox[{
+         PaneSelectorBox[{False -> GridBox[{{
+               GraphicsBox[
+                InsetBox[
+                 FormBox[
+                  StyleBox["\"BasicF\"", 
+                   GrayLevel[0.7], Bold, 7.632000000000001, StripOnInput -> 
+                   False], TraditionalForm], {0, 0}], Background -> 
+                GrayLevel[0.93], Axes -> False, AspectRatio -> 1, ImageSize -> 
+                Dynamic[{
+                  Automatic, 
+                   3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.55]]], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionObject\"", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}], True -> GridBox[{{
+               GraphicsBox[
+                InsetBox[
+                 FormBox[
+                  StyleBox["\"BasicF\"", 
+                   GrayLevel[0.7], Bold, 7.632000000000001, StripOnInput -> 
+                   False], TraditionalForm], {0, 0}], Background -> 
+                GrayLevel[0.93], Axes -> False, AspectRatio -> 1, ImageSize -> 
+                Dynamic[{
+                  Automatic, 
+                   3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.55]]], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionObject\"", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}]}, 
+          Dynamic[Typeset`open$$], ImageSize -> Automatic]}, "SummaryPanel"], 
+       DynamicModuleValues :> {}], 
+      StyleBox["]", "NonInterpretableSummary"]}]},
+   "CopyTag",
+   DisplayFunction->(#& ),
+   InterpretationFunction->(
+    "DataStructure[ForeignFunctionObject, $Failed]"& )],
+  False,
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{
+  3.880550458543147*^9, {3.880550644661479*^9, 3.8805506566030893`*^9}, {
+   3.880550700142108*^9, 3.880550710309637*^9}, {3.8805507403550386`*^9, 
+   3.880550765235176*^9}, 3.880550829268663*^9, 3.8805515867230597`*^9, 
+   3.8805518051925907`*^9, 3.881155217319304*^9},
+ CellLabel->"Out[31]=",
+ CellID->1364366997,ExpressionUUID->"691e6952-e4bf-4f32-8593-4bc3755be8a8"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Call the function to extract a field from the struct:", "MathCaption",
+ CellChangeTimes->{{3.880550427180011*^9, 3.88055043363527*^9}, {
+  3.881155451441936*^9, 3.881155455068329*^9}},
+ CellID->58176770,ExpressionUUID->"a04ddb54-e4b8-4107-a86c-0cd0293f9dda"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"CallForeignFunction", "[", 
+  RowBox[{"acceptStruct", ",", 
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"6", ",", "19", ",", "3.14159"}], "}"}], "}"}]}], "]"}]], "Input",\
+
+ CellChangeTimes->{{3.880550460036529*^9, 3.880550463046461*^9}, {
+  3.8805506589712257`*^9, 3.880550663738562*^9}},
+ CellLabel->"In[32]:=",
+ CellID->671914005,ExpressionUUID->"aec12bc0-b909-4ec3-9ce6-1cd2ec3482c6"],
+
+Cell[BoxData["3.14159`"], "Output",
+ CellChangeTimes->{3.880551807934394*^9, 3.881155218801564*^9},
+ CellLabel->"Out[32]=",
+ CellID->1609702081,ExpressionUUID->"df9dd781-ff5f-4575-be17-c0393e4785cb"]
+}, Open  ]]
+}, Open  ]],
+
+Cell["\<\
+More complicated objects like nested structs are also supported.\
+\>", "Text",
+ CellChangeTimes->{{3.880550534836582*^9, 3.88055055000278*^9}},
+ CellID->606145082,ExpressionUUID->"fdc7897d-dd3e-477b-af79-7548417382ec"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Compile a library that includes a function on nested structs:\
+\>", "MathCaption",
+ CellChangeTimes->{{3.881155242764847*^9, 3.881155252850478*^9}, {
+  3.881155339963431*^9, 3.881155343364867*^9}},
+ CellID->1903168653,ExpressionUUID->"2b270d20-e422-4679-924c-7e0bd4e2154d"],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<CCompilerDriver`\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.88055032187578*^9, 3.880550325826027*^9}},
+ CellLabel->"In[8]:=",
+ CellID->437744766,ExpressionUUID->"7acc3ab1-94bd-4be0-a4eb-27533c4a9d20"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"CreateLibrary", "[", 
+   RowBox[{
+   "\"\<\ntypedef struct {\n\tint a;\n\tlong b;\n\tdouble c;\n} \
+my_inner_struct;\n\ntypedef struct {\n\tint a;\n\tmy_inner_struct b;\n} \
+my_struct;\n\nmy_struct take_and_return_struct(my_struct in) {\n\treturn in;\n\
+}\n\>\"", ",", "\"\<nestedStructPassthrough\>\""}], "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.8805503166715117`*^9, 3.880550418479988*^9}, {
+  3.880550600476536*^9, 3.880550619581896*^9}, {3.880550746109309*^9, 
+  3.8805507475211153`*^9}, {3.881155258274674*^9, 3.881155320425274*^9}, {
+  3.881155357891533*^9, 3.881155360603119*^9}},
+ CellLabel->"In[38]:=",
+ CellID->2044791187,ExpressionUUID->"2216c21a-3d78-46f5-809b-ad5077e19d89"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Load it:", "MathCaption",
+ CellChangeTimes->{{3.880550423095256*^9, 3.8805504241366997`*^9}},
+ CellID->408231389,ExpressionUUID->"10d0d72d-e16e-41cc-9a72-b7affb2dffbb"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"LibraryLoad", "[", "\"\<nestedStructPassthrough\>\"", "]"}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.880550408999756*^9, 3.880550420051674*^9}, {
+  3.880550634242694*^9, 3.880550635643497*^9}, {3.880550749396418*^9, 
+  3.880550750583802*^9}, {3.880550826744362*^9, 3.880550827824533*^9}, {
+  3.881155348077098*^9, 3.881155371868021*^9}},
+ CellLabel->"In[41]:=",
+ CellID->2082186405,ExpressionUUID->"420407b2-d779-4f42-84fd-0316565d2c05"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Create a foreign function object for take_and_return_struct:", \
+"MathCaption",
+ CellChangeTimes->{{3.880550427180011*^9, 3.88055043363527*^9}, {
+  3.880550498513075*^9, 3.880550504499445*^9}, {3.880550654792733*^9, 
+  3.880550655644302*^9}, {3.881155388251893*^9, 3.881155393789651*^9}},
+ CellID->2060880970,ExpressionUUID->"567cae97-5f09-4a19-83b3-068991f8ac95"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"takeReturnNestedStruct", "=", 
+  RowBox[{"CreateForeignFunction", "[", 
+   RowBox[{"\"\<take_and_return_struct\>\"", ",", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"\"\<ListTuple\>\"", "::[", 
+       RowBox[{"\"\<CInt\>\"", ",", 
+        RowBox[{"\"\<ListTuple\>\"", "::[", 
+         RowBox[{
+         "\"\<CInt\>\"", ",", "\"\<CLong\>\"", ",", "\"\<CDouble\>\""}], 
+         "]"}]}], "]"}], "}"}], "->", 
+     RowBox[{"\"\<ListTuple\>\"", "::[", 
+      RowBox[{"\"\<CInt\>\"", ",", 
+       RowBox[{"\"\<ListTuple\>\"", "::[", 
+        RowBox[{
+        "\"\<CInt\>\"", ",", "\"\<CLong\>\"", ",", "\"\<CDouble\>\""}], 
+        "]"}]}], "]"}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.880550436461789*^9, 3.880550457608164*^9}, {
+  3.8805506384757423`*^9, 3.880550653430046*^9}, {3.8805507578886423`*^9, 
+  3.880550762455051*^9}, {3.881155382415449*^9, 3.881155428296389*^9}},
+ CellLabel->"In[42]:=",
+ CellID->462720327,ExpressionUUID->"ae09c4fe-cdd4-4fc1-b603-de01f22b64f7"],
+
+Cell[BoxData[
+ TagBox[
+  TemplateBox[{
+    RowBox[{
+      StyleBox[
+       TagBox["TypeProduct", "SummaryHead"], "NonInterpretableSummary"], 
+      StyleBox["[", "NonInterpretableSummary"], 
+      DynamicModuleBox[{
+       Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+       TemplateBox[{
+         PaneSelectorBox[{False -> GridBox[{{
+               GraphicsBox[
+                InsetBox[
+                 FormBox[
+                  StyleBox["\"BasicF\"", 
+                   GrayLevel[0.7], Bold, 7.632000000000001, StripOnInput -> 
+                   False], TraditionalForm], {0, 0}], Background -> 
+                GrayLevel[0.93], Axes -> False, AspectRatio -> 1, ImageSize -> 
+                Dynamic[{
+                  Automatic, 
+                   3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.55]]], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionObject\"", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}], True -> GridBox[{{
+               GraphicsBox[
+                InsetBox[
+                 FormBox[
+                  StyleBox["\"BasicF\"", 
+                   GrayLevel[0.7], Bold, 7.632000000000001, StripOnInput -> 
+                   False], TraditionalForm], {0, 0}], Background -> 
+                GrayLevel[0.93], Axes -> False, AspectRatio -> 1, ImageSize -> 
+                Dynamic[{
+                  Automatic, 
+                   3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}, ImageSizeCache -> {27., {0., 10.}}], 
+                Frame -> True, FrameTicks -> None, FrameStyle -> Directive[
+                  Thickness[Tiny], 
+                  GrayLevel[0.55]]], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"Type:\"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"ForeignFunctionObject\"", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+             AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}]}, 
+          Dynamic[Typeset`open$$], ImageSize -> Automatic]}, "SummaryPanel"], 
+       DynamicModuleValues :> {}], 
+      StyleBox["]", "NonInterpretableSummary"]}]},
+   "CopyTag",
+   DisplayFunction->(#& ),
+   InterpretationFunction->(
+    "DataStructure[ForeignFunctionObject, $Failed]"& )],
+  False,
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.8811554305325623`*^9},
+ CellLabel->"Out[42]=",
+ CellID->662835020,ExpressionUUID->"0039c5ee-0809-4623-b6b4-5b8b5f8c8d52"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Call the function to take and return the nested struct unchanged:\
+\>", "MathCaption",
+ CellChangeTimes->{{3.880550427180011*^9, 3.88055043363527*^9}, {
+  3.881155463712646*^9, 3.8811554693471622`*^9}},
+ CellID->735432847,ExpressionUUID->"3b35bb43-b05b-4262-a177-9c562389c918"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"CallForeignFunction", "[", 
+  RowBox[{"takeReturnNestedStruct", ",", 
+   RowBox[{"{", 
+    RowBox[{"{", 
+     RowBox[{"5", ",", 
+      RowBox[{"{", 
+       RowBox[{"6", ",", "19", ",", "3.14159"}], "}"}]}], "}"}], "}"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.880550460036529*^9, 3.880550463046461*^9}, {
+  3.8805506589712257`*^9, 3.880550663738562*^9}, {3.881155433959584*^9, 
+  3.881155439607542*^9}},
+ CellLabel->"In[44]:=",
+ CellID->1651471044,ExpressionUUID->"39d8f275-276a-4d50-9159-ff706a33e183"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"5", ",", 
+   RowBox[{"{", 
+    RowBox[{"6", ",", "19", ",", "3.14159`"}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.880551807934394*^9, 3.881155218801564*^9, {3.881155434479185*^9, 
+   3.8811554399204483`*^9}},
+ CellLabel->"Out[44]=",
+ CellID->840914543,ExpressionUUID->"f4a22a27-ecc7-4e07-b6ce-6478046d59e1"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Guides", "TutorialMoreAboutSection",
+ CellChangeTimes->{{3.843042384656711*^9, 3.843042386024461*^9}},
+ CellID->208186779,ExpressionUUID->"f397bb28-3a2d-4e56-8916-1f2829a0d767"],
+
+Cell[TextData[ButtonBox["Compiled Types",
+ BaseStyle->"Link",
+ ButtonData->"paclet:guide/CompiledTypes"]], "TutorialMoreAbout",
+ CellChangeTimes->{{3.881156128052505*^9, 3.881156169222809*^9}},
+ CellID->744333690,ExpressionUUID->"4fa76926-6399-45e3-9062-f58b93e967e9"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Tech Notes", "RelatedTutorialsSection",
+ CellID->924084055,ExpressionUUID->"a35b67b5-745a-4d5a-9c1b-afa9b32122a7"],
+
+Cell["XXXX", "RelatedTutorials",
+ CellID->478977281,ExpressionUUID->"ce177257-0dad-40d4-9a5e-31d3f0015a7a"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Metadata", "MetadataSection",
+ CellID->1402452811,ExpressionUUID->"1002f006-9cce-408f-82e1-f8081b2249e5"],
+
+Cell[TextData[{
+ "New in: ",
+ Cell["XX", "HistoryData",
+  CellTags->"New",ExpressionUUID->"847624fb-993c-4597-8e19-b87f0ff37634"],
+ " | Modified in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Modified",ExpressionUUID->"bdb7ae3b-ea1b-4d31-8837-5d76a5c25d4b"],
+ " | Obsolete in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Obsolete",ExpressionUUID->
+  "796c1c3b-a250-4fde-8311-a9fc9a1cf72a"]
+}], "History",
+ CellID->243885005,ExpressionUUID->"857be59f-eb59-4e1a-90b5-70cdae5a9a68"],
+
+Cell[CellGroupData[{
+
+Cell["Categorization", "CategorizationSection",
+ CellID->1576480559,ExpressionUUID->"a06a2575-74d4-4bf2-9bf7-ba1773aab6fd"],
+
+Cell["Tech Note", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->255518427,ExpressionUUID->"1fbfe704-2940-49d8-bfd2-adfc01037c14"],
+
+Cell["ForeignFunctionInterface", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->1678392236,ExpressionUUID->"94024841-73da-4f76-b158-cf4f359b579b"],
+
+Cell["ChristopherWolfram`ForeignFunctionInterface`", "Categorization",
+ CellLabel->"Context",
+ CellID->1540607107,ExpressionUUID->"4ddc765b-8bb6-446c-bc91-6d966561d390"],
+
+Cell["ForeignFunctionInterface/tutorial/FFITypes", "Categorization",
+ CellLabel->"URI",
+ CellID->773315470,ExpressionUUID->"ca020f3e-6425-4f80-a166-40b433ac3508"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->542072646,ExpressionUUID->"7a2b0f2e-8b40-4334-b689-4a1641fa53eb"],
+
+Cell["XXXX", "Keywords",
+ CellID->989330748,ExpressionUUID->"9988f88b-30ed-4162-aab6-f64d118240dc"]
+}, Closed]]
+}, Open  ]]
+},
+WindowSize->{700, 770},
+WindowMargins->{{Automatic, 383}, {Automatic, 67}},
+TaggingRules->{
+ "DocuToolsSettingsInternal" -> {
+   "$PacletVersion" -> "0.10.2323", "$ApplicationName" -> "Mathematica", 
+    "$LinkBase" -> "Mathematica", "$ApplicationDirectory" -> 
+    "/Users/christopher/cvs/Mathematica/", "$DocumentationDirectory" -> 
+    "/Users/christopher/cvs/Mathematica/Documentation/English/", 
+    "$UseNewPageDialog" -> ""}, 
+  "WelcomeScreenSettings" -> {"FEStarting" -> False}, "Paclet" -> 
+  "ForeignFunctionInterface"},
+FrontEndVersion->"13.2 for Mac OS X x86 (64-bit) (November 18, 2022)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "TechNotePageStylesExt.nb", 
+  CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"e7fadcd8-b401-4168-b6f3-a7327e5f3ccb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 102, 1, 114, "Title",ExpressionUUID->"e4097e1d-5d70-4056-b370-09c8766b550f",
+ CellID->1632263355],
+Cell[CellGroupData[{
+Cell[707, 27, 171, 2, 45, "Section",ExpressionUUID->"12395653-c4a6-4fda-8122-f88ad96d8c32",
+ CellID->637872574],
+Cell[881, 31, 705, 13, 86, "Text",ExpressionUUID->"72df9170-525a-43dd-a084-9a408132ad77",
+ CellID->1856121703],
+Cell[1589, 46, 441, 9, 25, "Text",ExpressionUUID->"7afac0e9-db2d-4b71-9e57-97d262e35716",
+ CellID->799915681]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2067, 60, 175, 2, 45, "Section",ExpressionUUID->"7bf39380-63f4-495d-b69e-48e1d3792171",
+ CellID->1996021535],
+Cell[2245, 64, 267, 5, 25, "Text",ExpressionUUID->"ac1b162b-852f-4721-ab52-1fe9bb9ffc89",
+ CellID->199717332],
+Cell[2515, 71, 3080, 66, 566, "DefinitionBox",ExpressionUUID->"030017a2-124d-4d1c-92b8-bdccaf0deff0",
+ CellID->1153949451],
+Cell[5598, 139, 183, 2, 30, "Caption",ExpressionUUID->"736d8076-0655-4465-be87-de73cab03637",
+ CellID->503606900],
+Cell[5784, 143, 268, 5, 25, "Text",ExpressionUUID->"fca09c19-c2b4-4d16-b73d-a22de7f755b9",
+ CellID->1740841154],
+Cell[6055, 150, 217, 2, 25, "Text",ExpressionUUID->"9def0553-6136-4ce1-a18d-37c8cdc1b3f2",
+ CellID->671920153],
+Cell[6275, 154, 428, 7, 63, "Text",ExpressionUUID->"86d230ea-cb9e-46a5-b616-d35554e9705e",
+ CellID->986291660]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[6740, 166, 176, 2, 45, "Section",ExpressionUUID->"96865f86-01c6-412d-81b8-15b48b29f60a",
+ CellID->480864139],
+Cell[CellGroupData[{
+Cell[6941, 172, 337, 6, 44, "Text",ExpressionUUID->"ad12cdd1-878d-4204-a60d-5c67a3c3e8ff",
+ CellID->210299655],
+Cell[7281, 180, 230, 8, 125, "Program",ExpressionUUID->"b550278b-541d-458a-a7c5-05ce966d5f99",
+ CellID->878360205]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7548, 193, 184, 2, 25, "Text",ExpressionUUID->"5d6ed004-7f65-4a57-bae7-e1923c48389e",
+ CellID->1116347675],
+Cell[7735, 197, 263, 5, 27, "Input",ExpressionUUID->"2c04534f-5941-4c8e-ae92-952e852ccfbe",
+ CellID->1270821179]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8035, 207, 165, 2, 25, "Text",ExpressionUUID->"02976253-0bdb-45a6-8139-f7558a110ffa",
+ CellID->1959214392],
+Cell[8203, 211, 264, 5, 27, "Input",ExpressionUUID->"1e2b7c97-8552-4017-ba8d-a6d558e2aca2",
+ CellID->1718402450]
+}, Open  ]],
+Cell[8482, 219, 289, 5, 44, "Text",ExpressionUUID->"120d0d21-091c-47b1-87ea-432f69ee022b",
+ CellID->861311097],
+Cell[8774, 226, 286, 5, 25, "Text",ExpressionUUID->"3cddee79-7ce0-4475-8215-8979656c2580",
+ CellID->1120844026],
+Cell[CellGroupData[{
+Cell[9085, 235, 268, 3, 41, "MathCaption",ExpressionUUID->"f478a078-8309-4528-9a1a-b4f110ab5ed2",
+ CellID->2022823765],
+Cell[9356, 240, 246, 4, 27, "Input",ExpressionUUID->"aee90f68-aa51-4858-86e6-5595f50603f8",
+ CellID->1025792630],
+Cell[9605, 246, 495, 10, 294, "Input",ExpressionUUID->"7ddfab07-1e03-4887-89d7-6e5042d540b7",
+ CellID->1606662351]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10137, 261, 175, 2, 41, "MathCaption",ExpressionUUID->"995a6680-01ac-4b6f-95f9-6f4af08e2f65",
+ CellID->1843008875],
+Cell[10315, 265, 265, 5, 27, "Input",ExpressionUUID->"0c2dbd2f-aac3-427c-bdd5-4d52cab3b42e",
+ CellID->129621211]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10617, 275, 262, 3, 41, "MathCaption",ExpressionUUID->"a541a191-5ab2-4654-b0cd-54a2e73efd0e",
+ CellID->1327996981],
+Cell[CellGroupData[{
+Cell[10904, 282, 491, 11, 47, "Input",ExpressionUUID->"e58abdc5-715f-4def-ac4a-cb9b84375321",
+ CellID->1813039739],
+Cell[11398, 295, 4337, 90, 52, "Output",ExpressionUUID->"ec0afd2f-12d1-4111-b207-ce6a1f521a27",
+ CellID->898379765]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[15784, 391, 202, 2, 41, "MathCaption",ExpressionUUID->"254e0f9a-44ca-4479-bdc1-4820c4145ff6",
+ CellID->118419925],
+Cell[CellGroupData[{
+Cell[16011, 397, 289, 6, 27, "Input",ExpressionUUID->"30f61ee0-bbe5-4ae1-b15e-6bfed1ea590f",
+ CellID->1638620379],
+Cell[16303, 405, 251, 5, 26, "Output",ExpressionUUID->"7253220a-5ae9-4517-9539-41dae979fc37",
+ CellID->444779]
+}, Open  ]]
+}, Open  ]],
+Cell[16581, 414, 304, 5, 44, "Text",ExpressionUUID->"8bb54ef5-eba5-430f-8bf0-0521a333e73b",
+ CellID->930749696],
+Cell[16888, 421, 227, 4, 25, "Text",ExpressionUUID->"eba24065-0772-46a8-9ee8-ad7ae2f23562",
+ CellID->798149378],
+Cell[CellGroupData[{
+Cell[17140, 429, 254, 3, 41, "MathCaption",ExpressionUUID->"5f42b46e-1a3a-4ece-b669-96f0461c20ef",
+ CellID->326642603],
+Cell[17397, 434, 244, 4, 27, "Input",ExpressionUUID->"5da6cddf-80e1-4b89-96a1-cc632e7345be",
+ CellID->914026889],
+Cell[17644, 440, 539, 11, 218, "Input",ExpressionUUID->"a939bbf6-0a5c-42e0-8b33-1809023e1040",
+ CellID->1099396432]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[18220, 456, 174, 2, 41, "MathCaption",ExpressionUUID->"e53196db-2ff7-4cd8-bb1a-43d27a52c320",
+ CellID->205312625],
+Cell[18397, 460, 410, 7, 27, "Input",ExpressionUUID->"2a681a98-203d-47e6-96b7-4754891d70b4",
+ CellID->1830551293]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[18844, 472, 313, 4, 41, "MathCaption",ExpressionUUID->"7ecf58ab-c7a5-41f0-961b-74a238b4b29d",
+ CellID->1224854529],
+Cell[CellGroupData[{
+Cell[19182, 480, 618, 13, 47, "Input",ExpressionUUID->"6c2f39e3-eb75-4711-b52d-2d03bf1638bc",
+ CellID->351828761],
+Cell[19803, 495, 4565, 94, 52, "Output",ExpressionUUID->"691e6952-e4bf-4f32-8593-4bc3755be8a8",
+ CellID->1364366997]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[24417, 595, 264, 3, 41, "MathCaption",ExpressionUUID->"a04ddb54-e4b8-4107-a86c-0cd0293f9dda",
+ CellID->58176770],
+Cell[CellGroupData[{
+Cell[24706, 602, 416, 10, 27, "Input",ExpressionUUID->"aec12bc0-b909-4ec3-9ce6-1cd2ec3482c6",
+ CellID->671914005],
+Cell[25125, 614, 199, 3, 26, "Output",ExpressionUUID->"df9dd781-ff5f-4575-be17-c0393e4785cb",
+ CellID->1609702081]
+}, Open  ]]
+}, Open  ]],
+Cell[25351, 621, 228, 4, 25, "Text",ExpressionUUID->"fdc7897d-dd3e-477b-af79-7548417382ec",
+ CellID->606145082],
+Cell[CellGroupData[{
+Cell[25604, 629, 283, 5, 41, "MathCaption",ExpressionUUID->"2b270d20-e422-4679-924c-7e0bd4e2154d",
+ CellID->1903168653],
+Cell[25890, 636, 244, 4, 27, "Input",ExpressionUUID->"7acc3ab1-94bd-4be0-a4eb-27533c4a9d20",
+ CellID->437744766],
+Cell[26137, 642, 727, 13, 313, "Input",ExpressionUUID->"2216c21a-3d78-46f5-809b-ad5077e19d89",
+ CellID->2044791187]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[26901, 660, 174, 2, 41, "MathCaption",ExpressionUUID->"10d0d72d-e16e-41cc-9a72-b7affb2dffbb",
+ CellID->408231389],
+Cell[27078, 664, 474, 9, 27, "Input",ExpressionUUID->"420407b2-d779-4f42-84fd-0316565d2c05",
+ CellID->2082186405]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[27589, 678, 370, 5, 41, "MathCaption",ExpressionUUID->"567cae97-5f09-4a19-83b3-068991f8ac95",
+ CellID->2060880970],
+Cell[CellGroupData[{
+Cell[27984, 687, 1006, 22, 66, "Input",ExpressionUUID->"ae09c4fe-cdd4-4fc1-b603-de01f22b64f7",
+ CellID->462720327],
+Cell[28993, 711, 4317, 90, 52, "Output",ExpressionUUID->"0039c5ee-0809-4623-b6b4-5b8b5f8c8d52",
+ CellID->662835020]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[33359, 807, 287, 5, 41, "MathCaption",ExpressionUUID->"3b35bb43-b05b-4262-a177-9c562389c918",
+ CellID->735432847],
+Cell[CellGroupData[{
+Cell[33671, 816, 532, 13, 27, "Input",ExpressionUUID->"39d8f275-276a-4d50-9159-ff706a33e183",
+ CellID->1651471044],
+Cell[34206, 831, 358, 9, 26, "Output",ExpressionUUID->"f4a22a27-ecc7-4e07-b6ce-6478046d59e1",
+ CellID->840914543]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[34625, 847, 191, 2, 74, "TutorialMoreAboutSection",ExpressionUUID->"f397bb28-3a2d-4e56-8916-1f2829a0d767",
+ CellID->208186779],
+Cell[34819, 851, 268, 4, 24, "TutorialMoreAbout",ExpressionUUID->"4fa76926-6399-45e3-9062-f58b93e967e9",
+ CellID->744333690]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[35124, 860, 128, 1, 74, "RelatedTutorialsSection",ExpressionUUID->"a35b67b5-745a-4d5a-9c1b-afa9b32122a7",
+ CellID->924084055],
+Cell[35255, 863, 107, 1, 24, "RelatedTutorials",ExpressionUUID->"ce177257-0dad-40d4-9a5e-31d3f0015a7a",
+ CellID->478977281]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[35411, 870, 111, 1, 72, "MetadataSection",ExpressionUUID->"1002f006-9cce-408f-82e1-f8081b2249e5",
+ CellID->1402452811],
+Cell[35525, 873, 476, 12, 26, "History",ExpressionUUID->"857be59f-eb59-4e1a-90b5-70cdae5a9a68",
+ CellID->243885005],
+Cell[CellGroupData[{
+Cell[36026, 889, 123, 1, 21, "CategorizationSection",ExpressionUUID->"a06a2575-74d4-4bf2-9bf7-ba1773aab6fd",
+ CellID->1576480559],
+Cell[36152, 892, 137, 2, 70, "Categorization",ExpressionUUID->"1fbfe704-2940-49d8-bfd2-adfc01037c14",
+ CellID->255518427],
+Cell[36292, 896, 153, 2, 70, "Categorization",ExpressionUUID->"94024841-73da-4f76-b158-cf4f359b579b",
+ CellID->1678392236],
+Cell[36448, 900, 169, 2, 70, "Categorization",ExpressionUUID->"4ddc765b-8bb6-446c-bc91-6d966561d390",
+ CellID->1540607107],
+Cell[36620, 904, 162, 2, 70, "Categorization",ExpressionUUID->"ca020f3e-6425-4f80-a166-40b433ac3508",
+ CellID->773315470]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[36819, 911, 110, 1, 21, "KeywordsSection",ExpressionUUID->"7a2b0f2e-8b40-4334-b689-4a1641fa53eb",
+ CellID->542072646],
+Cell[36932, 914, 99, 1, 70, "Keywords",ExpressionUUID->"9988f88b-30ed-4162-aab6-f64d118240dc",
+ CellID->989330748]
+}, Closed]]
+}, Open  ]]
+}
+]
+*)
+
