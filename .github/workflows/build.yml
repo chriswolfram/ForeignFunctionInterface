@@ -119,7 +119,7 @@ jobs:
         fi
 
         mkdir lib
-        gcc -o lib/ffiConstants.$LIBRARY_EXTENSION -Llibffi/lib -Ilibffi/include -rpath="@loader_path" -lffi --shared -fPIC ffiConstants/ffiConstants.c
+        gcc -o lib/ffiConstants.$LIBRARY_EXTENSION -Llibffi/lib -Ilibffi/include -rpath,"@loader_path" -lffi --shared -fPIC ffiConstants/ffiConstants.c
 
     - name: Upload constants library
       uses: actions/upload-artifact@v3
