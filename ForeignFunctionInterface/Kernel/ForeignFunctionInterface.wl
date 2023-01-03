@@ -21,6 +21,9 @@ NumericArrayToBuffer
 StringToBuffer
 BufferToString
 
+BufferToList
+ListToBuffer
+
 PopulateBuffer
 DereferenceBuffer
 

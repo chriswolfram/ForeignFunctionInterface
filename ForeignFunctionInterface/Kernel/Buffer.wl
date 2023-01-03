@@ -200,6 +200,93 @@ DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> {
 
 
 
+(******* BufferToList / ListToBuffer *******)
+DeclareCompiledComponent["ForeignFunctionInterface", {
+
+		FunctionDeclaration[BufferToList,
+			Typed[{"InertExpression", "FFIType", "MachineInteger"} -> "InertExpression"]@
+			Function[{ptrExpr, type, len},
+
+				Module[{ptr, elemSize, expr},
+					ptr = ExpressionToPointer[GetManagedExpression[ptrExpr]];
+					elemSize = FFITypeByteCount[type];
+
+					expr = Native`PrimitiveFunction["CreateHeaded_IE_E"][len, InertExpression[List]];
+					Do[
+						Native`PrimitiveFunction["SetElement_EIE_Void"][
+							expr,
+							i,
+							CToExpression[
+								Cast[Cast[ptr, "UnsignedInteger64", "BitCast"] + elemSize * (i-1), "OpaqueRawPointer", "BitCast"],
+								type
+							]
+						],
+						{i, len}
+					];
+
+					expr
+				]
+			]
+		],
+
+		FunctionDeclaration[BufferToList,
+			Typed[{"InertExpression", "InertExpression", "MachineInteger"} -> "InertExpression"]@
+			Function[{ptr, typeExpr, len},
+				Module[{type = CreateTypeInstance["Managed", CreateFFIType[typeExpr], DeleteFFIType]},
+					BufferToList[ptr, Compile`BorrowManagedObject[type], len]		
+				]		
+			]
+		],
+
+
+		FunctionDeclaration[ListToBuffer,
+			Typed[{"InertExpression", "FFIType"} -> "InertExpression"]@
+			Function[{list, type},
+
+				Module[{len, ptr},
+
+					If[Head[list] =!= InertExpression[List],
+						Native`ThrowWolframExceptionCode["Argument"]
+					];
+
+					len = Length[list];
+
+					ptr = Cast[
+						CreateTypeInstance["CArray"::["Integer8"], Cast[FFITypeByteCount[type]*len, "MachineInteger", "CCast"]],
+						"OpaqueRawPointer", "BitCast"
+					];
+
+					Do[
+						PopulateBuffer[ptr, type, list[[i]], i-1],
+						{i, len}
+					];
+
+					PointerToExpression[ptr]
+
+				]
+			]
+		],
+
+		FunctionDeclaration[ListToBuffer,
+			Typed[{"InertExpression", "InertExpression"} -> "InertExpression"]@
+			Function[{list, type},
+				Module[{ffiType},
+					ffiType = CreateTypeInstance["Managed", CreateFFIType[type], DeleteFFIType];
+					ListToBuffer[list, Compile`BorrowManagedObject[ffiType]]
+				]
+			]
+		]
+
+}];
+
+
+DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> <|
+	BufferToList -> Typed[BufferToList, {"InertExpression", "InertExpression", "MachineInteger"} -> "InertExpression"],
+	ListToBuffer -> Typed[ListToBuffer, {"InertExpression", "InertExpression"} -> "InertExpression"]
+|>];
+
+
+
 (***************************************************)
 (******* Extracting expressions from buffers *******)
 (***************************************************)
@@ -210,14 +297,21 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		(******* Dereferencing / indexing *******)
 
 		FunctionDeclaration[DereferenceBuffer,
+			Typed[ForAllType[ty, {"OpaqueRawPointer", "FFIType", "MachineInteger"} -> "InertExpression"]]@
+			Function[{ptr, type, offset},
+				CToExpression[
+					Cast[Cast[ptr, "UnsignedInteger64", "BitCast"] + FFITypeByteCount[type] * offset, "OpaqueRawPointer", "BitCast"],
+					type
+				]
+			]
+		],
+
+		FunctionDeclaration[DereferenceBuffer,
 			Typed[ForAllType[ty, {"OpaqueRawPointer", "InertExpression", "MachineInteger"} -> "InertExpression"]]@
 			Function[{ptr, type, offset},
 				Module[{ffiType},
 					ffiType = CreateTypeInstance["Managed", CreateFFIType[type], DeleteFFIType];
-					CToExpression[
-						Cast[Cast[ptr, "UnsignedInteger64", "BitCast"] + FFITypeByteCount[Compile`BorrowManagedObject[ffiType]] * offset, "OpaqueRawPointer", "BitCast"],
-						Compile`BorrowManagedObject[ffiType]
-					]
+					DereferenceBuffer[ptr, Compile`BorrowManagedObject[ffiType], offset]
 				]
 			]
 		],
@@ -276,16 +370,23 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		(******* Dereferencing / indexing *******)
 
 		FunctionDeclaration[PopulateBuffer,
+			Typed[ForAllType[ty, {"OpaqueRawPointer", "FFIType", "InertExpression", "MachineInteger"} -> "InertExpression"]]@
+			Function[{ptr, type, val, offset},
+				ExpressionToC[
+					Cast[Cast[ptr, "UnsignedInteger64", "BitCast"] + FFITypeByteCount[type] * offset, "OpaqueRawPointer", "BitCast"],
+					type,
+					val
+				];
+				PointerToExpression[ptr]
+			]
+		],
+
+		FunctionDeclaration[PopulateBuffer,
 			Typed[ForAllType[ty, {"OpaqueRawPointer", "InertExpression", "InertExpression", "MachineInteger"} -> "InertExpression"]]@
 			Function[{ptr, type, val, offset},
 				Module[{ffiType},
 					ffiType = CreateTypeInstance["Managed", CreateFFIType[type], DeleteFFIType];
-					ExpressionToC[
-						Cast[Cast[ptr, "UnsignedInteger64", "BitCast"] + FFITypeByteCount[Compile`BorrowManagedObject[ffiType]] * offset, "OpaqueRawPointer", "BitCast"],
-						Compile`BorrowManagedObject[ffiType],
-						val
-					];
-					PointerToExpression[ptr]
+					PopulateBuffer[ptr, Compile`BorrowManagedObject[ffiType], val, offset]
 				]
 			]
 		],
@@ -313,7 +414,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		FunctionDeclaration[PopulateBuffer,
 			Typed[ForAllType[p, (*Element[p, {"InertExpression", "OpaqueRawPointer"}],*) {p, "InertExpression", "InertExpression"} -> "InertExpression"]]@
 			Function[{ptr, val, type},
-				DereferenceBuffer[ptr, type, val, 0]
+				PopulateBuffer[ptr, type, val, 0]
 			]
 		]
 

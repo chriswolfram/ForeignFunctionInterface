@@ -15,6 +15,7 @@ PacletObject[
         "Root" -> "Kernel",
         "Context" -> "ChristopherWolfram`ForeignFunctionInterface`",
         "Symbols" -> {
+          "ChristopherWolfram`ForeignFunctionInterface`BufferToList",
           "ChristopherWolfram`ForeignFunctionInterface`BufferToNumericArray",
           "ChristopherWolfram`ForeignFunctionInterface`BufferToString",
           "ChristopherWolfram`ForeignFunctionInterface`CallForeignFunction",
@@ -26,8 +27,10 @@ PacletObject[
           "ChristopherWolfram`ForeignFunctionInterface`DeleteBuffer",
           "ChristopherWolfram`ForeignFunctionInterface`DeleteCallback",
           "ChristopherWolfram`ForeignFunctionInterface`GetManagedExpression",
+          "ChristopherWolfram`ForeignFunctionInterface`ListToBuffer",
           "ChristopherWolfram`ForeignFunctionInterface`NumericArrayToBuffer",
           "ChristopherWolfram`ForeignFunctionInterface`OpaqueRawPointer",
+          "ChristopherWolfram`ForeignFunctionInterface`PopulateBuffer",
           "ChristopherWolfram`ForeignFunctionInterface`StringToBuffer"
         }
       },
