@@ -266,6 +266,74 @@ DereferenceBuffer[ptr_, ty_] :=
 
 
 
+(***************************************************)
+(********* Writing expressions into buffers ********)
+(***************************************************)
+
+
+DeclareCompiledComponent["ForeignFunctionInterface", {
+
+		(******* Dereferencing / indexing *******)
+
+		FunctionDeclaration[PopulateBuffer,
+			Typed[ForAllType[ty, {"OpaqueRawPointer", "InertExpression", "InertExpression", "MachineInteger"} -> "InertExpression"]]@
+			Function[{ptr, type, val, offset},
+				Module[{ffiType},
+					ffiType = CreateTypeInstance["Managed", CreateFFIType[type], DeleteFFIType];
+					ExpressionToC[
+						Cast[Cast[ptr, "UnsignedInteger64", "BitCast"] + FFITypeByteCount[Compile`BorrowManagedObject[ffiType]] * offset, "OpaqueRawPointer", "BitCast"],
+						Compile`BorrowManagedObject[ffiType],
+						val
+					];
+					PointerToExpression[ptr]
+				]
+			]
+		],
+
+		(******* ManagedExpression case *******)
+
+		FunctionDeclaration[PopulateBuffer,
+			Typed[ForAllType[ty, {"ManagedExpression", ty, "InertExpression", "MachineInteger"} -> "InertExpression"]]@
+			Function[{man, type, val, offset},
+				PopulateBuffer[GetManagedExpression[man], type, val, offset]
+			]
+		],
+
+		(******* Expression case *******)
+
+		FunctionDeclaration[PopulateBuffer,
+			Typed[{"InertExpression", "InertExpression", "InertExpression", "MachineInteger"} -> "InertExpression"]@
+			Function[{expr, type, val, offset},
+				PopulateBuffer[ExpressionToPointer[GetManagedExpression[expr]], type, val, offset]
+			]
+		],
+
+		(******* 3-argument form *******)
+
+		FunctionDeclaration[PopulateBuffer,
+			Typed[ForAllType[p, (*Element[p, {"InertExpression", "OpaqueRawPointer"}],*) {p, "InertExpression", "InertExpression"} -> "InertExpression"]]@
+			Function[{ptr, val, type},
+				DereferenceBuffer[ptr, type, val, 0]
+			]
+		]
+
+}];
+
+DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> <|
+	iPopulateBuffer -> Typed[PopulateBuffer, {"InertExpression", "InertExpression", "InertExpression", "MachineInteger"} -> "InertExpression"]
+|>];
+
+
+(* Down values *)
+
+PopulateBuffer[ptr_, ty_, val_, offset_] :=
+	iPopulateBuffer[ptr, ty, val, offset]
+
+PopulateBuffer[ptr_, ty_, val_] :=
+	iPopulateBuffer[ptr, ty, val, 0]
+
+
+
 End[] (* End `Private` *)
 
 EndPackage[]

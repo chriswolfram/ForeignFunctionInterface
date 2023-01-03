@@ -11,13 +11,19 @@ CallForeignFunction
 CreateCallback
 DeleteCallback
 
+
 CreateBuffer
+DeleteBuffer
+
 BufferToNumericArray
 NumericArrayToBuffer
+
 StringToBuffer
 BufferToString
+
+PopulateBuffer
 DereferenceBuffer
-DeleteBuffer
+
 
 CreateManagedExpression
 GetManagedExpression
