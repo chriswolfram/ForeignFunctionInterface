@@ -112,14 +112,15 @@ jobs:
     - name: Compile constants library
       shell: bash
       run: |
+        mkdir lib
+
         if [ "$RUNNER_OS" == "Linux" ]; then
           export LIBRARY_EXTENSION="so"
+          gcc -o lib/ffiConstants.$LIBRARY_EXTENSION -Llibffi/lib -Ilibffi/include -Wl,-rpath="@loader_path" -lffi --shared -fPIC ffiConstants/ffiConstants.c
         elif [ "$RUNNER_OS" == "macOS" ]; then
           export LIBRARY_EXTENSION="dylib"
+          clang -o lib/ffiConstants.$LIBRARY_EXTENSION -Llibffi/lib -Ilibffi/include -rpath "@loader_path" -lffi --shared -fPIC ffiConstants/ffiConstants.c
         fi
-
-        mkdir lib
-        gcc -o lib/ffiConstants.$LIBRARY_EXTENSION -Llibffi/lib -Ilibffi/include -Wl,-rpath="@loader_path" -lffi --shared -fPIC ffiConstants/ffiConstants.c
 
     - name: Upload constants library
       uses: actions/upload-artifact@v3
