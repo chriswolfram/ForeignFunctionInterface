@@ -119,7 +119,7 @@ jobs:
           gcc -o lib/ffiConstants.$LIBRARY_EXTENSION -Llibffi/lib -Ilibffi/include -Wl,-rpath="@loader_path" -lffi --shared -fPIC ffiConstants/ffiConstants.c
         elif [ "$RUNNER_OS" == "macOS" ]; then
           export LIBRARY_EXTENSION="dylib"
-          clang -o lib/ffiConstants.$LIBRARY_EXTENSION -Llibffi/lib -Ilibffi/include -Wl,-rpath="@loader_path" -lffi --shared -fPIC ffiConstants/ffiConstants.c
+          clang -o lib/ffiConstants.$LIBRARY_EXTENSION -Llibffi/lib -Ilibffi/include -Wl,-rpath="@loader_path",-v -v -lffi --shared -fPIC ffiConstants/ffiConstants.c
           otool -L lib/ffiConstants.$LIBRARY_EXTENSION
         fi
 
