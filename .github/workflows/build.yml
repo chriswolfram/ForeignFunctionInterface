@@ -69,7 +69,6 @@ jobs:
         elif [ "$RUNNER_OS" == "macOS" ]; then
           export LIBRARY_EXTENSION="dylib"
           ../configure --disable-docs --prefix $PWD/build LDFLAGS=-Wl,-rpath,"@loader_path",-install_name,"@loader_path/libffi.$LIBRARY_EXTENSION"
-          otool -L lib/ffiConstants.$LIBRARY_EXTENSION
         fi
       
     - name: Run make
