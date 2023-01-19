@@ -62,7 +62,7 @@ jobs:
         mkdir source-build
         cd source-build          
         mkdir build
-        ../configure --disable-docs --prefix $PWD/build LDFLAGS=-Wl,-rpath,"@loader_path"
+        ../configure --disable-docs --prefix $PWD/build LDFLAGS=-Wl,-rpath,"@loader_path",-install_name,"@loader_path/libffi.dylib"
       
     - name: Run make
       shell: bash
@@ -116,10 +116,10 @@ jobs:
 
         if [ "$RUNNER_OS" == "Linux" ]; then
           export LIBRARY_EXTENSION="so"
-          gcc -o lib/ffiConstants.$LIBRARY_EXTENSION -Llibffi/lib -Ilibffi/include -Wl,-rpath,"@loader_path" -lffi --shared -fPIC ffiConstants/ffiConstants.c
+          gcc -o lib/ffiConstants.$LIBRARY_EXTENSION -Llibffi/lib -Ilibffi/include -lffi --shared -fPIC ffiConstants/ffiConstants.c
         elif [ "$RUNNER_OS" == "macOS" ]; then
           export LIBRARY_EXTENSION="dylib"
-          clang -o lib/ffiConstants.$LIBRARY_EXTENSION -Llibffi/lib -Ilibffi/include -Wl,-rpath,"@loader_path",-v -v -lffi --shared -fPIC ffiConstants/ffiConstants.c
+          clang -o lib/ffiConstants.$LIBRARY_EXTENSION -Llibffi/lib -Ilibffi/include -install_name @loader_path/ffiConstants.dylib -lffi --shared -fPIC ffiConstants/ffiConstants.c
           otool -L lib/ffiConstants.$LIBRARY_EXTENSION
         fi
 
