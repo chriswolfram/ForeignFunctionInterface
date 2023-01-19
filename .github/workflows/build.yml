@@ -62,7 +62,15 @@ jobs:
         mkdir source-build
         cd source-build          
         mkdir build
-        ../configure --disable-docs --prefix $PWD/build LDFLAGS=-Wl,-rpath,"@loader_path",-install_name,"@loader_path/libffi.dylib"
+        
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          export LIBRARY_EXTENSION="so"
+          ../configure --disable-docs --prefix $PWD/build LDFLAGS=-Wl,-rpath,"@loader_path"
+        elif [ "$RUNNER_OS" == "macOS" ]; then
+          export LIBRARY_EXTENSION="dylib"
+          ../configure --disable-docs --prefix $PWD/build LDFLAGS=-Wl,-rpath,"@loader_path",-install_name,"@loader_path/libffi.$LIBRARY_EXTENSION" -lffi --shared -fPIC ffiConstants/ffiConstants.c
+          otool -L lib/ffiConstants.$LIBRARY_EXTENSION
+        fi
       
     - name: Run make
       shell: bash
