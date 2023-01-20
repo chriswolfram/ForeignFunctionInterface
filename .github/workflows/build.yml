@@ -139,8 +139,6 @@ jobs:
       run: |
         mkdir lib
         gcc -o lib/ffiConstants.so -Llibffi/lib -Ilibffi/include -lffi --shared -fPIC ffiConstants/ffiConstants.c
-        otool -L lib/ffiConstants.dylib
-        otool -L libffi/lib/libffi.dylib
 
     - name: Upload constants library
       uses: actions/upload-artifact@v3
@@ -168,6 +166,8 @@ jobs:
       run: |
         mkdir lib
         clang -o lib/ffiConstants.dylib -Llibffi/lib -Ilibffi/include -install_name @loader_path/ffiConstants.dylib -lffi --shared -fPIC ffiConstants/ffiConstants.c
+        otool -L lib/ffiConstants.dylib
+        otool -L libffi/lib/libffi.dylib
 
     - name: Upload constants library
       uses: actions/upload-artifact@v3
