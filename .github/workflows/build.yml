@@ -12,7 +12,7 @@ jobs:
     
     steps:
     
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
       with:
         repository: libffi/libffi
         path: libffi
@@ -128,7 +128,7 @@ jobs:
     
     steps:
     
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     
     - uses: actions/download-artifact@v3
       with:
@@ -155,7 +155,7 @@ jobs:
     
     steps:
     
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     
     - uses: actions/download-artifact@v3
       with:
