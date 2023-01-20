@@ -7,7 +7,6 @@ on:
 jobs:
   run-libffi-autogen:
     name: Run libffi autogen
-    
     runs-on: ubuntu-latest
     
     steps:
@@ -97,7 +96,7 @@ jobs:
         mkdir source-build
         cd source-build          
         mkdir build
-        ../configure --disable-docs --prefix $PWD/build LDFLAGS=-Wl,-rpath,"@loader_path",-install_name,"@loader_path/libffi.dylib"
+        ../configure --disable-docs --prefix $PWD/build LDFLAGS=-Wl,-rpath,"@loader_path",-install_name,"@rpath/libffi.dylib"
       
     - name: Run make
       shell: bash
@@ -140,6 +139,8 @@ jobs:
       run: |
         mkdir lib
         gcc -o lib/ffiConstants.so -Llibffi/lib -Ilibffi/include -lffi --shared -fPIC ffiConstants/ffiConstants.c
+        otool -L lib/ffiConstants.dylib
+        otool -L libffi/lib/libffi.dylib
 
     - name: Upload constants library
       uses: actions/upload-artifact@v3
