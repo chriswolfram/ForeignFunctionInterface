@@ -165,7 +165,7 @@ jobs:
       shell: bash
       run: |
         mkdir lib
-        clang -o lib/ffiConstants.dylib -Llibffi/lib -Ilibffi/include -install_name @loader_path/ffiConstants.dylib -lffi --shared -fPIC ffiConstants/ffiConstants.c
+        clang -o lib/ffiConstants.dylib -Llibffi/lib -Ilibffi/include -rpath "@loader_path" -install_name "@rpath/ffiConstants.dylib" -lffi --shared -fPIC ffiConstants/ffiConstants.c
         otool -L lib/ffiConstants.dylib
         otool -l lib/ffiConstants.dylib
         otool -L libffi/lib/libffi.dylib
