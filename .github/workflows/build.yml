@@ -34,19 +34,10 @@ jobs:
         path: libffi.tar
         if-no-files-found: error
     
-  build-libffi: 
-    name: Build libffi
-    
+  build-libffi-linux: 
+    name: Build libffi (Linux)
     needs: run-libffi-autogen
-    
-    strategy:
-      matrix:
-        os:
-        - ubuntu-latest
-        # - windows-latest
-        - macOS-latest
-    
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     
     steps:
     
@@ -62,14 +53,7 @@ jobs:
         mkdir source-build
         cd source-build          
         mkdir build
-        
-        if [ "$RUNNER_OS" == "Linux" ]; then
-          export LIBRARY_EXTENSION="so"
-          ../configure --disable-docs --prefix $PWD/build LDFLAGS=-Wl,-rpath,"@loader_path"
-        elif [ "$RUNNER_OS" == "macOS" ]; then
-          export LIBRARY_EXTENSION="dylib"
-          ../configure --disable-docs --prefix $PWD/build LDFLAGS=-Wl,-rpath,"@loader_path",-install_name,"@loader_path/libffi.$LIBRARY_EXTENSION"
-        fi
+        ../configure --disable-docs --prefix $PWD/build LDFLAGS=-Wl,-rpath,"@loader_path"
       
     - name: Run make
       shell: bash
@@ -82,30 +66,65 @@ jobs:
     - name: Upload libffi built artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ format('libffi-build-{0}', runner.os) }}
+        name: libffi-build-Linux
         path: libffi/source-build/build/
         if-no-files-found: error
     
     - name: Upload libffi core library artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ format('libffi-core-build-{0}', runner.os) }}
+        name: libffi-core-build-Linux
+        path: libffi/source-build/build/lib/libffi.*
+        if-no-files-found: error
+        
+        
+  build-libffi-macos: 
+    name: Build libffi (macOS)
+    needs: run-libffi-autogen
+    runs-on: macOS-latest
+    
+    steps:
+    
+    - uses: actions/download-artifact@v3
+      with:
+        name: libffi-autogen
+          
+    - name: Configure libffi
+      shell: bash
+      run: |
+        tar -xvf libffi.tar
+        cd libffi
+        mkdir source-build
+        cd source-build          
+        mkdir build
+        ../configure --disable-docs --prefix $PWD/build LDFLAGS=-Wl,-rpath,"@loader_path",-install_name,"@loader_path/libffi.dylib"
+      
+    - name: Run make
+      shell: bash
+      run: |
+        export SHELL="/bin/sh"
+        cd libffi
+        cd source-build
+        make install
+          
+    - name: Upload libffi built artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: libffi-build-macOS
+        path: libffi/source-build/build/
+        if-no-files-found: error
+    
+    - name: Upload libffi core library artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: libffi-core-build-macOS
         path: libffi/source-build/build/lib/libffi.*
         if-no-files-found: error
           
-  build-constants: 
-    name: Build constants library
-    
-    needs: build-libffi
-    
-    strategy:
-      matrix:
-        os:
-        - ubuntu-latest
-        # - windows-latest
-        - macOS-latest
-    
-    runs-on: ${{ matrix.os }}
+  build-constants-linux:
+    name: Build constants library (Linux)
+    needs: build-libffi-linux
+    runs-on: ubuntu-latest
     
     steps:
     
@@ -113,34 +132,57 @@ jobs:
     
     - uses: actions/download-artifact@v3
       with:
-        name: ${{ format('libffi-build-{0}', runner.os) }}
+        name: libffi-build-Linux
         path: libffi
          
     - name: Compile constants library
       shell: bash
       run: |
         mkdir lib
-
-        if [ "$RUNNER_OS" == "Linux" ]; then
-          export LIBRARY_EXTENSION="so"
-          gcc -o lib/ffiConstants.$LIBRARY_EXTENSION -Llibffi/lib -Ilibffi/include -lffi --shared -fPIC ffiConstants/ffiConstants.c
-        elif [ "$RUNNER_OS" == "macOS" ]; then
-          export LIBRARY_EXTENSION="dylib"
-          clang -o lib/ffiConstants.$LIBRARY_EXTENSION -Llibffi/lib -Ilibffi/include -install_name @loader_path/ffiConstants.dylib -lffi --shared -fPIC ffiConstants/ffiConstants.c
-          otool -L lib/ffiConstants.$LIBRARY_EXTENSION
-        fi
+        gcc -o lib/ffiConstants.so -Llibffi/lib -Ilibffi/include -lffi --shared -fPIC ffiConstants/ffiConstants.c
 
     - name: Upload constants library
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ format('ffiConstants-{0}', runner.os) }}
+        name: ffiConstants-Linux
+        path: lib
+        if-no-files-found: error
+        
+  build-constants-macos:
+    name: Build constants library (macOS)
+    needs: build-libffi-macos
+    runs-on: macOS-latest
+    
+    steps:
+    
+    - uses: actions/checkout@v2
+    
+    - uses: actions/download-artifact@v3
+      with:
+        name: libffi-build-macOS
+        path: libffi
+         
+    - name: Compile constants library
+      shell: bash
+      run: |
+        mkdir lib
+        clang -o lib/ffiConstants.dylib -Llibffi/lib -Ilibffi/include -install_name @loader_path/ffiConstants.dylib -lffi --shared -fPIC ffiConstants/ffiConstants.c
+
+    - name: Upload constants library
+      uses: actions/upload-artifact@v3
+      with:
+        name: ffiConstants-macOS
         path: lib
         if-no-files-found: error
 
   final-assembly:
     name: Final paclet assembly
     
-    needs: [build-libffi, build-constants]
+    needs:
+    - build-libffi-linux
+    - build-libffi-macos
+    - build-constants-linux
+    - build-constants-macos
     
     runs-on: ubuntu-latest
       
