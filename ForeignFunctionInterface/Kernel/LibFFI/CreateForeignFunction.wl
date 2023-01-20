@@ -9,6 +9,7 @@ Begin["`Private`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`OpaqueRawPointer`"]
+Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`RawFunctionLoading`"]
 
 
 (* TEMPORARY DECLARATIONS *)
@@ -120,8 +121,8 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	],
 
 
-	FunctionDeclaration[CreateForeignFunctionWithLibrary,
-		Typed[{"ExternalLibraryHandle", "String", "InertExpression"} -> "ForeignFunctionObject"]@
+	FunctionDeclaration[CreateForeignFunction,
+		Typed[{"ExternalLibrary", "String", "InertExpression"} -> "ForeignFunctionObject"]@
 		Function[{lib, funName, funcType},
 			Module[{cif, argValuesArray, outputValue, fun},
 
@@ -142,7 +143,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 						"OpaqueRawPointer", "BitCast"
 					];
 
-				fun = LibraryFunction["dlsym"][lib, Cast[funName, "Managed"::["CString"]]];
+				fun = LibraryFunction["dlsym"][GetExternalLibraryHandle[lib], Cast[funName, "Managed"::["CString"]]];
 				If[fun === Cast[0, "OpaqueRawPointer", "BitCast"],
 					Native`ThrowWolframExceptionCode["System"]
 				];
@@ -155,24 +156,11 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 				|>]
 			]
 		]
-	],
-
-
-	FunctionDeclaration[CreateForeignFunction,
-		Typed[{"String", "InertExpression"} -> "ForeignFunctionObject"]@
-		Function[{funName, funcType},
-			CreateForeignFunctionWithLibrary[
-				LibraryFunction["get_RTLD_DEFAULT"][],
-				funName,
-				funcType
-			]
-		]
 	]
 
 }];
 
 DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> {
-	CreateForeignFunctionWithLibrary,
 	CreateForeignFunction
 }];
 

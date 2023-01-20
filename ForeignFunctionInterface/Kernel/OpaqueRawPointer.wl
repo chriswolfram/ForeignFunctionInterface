@@ -47,11 +47,10 @@ OpaqueRawPointer /: MakeBoxes[expr:OpaqueRawPointer[addr_Integer], form:Standard
 		OpaqueRawPointer,
 		expr,
 		None,
-		(*the next argument is the always visisble properties*)
 		{"address: ", addr},
 		{},
 		form
-	];
+	]
 
 
 End[] (* End `Private` *)

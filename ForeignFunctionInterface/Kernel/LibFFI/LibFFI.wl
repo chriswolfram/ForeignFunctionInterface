@@ -13,6 +13,11 @@ FFITypeElementCount
 ExpressionToC
 CToExpression
 
+CreateForeignFunction
+CallForeignFunction
+
+GetDefaultExternalLibrary
+
 
 $LibFFIPaths = {"libffi", "ffiConstants"};
 

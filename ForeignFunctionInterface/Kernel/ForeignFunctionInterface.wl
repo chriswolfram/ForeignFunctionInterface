@@ -2,15 +2,14 @@ BeginPackage["ChristopherWolfram`ForeignFunctionInterface`"]
 
 OpaqueRawPointer
 
+ExternalLibrary
 LoadExternalLibrary
 UnloadExternalLibrary
-CreateForeignFunctionWithLibrary
-CreateForeignFunction
-CallForeignFunction
+
+ForeignFunction
 
 CreateCallback
 DeleteCallback
-
 
 CreateBuffer
 DeleteBuffer
@@ -38,7 +37,10 @@ Begin["`Private`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`ManagedExpression`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`OpaqueRawPointer`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`Buffer`"]
+Needs["ChristopherWolfram`ForeignFunctionInterface`ForeignFunction`"]
+Needs["ChristopherWolfram`ForeignFunctionInterface`ExternalLibrary`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`"]
+Needs["ChristopherWolfram`ForeignFunctionInterface`Messages`"]
 
 
 End[] (* End `Private` *)
