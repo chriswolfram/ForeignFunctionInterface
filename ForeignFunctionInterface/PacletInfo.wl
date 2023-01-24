@@ -26,12 +26,16 @@ PacletObject[
           "ChristopherWolfram`ForeignFunctionInterface`DereferenceBuffer",
           "ChristopherWolfram`ForeignFunctionInterface`DeleteBuffer",
           "ChristopherWolfram`ForeignFunctionInterface`DeleteCallback",
+          "ChristopherWolfram`ForeignFunctionInterface`ExternalLibrary",
+          "ChristopherWolfram`ForeignFunctionInterface`ForeignFunction",
           "ChristopherWolfram`ForeignFunctionInterface`GetManagedExpression",
           "ChristopherWolfram`ForeignFunctionInterface`ListToBuffer",
+          "ChristopherWolfram`ForeignFunctionInterface`LoadExternalLibrary",
           "ChristopherWolfram`ForeignFunctionInterface`NumericArrayToBuffer",
           "ChristopherWolfram`ForeignFunctionInterface`OpaqueRawPointer",
           "ChristopherWolfram`ForeignFunctionInterface`PopulateBuffer",
-          "ChristopherWolfram`ForeignFunctionInterface`StringToBuffer"
+          "ChristopherWolfram`ForeignFunctionInterface`StringToBuffer",
+          "ChristopherWolfram`ForeignFunctionInterface`UnloadExternalLibrary"
         }
       },
       {"Compiler", "Components" -> {"ForeignFunctionInterface"}},
