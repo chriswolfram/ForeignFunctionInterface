@@ -1,0 +1,49 @@
+<project name='ForeignFunctionInterface' basedir='..'>
+
+	<property name='component' value='${ant.project.name}' />
+	<property name='system_id' value='### Must be set by Jenkins ###' />
+	<property name='app.name' value='${component}' />
+
+	<property environment='env' />
+	<import file='${env.RE_ANTLIBRARY_HOME}/ant-lib.xml' />
+
+	<!--
+		Component build (platform-independent)
+	-->
+
+	<target name='Component.ForeignFunctionInterface.execute' extensionOf='Component.execute'>
+
+		<copy todir="${files_directory}">
+			<fileset dir="${basedir}" includes="${component}/**/*.wl" />
+		</copy>
+
+	</target>
+
+	<!--
+		Native libraries
+	-->
+
+	<target name='NativeLibrary.ForeignFunctionInterface.execute' extensionOf='NativeLibrary.execute' >
+
+		<property name='NativeLibrary.makefiles.dir' value='${checkout_directory}${file.separator}makefiles' />
+		<mkdir dir='${NativeLibrary.makefiles.dir}' />
+		
+		<re-cmake-exec dir='${NativeLibrary.makefiles.dir}' >
+			<arg line='-DWOLFRAM_KERNEL_PATH:PATH=${mathExe}' />
+			<arg line='-DCMAKE_BUILD_TYPE:STRING=Release' />
+			<arg line='-DSYSTEMID:STRING=${system_id}' />
+			<arg line='-DCMAKE_INSTALL_PREFIX:PATH=${files_directory}' />
+			<arg line='-DDEBUG_FILES_INSTALL_PREFIX:PATH=${debugfiles_directory}' />
+			<arg line='-DRE_BUILD=ON' />
+			<arg value='${basedir}' />
+		</re-cmake-exec>
+
+		<re-cmake-exec dir='${NativeLibrary.makefiles.dir}' >
+			<arg line='--build ${NativeLibrary.makefiles.dir}' />
+			<arg line='--config Release' />
+			<arg line='--target install' />
+		</re-cmake-exec>
+
+	</target>
+
+</project>
