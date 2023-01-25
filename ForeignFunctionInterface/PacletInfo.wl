@@ -37,7 +37,6 @@ PacletObject[
       {"Compiler", "Components" -> {"ForeignFunctionInterface"}},
       {"LibraryLink"},
       {"Documentation", "Language" -> "English"}
-    },
-    "SystemID" -> {"Linux", "Linux-x86-64", "MacOSX-x86-64"}
+    }
   |>
 ]
