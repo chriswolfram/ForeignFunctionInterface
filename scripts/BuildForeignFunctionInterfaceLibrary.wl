@@ -61,25 +61,12 @@ buildProgress["Source code directories setup",
             {"CompileUtilities", "CompileUtilities"},
             {"LLVMTools", "LLVMTools"},
             {"Compile", "TypeFramework"},
-            {"ForeignFunctionInterface", "ForeignFunctionInterface"}
-        }
-    ]
-];
+            {"ForeignFunctionInterface", "ForeignFunctionInterface"},
 
-(*
-    Handled separately, because these are not simple source
-    checkouts, they contain prebuilt artifacts from TeamCity.
-*)
-buildProgress["Artifact directories setup",
-    Scan[
-        Function[
-            PacletDirectoryLoad[Echo[FileNameJoin[{basedir, #}]]]
-        ]
-        ,
-        {
-            "CompiledCompiler",
-            "CompiledLibrary",
-            FileNameJoin[{"Layout", "LLVMLink"}]
+            (* the following contain prebuilt artifacts from TeamCity *)
+            {"Compile", "CompiledCompiler"},
+            {"CompiledLibrary", "CompiledLibrary"},
+            {"Layout", "LLVMLink"}
         }
     ]
 ];
@@ -90,7 +77,6 @@ Needs["ChristopherWolfram`ForeignFunctionInterface`"]
 buildProgress["Initializing Compiler",
     InitializeCompiler["LoadResources" -> False]
 ];
-
 
 extraOpts = 
     If[
@@ -111,11 +97,3 @@ buildProgress["Building ForeignFunctionInterface",
             }, extraOpts]
         ]
     ]
-
-
-
-successfile = Environment["SUCCESS_TXT"];
-If[StringQ[successfile],
-    Put[0, FileNameJoin[successfile]];
-    Quit[]
-];
