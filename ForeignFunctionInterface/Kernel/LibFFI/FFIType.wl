@@ -12,9 +12,6 @@ Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`"]
 DeclareCompiledComponent["ForeignFunctionInterface", {
 
 	(*
-		CreateFFIType[typeID_Integer]
-			creates an CreateFFIType with the type specified by the libffi type ID.
-
 		CreateFFIType["typeName"]
 			creates the FFI type analogous to the compiler type "typeName".
 
@@ -30,6 +27,10 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 				StringQ[typeSpec],
 					typeFromString[Cast[typeSpec, "String"]],
+
+				Head[typeSpec] === InertExpression[TypeSpecifier["RawPointer"]] ||
+				Head[typeSpec] === InertExpression["RawPointer"],
+					typeFromRawPointer[typeSpec],
 
 				Head[typeSpec] === InertExpression[TypeSpecifier["ListTuple"]] ||
 				Head[typeSpec] === InertExpression["ListTuple"] ||
@@ -74,6 +75,16 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 				"OpaqueRawPointer",		RawFFIType["OpaqueRawPointer"][],
 				_, 										Native`ThrowWolframExceptionCode["Unimplemented"]
 
+			]
+		]
+	],
+
+	FunctionDeclaration[typeFromRawPointer,
+		Typed[{"InertExpression"} -> "FFIType"]@
+		Function[typeSpec,
+			If[Length[typeSpec] =!= 1,
+				Native`ThrowWolframExceptionCode["Argument"],
+				RawFFIType["OpaqueRawPointer"][]
 			]
 		]
 	],

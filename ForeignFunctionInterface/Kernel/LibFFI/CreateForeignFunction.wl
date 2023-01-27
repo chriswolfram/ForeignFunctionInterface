@@ -3,6 +3,10 @@ BeginPackage["ChristopherWolfram`ForeignFunctionInterface`LibFFI`CreateForeignFu
 CreateFFICallInterface
 DeleteFFICallInterface
 
+CanonicalizeFunctionType
+FunctionTypeArguments
+FunctionTypeOutput
+
 Begin["`Private`"]
 
 
@@ -31,7 +35,8 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 			"ArgumentPointers" -> "CArray"::["OpaqueRawPointer"],
 			"OutputPointer" -> "OpaqueRawPointer",
 			"CallInterface" -> "FFICallInterface",
-			"FunctionPointer" -> "OpaqueRawPointer"
+			"FunctionPointer" -> "OpaqueRawPointer",
+			"ArgumentTypeExpressions" -> "ListVector"::["InertExpression"]
 		|>,
 		"AbstractTypes" -> {"DataStructures"}
 	],
@@ -58,22 +63,10 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		The caller is responsible for freeing the call interface once it is no longer needed.
 	*)
 	FunctionDeclaration[CreateFFICallInterface,
-		Typed[{"InertExpression"} -> "FFICallInterface"]@
-		Function[funcTypeI,
-			Module[{funcType, argTypes, outputType, argCount, argFFITypes, outputFFIType, cif},
+		Typed[{"ListVector"::["InertExpression"], "InertExpression"} -> "FFICallInterface"]@
+		Function[{argTypes, outputType},
+			Module[{argCount, argFFITypes, outputFFIType, cif},
 
-				funcType = unwrapTypeSpecifier[funcTypeI];
-
-				(* Check that the input type is well-formed *)
-				If[
-					Head[funcType] =!= InertExpression[Rule] ||
-					Length[funcType] =!= 2 ||
-					Head[First[funcType]] =!= InertExpression[List],
-					Native`ThrowWolframExceptionCode["Argument"]
-				];
-
-				argTypes = First[funcType];
-				outputType = Last[funcType];
 				argCount = Length[argTypes];
 
 				argFFITypes = CreateTypeInstance["CArray"::["FFIType"], argCount];
@@ -109,6 +102,37 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		]
 	],
 
+	(* Unwraps a function type and checks that it is well-formed.
+	Does not check that all of the subtypes are valid. *)
+	FunctionDeclaration[CanonicalizeFunctionType,
+		Typed[{"InertExpression"} -> "InertExpression"]@
+		Function[expr,
+			If[
+				Head[expr] =!= InertExpression[Rule] ||
+				Length[expr] =!= 2 ||
+				Head[First[expr]] =!= InertExpression[List],
+				Native`ThrowWolframExceptionCode["Argument"]
+			];
+			unwrapTypeSpecifier[expr]
+		]
+	],
+
+	FunctionDeclaration[FunctionTypeArguments,
+		Typed[{"InertExpression"} -> "ListVector"::["InertExpression"]]@
+		Function[expr,
+			With[{argTypesExpr = First[expr]},
+				Map[argTypesExpr[[#]]&, Cast[Range[Length[argTypesExpr]], "ListVector"::[_]]]
+			]
+		]
+	],
+
+	FunctionDeclaration[FunctionTypeOutput,
+		Typed[{"InertExpression"} -> "InertExpression"]@
+		Function[expr,
+			Last[expr]
+		]
+	],
+
 
 	FunctionDeclaration[DeleteFFICallInterface,
 		Typed[{"FFICallInterface"} -> "Null"]@
@@ -123,10 +147,14 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 	FunctionDeclaration[CreateForeignFunction,
 		Typed[{"ExternalLibrary", "String", "InertExpression"} -> "ForeignFunctionObject"]@
-		Function[{lib, funName, funcType},
-			Module[{cif, argValuesArray, outputValue, fun},
+		Function[{lib, funName, funcTypeI},
+			Module[{funcType, argTypes, outputType, cif, argValuesArray, outputValue, fun},
 
-				cif = CreateFFICallInterface[funcType];
+				funcType = CanonicalizeFunctionType[funcTypeI];
+				argTypes = FunctionTypeArguments[funcType];
+				outputType = FunctionTypeOutput[funcType];
+
+				cif = CreateFFICallInterface[argTypes, outputType];
 
 				argValuesArray = CreateTypeInstance["CArray"::["OpaqueRawPointer"], cif["ArgumentCount"]];
 				Do[
@@ -152,7 +180,8 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 					"ArgumentPointers" -> argValuesArray,
 					"OutputPointer" -> outputValue,
 					"CallInterface" -> cif,
-					"FunctionPointer" -> fun
+					"FunctionPointer" -> fun,
+					"ArgumentTypeExpressions" -> argTypes
 				|>]
 			]
 		]

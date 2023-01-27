@@ -18,7 +18,10 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 		<|
 			"CallInterface" -> "FFICallInterface",
 			"Closure" -> "OpaqueRawPointer",
-			"CodeLocation" -> "OpaqueRawPointer"
+			"CodeLocation" -> "OpaqueRawPointer",
+			"Function" -> "InertExpression",
+			"ArgumentTypes" -> "ListVector"::["InertExpression"],
+			"OutputType" -> "InertExpression"
 		|>,
 		"AbstractTypes" -> {"DataStructures"},
 		"MemoryManaged" -> False
@@ -28,8 +31,13 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 	FunctionDeclaration[CreateCallback,
 		Typed[{"InertExpression", "InertExpression"} -> "CallbackObject"]@
-		Function[{expr, funcType},
-			Module[{codelocPtr, codeloc, closure, cif, fun},
+		Function[{expr, funcTypeI},
+			Module[{funcType, argTypes, outputType, codelocPtr, codeloc, closure, cif, fun, callbackObject},
+
+				funcType = CanonicalizeFunctionType[funcTypeI];
+				argTypes = FunctionTypeArguments[funcType];
+				outputType = FunctionTypeOutput[funcType];
+
 				codelocPtr = TypeHint[ToRawPointer[], "RawPointer"::["OpaqueRawPointer"]];
 				closure =
 					LibraryFunction["ffi_closure_alloc"][
@@ -38,42 +46,48 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 					];
 				codeloc = FromRawPointer[codelocPtr];
 				
-				cif = CreateFFICallInterface[funcType];
+				cif = CreateFFICallInterface[argTypes, outputType];
 				
 				fun =
 					Typed["RawFunction"::[{"FFICallInterface", "OpaqueRawPointer", "CArray"::["OpaqueRawPointer"], "OpaqueRawPointer"} -> "Null"(*should be "Void"*)]]@
 					TypeFramework`MetaData[<|"FunctionCategory" -> "RawFunction"|>]@
 					Function[{Typed[cif, "FFICallInterface"], Typed[ret, "OpaqueRawPointer"], Typed[args, "CArray"::["OpaqueRawPointer"]], Typed[userData, "OpaqueRawPointer"]},
-						Module[{head, argCount, expr},
+						Module[{argCount, callbackObject, head, expr},
 							argCount = Cast[cif["ArgumentCount"], "MachineInteger", "CCast"];
-							head = Cast[userData, "InertExpression", "BitCast"];
+							callbackObject = Cast[userData, "CallbackObject", "BitCast"];
+							head = callbackObject["Function"];
 							expr = Native`PrimitiveFunction["CreateHeaded_IE_E"][argCount, head];
 							Do[
 								Native`PrimitiveFunction["SetElement_EIE_Void"][
 									expr,
 									i,
-									CToExpression[FromRawPointer[args,i-1], FromRawPointer[cif["ArgumentTypes"],i-1]]
+									CToExpression[FromRawPointer[args,i-1], FromRawPointer[cif["ArgumentTypes"],i-1](*, callbackObject["ArgumentTypes"][[i]]*)]
 								],
 								{i, argCount}
 							];
 							ExpressionToC[ret, cif["OutputType"], InertEvaluate[expr]];
 						];
 					];
+
+				callbackObject = CreateTypeInstance["CallbackObject", <|
+					"CallInterface" -> cif,
+					"Closure" -> closure,
+					"CodeLocation" -> codeloc,
+					"Function" -> expr,
+					"ArgumentTypes" -> argTypes,
+					"OutputType" -> outputType
+				|>];
 				
 				(*TODO: Check error code*)
 				LibraryFunction["ffi_prep_closure_loc"][
 					closure,
 					cif,
 					Cast[fun, "OpaqueRawPointer", "BitCast"],
-					Cast[expr, "OpaqueRawPointer", "BitCast"],
+					Cast[callbackObject, "OpaqueRawPointer", "BitCast"],
 					codeloc
 				];
 
-				CreateTypeInstance["CallbackObject", <|
-					"CallInterface" -> cif,
-					"Closure" -> closure,
-					"CodeLocation" -> codeloc
-				|>]
+				callbackObject
 				
 			]
 		]
