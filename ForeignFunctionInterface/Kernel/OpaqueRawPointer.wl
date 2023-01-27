@@ -39,10 +39,28 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 }];
 
 
+(* Constructor *)
+
+HoldPattern[OpaqueRawPointer][RawPointer[addr_Integer, type_]] :=
+	OpaqueRawPointer[addr]
+
+
+(* Validator *)
+
+HoldPattern[OpaqueRawPointer][expr:Except[_Integer]] :=
+	(
+		Message[OpaqueRawPointer::invaddress, expr];
+		Failure["InvalidPointerAddress", <|
+			"MessageTemplate" :> OpaqueRawPointer::invaddress,
+			"MessageParameters" -> {expr},
+			"Address" -> expr
+		|>]
+	)
+
 
 (* Summary box *)
 
-OpaqueRawPointer /: MakeBoxes[expr:OpaqueRawPointer[addr_Integer], form:StandardForm]:=
+OpaqueRawPointer /: MakeBoxes[expr:HoldPattern[OpaqueRawPointer][addr_Integer], form:StandardForm]:=
 	BoxForm`ArrangeSummaryBox[
 		OpaqueRawPointer,
 		expr,
