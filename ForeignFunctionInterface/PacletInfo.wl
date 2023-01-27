@@ -34,6 +34,7 @@ PacletObject[
           "ChristopherWolfram`ForeignFunctionInterface`NumericArrayToBuffer",
           "ChristopherWolfram`ForeignFunctionInterface`OpaqueRawPointer",
           "ChristopherWolfram`ForeignFunctionInterface`PopulateBuffer",
+          "ChristopherWolfram`ForeignFunctionInterface`RawPointer",
           "ChristopherWolfram`ForeignFunctionInterface`StringToBuffer",
           "ChristopherWolfram`ForeignFunctionInterface`UnloadExternalLibrary"
         }

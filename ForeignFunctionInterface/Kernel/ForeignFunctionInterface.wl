@@ -1,6 +1,7 @@
 BeginPackage["ChristopherWolfram`ForeignFunctionInterface`"]
 
 OpaqueRawPointer
+RawPointer
 
 ExternalLibrary
 LoadExternalLibrary
@@ -35,9 +36,11 @@ Begin["`Private`"]
 
 Needs["ChristopherWolfram`ForeignFunctionInterface`ManagedExpression`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`OpaqueRawPointer`"]
+Needs["ChristopherWolfram`ForeignFunctionInterface`RawPointer`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`Buffer`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`ForeignFunction`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`ExternalLibrary`"]
+Needs["ChristopherWolfram`ForeignFunctionInterface`BaseTypeConversion`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`Messages`"]
 
