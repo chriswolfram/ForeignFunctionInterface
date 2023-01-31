@@ -3,6 +3,7 @@ BeginPackage["ChristopherWolfram`ForeignFunctionInterface`"]
 OpaqueRawPointer
 RawPointer
 
+ForeignFunctionLoad
 ForeignFunction
 
 CreateCallback
