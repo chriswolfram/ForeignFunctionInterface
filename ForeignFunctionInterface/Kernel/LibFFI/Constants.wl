@@ -9,22 +9,6 @@ Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`"]
 
 
 (***************************************************)
-(**************** dlfcn.h constants ****************)
-(***************************************************)
-
-DeclareCompiledComponent["ForeignFunctionInterface", {
-
-	LibraryFunctionDeclaration["get_RTLD_DEFAULT", $LibFFIPaths,
-		{} -> "ExternalLibraryHandle"],
-
-	LibraryFunctionDeclaration["get_RTLD_LAZY", $LibFFIPaths,
-		{} -> "CInt"]
-
-}];
-
-
-
-(***************************************************)
 (***************** libffi constants ****************)
 (***************************************************)
 

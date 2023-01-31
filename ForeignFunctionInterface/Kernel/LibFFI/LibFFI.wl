@@ -16,8 +16,6 @@ CToExpression
 CreateForeignFunction
 CallForeignFunction
 
-GetDefaultExternalLibrary
-
 
 $LibFFIPaths = {"libffi", "ffiConstants"};
 
@@ -29,7 +27,6 @@ Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`ExpressionConversion`"
 Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`BaseTypes`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`Constants`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`FFIType`"]
-Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`RawFunctionLoading`"]
 
 
 DeclareCompiledComponent["ForeignFunctionInterface", "ExternalLibraries" -> $LibFFIPaths];

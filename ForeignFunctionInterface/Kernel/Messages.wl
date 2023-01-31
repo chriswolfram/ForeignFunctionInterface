@@ -3,7 +3,7 @@ BeginPackage["ChristopherWolfram`ForeignFunctionInterface`Messages`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`"]
 
 
-LoadExternalLibrary::cannotopen = "Failed to open external library with message: \"`1`\"";
+ForeignFunction::invlib = "Library `1` not found.";
 
 OpaqueRawPointer::invaddress = "Expected an integer representing an address in memory, but found `1` instead in OpaqueRawPointer.";
 
