@@ -2,18 +2,6 @@
 // The #define above adds support for RTLD_DEFAULT
 
 #include <ffi.h>
-#include <dlfcn.h>
-
-
-// dlfcn.h constants
-
-void* get_RTLD_DEFAULT() {
-	return RTLD_DEFAULT;
-}
-
-int get_RTLD_LAZY() {
-	return RTLD_LAZY;
-}
 
 
 // libffi constants
