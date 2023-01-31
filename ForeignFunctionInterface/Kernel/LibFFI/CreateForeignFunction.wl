@@ -9,10 +9,9 @@ Begin["`Private`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`OpaqueRawPointer`"]
-Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`RawFunctionLoading`"]
 
 
-(* TEMPORARY DECLARATIONS *)
+(* TODO: TEMPORARY DECLARATIONS *)
 (*
 	These declarations should probably be added to the C types that are included with the compiler by default
 *)
@@ -22,6 +21,46 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 	TypeDeclaration["Macro", "CSignedChar", "Integer8"]
 
 }];
+
+
+(*********************************************************************************)
+(**************************** getFunctionPointer *********************************)
+(*********************************************************************************)
+
+
+DeclareCompiledComponent["ForeignFunctionInterface", {
+
+	(* GetDLLFunctionPointer is defined in codeDLLTools.mc and used in the RTL *)
+
+	LibraryFunctionDeclaration["GetDLLFunctionPointer",
+		{"CString", "CString"} -> "OpaqueRawPointer"],
+
+
+	(*
+		getFunctionPointer[libPath, funcName]
+			uses the kernel to get a function pointer from a library.
+
+			Both inputs must be UTF8 encoded.
+
+			libPath must be a full path (as returned by FindLibrary).
+	*)
+
+	FunctionDeclaration[getFunctionPointer,
+		Typed[{"String", "String"} -> "OpaqueRawPointer"]@
+		Function[{libPath, funcName},
+			LibraryFunction["GetDLLFunctionPointer"][
+				Cast[funcName, "Managed"::["CString"]],
+				Cast[libPath, "Managed"::["CString"]]
+			]
+		]
+	]
+
+}];
+
+
+(*********************************************************************************)
+(*************************** ForeignFunctionObjects ******************************)
+(*********************************************************************************)
 
 
 DeclareCompiledComponent["ForeignFunctionInterface", {
@@ -122,8 +161,8 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 
 	FunctionDeclaration[CreateForeignFunction,
-		Typed[{"ExternalLibrary", "String", "InertExpression"} -> "ForeignFunctionObject"]@
-		Function[{lib, funName, funcType},
+		Typed[{"String", "String", "InertExpression"} -> "ForeignFunctionObject"]@
+		Function[{libPath, funName, funcType},
 			Module[{cif, argValuesArray, outputValue, fun},
 
 				cif = CreateFFICallInterface[funcType];
@@ -143,7 +182,8 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 						"OpaqueRawPointer", "BitCast"
 					];
 
-				fun = LibraryFunction["dlsym"][GetExternalLibraryHandle[lib], Cast[funName, "Managed"::["CString"]]];
+				(* TODO: Should return library error *)
+				fun = getFunctionPointer[libPath, funName];
 				If[fun === Cast[0, "OpaqueRawPointer", "BitCast"],
 					Native`ThrowWolframExceptionCode["System"]
 				];

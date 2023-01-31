@@ -3,7 +3,6 @@ BeginPackage["ChristopherWolfram`ForeignFunctionInterface`ForeignFunction`"]
 Begin["`Private`"]
 
 Needs["ChristopherWolfram`ForeignFunctionInterface`"]
-Needs["ChristopherWolfram`ForeignFunctionInterface`ExternalLibrary`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`LibFFI`"]
 Needs["ChristopherWolfram`ForeignFunctionInterface`BaseTypeConversion`"]
 
@@ -16,21 +15,33 @@ Needs["ChristopherWolfram`ForeignFunctionInterface`BaseTypeConversion`"]
 
 (* Constructors *)
 
-ForeignFunction[lib_ExternalLibrary, name_String, typeI_] :=
+ForeignFunction[lib_, name_String, typeI_] :=
 	With[{type = canonicalizeType[typeI]},
 		If[FailureQ[type],
 			type,
-			With[{ff = CreateForeignFunction[lib, name, functionBaseType[type]]},
-				If[!MatchQ[ff, _DataStructure],
-					ff,
-					ForeignFunction[name, type, ff]
+			With[{libPath = FindLibrary[lib]},
+				If[!StringQ[libPath],
+					Failure["InvalidLibrary", <|
+						"MessageTemplate" :> ForeignFunction::invlib,
+						"MessageParameters" -> {lib},
+						"LibrarySpecification" -> lib,
+						"FindLibraryResult" :> libPath
+					|>],
+					With[{ff =
+							CreateForeignFunction[
+								ToString[libPath, CharacterEncoding->"UTF8"],
+								ToString[name, CharacterEncoding->"UTF8"],
+								functionBaseType[type]
+							]},
+						If[!MatchQ[ff, _DataStructure],
+							ff,
+							ForeignFunction[name, type, ff]
+						]
+					]
 				]
 			]
 		]
 	]
-
-ForeignFunction[name_String, type_] :=
-	ForeignFunction[$DefaultExternalLibrary, name, type]
 
 
 
