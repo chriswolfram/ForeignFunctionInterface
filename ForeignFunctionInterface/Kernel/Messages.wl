@@ -11,5 +11,9 @@ RawPointer::invaddress = "Expected an integer representing an address in memory,
 
 ForeignFunction::invtype = "Expected a function type, but found `1` instead in ForeignFunction.";
 
+ManagedExpression::inv = "Expected an expression to manage and a freeing function in ManagedExpression, but found `1` instead.";
+
+GetManagedExpression::invManagedExpr = "Expected a ManagedExpression, but found `1` instead."
+
 
 EndPackage[]

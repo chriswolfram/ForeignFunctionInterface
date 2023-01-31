@@ -39,13 +39,16 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 }];
 
 
-(* Constructor *)
+(* Constructors *)
 
-HoldPattern[OpaqueRawPointer][RawPointer[addr_Integer, type_]] :=
+HoldPattern[OpaqueRawPointer][HoldPattern[RawPointer][addr_Integer, type_]] :=
 	OpaqueRawPointer[addr]
 
+HoldPattern[OpaqueRawPointer][ptr_OpaqueRawPointer] :=
+	ptr
 
-(* Validator *)
+
+(* Validators *)
 
 HoldPattern[OpaqueRawPointer][expr:Except[_Integer]] :=
 	(
@@ -56,6 +59,9 @@ HoldPattern[OpaqueRawPointer][expr:Except[_Integer]] :=
 			"Address" -> expr
 		|>]
 	)
+
+HoldPattern[OpaqueRawPointer][addr_, args__] :=
+	ArgumentsOptions[OpaqueRawPointer[addr, args], 1]
 
 
 (* Summary box *)

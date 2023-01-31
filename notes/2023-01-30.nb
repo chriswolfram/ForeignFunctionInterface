@@ -1,0 +1,3841 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[    167270,       3833]
+NotebookOptionsPosition[    153848,       3607]
+NotebookOutlinePosition[    154255,       3623]
+CellTagsIndexPosition[    154212,       3620]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Init", "Section",
+ CellChangeTimes->{{3.884088480011435*^9, 
+  3.884088480947577*^9}},ExpressionUUID->"d869e16b-e70b-4481-95c1-\
+7f1e6f3c6de3"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"PacletDirectoryLoad", "[", 
+   RowBox[{"ParentDirectory", "[", 
+    RowBox[{"NotebookDirectory", "[", "]"}], "]"}], "]"}], ";"}]], "Input",
+ CellChangeTimes->{{3.8722657359036007`*^9, 3.872265749775318*^9}},
+ CellLabel->"In[2]:=",ExpressionUUID->"6d6634be-e79c-4977-ab1a-5c6afd0f5e2d"],
+
+Cell[BoxData[
+ RowBox[{"Needs", "[", "\"\<ChristopherWolfram`ForeignFunctionInterface`\>\"",
+   "]"}]], "Input",
+ CellChangeTimes->{{3.875231050673148*^9, 3.875231056107067*^9}, {
+  3.879044690576518*^9, 3.879044692718449*^9}},
+ CellLabel->"In[3]:=",ExpressionUUID->"279434a0-1d64-4063-b7a3-1aeaa4a71417"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Since last time...", "Section",
+ CellChangeTimes->{{3.88408847016313*^9, 
+  3.884088471842955*^9}},ExpressionUUID->"ad9e4c55-866f-483c-8d07-\
+d11e72b06a00"],
+
+Cell[CellGroupData[{
+
+Cell["Library loading mechanisms", "Item",
+ CellChangeTimes->{{3.884093399048087*^9, 
+  3.884093405666522*^9}},ExpressionUUID->"74a6377a-74ac-43e4-82f7-\
+60ee8c53bbf8"],
+
+Cell[CellGroupData[{
+
+Cell["LibraryLink", "Subitem",
+ CellChangeTimes->{{3.884093399048087*^9, 
+  3.8840934198633213`*^9}},ExpressionUUID->"87448d5b-05ab-4dc8-9eeb-\
+029581acf08b"],
+
+Cell["LibraryLoad", "Subsubitem",
+ CellChangeTimes->{{3.884093399048087*^9, 
+  3.884093422589818*^9}},ExpressionUUID->"559828e2-bb0d-414f-b0e8-\
+ff5b7837d6f4"],
+
+Cell["LibraryFunctionLoad", "Subsubitem",
+ CellChangeTimes->{{3.884093399048087*^9, 
+  3.884093425426463*^9}},ExpressionUUID->"72cb4d8a-c19f-48d4-b323-\
+3078cd4fd5f0"],
+
+Cell["LibraryFunction", "Subsubitem",
+ CellChangeTimes->{{3.884093399048087*^9, 
+  3.884093427354*^9}},ExpressionUUID->"951ae47a-b996-4f38-907d-8c4ec92b3314"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["ForeignFunction", "Subitem",
+ CellChangeTimes->{{3.884093399048087*^9, 
+  3.884093429300968*^9}},ExpressionUUID->"431c2abb-939b-47d7-bd97-\
+0588c898d972"],
+
+Cell["LoadExternalLibrary -> ForeignLibraryLoad -> LibraryLoad", "Subsubitem",
+ CellChangeTimes->{{3.884093399048087*^9, 3.8840934346135607`*^9}, {
+  3.884094302794614*^9, 
+  3.884094306930523*^9}},ExpressionUUID->"c4267a72-2d83-41c1-bb1d-\
+78fc345f2ec7"],
+
+Cell["ForeignFunction", "Subsubitem",
+ CellChangeTimes->{{3.884093399048087*^9, 
+  3.8840934373705*^9}},ExpressionUUID->"e8e8b582-a892-4b0d-9b9e-5509214dd914"],
+
+Cell["ForeignFunction", "Subsubitem",
+ CellChangeTimes->{{3.884093399048087*^9, 
+  3.884093439706583*^9}},ExpressionUUID->"d82fcf46-4017-452e-aaea-\
+5ce5d006c821"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Compiler", "Subitem",
+ CellChangeTimes->{{3.884093399048087*^9, 
+  3.884093441169197*^9}},ExpressionUUID->"112572d8-75c9-4491-896e-\
+2dd30289cf09"],
+
+Cell["LibraryFunctionDeclaration -> ForeignFunctionDeclaration", "Subsubitem",
+ CellChangeTimes->{{3.884093399048087*^9, 3.8840934510469*^9}, {
+  3.8840938488980503`*^9, 
+  3.884093854506024*^9}},ExpressionUUID->"7e81145e-d5d5-4dff-ae35-\
+edb7055fe2cf"],
+
+Cell[CellGroupData[{
+
+Cell["LibraryFunction -> ForeignFunction", "Subsubitem",
+ CellChangeTimes->{{3.884093399048087*^9, 3.884093462507526*^9}, {
+  3.884093865906599*^9, 
+  3.884093870129572*^9}},ExpressionUUID->"48ef8855-56a0-4b6a-aa0a-\
+3560550eab87"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "LibraryFunctionLoad"}]], "Input",
+ CellChangeTimes->{{3.8840940394257517`*^9, 3.884094039584866*^9}, 
+   3.8840943329329348`*^9},
+ CellLabel->"In[19]:=",ExpressionUUID->"6625a3a6-12c0-437f-b35a-273cc61001bf"],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[
+   FrameBox[
+    DynamicModuleBox[{System`InformationDump`open$$ = False, 
+     System`InformationDump`mouseOver$$ = False}, 
+     PaneSelectorBox[{True->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False,
+             BaseStyle -> None],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox[
+           PaneBox[
+            TooltipBox[
+             ButtonBox[
+              PaneSelectorBox[{False->
+               
+               DynamicBox[FEPrivate`FrontEndResource[
+                "FEBitmaps", "InformationHelpIcon"]], True->
+               
+               DynamicBox[FEPrivate`FrontEndResource[
+                "FEBitmaps", "InformationHelpIconHot"]]}, Dynamic[
+                CurrentValue["MouseOver"]]],
+              Appearance->None,
+              BaseStyle->"Link",
+              ButtonData->"paclet:ref/LibraryFunctionLoad",
+              ButtonNote->"paclet:ref/LibraryFunctionLoad"],
+             "\"paclet:ref/LibraryFunctionLoad\""],
+            FrameMargins->{{0, 4}, {0, 2}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"\\!\\(\\*RowBox[{\\\"LibraryFunctionLoad\\\", \\\"[\
+\\\", RowBox[{StyleBox[\\\"lib\\\", \\\"TI\\\"], \\\",\\\", \
+StyleBox[\\\"fun\\\", \\\"TI\\\"], \\\",\\\", StyleBox[\\\"argtype\\\", \
+\\\"TI\\\"], \\\",\\\", StyleBox[\\\"rettype\\\", \\\"TI\\\"]}], \
+\\\"]\\\"}]\\) loads Wolfram Library \\!\\(\\*StyleBox[\\\"lib\\\", \
+\\\"TI\\\"]\\) and makes the library function \\!\\(\\*StyleBox[\\\"fun\\\", \
+\\\"TI\\\"]\\) available in \\!\\(\\*StyleBox[\\\"the Wolfram Language\\\", \
+\\\"RebrandingTerm\\\"]\\).\"\>", "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          PaneBox[GridBox[{
+             {
+              
+              DynamicModuleBox[{System`InformationDump`open$$ = {
+               False, False, False, False, False, False}}, 
+               StyleBox[GridBox[{
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Documentation\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"Documentation\"",
+                    TooltipStyle->"TextStyling"],
+                    Annotation[#, "Documentation", "Tooltip"]& ], 
+                   TemplateBox[{
+                    
+                    TemplateBox[{
+                    "\"Local \[RightGuillemet]\"", 
+                    "paclet:ref/LibraryFunctionLoad", 
+                    "paclet:ref/LibraryFunctionLoad", "Link", {
+                    RGBColor[0.9686274509803922, 0.4666666666666667, 0.]}, 
+                    BaseStyle -> {
+                    RGBColor[0.0784313725490196, 0.1568627450980392, 0.6]}}, 
+                    "HyperlinkTemplate"], "\"  \"", 
+                    StyleBox[
+                    "\"|\"", "InformationRowLabel", StripOnInput -> False], 
+                    "\"  \"", 
+                    TemplateBox[{"\"Web \[RightGuillemet]\"", {
+                    URL[
+                    "http://reference.wolfram.com/language/ref/\
+LibraryFunctionLoad.html"], None}, 
+                    "http://reference.wolfram.com/language/ref/\
+LibraryFunctionLoad.html", "Hyperlink", {
+                    RGBColor[0.9686274509803922, 0.4666666666666667, 0.]}, 
+                    BaseStyle -> {
+                    RGBColor[0.0784313725490196, 0.1568627450980392, 0.6]}}, 
+                    "HyperlinkTemplate"]},
+                    "RowDefault"]},
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Options\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"Options\"",
+                    TooltipStyle->"TextStyling"],
+                    Annotation[#, "Options", "Tooltip"]& ], 
+                   
+                   RowBox[{"\<\"AutomaticDelete\"\>", "\[Rule]", 
+                    "Automatic"}]},
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Attributes\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"Attributes\"",
+                    TooltipStyle->"TextStyling"],
+                    Annotation[#, "Attributes", "Tooltip"]& ], 
+                   RowBox[{"{", "Protected", "}"}]},
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Full Name\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"FullName\"",
+                    TooltipStyle->"TextStyling"],
+                    
+                    Annotation[#, "FullName", 
+                    "Tooltip"]& ], "\<\"System`LibraryFunctionLoad\"\>"}
+                 },
+                 AutoDelete->False,
+                 GridBoxAlignment->{"Columns" -> {Right, Left}},
+                 GridBoxDividers->None,
+                 GridBoxItemSize->{"Columns" -> {Automatic, Automatic}},
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.27999999999999997`], {
+                    Offset[0.5599999999999999]}, 
+                    Offset[0.27999999999999997`]}, "Rows" -> {
+                    Offset[0.2], {
+                    Offset[0.8]}, 
+                    Offset[0.2]}}], "DialogStyle",
+                StripOnInput->False],
+               DynamicModuleValues:>{}]}
+            },
+            DefaultBaseStyle->"Column",
+            GridBoxAlignment->{"Columns" -> {{Left}}},
+            GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+            
+            GridBoxItemSize->{
+             "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.5599999999999999]}, 
+                Offset[0.27999999999999997`]}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[3.6]}, 
+                Offset[0.2]}}],
+           FrameMargins->{{6, 6}, {6, 3}}], ""},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpener"]], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpenerHot"]]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, False],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"], False->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox[
+           PaneBox[
+            TooltipBox[
+             ButtonBox[
+              PaneSelectorBox[{False->
+               
+               DynamicBox[FEPrivate`FrontEndResource[
+                "FEBitmaps", "InformationHelpIcon"],
+                ImageSizeCache->{13., {4., 9.}}], True->
+               
+               DynamicBox[FEPrivate`FrontEndResource[
+                "FEBitmaps", "InformationHelpIconHot"],
+                ImageSizeCache->{13., {4., 9.}}]}, Dynamic[
+                CurrentValue["MouseOver"]]],
+              Appearance->None,
+              BaseStyle->"Link",
+              ButtonData->"paclet:ref/LibraryFunctionLoad",
+              ButtonNote->"paclet:ref/LibraryFunctionLoad"],
+             "\"paclet:ref/LibraryFunctionLoad\""],
+            FrameMargins->{{0, 4}, {0, 2}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"\\!\\(\\*RowBox[{\\\"LibraryFunctionLoad\\\", \\\"[\
+\\\", RowBox[{StyleBox[\\\"lib\\\", \\\"TI\\\"], \\\",\\\", \
+StyleBox[\\\"fun\\\", \\\"TI\\\"], \\\",\\\", StyleBox[\\\"argtype\\\", \
+\\\"TI\\\"], \\\",\\\", StyleBox[\\\"rettype\\\", \\\"TI\\\"]}], \
+\\\"]\\\"}]\\) loads Wolfram Library \\!\\(\\*StyleBox[\\\"lib\\\", \
+\\\"TI\\\"]\\) and makes the library function \\!\\(\\*StyleBox[\\\"fun\\\", \
+\\\"TI\\\"]\\) available in \\!\\(\\*StyleBox[\\\"the Wolfram Language\\\", \
+\\\"RebrandingTerm\\\"]\\).\"\>", "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpener"],
+               ImageSizeCache->{10., {3., 7.}}], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpenerHot"],
+               ImageSizeCache->{10., {3., 7.}}]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, True],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"]}, Dynamic[System`InformationDump`open$$],
+      BaselinePosition->Baseline,
+      FrameMargins->0,
+      ImageSize->Automatic],
+     DynamicModuleValues:>{}],
+    BaseStyle->"InformationGridFrame",
+    StripOnInput->False], "InformationGridPlain",
+   StripOnInput->False],
+  InformationData[<|
+   "ObjectType" -> "Symbol", "Usage" -> 
+    "\!\(\*RowBox[{\"LibraryFunctionLoad\", \"[\", RowBox[{StyleBox[\"lib\", \
+\"TI\"], \",\", StyleBox[\"fun\", \"TI\"], \",\", StyleBox[\"argtype\", \
+\"TI\"], \",\", StyleBox[\"rettype\", \"TI\"]}], \"]\"}]\) loads Wolfram \
+Library \!\(\*StyleBox[\"lib\", \"TI\"]\) and makes the library function \!\(\
+\*StyleBox[\"fun\", \"TI\"]\) available in \!\(\*StyleBox[\"the Wolfram \
+Language\", \"RebrandingTerm\"]\).", 
+    "Documentation" -> <|
+     "Local" -> "paclet:ref/LibraryFunctionLoad", "Web" -> 
+      "http://reference.wolfram.com/language/ref/LibraryFunctionLoad.html"|>, 
+    "OwnValues" -> None, "UpValues" -> None, "DownValues" -> None, 
+    "SubValues" -> None, "DefaultValues" -> None, "NValues" -> None, 
+    "FormatValues" -> None, "Options" -> {"AutomaticDelete" -> Automatic}, 
+    "Attributes" -> {Protected}, "FullName" -> "System`LibraryFunctionLoad"|>,
+    False]]], "Output",
+ CellChangeTimes->{3.884094039832549*^9, 3.884094333231024*^9},
+ CellLabel->"Out[19]=",ExpressionUUID->"519af1e0-228a-40b6-b45a-656a6465c050"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "LibraryFunction"}]], "Input",
+ CellChangeTimes->{{3.884094314204158*^9, 3.884094316164583*^9}},
+ CellLabel->"In[18]:=",ExpressionUUID->"63e75f66-253d-4aaa-8752-8f0715f19c8b"],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[
+   FrameBox[
+    DynamicModuleBox[{System`InformationDump`open$$ = False, 
+     System`InformationDump`mouseOver$$ = False}, 
+     PaneSelectorBox[{True->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False,
+             BaseStyle -> None],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox[
+           PaneBox[
+            TooltipBox[
+             ButtonBox[
+              PaneSelectorBox[{False->
+               
+               DynamicBox[FEPrivate`FrontEndResource[
+                "FEBitmaps", "InformationHelpIcon"]], True->
+               
+               DynamicBox[FEPrivate`FrontEndResource[
+                "FEBitmaps", "InformationHelpIconHot"]]}, Dynamic[
+                CurrentValue["MouseOver"]]],
+              Appearance->None,
+              BaseStyle->"Link",
+              ButtonData->"paclet:ref/LibraryFunction",
+              ButtonNote->"paclet:ref/LibraryFunction"],
+             "\"paclet:ref/LibraryFunction\""],
+            FrameMargins->{{0, 4}, {0, 2}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"\\!\\(\\*RowBox[{\\\"LibraryFunction\\\", \
+\\\"[\\\", StyleBox[\\\"args\\\", \\\"TI\\\"], \\\"]\\\"}]\\) represents a \
+function that has been loaded from a Wolfram Library.\"\>", 
+             "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          PaneBox[GridBox[{
+             {
+              
+              DynamicModuleBox[{System`InformationDump`open$$ = {
+               False, False, False, False, False, False}}, 
+               StyleBox[GridBox[{
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Documentation\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"Documentation\"",
+                    TooltipStyle->"TextStyling"],
+                    Annotation[#, "Documentation", "Tooltip"]& ], 
+                   TemplateBox[{
+                    
+                    TemplateBox[{
+                    "\"Local \[RightGuillemet]\"", 
+                    "paclet:ref/LibraryFunction", 
+                    "paclet:ref/LibraryFunction", "Link", {
+                    RGBColor[0.9686274509803922, 0.4666666666666667, 0.]}, 
+                    BaseStyle -> {
+                    RGBColor[0.0784313725490196, 0.1568627450980392, 0.6]}}, 
+                    "HyperlinkTemplate"], "\"  \"", 
+                    StyleBox[
+                    "\"|\"", "InformationRowLabel", StripOnInput -> False], 
+                    "\"  \"", 
+                    TemplateBox[{"\"Web \[RightGuillemet]\"", {
+                    URL[
+                    "http://reference.wolfram.com/language/ref/\
+LibraryFunction.html"], None}, 
+                    "http://reference.wolfram.com/language/ref/\
+LibraryFunction.html", "Hyperlink", {
+                    RGBColor[0.9686274509803922, 0.4666666666666667, 0.]}, 
+                    BaseStyle -> {
+                    RGBColor[0.0784313725490196, 0.1568627450980392, 0.6]}}, 
+                    "HyperlinkTemplate"]},
+                    "RowDefault"]},
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Attributes\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"Attributes\"",
+                    TooltipStyle->"TextStyling"],
+                    Annotation[#, "Attributes", "Tooltip"]& ], 
+                   RowBox[{"{", 
+                    RowBox[{
+                    "NHoldAll", ",", "Protected", ",", "ReadProtected"}], 
+                    "}"}]},
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Full Name\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"FullName\"",
+                    TooltipStyle->"TextStyling"],
+                    
+                    Annotation[#, "FullName", 
+                    "Tooltip"]& ], "\<\"System`LibraryFunction\"\>"}
+                 },
+                 AutoDelete->False,
+                 GridBoxAlignment->{"Columns" -> {Right, Left}},
+                 GridBoxDividers->None,
+                 GridBoxItemSize->{"Columns" -> {Automatic, Automatic}},
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.27999999999999997`], {
+                    Offset[0.5599999999999999]}, 
+                    Offset[0.27999999999999997`]}, "Rows" -> {
+                    Offset[0.2], {
+                    Offset[0.8]}, 
+                    Offset[0.2]}}], "DialogStyle",
+                StripOnInput->False],
+               DynamicModuleValues:>{}]}
+            },
+            DefaultBaseStyle->"Column",
+            GridBoxAlignment->{"Columns" -> {{Left}}},
+            GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+            
+            GridBoxItemSize->{
+             "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.5599999999999999]}, 
+                Offset[0.27999999999999997`]}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[3.6]}, 
+                Offset[0.2]}}],
+           FrameMargins->{{6, 6}, {6, 3}}], ""},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpener"]], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpenerHot"]]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, False],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"], False->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox[
+           PaneBox[
+            TooltipBox[
+             ButtonBox[
+              PaneSelectorBox[{False->
+               
+               DynamicBox[FEPrivate`FrontEndResource[
+                "FEBitmaps", "InformationHelpIcon"],
+                ImageSizeCache->{13., {4., 9.}}], True->
+               
+               DynamicBox[FEPrivate`FrontEndResource[
+                "FEBitmaps", "InformationHelpIconHot"],
+                ImageSizeCache->{13., {4., 9.}}]}, Dynamic[
+                CurrentValue["MouseOver"]]],
+              Appearance->None,
+              BaseStyle->"Link",
+              ButtonData->"paclet:ref/LibraryFunction",
+              ButtonNote->"paclet:ref/LibraryFunction"],
+             "\"paclet:ref/LibraryFunction\""],
+            FrameMargins->{{0, 4}, {0, 2}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"\\!\\(\\*RowBox[{\\\"LibraryFunction\\\", \
+\\\"[\\\", StyleBox[\\\"args\\\", \\\"TI\\\"], \\\"]\\\"}]\\) represents a \
+function that has been loaded from a Wolfram Library.\"\>", 
+             "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpener"],
+               ImageSizeCache->{10., {3., 7.}}], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpenerHot"],
+               ImageSizeCache->{10., {3., 7.}}]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, True],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"]}, Dynamic[System`InformationDump`open$$],
+      BaselinePosition->Baseline,
+      FrameMargins->0,
+      ImageSize->Automatic],
+     DynamicModuleValues:>{}],
+    BaseStyle->"InformationGridFrame",
+    StripOnInput->False], "InformationGridPlain",
+   StripOnInput->False],
+  InformationData[<|
+   "ObjectType" -> "Symbol", "Usage" -> 
+    "\!\(\*RowBox[{\"LibraryFunction\", \"[\", StyleBox[\"args\", \"TI\"], \
+\"]\"}]\) represents a function that has been loaded from a Wolfram Library.",
+     "Documentation" -> <|
+     "Local" -> "paclet:ref/LibraryFunction", "Web" -> 
+      "http://reference.wolfram.com/language/ref/LibraryFunction.html"|>, 
+    "OwnValues" -> None, "UpValues" -> None, "DownValues" -> None, 
+    "SubValues" -> None, "DefaultValues" -> None, "NValues" -> None, 
+    "FormatValues" -> None, "Options" -> None, 
+    "Attributes" -> {NHoldAll, Protected, ReadProtected}, "FullName" -> 
+    "System`LibraryFunction"|>, False]]], "Output",
+ CellChangeTimes->{3.884094316333712*^9},
+ CellLabel->"Out[18]=",ExpressionUUID->"98dabc12-186f-4640-8733-03eca79ca016"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"ExternalFunction", "[", 
+  RowBox[{"\"\<ForeignLibrary\>\"", ",", "\"\<cos\>\"", ",", 
+   RowBox[{
+    RowBox[{"{", "\"\<CDouble\>\"", "}"}], "->", "\"\<CDouble\>\""}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.884093982095642*^9, 
+  3.884094007479507*^9}},ExpressionUUID->"9feecf40-520c-4ce6-bc37-\
+8231814cbefb"],
+
+Cell[BoxData[
+ RowBox[{"ExternalFunction", "[", 
+  RowBox[{"demoLib", ",", "\"\<cos\>\"", ",", 
+   RowBox[{
+    RowBox[{"{", "\"\<CDouble\>\"", "}"}], "->", "\"\<CDouble\>\""}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.8840940359053288`*^9, 
+  3.8840940368711843`*^9}},ExpressionUUID->"202e7ab8-481d-43f0-855d-\
+191a09f210d1"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell["Change to ForeignLibraryLoad", "Item",
+ CellChangeTimes->{{3.884094150299795*^9, 3.884094160501079*^9}, {
+  3.884094844371579*^9, 
+  3.884094844372136*^9}},ExpressionUUID->"37625752-5bc9-4028-bba5-\
+c731a386a94b"],
+
+Cell["ForeignFunction should serialize", "Item",
+ CellChangeTimes->{{3.884094150299795*^9, 3.884094160501079*^9}, {
+   3.8840948445665493`*^9, 3.88409484792618*^9}, {3.884094992842523*^9, 
+   3.8840949928430643`*^9}, 
+   3.884107919378888*^9},ExpressionUUID->"763f9314-05c2-4d45-8296-\
+60c07762b806"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+ForeignFunctionLoad (checks arguments unlike ForeignFunction)\
+\>", "Item",
+ CellChangeTimes->{{3.884094150299795*^9, 3.884094160501079*^9}, {
+  3.8840948445665493`*^9, 3.88409484792618*^9}, {3.884094993502139*^9, 
+  3.884095014860573*^9}, {3.884095248930691*^9, 
+  3.884095260704949*^9}},ExpressionUUID->"b3a369d8-c9b9-4d96-9e1e-\
+713a6df84da1"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ForeignFunction", "[", 
+  RowBox[{"\"\<LoadFunctionFromDLL\>\"", ",", 
+   RowBox[{
+    RowBox[{"{", "}"}], "->", "\"\<OpaqueRawPointer\>\""}]}], "]"}]], "Input",\
+
+ CellChangeTimes->{{3.884108991707491*^9, 3.884109000587191*^9}},
+ CellLabel->"In[17]:=",ExpressionUUID->"96f8c35d-5d58-45e5-98f0-299085997ec6"],
+
+Cell[BoxData["$Failed"], "Output",
+ CellChangeTimes->{3.8841090008082542`*^9, 3.884109241847043*^9},
+ CellLabel->"Out[17]=",ExpressionUUID->"cc0eee78-f129-4ddb-ab04-b8a967c2ddd6"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"getFuncPtr", "=", 
+  RowBox[{"ForeignFunction", "[", 
+   RowBox[{"\"\<GetDLLFunctionPointer\>\"", ",", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"\"\<RawPointer\>\"", "::[", "\"\<CChar\>\"", "]"}], ",", 
+       RowBox[{"\"\<RawPointer\>\"", "::[", "\"\<CChar\>\"", "]"}]}], "}"}], 
+     "->", "\"\<OpaqueRawPointer\>\""}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.88410993706196*^9, 3.8841099901915617`*^9}},
+ CellLabel->"In[4]:=",ExpressionUUID->"3f99ef98-65db-47ab-b62a-1de034759469"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["ForeignFunction",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            GridBox[{{
+               TagBox["\"name: \"", "SummaryItem"], 
+               TagBox["\"GetDLLFunctionPointer\"", "SummaryItem"]}, {
+               TagBox["\"type: \"", "SummaryItem"], 
+               TagBox[
+                RowBox[{
+                  RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"TypeSpecifier", "[", "\"RawPointer\"", "]"}], 
+                    "[", "\"CChar\"", "]"}], ",", 
+                    RowBox[{
+                    RowBox[{"TypeSpecifier", "[", "\"RawPointer\"", "]"}], 
+                    "[", "\"CChar\"", "]"}]}], "}"}], "\[Rule]", 
+                  "\"OpaqueRawPointer\""}], "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            GridBox[{{
+               TagBox["\"name: \"", "SummaryItem"], 
+               TagBox["\"GetDLLFunctionPointer\"", "SummaryItem"]}, {
+               TagBox["\"type: \"", "SummaryItem"], 
+               TagBox[
+                RowBox[{
+                  RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"TypeSpecifier", "[", "\"RawPointer\"", "]"}], 
+                    "[", "\"CChar\"", "]"}], ",", 
+                    RowBox[{
+                    RowBox[{"TypeSpecifier", "[", "\"RawPointer\"", "]"}], 
+                    "[", "\"CChar\"", "]"}]}], "}"}], "\[Rule]", 
+                  "\"OpaqueRawPointer\""}], "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  ChristopherWolfram`ForeignFunctionInterface`ForeignFunction[
+  "GetDLLFunctionPointer", {
+     TypeSpecifier["RawPointer"]["CChar"], 
+     TypeSpecifier["RawPointer"]["CChar"]} -> "OpaqueRawPointer", 
+   DataStructure["ForeignFunctionObject", $Failed]],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{
+  3.8841099376655684`*^9, {3.884109986880003*^9, 3.8841099905180063`*^9}, 
+   3.8841144659442263`*^9},
+ CellLabel->"Out[4]=",ExpressionUUID->"aefabe88-dff4-4300-aa70-6f6021304e3c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"getFuncPtr", "[", 
+  RowBox[{
+   RowBox[{"StringToBuffer", "[", "\"\<demo_I_I\>\"", "]"}], ",", 
+   RowBox[{"StringToBuffer", "[", 
+    RowBox[{"FindLibrary", "@", "\"\<demo\>\""}], "]"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.8841099914408293`*^9, 3.884109996855893*^9}, {
+  3.884110289131201*^9, 3.884110297139303*^9}, {3.884112031644183*^9, 
+  3.884112082381461*^9}, {3.884114423165663*^9, 3.884114428484561*^9}},
+ CellLabel->"In[6]:=",ExpressionUUID->"9b189ef3-e626-48bc-bbc1-0d7a9d264af5"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["OpaqueRawPointer",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            GridBox[{{
+               TagBox["\"address: \"", "SummaryItem"]}, {
+               TagBox["140520247505216", "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            GridBox[{{
+               TagBox["\"address: \"", "SummaryItem"]}, {
+               TagBox["140520247505216", "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  ChristopherWolfram`ForeignFunctionInterface`OpaqueRawPointer[
+  140520247505216],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{{3.884110297586896*^9, 3.8841103073349037`*^9}, {
+  3.8841120332448378`*^9, 3.8841120828022118`*^9}, {3.884114416524723*^9, 
+  3.884114433875474*^9}, {3.884114467830999*^9, 3.884114468788374*^9}},
+ CellLabel->"Out[6]=",ExpressionUUID->"3d9b3c0b-4ea8-4f4c-80ad-43f2d1e9dc30"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"LibraryFunctionLoad", "[", 
+  RowBox[{"\"\<demo\>\"", ",", " ", "\"\<demo_I_I\>\"", ",", 
+   RowBox[{"{", "Integer", "}"}], ",", "Integer"}], "]"}]], "Input",
+ CellLabel->"In[30]:=",ExpressionUUID->"631291ee-5e5d-468d-ad96-c029d26fd946"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["LibraryFunction",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            GraphicsBox[{
+              Thickness[0.038461538461538464`], {
+               FaceForm[{
+                 GrayLevel[0.93], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{1, 4, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}, {
+                1, 3, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}}}, {{{
+                25.499999999999996`, 2.5}, {25.499999999999996`, 
+                1.3953100000000003`}, {24.604699999999998`, 
+                0.49999999999999994`}, {23.5, 0.49999999999999994`}, {2.5, 
+                0.49999999999999994`}, {1.3953100000000003`, 
+                0.49999999999999994`}, {0.49999999999999994`, 
+                1.3953100000000003`}, {0.49999999999999994`, 2.5}, {
+                0.49999999999999994`, 23.5}, {0.49999999999999994`, 
+                24.604699999999998`}, {1.3953100000000003`, 
+                25.499999999999996`}, {2.5, 25.499999999999996`}, {23.5, 
+                25.499999999999996`}, {24.604699999999998`, 
+                25.499999999999996`}, {25.499999999999996`, 
+                24.604699999999998`}, {25.499999999999996`, 23.5}, {
+                25.499999999999996`, 2.5}}}]}, {
+               FaceForm[{
+                 RGBColor[0.5, 0.5, 0.5], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{20.5426, 
+                19.116799999999998`}, {16.3832, 21.876199999999997`}, {
+                16.3832, 20.021499999999996`}, {6.930469999999999, 
+                20.021499999999996`}, {6.930469999999999, 
+                18.212100000000003`}, {16.3832, 18.212100000000003`}, {
+                16.3832, 16.357399999999995`}, {20.5426, 
+                19.116799999999998`}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{5.30508, 13.8391}, {
+                9.46445, 11.079700000000003`}, {9.46445, 
+                12.933999999999997`}, {18.917199999999998`, 
+                12.933999999999997`}, {18.917199999999998`, 14.7438}, {
+                9.46445, 14.7438}, {9.46445, 16.598}, {5.30508, 13.8391}}}], 
+               
+               FilledCurveBox[{{{1, 4, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {
+                0, 1, 0}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 
+                3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}, {1,
+                 3, 3}, {1, 3, 3}, {1, 3, 3}}}, CompressedData["
+1:eJxTTMoPSmVmYGBgBGJjIGYCYq4u+eR3VWoOxhkv5j+Qk3SA8fu/r5rKOVHM
+Yd2vmNyjZ9Qcrt9QXbW9S8RBg59767IidQcPMYPGaHFhB+Nn61SfiGo4xBwp
+T7o2V9Dh0Iolfg6/NBxEHv/x1Xgi4FB1XNNqkqQWnP+axUTQjFkbzn+oO2HB
+j/3aDg/Xn5T6WiDoYLs3aJpiqI7DrHN+bO6tQg4zfUR7vF7pQOyfIQyRd9d1
+WLL0U1kLoyjEPdm6DpoTXfQX7xBzKPjQejLkhDacL5J4+LL2Gm2HtNnSl4Vf
+iELM69J2qPZM3tLnJerQX1oozZugDfHPUxGI/4W1HQ5p3TthoyDi4D7lG1v8
+Mi2HgqL9zoEHhB1inOxe3BRG8MH62zXhfIbN1Z82CGhC/GMg4nCm3mN/7TYN
+iHlCUPdGakDc/1kUEr46GhD/eYnD+d9iBf/kC0vC+TuCrSL+X5Vy2HGR4R5T
+uAbEfxYykPBYp+HQqsCuesZAFhL+rJoQ/2rIQdxTpwkJ7yVycPfD+GDzVqLx
+xbUd5HYt2JfqBdWfpA2Jj9mykPDpgYaXtaxDy7yzq86vg8qvlIHE5ylY/Eo7
+XAt7o787TxfOB5ufqesQ9PbyxxkPZSDhZ6nrMAGU3u7LQtLLEx2HN2253UbX
+ofZ76jis/Pay4oynAsT8QG0HKZMv/gW7FCDyTFpwPsz/MD44/Mw1HFjb1uR9
+TVVwWKy880/7FHWIexrkIfLX1RzOMDZZVjHIOaDkh3vSDuj5AwCF11Vc
+                "]]}}, Background -> GrayLevel[0.93], Axes -> False, 
+             AspectRatio -> 1, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}], Frame -> True, FrameTicks -> None, 
+             FrameStyle -> Directive[
+               Thickness[Tiny], 
+               GrayLevel[0.7]]], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Function name: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["\"demo_I_I\"", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Argument count: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["1", "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            GraphicsBox[{
+              Thickness[0.038461538461538464`], {
+               FaceForm[{
+                 GrayLevel[0.93], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{1, 4, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}, {
+                1, 3, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}}}, {{{
+                25.499999999999996`, 2.5}, {25.499999999999996`, 
+                1.3953100000000003`}, {24.604699999999998`, 
+                0.49999999999999994`}, {23.5, 0.49999999999999994`}, {2.5, 
+                0.49999999999999994`}, {1.3953100000000003`, 
+                0.49999999999999994`}, {0.49999999999999994`, 
+                1.3953100000000003`}, {0.49999999999999994`, 2.5}, {
+                0.49999999999999994`, 23.5}, {0.49999999999999994`, 
+                24.604699999999998`}, {1.3953100000000003`, 
+                25.499999999999996`}, {2.5, 25.499999999999996`}, {23.5, 
+                25.499999999999996`}, {24.604699999999998`, 
+                25.499999999999996`}, {25.499999999999996`, 
+                24.604699999999998`}, {25.499999999999996`, 23.5}, {
+                25.499999999999996`, 2.5}}}]}, {
+               FaceForm[{
+                 RGBColor[0.5, 0.5, 0.5], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{20.5426, 
+                19.116799999999998`}, {16.3832, 21.876199999999997`}, {
+                16.3832, 20.021499999999996`}, {6.930469999999999, 
+                20.021499999999996`}, {6.930469999999999, 
+                18.212100000000003`}, {16.3832, 18.212100000000003`}, {
+                16.3832, 16.357399999999995`}, {20.5426, 
+                19.116799999999998`}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{5.30508, 13.8391}, {
+                9.46445, 11.079700000000003`}, {9.46445, 
+                12.933999999999997`}, {18.917199999999998`, 
+                12.933999999999997`}, {18.917199999999998`, 14.7438}, {
+                9.46445, 14.7438}, {9.46445, 16.598}, {5.30508, 13.8391}}}], 
+               
+               FilledCurveBox[{{{1, 4, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {
+                0, 1, 0}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 
+                3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}, {1,
+                 3, 3}, {1, 3, 3}, {1, 3, 3}}}, CompressedData["
+1:eJxTTMoPSmVmYGBgBGJjIGYCYq4u+eR3VWoOxhkv5j+Qk3SA8fu/r5rKOVHM
+Yd2vmNyjZ9Qcrt9QXbW9S8RBg59767IidQcPMYPGaHFhB+Nn61SfiGo4xBwp
+T7o2V9Dh0Iolfg6/NBxEHv/x1Xgi4FB1XNNqkqQWnP+axUTQjFkbzn+oO2HB
+j/3aDg/Xn5T6WiDoYLs3aJpiqI7DrHN+bO6tQg4zfUR7vF7pQOyfIQyRd9d1
+WLL0U1kLoyjEPdm6DpoTXfQX7xBzKPjQejLkhDacL5J4+LL2Gm2HtNnSl4Vf
+iELM69J2qPZM3tLnJerQX1oozZugDfHPUxGI/4W1HQ5p3TthoyDi4D7lG1v8
+Mi2HgqL9zoEHhB1inOxe3BRG8MH62zXhfIbN1Z82CGhC/GMg4nCm3mN/7TYN
+iHlCUPdGakDc/1kUEr46GhD/eYnD+d9iBf/kC0vC+TuCrSL+X5Vy2HGR4R5T
+uAbEfxYykPBYp+HQqsCuesZAFhL+rJoQ/2rIQdxTpwkJ7yVycPfD+GDzVqLx
+xbUd5HYt2JfqBdWfpA2Jj9mykPDpgYaXtaxDy7yzq86vg8qvlIHE5ylY/Eo7
+XAt7o787TxfOB5ufqesQ9PbyxxkPZSDhZ6nrMAGU3u7LQtLLEx2HN2253UbX
+ofZ76jis/Pay4oynAsT8QG0HKZMv/gW7FCDyTFpwPsz/MD44/Mw1HFjb1uR9
+TVVwWKy880/7FHWIexrkIfLX1RzOMDZZVjHIOaDkh3vSDuj5AwCF11Vc
+                "]]}}, Background -> GrayLevel[0.93], Axes -> False, 
+             AspectRatio -> 1, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}], Frame -> True, FrameTicks -> None, 
+             FrameStyle -> Directive[
+               Thickness[Tiny], 
+               GrayLevel[0.7]]], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Function name: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["\"demo_I_I\"", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Argument count: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["1", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Argument types: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox[
+                  PaneBox[
+                   RowBox[{"{", "Integer", "}"}], 
+                   ImageSize -> {{1, 500}, Automatic}, BaselinePosition -> 
+                   Baseline, ContentPadding -> False, FrameMargins -> 0, 
+                   StripOnInput -> True], "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Return type: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox[
+                  PaneBox[
+                  "Integer", ImageSize -> {{1, 500}, Automatic}, 
+                   BaselinePosition -> Baseline, ContentPadding -> False, 
+                   FrameMargins -> 0, StripOnInput -> True], 
+                  "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Library: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["\"demo.so\"", "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  LibraryFunction[
+  "/usr/local/Wolfram/Mathematica/13.2/SystemFiles/Links/LibraryLink/\
+LibraryResources/Linux-x86-64/demo.so", "demo_I_I", {Integer}, Integer],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.884112064365902*^9},
+ CellLabel->"Out[30]=",ExpressionUUID->"1eebc1f3-aba2-4a39-b345-7a7ada92cbf6"]
+}, Open  ]],
+
+Cell[BoxData["Compile`DLLLoad"], "Input",
+ CellChangeTimes->{{3.884109182618269*^9, 
+  3.884109185033846*^9}},ExpressionUUID->"c483970f-1e70-40f1-a926-\
+45056f784e79"],
+
+Cell[BoxData[
+ RowBox[{"Compile`LoadedLibraries", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.884109219595804*^9, 3.884109240444181*^9}},
+ CellLabel->"In[16]:=",ExpressionUUID->"280ce4cf-d6b7-498a-b263-a6dcfe2fc45f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["ForeignFunction", "Subsection",
+ CellChangeTimes->{{3.884088569734371*^9, 
+  3.884088571702362*^9}},ExpressionUUID->"336f36c1-6464-434d-bb45-\
+60ec757ebc7e"],
+
+Cell["Load libraries with LoadExternalLibrary:", "Text",
+ CellChangeTimes->{{3.884088499915928*^9, 
+  3.884088508060233*^9}},ExpressionUUID->"e51b2182-526e-40c9-9ef5-\
+f61447f245a5"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"demoLib", "=", 
+  RowBox[{
+  "LoadExternalLibrary", "[", "\"\<compilerDemoBase\>\"", "]"}]}]], "Input",
+ CellChangeTimes->{{3.875231667698007*^9, 3.8752316720105877`*^9}, {
+   3.8752324938877277`*^9, 3.875232502335763*^9}, {3.875232594750108*^9, 
+   3.875232597511079*^9}, {3.875232798130351*^9, 3.875232798196138*^9}, {
+   3.878142493595173*^9, 3.878142494666603*^9}, 3.883244799525352*^9},
+ CellLabel->"In[4]:=",ExpressionUUID->"d054f8f8-ad2c-42c1-806d-6e5900a249f4"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["ExternalLibrary",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            GridBox[{{
+               TagBox["\"name: \"", "SummaryItem"]}, {
+               TagBox["\"compilerDemoBase.so\"", "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            GridBox[{{
+               TagBox["\"name: \"", "SummaryItem"]}, {
+               TagBox["\"compilerDemoBase.so\"", "SummaryItem"]}, {
+               TagBox["\"path: \"", "SummaryItem"]}, {
+               TagBox[
+               "\"/usr/local/Wolfram/Mathematica/13.2/SystemFiles/Links/\
+LibraryLink/LibraryResources/Linux-x86-64/compilerDemoBase.so\"", 
+                "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  ChristopherWolfram`ForeignFunctionInterface`ExternalLibrary[
+  "/usr/local/Wolfram/Mathematica/13.2/SystemFiles/Links/LibraryLink/\
+LibraryResources/Linux-x86-64/compilerDemoBase.so", 
+   ChristopherWolfram`ForeignFunctionInterface`OpaqueRawPointer[28583280]],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.884088523731431*^9, 3.88409210264248*^9},
+ CellLabel->"Out[4]=",ExpressionUUID->"84c15295-b525-42e0-9650-4c052181cbaa"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"LoadExternalLibrary", "[", 
+  RowBox[{"NotebookFileName", "[", "]"}], "]"}]], "Input",
+ CellChangeTimes->{3.8840926016598577`*^9},
+ CellLabel->"In[14]:=",ExpressionUUID->"0e8e0b23-46b0-489f-b61e-261d80573435"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["Failure",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[WarningSign]\"", 
+              Directive["Message", 35], StripOnInput -> False], 
+             ContentPadding -> False, FrameStyle -> None, 
+             FrameMargins -> {{0, 0}, {0, 0}}, StripOnInput -> False], 
+            GridBox[{{
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Message: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox[
+                   "\"Failed to open external library with message: \
+\\\"\\!\\(\\*TagBox[\\\"\\\\\\\"/home/christopher/git/\
+ForeignFunctionInterface/notes/2023-01-30.nb: invalid ELF header\\\\\\\"\\\", \
+Function[Short[Slot[1], 5]]]\\)\\\"\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All, Automatic}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Tag: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox["\"ExternalLibraryOpenFailure\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All, Automatic}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[WarningSign]\"", 
+              Directive["Message", 35], StripOnInput -> False], 
+             ContentPadding -> False, FrameStyle -> None, 
+             FrameMargins -> {{0, 0}, {0, 0}}, StripOnInput -> False], 
+            GridBox[{{
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Message: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox[
+                   "\"Failed to open external library with message: \
+\\\"\\!\\(\\*TagBox[\\\"\\\\\\\"/home/christopher/git/\
+ForeignFunctionInterface/notes/2023-01-30.nb: invalid ELF header\\\\\\\"\\\", \
+Function[Short[Slot[1], 5]]]\\)\\\"\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All, Automatic}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Tag: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox["\"ExternalLibraryOpenFailure\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All, Automatic}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"LibraryPath\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox[
+                  "\"/home/christopher/git/ForeignFunctionInterface/notes/\
+2023-01-30.nb\"", HoldForm], "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"ErrorMessage\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox[
+                  "\"/home/christopher/git/ForeignFunctionInterface/notes/\
+2023-01-30.nb: invalid ELF header\"", HoldForm], "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  Failure[
+  "ExternalLibraryOpenFailure", <|
+   "MessageTemplate" :> 
+    MessageName[
+     ChristopherWolfram`ForeignFunctionInterface`LoadExternalLibrary, 
+      "cannotopen"], 
+    "MessageParameters" -> {
+     "/home/christopher/git/ForeignFunctionInterface/notes/2023-01-30.nb: \
+invalid ELF header"}, "LibraryPath" -> 
+    "/home/christopher/git/ForeignFunctionInterface/notes/2023-01-30.nb", 
+    "ErrorMessage" -> 
+    "/home/christopher/git/ForeignFunctionInterface/notes/2023-01-30.nb: \
+invalid ELF header"|>],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.884092601950918*^9},
+ CellLabel->"Out[14]=",ExpressionUUID->"62403130-2397-48fb-9dfe-e4d6dfc2484f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"LibraryLoad", "[", "\"\<compilerDemoBase\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.884092633702857*^9, 3.8840926358412943`*^9}, {
+  3.884092850630595*^9, 
+  3.884092861256977*^9}},ExpressionUUID->"09dbf0ce-9622-4931-9020-\
+b67080bce571"],
+
+Cell[BoxData["\<\"/usr/local/Wolfram/Mathematica/13.2/SystemFiles/Links/\
+LibraryLink/LibraryResources/Linux-x86-64/compilerDemoBase.so\"\>"], "Output",\
+
+ CellChangeTimes->{3.884092636070744*^9},
+ CellLabel->"Out[15]=",ExpressionUUID->"033d9860-0789-40d8-b190-45f5c830ceea"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"LibraryLoad", "[", 
+  RowBox[{"\"\<compilerDemoBase\>\"", ",", "\"\<LibraryObject\>\""}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.8840922379916067`*^9, 
+  3.8840922496066504`*^9}},ExpressionUUID->"939263ca-f1b9-4ca6-ac1f-\
+52c75f15ebfa"],
+
+Cell["Use them in calls to ForeignFunction:", "Text",
+ CellChangeTimes->{{3.8840885100201387`*^9, 
+  3.884088515916257*^9}},ExpressionUUID->"4f809e08-c5a7-4e4c-96c2-\
+c7b134858d8a"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "LibraryFunctionLoad"}]], "Input",
+ CellChangeTimes->{{3.884092152977404*^9, 3.8840921555240803`*^9}},
+ CellLabel->"In[7]:=",ExpressionUUID->"841d3d65-6985-4831-945d-9b11a3691e73"],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[
+   FrameBox[
+    DynamicModuleBox[{System`InformationDump`open$$ = False, 
+     System`InformationDump`mouseOver$$ = False}, 
+     PaneSelectorBox[{True->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False,
+             BaseStyle -> None],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox[
+           PaneBox[
+            TooltipBox[
+             ButtonBox[
+              PaneSelectorBox[{False->
+               
+               DynamicBox[FEPrivate`FrontEndResource[
+                "FEBitmaps", "InformationHelpIcon"],
+                ImageSizeCache->{13., {4., 9.}}], True->
+               
+               DynamicBox[FEPrivate`FrontEndResource[
+                "FEBitmaps", "InformationHelpIconHot"],
+                ImageSizeCache->{13., {4., 9.}}]}, Dynamic[
+                CurrentValue["MouseOver"]]],
+              Appearance->None,
+              BaseStyle->"Link",
+              ButtonData->"paclet:ref/LibraryFunctionLoad",
+              ButtonNote->"paclet:ref/LibraryFunctionLoad"],
+             "\"paclet:ref/LibraryFunctionLoad\""],
+            FrameMargins->{{0, 4}, {0, 2}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"\\!\\(\\*RowBox[{\\\"LibraryFunctionLoad\\\", \\\"[\
+\\\", RowBox[{StyleBox[\\\"lib\\\", \\\"TI\\\"], \\\",\\\", \
+StyleBox[\\\"fun\\\", \\\"TI\\\"], \\\",\\\", StyleBox[\\\"argtype\\\", \
+\\\"TI\\\"], \\\",\\\", StyleBox[\\\"rettype\\\", \\\"TI\\\"]}], \
+\\\"]\\\"}]\\) loads Wolfram Library \\!\\(\\*StyleBox[\\\"lib\\\", \
+\\\"TI\\\"]\\) and makes the library function \\!\\(\\*StyleBox[\\\"fun\\\", \
+\\\"TI\\\"]\\) available in \\!\\(\\*StyleBox[\\\"the Wolfram Language\\\", \
+\\\"RebrandingTerm\\\"]\\).\"\>", "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          PaneBox[GridBox[{
+             {
+              
+              DynamicModuleBox[{System`InformationDump`open$$ = {
+               False, False, False, False, False, False}}, 
+               StyleBox[GridBox[{
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Documentation\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"Documentation\"",
+                    TooltipStyle->"TextStyling"],
+                    Annotation[#, "Documentation", "Tooltip"]& ], 
+                   TemplateBox[{
+                    
+                    TemplateBox[{
+                    "\"Local \[RightGuillemet]\"", 
+                    "paclet:ref/LibraryFunctionLoad", 
+                    "paclet:ref/LibraryFunctionLoad", "Link", {
+                    RGBColor[0.9686274509803922, 0.4666666666666667, 0.]}, 
+                    BaseStyle -> {
+                    RGBColor[0.0784313725490196, 0.1568627450980392, 0.6]}}, 
+                    "HyperlinkTemplate"], "\"  \"", 
+                    StyleBox[
+                    "\"|\"", "InformationRowLabel", StripOnInput -> False], 
+                    "\"  \"", 
+                    TemplateBox[{"\"Web \[RightGuillemet]\"", {
+                    URL[
+                    "http://reference.wolfram.com/language/ref/\
+LibraryFunctionLoad.html"], None}, 
+                    "http://reference.wolfram.com/language/ref/\
+LibraryFunctionLoad.html", "Hyperlink", {
+                    RGBColor[0.9686274509803922, 0.4666666666666667, 0.]}, 
+                    BaseStyle -> {
+                    RGBColor[0.0784313725490196, 0.1568627450980392, 0.6]}}, 
+                    "HyperlinkTemplate"]},
+                    "RowDefault"]},
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Options\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"Options\"",
+                    TooltipStyle->"TextStyling"],
+                    Annotation[#, "Options", "Tooltip"]& ], 
+                   
+                   RowBox[{"\<\"AutomaticDelete\"\>", "\[Rule]", 
+                    "Automatic"}]},
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Attributes\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"Attributes\"",
+                    TooltipStyle->"TextStyling"],
+                    Annotation[#, "Attributes", "Tooltip"]& ], 
+                   RowBox[{"{", "Protected", "}"}]},
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Full Name\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"FullName\"",
+                    TooltipStyle->"TextStyling"],
+                    
+                    Annotation[#, "FullName", 
+                    "Tooltip"]& ], "\<\"System`LibraryFunctionLoad\"\>"}
+                 },
+                 AutoDelete->False,
+                 GridBoxAlignment->{"Columns" -> {Right, Left}},
+                 GridBoxDividers->None,
+                 GridBoxItemSize->{"Columns" -> {Automatic, Automatic}},
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.27999999999999997`], {
+                    Offset[0.5599999999999999]}, 
+                    Offset[0.27999999999999997`]}, "Rows" -> {
+                    Offset[0.2], {
+                    Offset[0.8]}, 
+                    Offset[0.2]}}], "DialogStyle",
+                StripOnInput->False],
+               DynamicModuleValues:>{}]}
+            },
+            DefaultBaseStyle->"Column",
+            GridBoxAlignment->{"Columns" -> {{Left}}},
+            GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+            
+            GridBoxItemSize->{
+             "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.5599999999999999]}, 
+                Offset[0.27999999999999997`]}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[3.6]}, 
+                Offset[0.2]}}],
+           FrameMargins->{{6, 6}, {6, 3}}], ""},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpener"],
+               ImageSizeCache->{10., {3., 7.}}], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpenerHot"],
+               ImageSizeCache->{10., {3., 7.}}]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, False],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"], False->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox[
+           PaneBox[
+            TooltipBox[
+             ButtonBox[
+              PaneSelectorBox[{False->
+               
+               DynamicBox[FEPrivate`FrontEndResource[
+                "FEBitmaps", "InformationHelpIcon"],
+                ImageSizeCache->{13., {4., 9.}}], True->
+               
+               DynamicBox[FEPrivate`FrontEndResource[
+                "FEBitmaps", "InformationHelpIconHot"],
+                ImageSizeCache->{13., {4., 9.}}]}, Dynamic[
+                CurrentValue["MouseOver"]]],
+              Appearance->None,
+              BaseStyle->"Link",
+              ButtonData->"paclet:ref/LibraryFunctionLoad",
+              ButtonNote->"paclet:ref/LibraryFunctionLoad"],
+             "\"paclet:ref/LibraryFunctionLoad\""],
+            FrameMargins->{{0, 4}, {0, 2}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"\\!\\(\\*RowBox[{\\\"LibraryFunctionLoad\\\", \\\"[\
+\\\", RowBox[{StyleBox[\\\"lib\\\", \\\"TI\\\"], \\\",\\\", \
+StyleBox[\\\"fun\\\", \\\"TI\\\"], \\\",\\\", StyleBox[\\\"argtype\\\", \
+\\\"TI\\\"], \\\",\\\", StyleBox[\\\"rettype\\\", \\\"TI\\\"]}], \
+\\\"]\\\"}]\\) loads Wolfram Library \\!\\(\\*StyleBox[\\\"lib\\\", \
+\\\"TI\\\"]\\) and makes the library function \\!\\(\\*StyleBox[\\\"fun\\\", \
+\\\"TI\\\"]\\) available in \\!\\(\\*StyleBox[\\\"the Wolfram Language\\\", \
+\\\"RebrandingTerm\\\"]\\).\"\>", "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpener"],
+               ImageSizeCache->{10., {3., 7.}}], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpenerHot"],
+               ImageSizeCache->{10., {3., 7.}}]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, True],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"]}, Dynamic[System`InformationDump`open$$],
+      BaselinePosition->Baseline,
+      FrameMargins->0,
+      ImageSize->Automatic],
+     DynamicModuleValues:>{}],
+    BaseStyle->"InformationGridFrame",
+    StripOnInput->False], "InformationGridPlain",
+   StripOnInput->False],
+  InformationData[<|
+   "ObjectType" -> "Symbol", "Usage" -> 
+    "\!\(\*RowBox[{\"LibraryFunctionLoad\", \"[\", RowBox[{StyleBox[\"lib\", \
+\"TI\"], \",\", StyleBox[\"fun\", \"TI\"], \",\", StyleBox[\"argtype\", \
+\"TI\"], \",\", StyleBox[\"rettype\", \"TI\"]}], \"]\"}]\) loads Wolfram \
+Library \!\(\*StyleBox[\"lib\", \"TI\"]\) and makes the library function \!\(\
+\*StyleBox[\"fun\", \"TI\"]\) available in \!\(\*StyleBox[\"the Wolfram \
+Language\", \"RebrandingTerm\"]\).", 
+    "Documentation" -> <|
+     "Local" -> "paclet:ref/LibraryFunctionLoad", "Web" -> 
+      "http://reference.wolfram.com/language/ref/LibraryFunctionLoad.html"|>, 
+    "OwnValues" -> None, "UpValues" -> None, "DownValues" -> None, 
+    "SubValues" -> None, "DefaultValues" -> None, "NValues" -> None, 
+    "FormatValues" -> None, "Options" -> {"AutomaticDelete" -> Automatic}, 
+    "Attributes" -> {Protected}, "FullName" -> "System`LibraryFunctionLoad"|>,
+    False]]], "Output",
+ CellChangeTimes->{3.884092155772142*^9},
+ CellLabel->"Out[7]=",ExpressionUUID->"7cc9dc11-73d0-4c00-be59-41545ffd3017"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "LibraryFunction"}]], "Input",
+ CellChangeTimes->{{3.8840932033881893`*^9, 3.8840932119357862`*^9}},
+ CellLabel->"In[16]:=",ExpressionUUID->"9ec5c101-eead-44fe-9826-f33088fa6c50"],
+
+Cell[BoxData[
+ InterpretationBox[
+  StyleBox[
+   FrameBox[
+    DynamicModuleBox[{System`InformationDump`open$$ = False, 
+     System`InformationDump`mouseOver$$ = False}, 
+     PaneSelectorBox[{True->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False,
+             BaseStyle -> None],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox[
+           PaneBox[
+            TooltipBox[
+             ButtonBox[
+              PaneSelectorBox[{False->
+               
+               DynamicBox[FEPrivate`FrontEndResource[
+                "FEBitmaps", "InformationHelpIcon"]], True->
+               
+               DynamicBox[FEPrivate`FrontEndResource[
+                "FEBitmaps", "InformationHelpIconHot"]]}, Dynamic[
+                CurrentValue["MouseOver"]]],
+              Appearance->None,
+              BaseStyle->"Link",
+              ButtonData->"paclet:ref/LibraryFunction",
+              ButtonNote->"paclet:ref/LibraryFunction"],
+             "\"paclet:ref/LibraryFunction\""],
+            FrameMargins->{{0, 4}, {0, 2}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"\\!\\(\\*RowBox[{\\\"LibraryFunction\\\", \
+\\\"[\\\", StyleBox[\\\"args\\\", \\\"TI\\\"], \\\"]\\\"}]\\) represents a \
+function that has been loaded from a Wolfram Library.\"\>", 
+             "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          PaneBox[GridBox[{
+             {
+              
+              DynamicModuleBox[{System`InformationDump`open$$ = {
+               False, False, False, False, False, False}}, 
+               StyleBox[GridBox[{
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Documentation\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"Documentation\"",
+                    TooltipStyle->"TextStyling"],
+                    Annotation[#, "Documentation", "Tooltip"]& ], 
+                   TemplateBox[{
+                    
+                    TemplateBox[{
+                    "\"Local \[RightGuillemet]\"", 
+                    "paclet:ref/LibraryFunction", 
+                    "paclet:ref/LibraryFunction", "Link", {
+                    RGBColor[0.9686274509803922, 0.4666666666666667, 0.]}, 
+                    BaseStyle -> {
+                    RGBColor[0.0784313725490196, 0.1568627450980392, 0.6]}}, 
+                    "HyperlinkTemplate"], "\"  \"", 
+                    StyleBox[
+                    "\"|\"", "InformationRowLabel", StripOnInput -> False], 
+                    "\"  \"", 
+                    TemplateBox[{"\"Web \[RightGuillemet]\"", {
+                    URL[
+                    "http://reference.wolfram.com/language/ref/\
+LibraryFunction.html"], None}, 
+                    "http://reference.wolfram.com/language/ref/\
+LibraryFunction.html", "Hyperlink", {
+                    RGBColor[0.9686274509803922, 0.4666666666666667, 0.]}, 
+                    BaseStyle -> {
+                    RGBColor[0.0784313725490196, 0.1568627450980392, 0.6]}}, 
+                    "HyperlinkTemplate"]},
+                    "RowDefault"]},
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Attributes\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"Attributes\"",
+                    TooltipStyle->"TextStyling"],
+                    Annotation[#, "Attributes", "Tooltip"]& ], 
+                   RowBox[{"{", 
+                    RowBox[{
+                    "NHoldAll", ",", "Protected", ",", "ReadProtected"}], 
+                    "}"}]},
+                  {
+                   TagBox[
+                    TooltipBox[
+                    StyleBox["\<\" Full Name\"\>", "InformationRowLabel",
+                    StripOnInput->False],
+                    "\"FullName\"",
+                    TooltipStyle->"TextStyling"],
+                    
+                    Annotation[#, "FullName", 
+                    "Tooltip"]& ], "\<\"System`LibraryFunction\"\>"}
+                 },
+                 AutoDelete->False,
+                 GridBoxAlignment->{"Columns" -> {Right, Left}},
+                 GridBoxDividers->None,
+                 GridBoxItemSize->{"Columns" -> {Automatic, Automatic}},
+                 GridBoxSpacings->{"Columns" -> {
+                    Offset[0.27999999999999997`], {
+                    Offset[0.5599999999999999]}, 
+                    Offset[0.27999999999999997`]}, "Rows" -> {
+                    Offset[0.2], {
+                    Offset[0.8]}, 
+                    Offset[0.2]}}], "DialogStyle",
+                StripOnInput->False],
+               DynamicModuleValues:>{}]}
+            },
+            DefaultBaseStyle->"Column",
+            GridBoxAlignment->{"Columns" -> {{Left}}},
+            GridBoxDividers->{"Columns" -> {{False}}, "Rows" -> {{False}}},
+            
+            GridBoxItemSize->{
+             "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+            GridBoxSpacings->{"Columns" -> {
+                Offset[0.27999999999999997`], {
+                 Offset[0.5599999999999999]}, 
+                Offset[0.27999999999999997`]}, "Rows" -> {
+                Offset[0.2], {
+                 Offset[3.6]}, 
+                Offset[0.2]}}],
+           FrameMargins->{{6, 6}, {6, 3}}], ""},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpener"]], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "UpPointerOpenerHot"]]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, False],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"], False->
+      TagBox[GridBox[{
+         {
+          ItemBox[
+           PaneBox[
+            StyleBox["\<\" Symbol\"\>", "InformationTitleText",
+             StripOnInput->False],
+            FrameMargins->{{4, 0}, {-1, 1}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], 
+          ItemBox[
+           PaneBox[
+            TooltipBox[
+             ButtonBox[
+              PaneSelectorBox[{False->
+               
+               DynamicBox[FEPrivate`FrontEndResource[
+                "FEBitmaps", "InformationHelpIcon"],
+                ImageSizeCache->{13., {4., 9.}}], True->
+               
+               DynamicBox[FEPrivate`FrontEndResource[
+                "FEBitmaps", "InformationHelpIconHot"],
+                ImageSizeCache->{13., {4., 9.}}]}, Dynamic[
+                CurrentValue["MouseOver"]]],
+              Appearance->None,
+              BaseStyle->"Link",
+              ButtonData->"paclet:ref/LibraryFunction",
+              ButtonNote->"paclet:ref/LibraryFunction"],
+             "\"paclet:ref/LibraryFunction\""],
+            FrameMargins->{{0, 4}, {0, 2}}],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           PaneBox[
+            
+            StyleBox["\<\"\\!\\(\\*RowBox[{\\\"LibraryFunction\\\", \
+\\\"[\\\", StyleBox[\\\"args\\\", \\\"TI\\\"], \\\"]\\\"}]\\) represents a \
+function that has been loaded from a Wolfram Library.\"\>", 
+             "InformationUsageText",
+             StripOnInput->False,
+             LineSpacing->{1.5, 1.5, 3.}],
+            FrameMargins->{{10, 10}, {8, 10}}],
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False], 
+          ItemBox["\<\"\"\>",
+           BaseStyle->"InformationUsageSubtitleBackground",
+           StripOnInput->False]},
+         {
+          ItemBox[
+           TagBox[
+            ButtonBox[
+             PaneSelectorBox[{False->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpener"],
+               ImageSizeCache->{10., {3., 7.}}], True->
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpenerHot"],
+               ImageSizeCache->{10., {3., 7.}}]}, Dynamic[
+              System`InformationDump`mouseOver$$]],
+             Alignment->Left,
+             Appearance->{"Default" -> None},
+             
+             ButtonFunction:>FEPrivate`Set[
+              System`InformationDump`open$$, True],
+             Evaluator->Automatic,
+             FrameMargins->{{9, 0}, {0, 0}},
+             ImageMargins->0,
+             ImageSize->Full,
+             Method->"Preemptive"],
+            
+            EventHandlerTag[{
+             "MouseEntered" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, True], 
+              "MouseExited" :> 
+              FEPrivate`Set[System`InformationDump`mouseOver$$, False], 
+              Method -> "Preemptive", PassEventsDown -> Automatic, 
+              PassEventsUp -> True}]],
+           BaseStyle->"InformationTitleBackground",
+           StripOnInput->False], "\[SpanFromLeft]"}
+        },
+        AutoDelete->False,
+        FrameStyle->Directive[
+          GrayLevel[0.8], 
+          Thickness[Tiny]],
+        GridBoxAlignment->{"Columns" -> {Left, Right}, "Rows" -> {{Center}}},
+        GridBoxDividers->{
+         "Columns" -> {{None}}, "Rows" -> {False, {True}, False}},
+        GridBoxItemSize->{
+         "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+       "Grid"]}, Dynamic[System`InformationDump`open$$],
+      BaselinePosition->Baseline,
+      FrameMargins->0,
+      ImageSize->Automatic],
+     DynamicModuleValues:>{}],
+    BaseStyle->"InformationGridFrame",
+    StripOnInput->False], "InformationGridPlain",
+   StripOnInput->False],
+  InformationData[<|
+   "ObjectType" -> "Symbol", "Usage" -> 
+    "\!\(\*RowBox[{\"LibraryFunction\", \"[\", StyleBox[\"args\", \"TI\"], \
+\"]\"}]\) represents a function that has been loaded from a Wolfram Library.",
+     "Documentation" -> <|
+     "Local" -> "paclet:ref/LibraryFunction", "Web" -> 
+      "http://reference.wolfram.com/language/ref/LibraryFunction.html"|>, 
+    "OwnValues" -> None, "UpValues" -> None, "DownValues" -> None, 
+    "SubValues" -> None, "DefaultValues" -> None, "NValues" -> None, 
+    "FormatValues" -> None, "Options" -> None, 
+    "Attributes" -> {NHoldAll, Protected, ReadProtected}, "FullName" -> 
+    "System`LibraryFunction"|>, False]]], "Output",
+ CellChangeTimes->{3.8840932122869587`*^9},
+ CellLabel->"Out[16]=",ExpressionUUID->"9f31d566-ec48-4491-9ae4-2f425245b25b"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"ForeignFunctionDeclaration", "[", "...", "]"}]], "Input",
+ CellChangeTimes->{{3.884093237604761*^9, 3.884093243275258*^9}, {
+  3.884093290165268*^9, 
+  3.8840932911011047`*^9}},ExpressionUUID->"10f996bb-44a6-4c65-a624-\
+8503b9ba3ff8"],
+
+Cell[BoxData[
+ RowBox[{"FunctionCompile", "[", 
+  RowBox[{"Function", "[", 
+   RowBox[{
+    RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"ForeignFunction", "[", "\"\<cos\>\"", "]"}], "[", "5.6", 
+     "]"}]}], "\[IndentingNewLine]", "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.88409324571238*^9, 3.884093265172317*^9}, {
+  3.884093295853652*^9, 
+  3.8840932965100317`*^9}},ExpressionUUID->"cfb675a7-2974-4db2-96d9-\
+7c1a4ace0d43"],
+
+Cell[BoxData[
+ RowBox[{"LibraryFunctionDeclaration", "[", "...", "]"}]], "Input",
+ CellChangeTimes->{{3.884093237604761*^9, 
+  3.884093243275258*^9}},ExpressionUUID->"0320df93-b1c0-4b22-bd41-\
+1b69a45a7df4"],
+
+Cell[BoxData[
+ RowBox[{"FunctionCompile", "[", 
+  RowBox[{"Function", "[", 
+   RowBox[{
+    RowBox[{"{", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"LibraryFunction", "[", "\"\<cos\>\"", "]"}], "[", "5.6", 
+     "]"}]}], "\[IndentingNewLine]", "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.88409324571238*^9, 
+  3.884093265172317*^9}},ExpressionUUID->"3bc1a76a-5c57-4262-8b5d-\
+60abaf3d5f3e"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ForeignFunction", "[", 
+  RowBox[{"\"\<abc\>\"", ",", 
+   RowBox[{
+    RowBox[{"{", "\"\<CDouble\>\"", "}"}], "->", "\"\<CDouble\>\""}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.884092523090366*^9, 3.884092525000993*^9}},
+ CellLabel->"In[12]:=",ExpressionUUID->"b234e167-80c4-4dab-90b8-1cb91638bc59"],
+
+Cell[BoxData["$Failed"], "Output",
+ CellChangeTimes->{{3.884092523652412*^9, 3.884092525236209*^9}},
+ CellLabel->"Out[12]=",ExpressionUUID->"30881c2b-eabb-4157-ba07-a907b37c6d36"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ForeignFunctionLoad", "[", 
+   RowBox[{"\"\<cos\>\"", ",", 
+    RowBox[{
+     RowBox[{"{", "\"\<CDouble\>\"", "}"}], "->", "\"\<CDouble\>\""}]}], 
+   "]"}], "[", "5.6", "]"}]], "Input",
+ CellChangeTimes->{{3.884093653942436*^9, 
+  3.8840936594843283`*^9}},ExpressionUUID->"c654a2cf-3f4c-47c1-95ce-\
+e5c5c6940a96"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ForeignFunction", "[", 
+   RowBox[{"\"\<cos\>\"", ",", 
+    RowBox[{
+     RowBox[{"{", "\"\<CDouble\>\"", "}"}], "->", "\"\<CDouble\>\""}]}], 
+   "]"}], "[", "5.6", "]"}]], "Input",
+ CellChangeTimes->{{3.884092380939994*^9, 3.884092389259782*^9}, 
+   3.884092520937945*^9},
+ CellLabel->"In[9]:=",ExpressionUUID->"3b814bad-e960-4c8b-b47d-2c21781caad6"],
+
+Cell[BoxData["0.7755658785102496`"], "Output",
+ CellChangeTimes->{{3.884092387393124*^9, 3.8840923895568523`*^9}},
+ CellLabel->"Out[9]=",ExpressionUUID->"de3ff864-c05c-4dab-948b-9e0a15ad4b49"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Cos", "[", "5.6", "]"}]], "Input",
+ CellChangeTimes->{{3.8840923902967176`*^9, 3.884092391187997*^9}},
+ CellLabel->"In[10]:=",ExpressionUUID->"c03fc90c-d7df-4dc1-8ac2-f5a3fe489e56"],
+
+Cell[BoxData["0.7755658785102496`"], "Output",
+ CellChangeTimes->{3.884092391497912*^9},
+ CellLabel->"Out[10]=",ExpressionUUID->"9ff31925-d7d2-457c-8cf1-483bac02dc8e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"addone", "=", 
+  RowBox[{"ForeignFunction", "[", 
+   RowBox[{"demoLib", ",", "\"\<addone\>\"", ",", 
+    RowBox[{
+     RowBox[{"{", "\"\<CInt\>\"", "}"}], "->", "\"\<CInt\>\""}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.875232518115183*^9, 3.875232532890107*^9}, {
+  3.875232592645788*^9, 3.8752325994555902`*^9}, {3.8752326407683983`*^9, 
+  3.875232654736418*^9}, {3.8764155489287443`*^9, 3.87641555483746*^9}, {
+  3.878142497675231*^9, 3.878142503491035*^9}, {3.878160307950583*^9, 
+  3.87816030938167*^9}, {3.87823016609489*^9, 3.878230167181635*^9}, {
+  3.880509647748948*^9, 3.8805096515510197`*^9}, {3.883244603164361*^9, 
+  3.883244605068748*^9}},
+ CellLabel->"In[5]:=",ExpressionUUID->"fe50d6d8-57a8-4871-acff-a9f7147623b8"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["ForeignFunction",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            GridBox[{{
+               TagBox["\"name: \"", "SummaryItem"], 
+               TagBox["\"addone\"", "SummaryItem"]}, {
+               TagBox["\"type: \"", "SummaryItem"], 
+               TagBox[
+                RowBox[{
+                  RowBox[{"{", "\"CInt\"", "}"}], "\[Rule]", "\"CInt\""}], 
+                "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            GridBox[{{
+               TagBox["\"name: \"", "SummaryItem"], 
+               TagBox["\"addone\"", "SummaryItem"]}, {
+               TagBox["\"type: \"", "SummaryItem"], 
+               TagBox[
+                RowBox[{
+                  RowBox[{"{", "\"CInt\"", "}"}], "\[Rule]", "\"CInt\""}], 
+                "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  ChristopherWolfram`ForeignFunctionInterface`ForeignFunction[
+  "addone", {"CInt"} -> "CInt", 
+   DataStructure["ForeignFunctionObject", $Failed]],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.8840885239730988`*^9, 3.884092113231223*^9},
+ CellLabel->"Out[5]=",ExpressionUUID->"d0675390-96e5-4100-960b-bcf87d7d680a"]
+}, Open  ]],
+
+Cell["Call ForeignFunction objects directly:", "Text",
+ CellChangeTimes->{{3.884088530068872*^9, 
+  3.884088536668998*^9}},ExpressionUUID->"a922f15e-bd25-4992-81cb-\
+2e731ef1c55b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"addone", "[", "12", "]"}]], "Input",
+ CellChangeTimes->{{3.884088537454236*^9, 3.884088538629121*^9}},
+ CellLabel->"In[6]:=",ExpressionUUID->"db610743-2fdf-4a23-b14e-c08ff3f3abd7"],
+
+Cell[BoxData["13"], "Output",
+ CellChangeTimes->{3.8840885389120483`*^9, 3.8840921152871428`*^9},
+ CellLabel->"Out[6]=",ExpressionUUID->"433adcc7-3cda-4bac-9b43-dc58e6bc70e7"]
+}, Open  ]],
+
+Cell["Inline calling:", "Text",
+ CellChangeTimes->{{3.884088587062971*^9, 
+  3.8840885898549833`*^9}},ExpressionUUID->"b68b32c4-abda-4779-bbce-\
+e24246c3a38f"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"LibraryLoad", "[", "\"\<compilerDemoBase\>\"", "]"}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.884088592592256*^9, 3.884088600984909*^9}},
+ CellLabel->"In[7]:=",ExpressionUUID->"ec34e88e-e1ca-4687-ac07-dec75ecf7f25"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ForeignFunction", "[", 
+  RowBox[{"\"\<sldfhksjdhfkjsd\>\"", ",", 
+   RowBox[{
+    RowBox[{"{", "\"\<CInt\>\"", "}"}], "->", "\"\<CInt\>\""}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.884094607582259*^9, 3.8840946080274773`*^9}},
+ CellLabel->"In[26]:=",ExpressionUUID->"d5b1c6a2-9be2-43b0-bc54-b1de8ffa74fe"],
+
+Cell[BoxData["$Failed"], "Output",
+ CellChangeTimes->{3.884094612089746*^9},
+ CellLabel->"Out[26]=",ExpressionUUID->"48e11f85-5877-4323-9225-a57b449c933c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"addone", ":=", 
+  RowBox[{"addone", "=", 
+   RowBox[{"ForeignFunction", "[", 
+    RowBox[{"\"\<addone\>\"", ",", 
+     RowBox[{
+      RowBox[{"{", "\"\<CInt\>\"", "}"}], "->", "\"\<CInt\>\""}]}], 
+    "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.884094465682226*^9, 3.884094467108098*^9}, {
+  3.884094573470126*^9, 
+  3.884094580532674*^9}},ExpressionUUID->"479459a4-4e4d-4d8c-988c-\
+f441d7e94d6b"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["ForeignFunction",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            GridBox[{{
+               TagBox["\"name: \"", "SummaryItem"], 
+               TagBox["\"addone\"", "SummaryItem"]}, {
+               TagBox["\"type: \"", "SummaryItem"], 
+               TagBox[
+                RowBox[{
+                  RowBox[{"{", "\"CInt\"", "}"}], "\[Rule]", "\"CInt\""}], 
+                "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            GridBox[{{
+               TagBox["\"name: \"", "SummaryItem"], 
+               TagBox["\"addone\"", "SummaryItem"]}, {
+               TagBox["\"type: \"", "SummaryItem"], 
+               TagBox[
+                RowBox[{
+                  RowBox[{"{", "\"CInt\"", "}"}], "\[Rule]", "\"CInt\""}], 
+                "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  ChristopherWolfram`ForeignFunctionInterface`ForeignFunction[
+  "addone", {"CInt"} -> "CInt", 
+   DataStructure["ForeignFunctionObject", $Failed]],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.884094467553474*^9},
+ CellLabel->"Out[21]=",ExpressionUUID->"ebcd68e7-915a-4320-884e-fe690a430328"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"fun", "=", 
+  RowBox[{"LibraryFunctionLoad", "[", 
+   RowBox[{"\"\<demo\>\"", ",", "\"\<demo_I_I\>\"", ",", 
+    RowBox[{"{", "Integer", "}"}], ",", "Integer"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.88409475060625*^9, 3.884094750606785*^9}},
+ CellLabel->"In[27]:=",ExpressionUUID->"dea0e0cc-afb9-4e65-8700-6a08e335cadd"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["LibraryFunction",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            GraphicsBox[{
+              Thickness[0.038461538461538464`], {
+               FaceForm[{
+                 GrayLevel[0.93], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{1, 4, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}, {
+                1, 3, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}}}, {{{
+                25.499999999999996`, 2.5}, {25.499999999999996`, 
+                1.3953100000000003`}, {24.604699999999998`, 
+                0.49999999999999994`}, {23.5, 0.49999999999999994`}, {2.5, 
+                0.49999999999999994`}, {1.3953100000000003`, 
+                0.49999999999999994`}, {0.49999999999999994`, 
+                1.3953100000000003`}, {0.49999999999999994`, 2.5}, {
+                0.49999999999999994`, 23.5}, {0.49999999999999994`, 
+                24.604699999999998`}, {1.3953100000000003`, 
+                25.499999999999996`}, {2.5, 25.499999999999996`}, {23.5, 
+                25.499999999999996`}, {24.604699999999998`, 
+                25.499999999999996`}, {25.499999999999996`, 
+                24.604699999999998`}, {25.499999999999996`, 23.5}, {
+                25.499999999999996`, 2.5}}}]}, {
+               FaceForm[{
+                 RGBColor[0.5, 0.5, 0.5], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{20.5426, 
+                19.116799999999998`}, {16.3832, 21.876199999999997`}, {
+                16.3832, 20.021499999999996`}, {6.930469999999999, 
+                20.021499999999996`}, {6.930469999999999, 
+                18.212100000000003`}, {16.3832, 18.212100000000003`}, {
+                16.3832, 16.357399999999995`}, {20.5426, 
+                19.116799999999998`}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{5.30508, 13.8391}, {
+                9.46445, 11.079700000000003`}, {9.46445, 
+                12.933999999999997`}, {18.917199999999998`, 
+                12.933999999999997`}, {18.917199999999998`, 14.7438}, {
+                9.46445, 14.7438}, {9.46445, 16.598}, {5.30508, 13.8391}}}], 
+               
+               FilledCurveBox[{{{1, 4, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {
+                0, 1, 0}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 
+                3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}, {1,
+                 3, 3}, {1, 3, 3}, {1, 3, 3}}}, CompressedData["
+1:eJxTTMoPSmVmYGBgBGJjIGYCYq4u+eR3VWoOxhkv5j+Qk3SA8fu/r5rKOVHM
+Yd2vmNyjZ9Qcrt9QXbW9S8RBg59767IidQcPMYPGaHFhB+Nn61SfiGo4xBwp
+T7o2V9Dh0Iolfg6/NBxEHv/x1Xgi4FB1XNNqkqQWnP+axUTQjFkbzn+oO2HB
+j/3aDg/Xn5T6WiDoYLs3aJpiqI7DrHN+bO6tQg4zfUR7vF7pQOyfIQyRd9d1
+WLL0U1kLoyjEPdm6DpoTXfQX7xBzKPjQejLkhDacL5J4+LL2Gm2HtNnSl4Vf
+iELM69J2qPZM3tLnJerQX1oozZugDfHPUxGI/4W1HQ5p3TthoyDi4D7lG1v8
+Mi2HgqL9zoEHhB1inOxe3BRG8MH62zXhfIbN1Z82CGhC/GMg4nCm3mN/7TYN
+iHlCUPdGakDc/1kUEr46GhD/eYnD+d9iBf/kC0vC+TuCrSL+X5Vy2HGR4R5T
+uAbEfxYykPBYp+HQqsCuesZAFhL+rJoQ/2rIQdxTpwkJ7yVycPfD+GDzVqLx
+xbUd5HYt2JfqBdWfpA2Jj9mykPDpgYaXtaxDy7yzq86vg8qvlIHE5ylY/Eo7
+XAt7o787TxfOB5ufqesQ9PbyxxkPZSDhZ6nrMAGU3u7LQtLLEx2HN2253UbX
+ofZ76jis/Pay4oynAsT8QG0HKZMv/gW7FCDyTFpwPsz/MD44/Mw1HFjb1uR9
+TVVwWKy880/7FHWIexrkIfLX1RzOMDZZVjHIOaDkh3vSDuj5AwCF11Vc
+                "]]}}, Background -> GrayLevel[0.93], Axes -> False, 
+             AspectRatio -> 1, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}], Frame -> True, FrameTicks -> None, 
+             FrameStyle -> Directive[
+               Thickness[Tiny], 
+               GrayLevel[0.7]]], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Function name: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["\"demo_I_I\"", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Argument count: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["1", "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            GraphicsBox[{
+              Thickness[0.038461538461538464`], {
+               FaceForm[{
+                 GrayLevel[0.93], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{1, 4, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}, {
+                1, 3, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}}}, {{{
+                25.499999999999996`, 2.5}, {25.499999999999996`, 
+                1.3953100000000003`}, {24.604699999999998`, 
+                0.49999999999999994`}, {23.5, 0.49999999999999994`}, {2.5, 
+                0.49999999999999994`}, {1.3953100000000003`, 
+                0.49999999999999994`}, {0.49999999999999994`, 
+                1.3953100000000003`}, {0.49999999999999994`, 2.5}, {
+                0.49999999999999994`, 23.5}, {0.49999999999999994`, 
+                24.604699999999998`}, {1.3953100000000003`, 
+                25.499999999999996`}, {2.5, 25.499999999999996`}, {23.5, 
+                25.499999999999996`}, {24.604699999999998`, 
+                25.499999999999996`}, {25.499999999999996`, 
+                24.604699999999998`}, {25.499999999999996`, 23.5}, {
+                25.499999999999996`, 2.5}}}]}, {
+               FaceForm[{
+                 RGBColor[0.5, 0.5, 0.5], 
+                 Opacity[1.]}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{20.5426, 
+                19.116799999999998`}, {16.3832, 21.876199999999997`}, {
+                16.3832, 20.021499999999996`}, {6.930469999999999, 
+                20.021499999999996`}, {6.930469999999999, 
+                18.212100000000003`}, {16.3832, 18.212100000000003`}, {
+                16.3832, 16.357399999999995`}, {20.5426, 
+                19.116799999999998`}}}], 
+               
+               FilledCurveBox[{{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}, {0, 1, 0}, {
+                0, 1, 0}, {0, 1, 0}, {0, 1, 0}}}, {{{5.30508, 13.8391}, {
+                9.46445, 11.079700000000003`}, {9.46445, 
+                12.933999999999997`}, {18.917199999999998`, 
+                12.933999999999997`}, {18.917199999999998`, 14.7438}, {
+                9.46445, 14.7438}, {9.46445, 16.598}, {5.30508, 13.8391}}}], 
+               
+               FilledCurveBox[{{{1, 4, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {
+                0, 1, 0}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 
+                3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}, {1,
+                 3, 3}, {1, 3, 3}, {1, 3, 3}}}, CompressedData["
+1:eJxTTMoPSmVmYGBgBGJjIGYCYq4u+eR3VWoOxhkv5j+Qk3SA8fu/r5rKOVHM
+Yd2vmNyjZ9Qcrt9QXbW9S8RBg59767IidQcPMYPGaHFhB+Nn61SfiGo4xBwp
+T7o2V9Dh0Iolfg6/NBxEHv/x1Xgi4FB1XNNqkqQWnP+axUTQjFkbzn+oO2HB
+j/3aDg/Xn5T6WiDoYLs3aJpiqI7DrHN+bO6tQg4zfUR7vF7pQOyfIQyRd9d1
+WLL0U1kLoyjEPdm6DpoTXfQX7xBzKPjQejLkhDacL5J4+LL2Gm2HtNnSl4Vf
+iELM69J2qPZM3tLnJerQX1oozZugDfHPUxGI/4W1HQ5p3TthoyDi4D7lG1v8
+Mi2HgqL9zoEHhB1inOxe3BRG8MH62zXhfIbN1Z82CGhC/GMg4nCm3mN/7TYN
+iHlCUPdGakDc/1kUEr46GhD/eYnD+d9iBf/kC0vC+TuCrSL+X5Vy2HGR4R5T
+uAbEfxYykPBYp+HQqsCuesZAFhL+rJoQ/2rIQdxTpwkJ7yVycPfD+GDzVqLx
+xbUd5HYt2JfqBdWfpA2Jj9mykPDpgYaXtaxDy7yzq86vg8qvlIHE5ylY/Eo7
+XAt7o787TxfOB5ufqesQ9PbyxxkPZSDhZ6nrMAGU3u7LQtLLEx2HN2253UbX
+ofZ76jis/Pay4oynAsT8QG0HKZMv/gW7FCDyTFpwPsz/MD44/Mw1HFjb1uR9
+TVVwWKy880/7FHWIexrkIfLX1RzOMDZZVjHIOaDkh3vSDuj5AwCF11Vc
+                "]]}}, Background -> GrayLevel[0.93], Axes -> False, 
+             AspectRatio -> 1, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}], Frame -> True, FrameTicks -> None, 
+             FrameStyle -> Directive[
+               Thickness[Tiny], 
+               GrayLevel[0.7]]], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Function name: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["\"demo_I_I\"", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Argument count: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["1", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Argument types: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox[
+                  PaneBox[
+                   RowBox[{"{", "Integer", "}"}], 
+                   ImageSize -> {{1, 500}, Automatic}, BaselinePosition -> 
+                   Baseline, ContentPadding -> False, FrameMargins -> 0, 
+                   StripOnInput -> True], "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Return type: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox[
+                  PaneBox[
+                  "Integer", ImageSize -> {{1, 500}, Automatic}, 
+                   BaselinePosition -> Baseline, ContentPadding -> False, 
+                   FrameMargins -> 0, StripOnInput -> True], 
+                  "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Library: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["\"demo.so\"", "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  LibraryFunction[
+  "/usr/local/Wolfram/Mathematica/13.2/SystemFiles/Links/LibraryLink/\
+LibraryResources/Linux-x86-64/demo.so", "demo_I_I", {Integer}, Integer],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.8840947534157124`*^9},
+ CellLabel->"Out[27]=",ExpressionUUID->"f319bda3-cec7-453a-ab7c-eaa4fae37844"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"InputForm", "[", "fun", "]"}]], "Input",
+ CellChangeTimes->{{3.884094753966004*^9, 3.884094755852243*^9}},
+ CellLabel->"In[28]:=",ExpressionUUID->"c37ec590-3b1c-43cd-9c52-456eb6d12ae7"],
+
+Cell["\<\
+LibraryFunction[\"/usr/local/Wolfram/Mathematica/13.2/SystemFiles/Links/\
+LibraryLink/Libra\\
+ryResources/Linux-x86-64/demo.so\", \"demo_I_I\", {Integer}, Integer]\
+\>", "Output",
+ CellChangeTimes->{3.8840947561789007`*^9},
+ CellLabel->
+  "Out[28]//InputForm=",ExpressionUUID->"f1833fb6-118f-436a-a28f-\
+4aa3d18d23e3"]
+}, Open  ]],
+
+Cell[BoxData["Quit"], "Input",
+ CellChangeTimes->{{3.8840947821810102`*^9, 3.8840947825217733`*^9}},
+ CellLabel->"In[31]:=",ExpressionUUID->"c1048b5e-d76c-45bd-a445-c07c8104eb6a"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"2", "+", "2"}]], "Input",
+ CellChangeTimes->{{3.884094784003893*^9, 3.884094784468904*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"d1de02e5-1f92-462e-9eb4-5c1c48035581"],
+
+Cell[BoxData["4"], "Output",
+ CellChangeTimes->{3.884094793503125*^9},
+ CellLabel->"Out[1]=",ExpressionUUID->"6d712564-19c6-4bdd-80e7-f5130dcc2864"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"LibraryFunction", "[", 
+   RowBox[{
+   "\"\</usr/local/Wolfram/Mathematica/13.2/SystemFiles/Links/LibraryLink/\
+LibraryResources/Linux-x86-64/demo.so\>\"", ",", " ", "\"\<demo_I_I\>\"", ",",
+     " ", 
+    RowBox[{"{", "Integer", "}"}], ",", " ", "Integer"}], "]"}], "[", "2", 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.884094771341618*^9, 3.884094779536272*^9}},
+ CellLabel->"In[2]:=",ExpressionUUID->"621a451b-32bb-41c8-9f89-ee4a22c65747"],
+
+Cell[BoxData["3"], "Output",
+ CellChangeTimes->{{3.884094776898329*^9, 3.8840947951442213`*^9}},
+ CellLabel->"Out[2]=",ExpressionUUID->"ce048e4e-69af-4072-b497-00e21fa720b0"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"InputForm", "[", "addone", "]"}]], "Input",
+ CellChangeTimes->{{3.884094473446435*^9, 3.884094475440885*^9}},
+ CellLabel->"In[22]:=",ExpressionUUID->"510cacfd-08b0-41c5-8f2b-b46c3a6e52dc"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"RepeatedTiming", "[", 
+  RowBox[{"addone", "[", "12", "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.884094489702227*^9, 3.88409449692155*^9}},
+ CellLabel->"In[24]:=",ExpressionUUID->"6698c91a-3696-4b3b-8bc6-88e685e14b40"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"3.0146942138671874`*^-6", ",", "13"}], "}"}]], "Output",
+ CellChangeTimes->{{3.884094492145227*^9, 3.884094498849305*^9}},
+ CellLabel->"Out[24]=",ExpressionUUID->"eb58c77e-362f-42a9-9b49-85b160f8581b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"RepeatedTiming", "[", 
+  RowBox[{
+   RowBox[{"ForeignFunction", "[", 
+    RowBox[{"\"\<addone\>\"", ",", 
+     RowBox[{
+      RowBox[{"{", "\"\<CInt\>\"", "}"}], "->", "\"\<CInt\>\""}]}], "]"}], 
+   "[", "12", "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.884094412583498*^9, 3.8840944145618477`*^9}, {
+  3.8840944991467133`*^9, 3.884094499585733*^9}},
+ CellLabel->"In[25]:=",ExpressionUUID->"172fbdcd-d53b-4511-bfd3-d81c68889b05"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"0.000012242218017578124`", ",", "13"}], "}"}]], "Output",
+ CellChangeTimes->{3.8840944170926332`*^9, 3.884094501490102*^9},
+ CellLabel->"Out[25]=",ExpressionUUID->"39ff7115-7415-4a2b-9f21-b6be4994bbcf"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ForeignFunction", "[", 
+   RowBox[{"\"\<addone\>\"", ",", 
+    RowBox[{
+     RowBox[{"{", "\"\<CInt\>\"", "}"}], "->", "\"\<CInt\>\""}]}], "]"}], "[",
+   "12", "]"}]], "Input",
+ CellChangeTimes->{{3.884088602823957*^9, 3.88408860496763*^9}},
+ CellLabel->"In[9]:=",ExpressionUUID->"76278238-d2c9-4368-8271-4cf06a28df5e"],
+
+Cell[BoxData["13"], "Output",
+ CellChangeTimes->{{3.88408860326866*^9, 3.884088605263925*^9}},
+ CellLabel->"Out[9]=",ExpressionUUID->"27380679-4bd7-48e4-8811-411232979516"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ForeignFunction", "[", 
+   RowBox[{"\"\<OpenSSL_version_num\>\"", ",", 
+    RowBox[{
+     RowBox[{"{", "}"}], "->", "\"\<CUnsignedLong\>\""}]}], "]"}], "[", 
+  "]"}]], "Input",
+ CellChangeTimes->{3.8840886211928988`*^9},
+ CellLabel->"In[3]:=",ExpressionUUID->"5d81d7dd-56d5-4053-944a-2f5f4fae00dc"],
+
+Cell[BoxData["269488447"], "Output",
+ CellChangeTimes->{3.884088621479484*^9, 3.884088804159227*^9},
+ CellLabel->"Out[3]=",ExpressionUUID->"5cfa70e8-94c3-498f-9422-48b6b3369957"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["RawPointer", "Subsection",
+ CellChangeTimes->{{3.884088574422484*^9, 
+  3.884088577398499*^9}},ExpressionUUID->"22dece21-d3df-4bf2-8124-\
+11c4d5c455c8"],
+
+Cell["There are now typed pointers:", "Text",
+ CellChangeTimes->{{3.884088646705248*^9, 
+  3.88408865164139*^9}},ExpressionUUID->"7a61c4e9-cdb3-4d27-8449-\
+894830ba7f8f"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"out", "=", 
+  RowBox[{"CreateBuffer", "[", 
+   RowBox[{"\"\<UnsignedInteger8\>\"", ",", "32"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.878144386792873*^9, 3.878144394767818*^9}, {
+   3.878165385447939*^9, 3.878165391967554*^9}, 3.8782301795832157`*^9, {
+   3.878777257236176*^9, 3.87877725881078*^9}, 3.880508705733295*^9},
+ CellLabel->"In[6]:=",ExpressionUUID->"0d4bbc7f-b8a5-41ed-9662-2acc5e091415"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["RawPointer",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            GridBox[{{
+               TagBox["\"type: \"", "SummaryItem"], 
+               TagBox["\"UnsignedInteger8\"", "SummaryItem"]}, {
+               TagBox["\"address: \"", "SummaryItem"], 
+               TagBox["140027970630336", "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            GridBox[{{
+               TagBox["\"type: \"", "SummaryItem"], 
+               TagBox["\"UnsignedInteger8\"", "SummaryItem"]}, {
+               TagBox["\"address: \"", "SummaryItem"], 
+               TagBox["140027970630336", "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  ChristopherWolfram`ForeignFunctionInterface`RawPointer[
+  140027970630336, "UnsignedInteger8"],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.884088642539082*^9, 3.884088809807034*^9, 
+  3.8840953144936647`*^9},
+ CellLabel->"Out[6]=",ExpressionUUID->"f0a600d6-3496-476e-98eb-44c384710cd8"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"randBytes", "=", 
+  RowBox[{"ForeignFunction", "[", 
+   RowBox[{"\"\<RAND_bytes\>\"", ",", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"\"\<RawPointer\>\"", "::[", "\"\<CChar\>\"", "]"}], ",", 
+       "\"\<CInt\>\""}], "}"}], "->", "\"\<CInt\>\""}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.8840886571381397`*^9, 3.884088662234111*^9}},
+ CellLabel->"In[7]:=",ExpressionUUID->"e1c70fc3-607d-4825-95ec-a5ab581ba5cd"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["ForeignFunction",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            GridBox[{{
+               TagBox["\"name: \"", "SummaryItem"], 
+               TagBox["\"RAND_bytes\"", "SummaryItem"]}, {
+               TagBox["\"type: \"", "SummaryItem"], 
+               TagBox[
+                RowBox[{
+                  RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"TypeSpecifier", "[", "\"RawPointer\"", "]"}], 
+                    "[", "\"CChar\"", "]"}], ",", "\"CInt\""}], "}"}], 
+                  "\[Rule]", "\"CInt\""}], "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            GridBox[{{
+               TagBox["\"name: \"", "SummaryItem"], 
+               TagBox["\"RAND_bytes\"", "SummaryItem"]}, {
+               TagBox["\"type: \"", "SummaryItem"], 
+               TagBox[
+                RowBox[{
+                  RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"TypeSpecifier", "[", "\"RawPointer\"", "]"}], 
+                    "[", "\"CChar\"", "]"}], ",", "\"CInt\""}], "}"}], 
+                  "\[Rule]", "\"CInt\""}], "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  ChristopherWolfram`ForeignFunctionInterface`ForeignFunction["RAND_bytes", {
+     TypeSpecifier["RawPointer"]["CChar"], "CInt"} -> "CInt", 
+   DataStructure["ForeignFunctionObject", $Failed]],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.8840886626528997`*^9, 3.884088810641831*^9, 
+  3.884095317762753*^9},
+ CellLabel->"Out[7]=",ExpressionUUID->"0ca1ae08-e6f2-4ed9-825e-9a76f73e1ed2"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"randBytes", "[", 
+  RowBox[{"out", ",", "32"}], "]"}]], "Input",
+ CellChangeTimes->{{3.884088663739346*^9, 3.8840886680903997`*^9}},
+ CellLabel->"In[8]:=",ExpressionUUID->"dde438c5-e14e-4543-bea0-fe8565441a84"],
+
+Cell[BoxData["1"], "Output",
+ CellChangeTimes->{3.8840886685387506`*^9, 3.884088811311475*^9, 
+  3.884095318733602*^9},
+ CellLabel->"Out[8]=",ExpressionUUID->"00dc2b04-0558-4d1d-9e0e-a7bea010ac2b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"BufferToList", "[", 
+  RowBox[{"out", ",", "32"}], "]"}]], "Input",
+ CellChangeTimes->{{3.8840886715950403`*^9, 3.884088675674535*^9}},
+ CellLabel->"In[9]:=",ExpressionUUID->"e939bb6f-13b8-44e6-b4e5-669633f584b1"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "40", ",", "214", ",", "217", ",", "50", ",", "69", ",", "31", ",", "207", 
+   ",", "218", ",", "73", ",", "198", ",", "71", ",", "134", ",", "9", ",", 
+   "126", ",", "124", ",", "147", ",", "201", ",", "77", ",", "241", ",", 
+   "177", ",", "177", ",", "60", ",", "163", ",", "20", ",", "234", ",", "46",
+    ",", "179", ",", "218", ",", "131", ",", "135", ",", "123", ",", "107"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{3.884088675972327*^9, 3.884088812137623*^9, 
+  3.8840953194338217`*^9},
+ CellLabel->"Out[9]=",ExpressionUUID->"26aaeb2b-428b-475f-88c8-a0f4c729b941"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"BufferToNumericArray", "[", 
+  RowBox[{"out", ",", "32"}], "]"}]], "Input",
+ CellChangeTimes->{{3.884088678099162*^9, 3.8840886911790247`*^9}, {
+  3.884088818104596*^9, 3.884088821336005*^9}},
+ CellLabel->"In[10]:=",ExpressionUUID->"9895b649-5841-4672-a1e6-3e09aff67c69"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["NumericArray",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Type: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["\"UnsignedInteger8\"", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Dimensions: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox[
+                  RowBox[{"{", "32", "}"}], "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Type: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["\"UnsignedInteger8\"", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Dimensions: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox[
+                  RowBox[{"{", "32", "}"}], "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Data: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox[
+                  
+                  TemplateBox[{
+                   "40", "\", \"", "214", "\", \"", "217", "\", \"", "50", 
+                    "\", \"", "69", "\", \"", "\"\[Ellipsis]\""}, 
+                   "RowDefault"], "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  RawArray["UnsignedInteger8",{40, 214, 217, 50, 69, 31, 207, 218, 73, 198, 
+   71, 134, 9, 126, 124, 147, 201, 77, 241, 177, 177, 60, 163, 20, 234, 46, 
+   179, 218, 131, 135, 123, 107}],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{{3.884088687495801*^9, 3.8840886914761543`*^9}, {
+   3.884088813138183*^9, 3.884088821740065*^9}, 3.884095320779682*^9},
+ CellLabel->"Out[10]=",ExpressionUUID->"41bc2438-13fb-481c-a10d-386d1082a300"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"RawPointer", "[", 
+  RowBox[{
+   RowBox[{"OpaqueRawPointer", "[", "...", "]"}], ",", "ty"}], "]"}]], "Input",\
+
+ CellChangeTimes->{{3.884095433545738*^9, 
+  3.884095456305051*^9}},ExpressionUUID->"c43df23a-82d1-477f-973d-\
+fc7b9001c383"],
+
+Cell[BoxData[
+ RowBox[{"ToRawPointer", "/", "FromRawPointer"}]], "Input",
+ CellChangeTimes->{{3.8840955644458923`*^9, 
+  3.8840955704906693`*^9}},ExpressionUUID->"bec14ff2-58b8-4273-b776-\
+cfe4ffd63205"],
+
+Cell[BoxData[
+ RowBox[{"CreateTypeInstance", "[", 
+  RowBox[{"\"\<CArray\>\"", ",", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "3"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.884095745103031*^9, 
+  3.884095753720162*^9}},ExpressionUUID->"c77c581e-163d-476e-8482-\
+14d4f8cbdd7a"],
+
+Cell[BoxData[
+ RowBox[{"ListToBuffer", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "3"}], "}"}], ",", "\"\<CInt\>\""}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.884095755312421*^9, 
+  3.884095765857744*^9}},ExpressionUUID->"34cd47f1-9930-42cc-bf08-\
+89622b02be99"],
+
+Cell[BoxData["LibraryLoad"], "Input",
+ CellChangeTimes->{{3.8840955838677263`*^9, 
+  3.884095585827446*^9}},ExpressionUUID->"b16fb692-2438-4b2d-8428-\
+50945282b3bc"],
+
+Cell[BoxData["LibraryUnload"], "Input",
+ CellChangeTimes->{{3.884095586718433*^9, 
+  3.884095590162232*^9}},ExpressionUUID->"9b3838fe-edfe-4cf9-8765-\
+a453b661d724"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "ChristopherWolfram`ForeignFunctionInterface`*"}]], "Input",
+ CellChangeTimes->{{3.8840953381939077`*^9, 3.8840953511213303`*^9}},
+ CellLabel->"In[11]:=",ExpressionUUID->"4bd4c9f0-ec3f-4704-ae70-be7295480140"],
+
+Cell[BoxData[
+ StyleBox[
+  FrameBox[GridBox[{
+     {
+      DynamicModuleBox[{Typeset`open$$ = True}, 
+       PaneSelectorBox[{False->
+        ButtonBox[
+         RowBox[{
+          
+          DynamicBox[FEPrivate`FrontEndResource[
+           "FEBitmaps", "RightPointerOpener"]], " ", 
+          
+          StyleBox["ChristopherWolfram`ForeignFunctionInterface`", 
+           "InformationGridGroupHeader"]}],
+         Appearance->None,
+         BaseStyle->"InformationGridLink",
+         ButtonFunction:>FEPrivate`Set[Typeset`open$$, True],
+         Evaluator->Automatic,
+         Method->"Preemptive"], True->
+        PaneBox[GridBox[{
+           {
+            ButtonBox[
+             RowBox[{
+              
+              DynamicBox[FEPrivate`FrontEndResource[
+               "FEBitmaps", "DownPointerOpener"],
+               ImageSizeCache->{10., {3., 7.}}], " ", 
+              
+              StyleBox["ChristopherWolfram`ForeignFunctionInterface`", 
+               "InformationGridGroupHeader"]}],
+             Appearance->None,
+             BaseStyle->"InformationGridLink",
+             ButtonFunction:>FEPrivate`Set[Typeset`open$$, False],
+             Evaluator->Automatic,
+             Method->"Preemptive"]},
+           {
+            PaneBox[GridBox[{
+               {
+                ButtonBox[
+                 StyleBox["BufferToList", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-61c5ede0-2dfe-4065-9b45-639c61cc812c", {
+                   "BufferToList", 
+                    "ChristopherWolfram`ForeignFunctionInterface`"}, False},
+                 ButtonNote->"ChristopherWolfram`ForeignFunctionInterface`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["DeleteBuffer", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-61c5ede0-2dfe-4065-9b45-639c61cc812c", {
+                   "DeleteBuffer", 
+                    "ChristopherWolfram`ForeignFunctionInterface`"}, False},
+                 ButtonNote->"ChristopherWolfram`ForeignFunctionInterface`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["GetManagedExpression", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-61c5ede0-2dfe-4065-9b45-639c61cc812c", {
+                   "GetManagedExpression", 
+                    "ChristopherWolfram`ForeignFunctionInterface`"}, False},
+                 ButtonNote->"ChristopherWolfram`ForeignFunctionInterface`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["OpaqueRawPointer", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-61c5ede0-2dfe-4065-9b45-639c61cc812c", {
+                   "OpaqueRawPointer", 
+                    "ChristopherWolfram`ForeignFunctionInterface`"}, False},
+                 ButtonNote->"ChristopherWolfram`ForeignFunctionInterface`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["BufferToNumericArray", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-61c5ede0-2dfe-4065-9b45-639c61cc812c", {
+                   "BufferToNumericArray", 
+                    "ChristopherWolfram`ForeignFunctionInterface`"}, False},
+                 ButtonNote->"ChristopherWolfram`ForeignFunctionInterface`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["DeleteCallback", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-61c5ede0-2dfe-4065-9b45-639c61cc812c", {
+                   "DeleteCallback", 
+                    "ChristopherWolfram`ForeignFunctionInterface`"}, False},
+                 ButtonNote->"ChristopherWolfram`ForeignFunctionInterface`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["ListToBuffer", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-61c5ede0-2dfe-4065-9b45-639c61cc812c", {
+                   "ListToBuffer", 
+                    "ChristopherWolfram`ForeignFunctionInterface`"}, False},
+                 ButtonNote->"ChristopherWolfram`ForeignFunctionInterface`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["PopulateBuffer", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-61c5ede0-2dfe-4065-9b45-639c61cc812c", {
+                   "PopulateBuffer", 
+                    "ChristopherWolfram`ForeignFunctionInterface`"}, False},
+                 ButtonNote->"ChristopherWolfram`ForeignFunctionInterface`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["BufferToString", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-61c5ede0-2dfe-4065-9b45-639c61cc812c", {
+                   "BufferToString", 
+                    "ChristopherWolfram`ForeignFunctionInterface`"}, False},
+                 ButtonNote->"ChristopherWolfram`ForeignFunctionInterface`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["DereferenceBuffer", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-61c5ede0-2dfe-4065-9b45-639c61cc812c", {
+                   "DereferenceBuffer", 
+                    "ChristopherWolfram`ForeignFunctionInterface`"}, False},
+                 ButtonNote->"ChristopherWolfram`ForeignFunctionInterface`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["LoadExternalLibrary", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-61c5ede0-2dfe-4065-9b45-639c61cc812c", {
+                   "LoadExternalLibrary", 
+                    "ChristopherWolfram`ForeignFunctionInterface`"}, False},
+                 ButtonNote->"ChristopherWolfram`ForeignFunctionInterface`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["RawPointer", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-61c5ede0-2dfe-4065-9b45-639c61cc812c", {
+                   "RawPointer", 
+                    "ChristopherWolfram`ForeignFunctionInterface`"}, False},
+                 ButtonNote->"ChristopherWolfram`ForeignFunctionInterface`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["CreateBuffer", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-61c5ede0-2dfe-4065-9b45-639c61cc812c", {
+                   "CreateBuffer", 
+                    "ChristopherWolfram`ForeignFunctionInterface`"}, False},
+                 ButtonNote->"ChristopherWolfram`ForeignFunctionInterface`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["ExternalLibrary", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-61c5ede0-2dfe-4065-9b45-639c61cc812c", {
+                   "ExternalLibrary", 
+                    "ChristopherWolfram`ForeignFunctionInterface`"}, False},
+                 ButtonNote->"ChristopherWolfram`ForeignFunctionInterface`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["ManagedExpression", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 ButtonData:>{
+                  "Info-61c5ede0-2dfe-4065-9b45-639c61cc812c", {
+                   "ManagedExpression", 
+                    "ChristopherWolfram`ForeignFunctionInterface`"}, False},
+                 ButtonNote->"ChristopherWolfram`ForeignFunctionInterface`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["StringToBuffer", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-61c5ede0-2dfe-4065-9b45-639c61cc812c", {
+                   "StringToBuffer", 
+                    "ChristopherWolfram`ForeignFunctionInterface`"}, False},
+                 ButtonNote->"ChristopherWolfram`ForeignFunctionInterface`",
+                 Evaluator->Automatic]},
+               {
+                ButtonBox[
+                 StyleBox["CreateCallback", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-61c5ede0-2dfe-4065-9b45-639c61cc812c", {
+                   "CreateCallback", 
+                    "ChristopherWolfram`ForeignFunctionInterface`"}, False},
+                 ButtonNote->"ChristopherWolfram`ForeignFunctionInterface`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["ForeignFunction", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-61c5ede0-2dfe-4065-9b45-639c61cc812c", {
+                   "ForeignFunction", 
+                    "ChristopherWolfram`ForeignFunctionInterface`"}, False},
+                 ButtonNote->"ChristopherWolfram`ForeignFunctionInterface`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["NumericArrayToBuffer", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-61c5ede0-2dfe-4065-9b45-639c61cc812c", {
+                   "NumericArrayToBuffer", 
+                    "ChristopherWolfram`ForeignFunctionInterface`"}, False},
+                 ButtonNote->"ChristopherWolfram`ForeignFunctionInterface`",
+                 Evaluator->Automatic], 
+                ButtonBox[
+                 StyleBox["UnloadExternalLibrary", "InformationGridButton"],
+                 Appearance->None,
+                 BaseStyle->"InformationGridLink",
+                 
+                 ButtonData:>{
+                  "Info-61c5ede0-2dfe-4065-9b45-639c61cc812c", {
+                   "UnloadExternalLibrary", 
+                    "ChristopherWolfram`ForeignFunctionInterface`"}, False},
+                 ButtonNote->"ChristopherWolfram`ForeignFunctionInterface`",
+                 Evaluator->Automatic]}
+              },
+              DefaultBaseStyle->"Text",
+              
+              GridBoxAlignment->{
+               "Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+              GridBoxItemSize->{"Columns" -> {{
+                   Scaled[0.2375]}}}],
+             ImageMargins->{{10, 0}, {0, 2}}]}
+          },
+          GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
+         FrameMargins->{{0, 0}, {8, 0}}]}, Dynamic[Typeset`open$$],
+        ImageSize->Automatic]]}
+    },
+    GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+    GridBoxDividers->{"ColumnsIndexed" -> {{False}}, "RowsIndexed" -> {}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.5599999999999999]}, 
+        Offset[0.27999999999999997`]}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.8]}, 
+        Offset[0.2]}}],
+   BaseStyle->"InformationTitleFrame"], "InformationGridPlain"]], "Output",
+ CellChangeTimes->{3.88409535150325*^9},
+ CellLabel->"Out[11]=",ExpressionUUID->"6531e1eb-fe4b-42ce-b75b-9f2348150657"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Design Decisions", "Section",
+ CellChangeTimes->{{3.884088463243095*^9, 
+  3.884088467554902*^9}},ExpressionUUID->"75547c11-4c87-42ba-89bc-\
+c5f8a996eb39"],
+
+Cell[CellGroupData[{
+
+Cell["Supporting library paths instead of ExternalLibrary objects?", "Item",
+ CellChangeTimes->{{3.884045764850211*^9, 3.8840458742624826`*^9}, {
+   3.884045942569219*^9, 3.884045989595001*^9}, 3.884046019787895*^9, {
+   3.884046057486205*^9, 
+   3.88404605748659*^9}},ExpressionUUID->"451ad5f2-96e7-40a9-a448-\
+de0d8e138d3d"],
+
+Cell["How does this relate to LibraryFunctionLoad?", "Subitem",
+ CellChangeTimes->{{3.884045764850211*^9, 3.8840458742624826`*^9}, {
+   3.884045942569219*^9, 3.884045989595001*^9}, 3.884046019787895*^9, {
+   3.8840460591617527`*^9, 
+   3.884046066781461*^9}},ExpressionUUID->"2bb43e70-f680-48f5-9e05-\
+4b40c3de0e7a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["RawPointer", "Item",
+ CellChangeTimes->{{3.884045764850211*^9, 
+  3.8840457674444513`*^9}},ExpressionUUID->"c5757963-24b0-48cb-9254-\
+b6e74736824a"],
+
+Cell[CellGroupData[{
+
+Cell["Should there be type checking for different pointer types?", "Subitem",
+ CellChangeTimes->{{3.884045764850211*^9, 
+  3.884045791373313*^9}},ExpressionUUID->"2a477de3-159b-4f56-9c3d-\
+fc999a0d066a"],
+
+Cell["\<\
+Maybe arguments with type \"OpaqueRawPointer\" should accept any pointer, but \
+arguments with type \"RawPointer\"::[t] should only accept raw pointers of \
+the proper type? Maybe they should accept OpaqueRawPointers too, but not \
+RawPointers of the wrong type?\
+\>", "Subsubitem",
+ CellChangeTimes->{{3.884045764850211*^9, 3.8840458332311897`*^9}, {
+  3.884045904727768*^9, 
+  3.884045906039608*^9}},ExpressionUUID->"987cfad1-9f3d-42a7-a004-\
+02d856e29a99"]
+}, Open  ]],
+
+Cell["Will we ever extend this to things like CArray?", "Subitem",
+ CellChangeTimes->{{3.884045764850211*^9, 
+  3.8840458452872047`*^9}},ExpressionUUID->"5e4e930f-6880-487d-a730-\
+aec214c79d99"]
+}, Open  ]],
+
+Cell["Consolidation of ToBuffer functions", "Item",
+ CellChangeTimes->{{3.884045764850211*^9, 
+  3.884045851519465*^9}},ExpressionUUID->"a89b01f0-57c9-4e23-889d-\
+997bd43356d5"],
+
+Cell["Relation to ToRawPointer / FromRawPointer", "Item",
+ CellChangeTimes->{{3.884045764850211*^9, 
+  3.884045859775099*^9}},ExpressionUUID->"d4d98489-f2d1-4978-b6f7-\
+dd7515e8b5d5"],
+
+Cell["Removing the need for lots of CreateManagedExpression", "Item",
+ CellChangeTimes->{{3.884045764850211*^9, 3.8840458742624826`*^9}, {
+  3.884045942569219*^9, 
+  3.884045973212331*^9}},ExpressionUUID->"5a520156-e187-4506-8169-\
+bc13a8c0cd0c"],
+
+Cell["More automatic argument coercion", "Item",
+ CellChangeTimes->{{3.884045764850211*^9, 
+  3.884045878970489*^9}},ExpressionUUID->"1cdb893f-c72b-4e52-902d-\
+a842bca9ff74"],
+
+Cell["\<\
+Supporting \"int\" and \"float*\" in addition to \"CInt\" and \
+\"RawPointer\"::[\"CFloat\"]?\
+\>", "Item",
+ CellChangeTimes->{{3.884045764850211*^9, 3.8840458742624826`*^9}, {
+  3.884045942569219*^9, 
+  3.884046021589107*^9}},ExpressionUUID->"2a753231-2786-4943-8ca6-\
+844205481c35"]
+}, Open  ]]
+},
+WindowSize->{816., 867.75},
+WindowMargins->{{262.125, Automatic}, {78.375, Automatic}},
+FrontEndVersion->"13.2 for Linux x86 (64-bit) (November 18, 2022)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"1c3e086b-4428-41fa-92ff-9187801c6b2a"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 149, 3, 67, "Section",ExpressionUUID->"d869e16b-e70b-4481-95c1-7f1e6f3c6de3"],
+Cell[732, 27, 320, 6, 29, "Input",ExpressionUUID->"6d6634be-e79c-4977-ab1a-5c6afd0f5e2d"],
+Cell[1055, 35, 305, 5, 29, "Input",ExpressionUUID->"279434a0-1d64-4063-b7a3-1aeaa4a71417"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1397, 45, 162, 3, 67, "Section",ExpressionUUID->"ad9e4c55-866f-483c-8d07-d11e72b06a00"],
+Cell[CellGroupData[{
+Cell[1584, 52, 168, 3, 32, "Item",ExpressionUUID->"74a6377a-74ac-43e4-82f7-60ee8c53bbf8"],
+Cell[CellGroupData[{
+Cell[1777, 59, 158, 3, 27, "Subitem",ExpressionUUID->"87448d5b-05ab-4dc8-9eeb-029581acf08b"],
+Cell[1938, 64, 159, 3, 25, "Subsubitem",ExpressionUUID->"559828e2-bb0d-414f-b0e8-ff5b7837d6f4"],
+Cell[2100, 69, 167, 3, 25, "Subsubitem",ExpressionUUID->"72cb4d8a-c19f-48d4-b323-3078cd4fd5f0"],
+Cell[2270, 74, 158, 2, 25, "Subsubitem",ExpressionUUID->"951ae47a-b996-4f38-907d-8c4ec92b3314"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2465, 81, 160, 3, 27, "Subitem",ExpressionUUID->"431c2abb-939b-47d7-bd97-0588c898d972"],
+Cell[2628, 86, 255, 4, 25, "Subsubitem",ExpressionUUID->"c4267a72-2d83-41c1-bb1d-78fc345f2ec7"],
+Cell[2886, 92, 159, 2, 25, "Subsubitem",ExpressionUUID->"e8e8b582-a892-4b0d-9b9e-5509214dd914"],
+Cell[3048, 96, 163, 3, 25, "Subsubitem",ExpressionUUID->"d82fcf46-4017-452e-aaea-5ce5d006c821"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3248, 104, 153, 3, 27, "Subitem",ExpressionUUID->"112572d8-75c9-4491-896e-2dd30289cf09"],
+Cell[3404, 109, 253, 4, 25, "Subsubitem",ExpressionUUID->"7e81145e-d5d5-4dff-ae35-edb7055fe2cf"],
+Cell[CellGroupData[{
+Cell[3682, 117, 231, 4, 25, "Subsubitem",ExpressionUUID->"48ef8855-56a0-4b6a-aa0a-3560550eab87"],
+Cell[CellGroupData[{
+Cell[3938, 125, 237, 4, 29, "Input",ExpressionUUID->"6625a3a6-12c0-437f-b35a-273cc61001bf"],
+Cell[4178, 131, 13638, 318, 127, "Output",ExpressionUUID->"519af1e0-228a-40b6-b45a-656a6465c050"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[17853, 454, 203, 3, 29, "Input",ExpressionUUID->"63e75f66-253d-4aaa-8752-8f0715f19c8b"],
+Cell[18059, 459, 12303, 298, 103, "Output",ExpressionUUID->"98dabc12-186f-4640-8733-03eca79ca016"]
+}, Open  ]],
+Cell[30377, 760, 340, 8, 29, "Input",ExpressionUUID->"9feecf40-520c-4ce6-bc37-8231814cbefb"],
+Cell[30720, 770, 329, 8, 29, "Input",ExpressionUUID->"202e7ab8-481d-43f0-855d-191a09f210d1"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[31088, 783, 219, 4, 32, "Item",ExpressionUUID->"37625752-5bc9-4028-bba5-c731a386a94b"],
+Cell[31310, 789, 300, 5, 32, "Item",ExpressionUUID->"763f9314-05c2-4d45-8296-60c07762b806"],
+Cell[CellGroupData[{
+Cell[31635, 798, 356, 7, 32, "Item",ExpressionUUID->"b3a369d8-c9b9-4d96-9e1e-713a6df84da1"],
+Cell[CellGroupData[{
+Cell[32016, 809, 332, 7, 29, "Input",ExpressionUUID->"96f8c35d-5d58-45e5-98f0-299085997ec6"],
+Cell[32351, 818, 179, 2, 33, "Output",ExpressionUUID->"cc0eee78-f129-4ddb-ab04-b8a967c2ddd6"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[32567, 825, 533, 11, 51, "Input",ExpressionUUID->"3f99ef98-65db-47ab-b62a-1de034759469"],
+Cell[33103, 838, 3735, 79, 68, "Output",ExpressionUUID->"aefabe88-dff4-4300-aa70-6f6021304e3c"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[36875, 922, 521, 9, 29, "Input",ExpressionUUID->"9b189ef3-e626-48bc-bbc1-0d7a9d264af5"],
+Cell[37399, 933, 2543, 52, 66, "Output",ExpressionUUID->"3d9b3c0b-4ea8-4f4c-80ad-43f2d1e9dc30"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[39979, 990, 261, 4, 33, "Input",ExpressionUUID->"631291ee-5e5d-468d-ad96-c029d26fd946"],
+Cell[40243, 996, 12633, 241, 68, "Output",ExpressionUUID->"1eebc1f3-aba2-4a39-b345-7a7ada92cbf6"]
+}, Open  ]],
+Cell[52891, 1240, 167, 3, 29, "Input",ExpressionUUID->"c483970f-1e70-40f1-a926-45056f784e79"],
+Cell[53061, 1245, 216, 3, 29, "Input",ExpressionUUID->"280ce4cf-d6b7-498a-b263-a6dcfe2fc45f"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[53314, 1253, 163, 3, 54, "Subsection",ExpressionUUID->"336f36c1-6464-434d-bb45-60ec757ebc7e"],
+Cell[53480, 1258, 182, 3, 35, "Text",ExpressionUUID->"e51b2182-526e-40c9-9ef5-f61447f245a5"],
+Cell[CellGroupData[{
+Cell[53687, 1265, 493, 8, 29, "Input",ExpressionUUID->"d054f8f8-ad2c-42c1-806d-6e5900a249f4"],
+Cell[54183, 1275, 3889, 79, 66, "Output",ExpressionUUID->"84c15295-b525-42e0-9650-4c052181cbaa"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[58109, 1359, 233, 4, 29, "Input",ExpressionUUID->"0e8e0b23-46b0-489f-b61e-261d80573435"],
+Cell[58345, 1365, 7148, 145, 85, "Output",ExpressionUUID->"62403130-2397-48fb-9dfe-e4d6dfc2484f"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[65530, 1515, 264, 5, 29, "Input",ExpressionUUID->"09dbf0ce-9622-4931-9020-b67080bce571"],
+Cell[65797, 1522, 275, 4, 55, "Output",ExpressionUUID->"033d9860-0789-40d8-b190-45f5c830ceea"]
+}, Open  ]],
+Cell[66087, 1529, 263, 6, 29, "Input",ExpressionUUID->"939263ca-f1b9-4ca6-ac1f-52c75f15ebfa"],
+Cell[66353, 1537, 181, 3, 35, "Text",ExpressionUUID->"4f809e08-c5a7-4e4c-96c2-c7b134858d8a"],
+Cell[CellGroupData[{
+Cell[66559, 1544, 208, 3, 29, "Input",ExpressionUUID->"841d3d65-6985-4831-945d-9b11a3691e73"],
+Cell[66770, 1549, 13809, 322, 127, "Output",ExpressionUUID->"7cc9dc11-73d0-4c00-be59-41545ffd3017"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[80616, 1876, 207, 3, 29, "Input",ExpressionUUID->"9ec5c101-eead-44fe-9826-f33088fa6c50"],
+Cell[80826, 1881, 12305, 298, 103, "Output",ExpressionUUID->"9f31d566-ec48-4491-9ae4-2f425245b25b"]
+}, Open  ]],
+Cell[93146, 2182, 258, 5, 29, "Input",ExpressionUUID->"10f996bb-44a6-4c65-a624-8503b9ba3ff8"],
+Cell[93407, 2189, 462, 11, 71, "Input",ExpressionUUID->"cfb675a7-2974-4db2-96d9-7c1a4ace0d43"],
+Cell[93872, 2202, 207, 4, 29, "Input",ExpressionUUID->"0320df93-b1c0-4b22-bd41-1b69a45a7df4"],
+Cell[94082, 2208, 411, 10, 71, "Input",ExpressionUUID->"3bc1a76a-5c57-4262-8b5d-60abaf3d5f3e"],
+Cell[CellGroupData[{
+Cell[94518, 2222, 327, 7, 29, "Input",ExpressionUUID->"b234e167-80c4-4dab-90b8-1cb91638bc59"],
+Cell[94848, 2231, 179, 2, 33, "Output",ExpressionUUID->"30881c2b-eabb-4157-ba07-a907b37c6d36"]
+}, Open  ]],
+Cell[95042, 2236, 348, 9, 29, "Input",ExpressionUUID->"c654a2cf-3f4c-47c1-95ce-e5c5c6940a96"],
+Cell[CellGroupData[{
+Cell[95415, 2249, 386, 9, 29, "Input",ExpressionUUID->"3b814bad-e960-4c8b-b47d-2c21781caad6"],
+Cell[95804, 2260, 192, 2, 33, "Output",ExpressionUUID->"de3ff864-c05c-4dab-948b-9e0a15ad4b49"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[96033, 2267, 205, 3, 29, "Input",ExpressionUUID->"c03fc90c-d7df-4dc1-8ac2-f5a3fe489e56"],
+Cell[96241, 2272, 167, 2, 33, "Output",ExpressionUUID->"9ff31925-d7d2-457c-8cf1-483bac02dc8e"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[96445, 2279, 762, 14, 29, "Input",ExpressionUUID->"fe50d6d8-57a8-4871-acff-a9f7147623b8"],
+Cell[97210, 2295, 2861, 61, 68, "Output",ExpressionUUID->"d0675390-96e5-4100-960b-bcf87d7d680a"]
+}, Open  ]],
+Cell[100086, 2359, 180, 3, 35, "Text",ExpressionUUID->"a922f15e-bd25-4992-81cb-2e731ef1c55b"],
+Cell[CellGroupData[{
+Cell[100291, 2366, 204, 3, 29, "Input",ExpressionUUID->"db610743-2fdf-4a23-b14e-c08ff3f3abd7"],
+Cell[100498, 2371, 175, 2, 33, "Output",ExpressionUUID->"433adcc7-3cda-4bac-9b43-dc58e6bc70e7"]
+}, Open  ]],
+Cell[100688, 2376, 159, 3, 35, "Text",ExpressionUUID->"b68b32c4-abda-4779-bbce-e24246c3a38f"],
+Cell[100850, 2381, 252, 5, 29, "Input",ExpressionUUID->"ec34e88e-e1ca-4687-ac07-dec75ecf7f25"],
+Cell[CellGroupData[{
+Cell[101127, 2390, 335, 7, 29, "Input",ExpressionUUID->"d5b1c6a2-9be2-43b0-bc54-b1de8ffa74fe"],
+Cell[101465, 2399, 155, 2, 33, "Output",ExpressionUUID->"48e11f85-5877-4323-9225-a57b449c933c"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[101657, 2406, 420, 11, 29, "Input",ExpressionUUID->"479459a4-4e4d-4d8c-988c-f441d7e94d6b"],
+Cell[102080, 2419, 2838, 61, 68, "Output",ExpressionUUID->"ebcd68e7-915a-4320-884e-fe690a430328"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[104955, 2485, 348, 6, 29, "Input",ExpressionUUID->"dea0e0cc-afb9-4e65-8700-6a08e335cadd"],
+Cell[105306, 2493, 12635, 241, 68, "Output",ExpressionUUID->"f319bda3-cec7-453a-ab7c-eaa4fae37844"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[117978, 2739, 209, 3, 29, "Input",ExpressionUUID->"c37ec590-3b1c-43cd-9c52-456eb6d12ae7"],
+Cell[118190, 2744, 328, 8, 66, "Output",ExpressionUUID->"f1833fb6-118f-436a-a28f-4aa3d18d23e3"]
+}, Open  ]],
+Cell[118533, 2755, 179, 2, 29, "Input",ExpressionUUID->"c1048b5e-d76c-45bd-a445-c07c8104eb6a"],
+Cell[CellGroupData[{
+Cell[118737, 2761, 193, 3, 29, "Input",ExpressionUUID->"d1de02e5-1f92-462e-9eb4-5c1c48035581"],
+Cell[118933, 2766, 148, 2, 33, "Output",ExpressionUUID->"6d712564-19c6-4bdd-80e7-f5130dcc2864"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[119118, 2773, 475, 10, 75, "Input",ExpressionUUID->"621a451b-32bb-41c8-9f89-ee4a22c65747"],
+Cell[119596, 2785, 174, 2, 33, "Output",ExpressionUUID->"ce048e4e-69af-4072-b497-00e21fa720b0"]
+}, Open  ]],
+Cell[119785, 2790, 212, 3, 29, "Input",ExpressionUUID->"510cacfd-08b0-41c5-8f2b-b46c3a6e52dc"],
+Cell[CellGroupData[{
+Cell[120022, 2797, 245, 4, 29, "Input",ExpressionUUID->"6698c91a-3696-4b3b-8bc6-88e685e14b40"],
+Cell[120270, 2803, 241, 4, 36, "Output",ExpressionUUID->"eb58c77e-362f-42a9-9b49-85b160f8581b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[120548, 2812, 455, 10, 29, "Input",ExpressionUUID->"172fbdcd-d53b-4511-bfd3-d81c68889b05"],
+Cell[121006, 2824, 242, 4, 33, "Output",ExpressionUUID->"39ff7115-7415-4a2b-9f21-b6be4994bbcf"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[121285, 2833, 354, 8, 29, "Input",ExpressionUUID->"76278238-d2c9-4368-8271-4cf06a28df5e"],
+Cell[121642, 2843, 172, 2, 33, "Output",ExpressionUUID->"27380679-4bd7-48e4-8811-411232979516"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[121851, 2850, 333, 8, 29, "Input",ExpressionUUID->"5d81d7dd-56d5-4053-944a-2f5f4fae00dc"],
+Cell[122187, 2860, 178, 2, 33, "Output",ExpressionUUID->"5cfa70e8-94c3-498f-9422-48b6b3369957"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[122414, 2868, 158, 3, 54, "Subsection",ExpressionUUID->"22dece21-d3df-4bf2-8124-11c4d5c455c8"],
+Cell[122575, 2873, 170, 3, 35, "Text",ExpressionUUID->"7a61c4e9-cdb3-4d27-8449-894830ba7f8f"],
+Cell[CellGroupData[{
+Cell[122770, 2880, 427, 7, 29, "Input",ExpressionUUID->"0d4bbc7f-b8a5-41ed-9662-2acc5e091415"],
+Cell[123200, 2889, 2658, 55, 68, "Output",ExpressionUUID->"f0a600d6-3496-476e-98eb-44c384710cd8"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[125895, 2949, 459, 10, 29, "Input",ExpressionUUID->"e1c70fc3-607d-4825-95ec-a5ab581ba5cd"],
+Cell[126357, 2961, 3317, 70, 68, "Output",ExpressionUUID->"0ca1ae08-e6f2-4ed9-825e-9a76f73e1ed2"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[129711, 3036, 234, 4, 29, "Input",ExpressionUUID->"dde438c5-e14e-4543-bea0-fe8565441a84"],
+Cell[129948, 3042, 197, 3, 33, "Output",ExpressionUUID->"00dc2b04-0558-4d1d-9e0e-a7bea010ac2b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[130182, 3050, 237, 4, 29, "Input",ExpressionUUID->"e939bb6f-13b8-44e6-b4e5-669633f584b1"],
+Cell[130422, 3056, 616, 11, 55, "Output",ExpressionUUID->"26aaeb2b-428b-475f-88c8-a0f4c729b941"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[131075, 3072, 295, 5, 29, "Input",ExpressionUUID->"9895b649-5841-4672-a1e6-3e09aff67c69"],
+Cell[131373, 3079, 4634, 97, 68, "Output",ExpressionUUID->"41bc2438-13fb-481c-a10d-386d1082a300"]
+}, Open  ]],
+Cell[136022, 3179, 261, 7, 29, "Input",ExpressionUUID->"c43df23a-82d1-477f-973d-fc7b9001c383"],
+Cell[136286, 3188, 203, 4, 31, "Input",ExpressionUUID->"bec14ff2-58b8-4273-b776-cfe4ffd63205"],
+Cell[136492, 3194, 292, 7, 29, "Input",ExpressionUUID->"c77c581e-163d-476e-8482-14d4f8cbdd7a"],
+Cell[136787, 3203, 287, 8, 29, "Input",ExpressionUUID->"34cd47f1-9930-42cc-bf08-89622b02be99"],
+Cell[137077, 3213, 165, 3, 29, "Input",ExpressionUUID->"b16fb692-2438-4b2d-8428-50945282b3bc"],
+Cell[137245, 3218, 165, 3, 29, "Input",ExpressionUUID->"9b3838fe-edfe-4cf9-8765-a453b661d724"],
+Cell[CellGroupData[{
+Cell[137435, 3225, 237, 3, 29, "Input",ExpressionUUID->"4bd4c9f0-ec3f-4704-ae70-be7295480140"],
+Cell[137675, 3230, 13064, 285, 181, "Output",ExpressionUUID->"6531e1eb-fe4b-42ce-b75b-9f2348150657"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[150800, 3522, 161, 3, 67, "Section",ExpressionUUID->"75547c11-4c87-42ba-89bc-c5f8a996eb39"],
+Cell[CellGroupData[{
+Cell[150986, 3529, 326, 5, 32, "Item",ExpressionUUID->"451ad5f2-96e7-40a9-a448-de0d8e138d3d"],
+Cell[151315, 3536, 316, 5, 27, "Subitem",ExpressionUUID->"2bb43e70-f680-48f5-9e05-4b40c3de0e7a"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[151668, 3546, 154, 3, 32, "Item",ExpressionUUID->"c5757963-24b0-48cb-9254-b6e74736824a"],
+Cell[CellGroupData[{
+Cell[151847, 3553, 203, 3, 27, "Subitem",ExpressionUUID->"2a477de3-159b-4f56-9c3d-fc999a0d066a"],
+Cell[152053, 3558, 469, 9, 61, "Subsubitem",ExpressionUUID->"987cfad1-9f3d-42a7-a004-02d856e29a99"]
+}, Open  ]],
+Cell[152537, 3570, 194, 3, 27, "Subitem",ExpressionUUID->"5e4e930f-6880-487d-a730-aec214c79d99"]
+}, Open  ]],
+Cell[152746, 3576, 177, 3, 32, "Item",ExpressionUUID->"a89b01f0-57c9-4e23-889d-997bd43356d5"],
+Cell[152926, 3581, 183, 3, 32, "Item",ExpressionUUID->"d4d98489-f2d1-4978-b6f7-dd7515e8b5d5"],
+Cell[153112, 3586, 246, 4, 32, "Item",ExpressionUUID->"5a520156-e187-4506-8169-bc13a8c0cd0c"],
+Cell[153361, 3592, 174, 3, 32, "Item",ExpressionUUID->"1cdb893f-c72b-4e52-902d-a842bca9ff74"],
+Cell[153538, 3597, 294, 7, 32, "Item",ExpressionUUID->"2a753231-2786-4943-8ca6-844205481c35"]
+}, Open  ]]
+}
+]
+*)
+

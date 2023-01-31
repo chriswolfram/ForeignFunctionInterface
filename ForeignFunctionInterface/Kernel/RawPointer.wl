@@ -10,8 +10,11 @@ Needs["ChristopherWolfram`ForeignFunctionInterface`"]
 HoldPattern[RawPointer][HoldPattern[OpaqueRawPointer][addr_Integer], type_] :=
 	RawPointer[addr, type]
 
+HoldPattern[RawPointer][HoldPattern[RawPointer][addr_Integer, _], type_] :=
+	RawPointer[addr, type]
 
-(* Validator *)
+
+(* Validators *)
 
 HoldPattern[RawPointer][expr:Except[_Integer], type_] :=
 	(
@@ -22,6 +25,9 @@ HoldPattern[RawPointer][expr:Except[_Integer], type_] :=
 			"Address" -> expr
 		|>]
 	)
+
+HoldPattern[RawPointer][addr_, type_, args__] :=
+	ArgumentsOptions[RawPointer[addr, type, args], 2]
 
 
 (* Summary box *)
