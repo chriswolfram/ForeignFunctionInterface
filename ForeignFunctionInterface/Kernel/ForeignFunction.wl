@@ -10,12 +10,12 @@ Needs["ChristopherWolfram`ForeignFunctionInterface`BaseTypeConversion`"]
 (*
 	ForeignFunction objects have the form:
 
-	ForeignFunction[name, type, ForeignFunctionObject[...]]
+	ForeignFunction[libPath, name, type, ForeignFunctionObject[...]]
 *)
 
 (* Constructors *)
 
-ForeignFunction[lib_, name_String, typeI_] :=
+ForeignFunctionLoad[lib_, name_String, typeI_] :=
 	With[{type = canonicalizeType[typeI]},
 		If[FailureQ[type],
 			type,
@@ -35,7 +35,7 @@ ForeignFunction[lib_, name_String, typeI_] :=
 							]},
 						If[!MatchQ[ff, _DataStructure],
 							ff,
-							ForeignFunction[name, type, ff]
+							ForeignFunction[libPath, name, type, ff]
 						]
 					]
 				]
@@ -77,7 +77,7 @@ functionBaseType[args_List -> out_] :=
 
 (* Calling *)
 
-ForeignFunction[name_String, {___} -> outTy_, ff_DataStructure][args___] :=
+ForeignFunction[libPath_String, name_String, {___} -> outTy_, ff_DataStructure][args___] :=
 	With[{res = CallForeignFunction[ff, ToBaseValue/@{args}]},
 		If[FailureQ[res],
 			res,
@@ -88,7 +88,7 @@ ForeignFunction[name_String, {___} -> outTy_, ff_DataStructure][args___] :=
 
 (* Summary box *)
 
-ForeignFunction /: MakeBoxes[expr:ForeignFunction[name_String, type:({___} -> _), ff_DataStructure], form:StandardForm]:=
+ForeignFunction /: MakeBoxes[expr:ForeignFunction[libPath_String, name_String, type:({___} -> _), ff_DataStructure], form:StandardForm]:=
 	BoxForm`ArrangeSummaryBox[
 		ForeignFunction,
 		expr,
@@ -97,7 +97,9 @@ ForeignFunction /: MakeBoxes[expr:ForeignFunction[name_String, type:({___} -> _)
 			{"name: ", name},
 			{"type: ", type}
 		},
-		{},
+		{
+			{"library: ", libPath}
+		},
 		form
 	]
 

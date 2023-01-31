@@ -26,6 +26,7 @@ PacletObject[
           "ChristopherWolfram`ForeignFunctionInterface`DeleteBuffer",
           "ChristopherWolfram`ForeignFunctionInterface`DeleteCallback",
           "ChristopherWolfram`ForeignFunctionInterface`ForeignFunction",
+          "ChristopherWolfram`ForeignFunctionInterface`ForeignFunctionLoad",
           "ChristopherWolfram`ForeignFunctionInterface`GetManagedExpression",
           "ChristopherWolfram`ForeignFunctionInterface`ListToBuffer",
           "ChristopherWolfram`ForeignFunctionInterface`ManagedExpression",
