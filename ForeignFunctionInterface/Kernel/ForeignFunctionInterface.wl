@@ -27,7 +27,7 @@ ListToBuffer
 PopulateBuffer
 DereferenceBuffer
 
-CreateManagedExpression
+ManagedExpression
 GetManagedExpression
 
 

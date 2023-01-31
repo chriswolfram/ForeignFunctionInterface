@@ -56,7 +56,12 @@ DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> <|
 (* Down values *)
 
 CreateBuffer[ty_, len_] :=
-	iCreateBuffer[ty, len]
+	With[{res = iCreateBuffer[ty, len]},
+		If[FailureQ[res],
+			res,
+			RawPointer[res, ty]
+		]
+	]
 
 CreateBuffer[ty_] :=
 	iCreateBuffer[ty, 1]
@@ -66,14 +71,14 @@ CreateBuffer[ty_] :=
 (******* BufferToNumericArray / NumericArrayToBuffer *******)
 DeclareCompiledComponent["ForeignFunctionInterface", {
 
-		FunctionDeclaration[BufferToNumericArray,
+		FunctionDeclaration[iBufferToNumericArray,
 			Typed[ForAllType[elemType, {"InertExpression", "TypeSpecifier"::[elemType], "MachineInteger"} -> "InertExpression"]]@
 			Function[{ptr, type, len},
 				
 				Cast[
 					CreateTypeInstance[
 						"NumericArray"::[type,1],
-						Cast[ExpressionToPointer[GetManagedExpression[ptr]],"CArray"::[type],"BitCast"],
+						Cast[ExpressionToPointer[ptr],"CArray"::[type],"BitCast"],
 						len
 					],
 					"InertExpression"
@@ -82,41 +87,41 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 			]
 		],
 
-		FunctionDeclaration[BufferToNumericArray,
+		FunctionDeclaration[iBufferToNumericArray,
 			Typed[{"InertExpression", "FFIType", "MachineInteger"} -> "InertExpression"]@
 			Function[{ptr, type, len},
 
 				Switch[type["Type"],
 
-					NameFFITypeID["UINT8"][],		BufferToNumericArray[ptr, TypeSpecifier["UnsignedInteger8"], len],
-					NameFFITypeID["SINT8"][],		BufferToNumericArray[ptr, TypeSpecifier["Integer8"], len],
-					NameFFITypeID["UINT16"][],	BufferToNumericArray[ptr, TypeSpecifier["UnsignedInteger16"], len],
-					NameFFITypeID["SINT16"][],	BufferToNumericArray[ptr, TypeSpecifier["Integer16"], len],
-					NameFFITypeID["UINT32"][],	BufferToNumericArray[ptr, TypeSpecifier["UnsignedInteger32"], len],
-					NameFFITypeID["SINT32"][],	BufferToNumericArray[ptr, TypeSpecifier["Integer32"], len],
-					NameFFITypeID["UINT64"][],	BufferToNumericArray[ptr, TypeSpecifier["UnsignedInteger64"], len],
-					NameFFITypeID["SINT64"][],	BufferToNumericArray[ptr, TypeSpecifier["Integer64"], len],
-					NameFFITypeID["INT"][],			BufferToNumericArray[ptr, TypeSpecifier["CInt"], len],
-					NameFFITypeID["FLOAT"][],		BufferToNumericArray[ptr, TypeSpecifier["CFloat"], len],
-					NameFFITypeID["DOUBLE"][],	BufferToNumericArray[ptr, TypeSpecifier["CDouble"], len],
-					_, 												Native`ThrowWolframExceptionCode["Unimplemented"]
+					NameFFITypeID["UINT8"][],		iBufferToNumericArray[ptr, TypeSpecifier["UnsignedInteger8"], len],
+					NameFFITypeID["SINT8"][],		iBufferToNumericArray[ptr, TypeSpecifier["Integer8"], len],
+					NameFFITypeID["UINT16"][],	iBufferToNumericArray[ptr, TypeSpecifier["UnsignedInteger16"], len],
+					NameFFITypeID["SINT16"][],	iBufferToNumericArray[ptr, TypeSpecifier["Integer16"], len],
+					NameFFITypeID["UINT32"][],	iBufferToNumericArray[ptr, TypeSpecifier["UnsignedInteger32"], len],
+					NameFFITypeID["SINT32"][],	iBufferToNumericArray[ptr, TypeSpecifier["Integer32"], len],
+					NameFFITypeID["UINT64"][],	iBufferToNumericArray[ptr, TypeSpecifier["UnsignedInteger64"], len],
+					NameFFITypeID["SINT64"][],	iBufferToNumericArray[ptr, TypeSpecifier["Integer64"], len],
+					NameFFITypeID["INT"][],			iBufferToNumericArray[ptr, TypeSpecifier["CInt"], len],
+					NameFFITypeID["FLOAT"][],		iBufferToNumericArray[ptr, TypeSpecifier["CFloat"], len],
+					NameFFITypeID["DOUBLE"][],	iBufferToNumericArray[ptr, TypeSpecifier["CDouble"], len],
+					_, 													Native`ThrowWolframExceptionCode["Unimplemented"]
 
 				]
 				
 			]
 		],
 
-		FunctionDeclaration[BufferToNumericArray,
+		FunctionDeclaration[iBufferToNumericArray,
 			Typed[{"InertExpression", "InertExpression", "MachineInteger"} -> "InertExpression"]@
 			Function[{ptr, typeExpr, len},
 				Module[{type = CreateTypeInstance["Managed", CreateFFIType[typeExpr], DeleteFFIType]},
-					BufferToNumericArray[ptr, Compile`BorrowManagedObject[type], len]		
+					iBufferToNumericArray[ptr, Compile`BorrowManagedObject[type], len]		
 				]		
 			]
 		],
 
 
-		FunctionDeclaration[NumericArrayToBuffer,
+		FunctionDeclaration[iNumericArrayToBuffer,
 			Typed[ForAllType[ty, {"NumericArray"::[ty,1]} -> "InertExpression"]]@
 			Function[arr,
 				PointerToExpression@Cast[
@@ -126,41 +131,41 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 			]
 		],
 
-		FunctionDeclaration[NumericArrayToBuffer,
+		FunctionDeclaration[iNumericArrayToBuffer,
 			Typed[ForAllType[ty, {"InertExpression", "TypeSpecifier"::[ty]} -> "InertExpression"]]@
 			Function[{expr, elemTy},
-				NumericArrayToBuffer[Cast[expr, "NumericArray"::[elemTy,1]]]
+				iNumericArrayToBuffer[Cast[expr, "NumericArray"::[elemTy,1]]]
 			]
 		],
 
-		FunctionDeclaration[NumericArrayToBuffer,
+		FunctionDeclaration[iNumericArrayToBuffer,
 			Typed[{"InertExpression", "FFIType"} -> "InertExpression"]@
 			Function[{expr, type},
 
 				Switch[type["Type"],
 
-					NameFFITypeID["UINT8"][],		NumericArrayToBuffer[expr, TypeSpecifier["UnsignedInteger8"]],
-					NameFFITypeID["SINT8"][],		NumericArrayToBuffer[expr, TypeSpecifier["Integer8"]],
-					NameFFITypeID["UINT16"][],	NumericArrayToBuffer[expr, TypeSpecifier["UnsignedInteger16"]],
-					NameFFITypeID["SINT16"][],	NumericArrayToBuffer[expr, TypeSpecifier["Integer16"]],
-					NameFFITypeID["UINT32"][],	NumericArrayToBuffer[expr, TypeSpecifier["UnsignedInteger32"]],
-					NameFFITypeID["SINT32"][],	NumericArrayToBuffer[expr, TypeSpecifier["Integer32"]],
-					NameFFITypeID["UINT64"][],	NumericArrayToBuffer[expr, TypeSpecifier["UnsignedInteger64"]],
-					NameFFITypeID["SINT64"][],	NumericArrayToBuffer[expr, TypeSpecifier["Integer64"]],
-					NameFFITypeID["INT"][],			NumericArrayToBuffer[expr, TypeSpecifier["CInt"]],
-					NameFFITypeID["FLOAT"][],		NumericArrayToBuffer[expr, TypeSpecifier["CFloat"]],
-					NameFFITypeID["DOUBLE"][],	NumericArrayToBuffer[expr, TypeSpecifier["CDouble"]],
-					_, 												Native`ThrowWolframExceptionCode["Unimplemented"]
+					NameFFITypeID["UINT8"][],		iNumericArrayToBuffer[expr, TypeSpecifier["UnsignedInteger8"]],
+					NameFFITypeID["SINT8"][],		iNumericArrayToBuffer[expr, TypeSpecifier["Integer8"]],
+					NameFFITypeID["UINT16"][],	iNumericArrayToBuffer[expr, TypeSpecifier["UnsignedInteger16"]],
+					NameFFITypeID["SINT16"][],	iNumericArrayToBuffer[expr, TypeSpecifier["Integer16"]],
+					NameFFITypeID["UINT32"][],	iNumericArrayToBuffer[expr, TypeSpecifier["UnsignedInteger32"]],
+					NameFFITypeID["SINT32"][],	iNumericArrayToBuffer[expr, TypeSpecifier["Integer32"]],
+					NameFFITypeID["UINT64"][],	iNumericArrayToBuffer[expr, TypeSpecifier["UnsignedInteger64"]],
+					NameFFITypeID["SINT64"][],	iNumericArrayToBuffer[expr, TypeSpecifier["Integer64"]],
+					NameFFITypeID["INT"][],			iNumericArrayToBuffer[expr, TypeSpecifier["CInt"]],
+					NameFFITypeID["FLOAT"][],		iNumericArrayToBuffer[expr, TypeSpecifier["CFloat"]],
+					NameFFITypeID["DOUBLE"][],	iNumericArrayToBuffer[expr, TypeSpecifier["CDouble"]],
+					_, 													Native`ThrowWolframExceptionCode["Unimplemented"]
 
 				]
 			]
 		],
 
-		FunctionDeclaration[NumericArrayToBuffer,
+		FunctionDeclaration[iNumericArrayToBuffer,
 			Typed[{"InertExpression", "InertExpression"} -> "InertExpression"]@
 			Function[{expr, typeExpr},
 				Module[{type = CreateTypeInstance["Managed", CreateFFIType[typeExpr], DeleteFFIType]},
-					NumericArrayToBuffer[expr, Compile`BorrowManagedObject[type]]		
+					iNumericArrayToBuffer[expr, Compile`BorrowManagedObject[type]]		
 				]		
 			]
 		]
@@ -169,46 +174,76 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 
 DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> <|
-	BufferToNumericArray -> Typed[BufferToNumericArray, {"InertExpression", "InertExpression", "MachineInteger"} -> "InertExpression"],
-	NumericArrayToBuffer -> Typed[NumericArrayToBuffer, {"InertExpression", "InertExpression"} -> "InertExpression"]
+	iBufferToNumericArray -> Typed[iBufferToNumericArray, {"InertExpression", "InertExpression", "MachineInteger"} -> "InertExpression"],
+	iNumericArrayToBuffer -> Typed[iNumericArrayToBuffer, {"InertExpression", "InertExpression"} -> "InertExpression"]
 |>];
+
+
+(* DownValues *)
+
+(* TODO: Add fallthrough *)
+BufferToNumericArray[man_ManagedExpression, len_] :=
+	BufferToNumericArray[GetManagedExpression[man], len]
+
+BufferToNumericArray[HoldPattern[RawPointer][addr_, ty_], len_] :=
+	iBufferToNumericArray[OpaqueRawPointer[addr], ty, len]
+
+
+NumericArrayToBuffer[arr_, ty_] :=
+	With[{res = iNumericArrayToBuffer[arr, ty]},
+		If[FailureQ[res],
+			res,
+			RawPointer[res, ty]
+		]
+	]
 
 
 
 (******* StringToBuffer / BufferToString *******)
 DeclareCompiledComponent["ForeignFunctionInterface", {
 
-		FunctionDeclaration[StringToBuffer,
+		FunctionDeclaration[iStringToBuffer,
 			Typed[{"String"} -> "InertExpression"]@
 			Function[str,
 				PointerToExpression@Cast[CreateTypeInstance["CString", str], "OpaqueRawPointer", "BitCast"]
 			]
 		],
 
-		FunctionDeclaration[BufferToString,
+		FunctionDeclaration[iBufferToString,
 			Typed[{"InertExpression"} -> "String"]@
 			Function[carr,
-				CreateTypeInstance["String", Cast[ExpressionToPointer[GetManagedExpression[carr]], "CString", "BitCast"]]
+				CreateTypeInstance["String", Cast[ExpressionToPointer[carr], "CString", "BitCast"]]
 			]
 		]
 }];
 
 DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> {
-	StringToBuffer,
-	BufferToString
+	iStringToBuffer,
+	iBufferToString
 }];
+
+
+(* DownValues *)
+
+(* TODO: Add fallthrough *)
+StringToBuffer[str_String] :=
+	RawPointer[iStringToBuffer[str], "UnsignedInteger8"]
+
+
+BufferToString[ptr_] :=
+	iBufferToString[OpaqueRawPointer[ptr]]
 
 
 
 (******* BufferToList / ListToBuffer *******)
 DeclareCompiledComponent["ForeignFunctionInterface", {
 
-		FunctionDeclaration[BufferToList,
+		FunctionDeclaration[iBufferToList,
 			Typed[{"InertExpression", "FFIType", "MachineInteger"} -> "InertExpression"]@
 			Function[{ptrExpr, type, len},
 
 				Module[{ptr, elemSize, expr},
-					ptr = ExpressionToPointer[GetManagedExpression[ptrExpr]];
+					ptr = ExpressionToPointer[ptrExpr];
 					elemSize = FFITypeByteCount[type];
 
 					expr = Native`PrimitiveFunction["CreateHeaded_IE_E"][len, InertExpression[List]];
@@ -229,17 +264,17 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 			]
 		],
 
-		FunctionDeclaration[BufferToList,
+		FunctionDeclaration[iBufferToList,
 			Typed[{"InertExpression", "InertExpression", "MachineInteger"} -> "InertExpression"]@
 			Function[{ptr, typeExpr, len},
 				Module[{type = CreateTypeInstance["Managed", CreateFFIType[typeExpr], DeleteFFIType]},
-					BufferToList[ptr, Compile`BorrowManagedObject[type], len]		
+					iBufferToList[ptr, Compile`BorrowManagedObject[type], len]		
 				]		
 			]
 		],
 
 
-		FunctionDeclaration[ListToBuffer,
+		FunctionDeclaration[iListToBuffer,
 			Typed[{"InertExpression", "FFIType"} -> "InertExpression"]@
 			Function[{list, type},
 
@@ -257,7 +292,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 					];
 
 					Do[
-						PopulateBuffer[ptr, type, list[[i]], i-1],
+						iPopulateBuffer[ptr, type, list[[i]], i-1],
 						{i, len}
 					];
 
@@ -267,12 +302,12 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 			]
 		],
 
-		FunctionDeclaration[ListToBuffer,
+		FunctionDeclaration[iListToBuffer,
 			Typed[{"InertExpression", "InertExpression"} -> "InertExpression"]@
 			Function[{list, type},
 				Module[{ffiType},
 					ffiType = CreateTypeInstance["Managed", CreateFFIType[type], DeleteFFIType];
-					ListToBuffer[list, Compile`BorrowManagedObject[ffiType]]
+					iListToBuffer[list, Compile`BorrowManagedObject[ffiType]]
 				]
 			]
 		]
@@ -281,9 +316,28 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 
 DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> <|
-	BufferToList -> Typed[BufferToList, {"InertExpression", "InertExpression", "MachineInteger"} -> "InertExpression"],
-	ListToBuffer -> Typed[ListToBuffer, {"InertExpression", "InertExpression"} -> "InertExpression"]
+	iBufferToList -> Typed[iBufferToList, {"InertExpression", "InertExpression", "MachineInteger"} -> "InertExpression"],
+	iListToBuffer -> Typed[iListToBuffer, {"InertExpression", "InertExpression"} -> "InertExpression"]
 |>];
+
+
+(* DownValues *)
+
+(* TODO: Add fallthrough *)
+BufferToList[man_ManagedExpression, len_] :=
+	BufferToList[GetManagedExpression[man], len]
+
+BufferToList[ptr:HoldPattern[RawPointer][addr_Integer, ty_], len_Integer] :=
+	iBufferToList[OpaqueRawPointer[ptr], ty, len]
+
+
+ListToBuffer[list_, type_] :=
+	With[{res = iListToBuffer[list, type]},
+		If[FailureQ[res],
+			res,
+			RawPointer[res, type]
+		]
+	]
 
 
 
@@ -296,7 +350,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 		(******* Dereferencing / indexing *******)
 
-		FunctionDeclaration[DereferenceBuffer,
+		FunctionDeclaration[iDereferenceBuffer,
 			Typed[ForAllType[ty, {"OpaqueRawPointer", "FFIType", "MachineInteger"} -> "InertExpression"]]@
 			Function[{ptr, type, offset},
 				CToExpression[
@@ -306,57 +360,51 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 			]
 		],
 
-		FunctionDeclaration[DereferenceBuffer,
+		FunctionDeclaration[iDereferenceBuffer,
 			Typed[ForAllType[ty, {"OpaqueRawPointer", "InertExpression", "MachineInteger"} -> "InertExpression"]]@
 			Function[{ptr, type, offset},
 				Module[{ffiType},
 					ffiType = CreateTypeInstance["Managed", CreateFFIType[type], DeleteFFIType];
-					DereferenceBuffer[ptr, Compile`BorrowManagedObject[ffiType], offset]
+					iDereferenceBuffer[ptr, Compile`BorrowManagedObject[ffiType], offset]
 				]
-			]
-		],
-
-		(******* ManagedExpression case *******)
-
-		FunctionDeclaration[DereferenceBuffer,
-			Typed[ForAllType[ty, {"ManagedExpression", ty, "MachineInteger"} -> "InertExpression"]]@
-			Function[{man, type, offset},
-				DereferenceBuffer[GetManagedExpression[man], type, offset]
 			]
 		],
 
 		(******* Expression case *******)
 
-		FunctionDeclaration[DereferenceBuffer,
+		FunctionDeclaration[iDereferenceBuffer,
 			Typed[{"InertExpression", "InertExpression", "MachineInteger"} -> "InertExpression"]@
 			Function[{expr, type, offset},
-				DereferenceBuffer[ExpressionToPointer[GetManagedExpression[expr]], type, offset]
+				iDereferenceBuffer[ExpressionToPointer[expr], type, offset]
 			]
 		],
 
 		(******* 2-argument form *******)
 
-		FunctionDeclaration[DereferenceBuffer,
+		FunctionDeclaration[iDereferenceBuffer,
 			Typed[ForAllType[p, (*Element[p, {"InertExpression", "OpaqueRawPointer"}],*) {p, "InertExpression"} -> "InertExpression"]]@
 			Function[{ptr, type},
-				DereferenceBuffer[ptr, type, 0]
+				iDereferenceBuffer[ptr, type, 0]
 			]
 		]
 
 }];
 
 DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> <|
-	iDereferenceBuffer -> Typed[DereferenceBuffer, {"InertExpression", "InertExpression", "MachineInteger"} -> "InertExpression"]
+	iDereferenceBuffer -> Typed[iDereferenceBuffer, {"InertExpression", "InertExpression", "MachineInteger"} -> "InertExpression"]
 |>];
 
 
 (* Down values *)
 
-DereferenceBuffer[ptr_, ty_, offset_] :=
-	iDereferenceBuffer[ptr, ty, offset]
+DereferenceBuffer[man_ManagedExpression, offset_] :=
+	DereferenceBuffer[GetManagedExpression[man], offset]
 
-DereferenceBuffer[ptr_, ty_] :=
-	iDereferenceBuffer[ptr, ty, 0]
+DereferenceBuffer[ptr:HoldPattern[RawPointer][addr_Integer, ty_], offset_] :=
+	iDereferenceBuffer[OpaqueRawPointer[ptr], ty, offset]
+
+DereferenceBuffer[ptr_] :=
+	DereferenceBuffer[ptr, 0]
 
 
 
@@ -367,9 +415,9 @@ DereferenceBuffer[ptr_, ty_] :=
 
 DeclareCompiledComponent["ForeignFunctionInterface", {
 
-		(******* Dereferencing / indexing *******)
+		(******* Populating *******)
 
-		FunctionDeclaration[PopulateBuffer,
+		FunctionDeclaration[iPopulateBuffer,
 			Typed[ForAllType[ty, {"OpaqueRawPointer", "FFIType", "InertExpression", "MachineInteger"} -> "InertExpression"]]@
 			Function[{ptr, type, val, offset},
 				ExpressionToC[
@@ -381,57 +429,56 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 			]
 		],
 
-		FunctionDeclaration[PopulateBuffer,
+		FunctionDeclaration[iPopulateBuffer,
 			Typed[ForAllType[ty, {"OpaqueRawPointer", "InertExpression", "InertExpression", "MachineInteger"} -> "InertExpression"]]@
 			Function[{ptr, type, val, offset},
 				Module[{ffiType},
 					ffiType = CreateTypeInstance["Managed", CreateFFIType[type], DeleteFFIType];
-					PopulateBuffer[ptr, Compile`BorrowManagedObject[ffiType], val, offset]
+					iPopulateBuffer[ptr, Compile`BorrowManagedObject[ffiType], val, offset]
 				]
-			]
-		],
-
-		(******* ManagedExpression case *******)
-
-		FunctionDeclaration[PopulateBuffer,
-			Typed[ForAllType[ty, {"ManagedExpression", ty, "InertExpression", "MachineInteger"} -> "InertExpression"]]@
-			Function[{man, type, val, offset},
-				PopulateBuffer[GetManagedExpression[man], type, val, offset]
 			]
 		],
 
 		(******* Expression case *******)
 
-		FunctionDeclaration[PopulateBuffer,
+		FunctionDeclaration[iPopulateBuffer,
 			Typed[{"InertExpression", "InertExpression", "InertExpression", "MachineInteger"} -> "InertExpression"]@
 			Function[{expr, type, val, offset},
-				PopulateBuffer[ExpressionToPointer[GetManagedExpression[expr]], type, val, offset]
+				iPopulateBuffer[ExpressionToPointer[expr], type, val, offset]
 			]
 		],
 
 		(******* 3-argument form *******)
 
-		FunctionDeclaration[PopulateBuffer,
+		FunctionDeclaration[iPopulateBuffer,
 			Typed[ForAllType[p, (*Element[p, {"InertExpression", "OpaqueRawPointer"}],*) {p, "InertExpression", "InertExpression"} -> "InertExpression"]]@
 			Function[{ptr, val, type},
-				PopulateBuffer[ptr, type, val, 0]
+				iPopulateBuffer[ptr, type, val, 0]
 			]
 		]
 
 }];
 
 DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> <|
-	iPopulateBuffer -> Typed[PopulateBuffer, {"InertExpression", "InertExpression", "InertExpression", "MachineInteger"} -> "InertExpression"]
+	iPopulateBuffer -> Typed[iPopulateBuffer, {"InertExpression", "InertExpression", "InertExpression", "MachineInteger"} -> "InertExpression"]
 |>];
 
 
 (* Down values *)
 
-PopulateBuffer[ptr_, ty_, val_, offset_] :=
-	iPopulateBuffer[ptr, ty, val, offset]
+PopulateBuffer[man_ManagedExpression, val_, offset_] :=
+	PopulateBuffer[GetManagedExpression[man], val, offset]
 
-PopulateBuffer[ptr_, ty_, val_] :=
-	iPopulateBuffer[ptr, ty, val, 0]
+PopulateBuffer[ptr:HoldPattern[RawPointer][addr_Integer, ty_], val_, offset_] :=
+	With[{res = iPopulateBuffer[OpaqueRawPointer[ptr], ty, val, offset]},
+		If[FailureQ[res],
+			res,
+			RawPointer[res, ty]
+		]
+	]
+
+PopulateBuffer[ptr_, val_] :=
+	PopulateBuffer[ptr, val, 0]
 
 
 

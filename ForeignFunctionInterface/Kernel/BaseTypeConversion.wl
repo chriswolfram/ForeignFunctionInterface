@@ -63,6 +63,8 @@ ToBaseType[type_] := type
 		For example, RawPointer[...] types are represented with OpaqueRawPointer[...] (a base value).
 *)
 
+ToBaseValue[man_ManagedExpression] := ToBaseValue[GetManagedExpression[man]]
+
 ToBaseValue[ptr_RawPointer] := OpaqueRawPointer[ptr]
 
 ToBaseValue[val_] := val

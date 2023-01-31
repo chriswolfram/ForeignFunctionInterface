@@ -37,7 +37,7 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 			ToRawPointer[
 				Cast[ptr, "RawPointer"::["OpaqueRawPointer"], "BitCast"],
 				(* TODO: This could be more efficient. GetCallbackPointer turns a pointer to an expression, and this turns it back. *)
-				ExpressionToPointer[GetCallbackPointer[GetManagedExpression[init]]]
+				ExpressionToPointer[GetCallbackPointer[init]]
 			];
 		]
 	],
@@ -204,21 +204,13 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 			]
 		],
 
-		(******* ManagedExpression case *******)
-
-		FunctionDeclaration[DereferenceBuffer,
-			Typed[ForAllType[ty, {"ManagedExpression", ty} -> "InertExpression"]]@
-			Function[{man, type},
-				DereferenceBuffer[GetManagedExpression[man], type]
-			]
-		],
 
 		(******* Expression case *******)
 
 		FunctionDeclaration[DereferenceBuffer,
 			Typed[ForAllType[ty, {"InertExpression", ty} -> "InertExpression"]]@
 			Function[{ptr, type},
-				DereferenceBuffer[ExpressionToPointer[GetManagedExpression[ptr]], type]
+				DereferenceBuffer[ExpressionToPointer[ptr], type]
 			]
 		]
 

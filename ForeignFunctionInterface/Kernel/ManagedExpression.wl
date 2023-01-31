@@ -23,27 +23,24 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 			]
 		],
 
-		FunctionDeclaration[CreateManagedExpression,
+		FunctionDeclaration[iCreateManagedExpression,
 			Typed[{"InertExpression", "InertExpression"} -> "ManagedExpression"]@
 			Function[{expr, f},
 				CreateTypeInstance["ManagedExpression", <|"Expression" -> expr, "FreeingFunction" -> f|>]
 			]
 		],
 
-		FunctionDeclaration[GetManagedExpression,
+		FunctionDeclaration[iGetManagedExpression,
 			Typed[{"ManagedExpression"} -> "InertExpression"]@
 			Function[manExpr,
 				manExpr["Expression"]
 			]
 		],
 
-		FunctionDeclaration[GetManagedExpression,
-			Typed[{"InertExpression"} -> "InertExpression"]@
-			Function[expr,
-				If[Native`PrimitiveFunction["TestGet_ObjectInstanceByName"][expr, Typed["ManagedExpression","CString"], ToRawPointer[]],
-					GetManagedExpression[Cast[expr,"ManagedExpression"]],
-					expr
-				]
+		FunctionDeclaration[iGetManagedExpressionFunction,
+			Typed[{"ManagedExpression"} -> "InertExpression"]@
+			Function[manExpr,
+				manExpr["FreeingFunction"]
 			]
 		]
 
@@ -51,12 +48,70 @@ DeclareCompiledComponent["ForeignFunctionInterface", {
 
 
 DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> {
-	CreateManagedExpression
+	iCreateManagedExpression,
+	iGetManagedExpression,
+	iGetManagedExpressionFunction
 }];
 
-DeclareCompiledComponent["ForeignFunctionInterface", "InstalledFunctions" -> <|
-	GetManagedExpression -> Typed[GetManagedExpression, {"InertExpression"} -> "InertExpression"]
-|>];
+
+
+(* DownValues *)
+
+
+GetManagedExpression[ManagedExpression[obj_DataStructure]] :=
+	iGetManagedExpression[obj]
+
+GetManagedExpression[arg_] :=
+	(
+		Message[GetManagedExpression::invManagedExpr, arg];
+		Failure["InvalidManagedExpression", <|
+			"MessageTemplate" :> GetManagedExpression::invManagedExpr,
+			"MessageParameters" -> {arg}
+		|>]
+	)
+
+
+(*
+	ManagedExpression[obj]
+		represents a managed expression object.
+*)
+
+(* Constructors *)
+
+HoldPattern[ManagedExpression][expr_, f_] :=
+	ManagedExpression[iCreateManagedExpression[expr, f]]
+
+
+
+(* Validators *)
+
+HoldPattern[ManagedExpression][man:Except[_DataStructure]] :=
+	(
+		Message[ManagedExpression::inv, man];
+		Failure["InvalidManagedExpression", <|
+			"MessageTemplate" :> ManagedExpression::inv,
+			"MessageParameters" -> {man}
+		|>]
+	)
+
+HoldPattern[ManagedExpression][man_, args__] :=
+	ArgumentsOptions[ManagedExpression[man, args]]
+
+
+(* Summary box *)
+
+ManagedExpression /: MakeBoxes[expr:HoldPattern[ManagedExpression][obj_DataStructure], form:StandardForm]:=
+	BoxForm`ArrangeSummaryBox[
+		ManagedExpression,
+		expr,
+		None,
+		{
+			{"value: ", GetManagedExpression[expr]},
+			{"freeing function: ", iGetManagedExpressionFunction[obj]}
+		},
+		{},
+		form
+	]
 
 
 
